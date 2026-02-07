@@ -1,0 +1,203 @@
+/*-- scss:defaults --*/
+// Default settings and resets
+
+$sidebar-bg: #FFFFFF;
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+// Font imports
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Lato:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=STIX+Two+Text:wght@400;500;600;700&display=swap');
+
+//— Font families
+$body-font-family: "STIX Two Text", serif;
+$headings-font-family: "Lato", sans-serif;
+$math-font-family: "STIX Two Text", serif;
+
+//— OpenType feature mix-in
+@mixin enable-ligatures {
+  font-feature-settings: "liga" on, "kern" on;
+  -webkit-font-feature-settings: "liga" on, "kern" on;
+  -moz-font-feature-settings: "liga" on, "kern" on;
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+}
+
+/*-- scss:rules --*/
+
+// Body text with ligatures & kerning
+body {
+  font-family: $body-font-family;
+  color: #000000;   // completely black
+  @include enable-ligatures;
+}
+
+// Headings (no italics, but kerning on)
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family;
+  font-weight: 600;
+  color: #000000;   // completely black
+  @include enable-ligatures;
+}
+
+// True italics on <em> and <i>
+em, i {
+  font-style: italic;
+  @include enable-ligatures;
+}
+
+// Math (inline and display)
+.math.inline .MathJax,
+.math.display .MathJax {
+  font-family: $math-font-family;
+  font-size: 100% !important;
+  @include enable-ligatures;
+}
+.math.display .MathJax {
+  color: #437057;
+}
+
+// Global text/code adjustments
+code {
+  white-space: pre-wrap;
+  @include enable-ligatures;
+}
+
+// Small caps variant
+span.smallcaps {
+  font-variant: small-caps;
+  @include enable-ligatures;
+}
+
+// Column layout
+div.columns {
+  display: flex;
+  gap: min(4vw, 1.5em);
+
+  div.column {
+    flex: auto;
+    overflow-x: auto;
+  }
+}
+
+// Hanging indent paragraphs
+div.hanging-indent {
+  margin-left: 1.5em;
+  text-indent: -1.5em;
+}
+
+// Task-list styling
+ul.task-list {
+  list-style: none;
+
+  li {
+    input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em;
+      vertical-align: middle;
+    }
+  }
+}
+
+// Source-code blocks
+pre {
+  & > code.sourceCode {
+    white-space: pre;
+    position: relative;
+    @include enable-ligatures;
+
+    > span {
+      display: inline-block;
+      line-height: 1.25;
+
+      &:empty {
+        height: 1.2em;
+      }
+
+      > a:first-child {
+        &::before {
+          content: counter(source-line);
+          position: relative;
+          left: -1em;
+          text-align: right;
+          vertical-align: baseline;
+          border: none;
+          display: inline-block;
+          user-select: none;
+          padding: 0 4px;
+          width: 4em;
+        }
+      }
+    }
+  }
+
+  &.sourceCode {
+    margin: 0;
+  }
+}
+
+div.sourceCode {
+  margin: 1em 0;
+
+  @media screen {
+    overflow: auto;
+  }
+}
+
+.sourceCode {
+  overflow: visible;
+
+  code.sourceCode {
+    > span {
+      color: inherit;
+      text-decoration: inherit;
+      @include enable-ligatures;
+    }
+  }
+}
+
+pre.sourceCode {
+  margin: 0;
+}
+
+// Print-friendly code
+@media print {
+  pre > code.sourceCode {
+    white-space: pre-wrap;
+  }
+
+  pre > code.sourceCode > span {
+    text-indent: -5em;
+    padding-left: 5em;
+  }
+}
+
+// Line-numbered source
+pre.numberSource {
+  margin-left: 3em;
+  padding-left: 4px;
+
+  code {
+    counter-reset: source-line 0;
+
+    > span {
+      position: relative;
+      left: -4em;
+      counter-increment: source-line;
+    }
+  }
+}
+
+// Underline line numbers on screen
+@media screen {
+  pre > code.sourceCode > span > a:first-child::before {
+    text-decoration: underline;
+  }
+}
+
+// Highlight effect
+.my-highlight {
+    background-color: #ffff7f;
+    padding: 0.1em 0;
+    border-radius: 0.2em;
+}

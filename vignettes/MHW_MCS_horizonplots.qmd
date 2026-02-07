@@ -1,0 +1,5 @@
+---
+title: "Horizon plots for MHW/MCS (Placeholder)"
+---
+
+This page is a placeholder in the standalone **SAMOS R** site.

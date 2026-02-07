@@ -1,0 +1,5 @@
+---
+title: "BCB743 (External Module)"
+---
+
+BCB743 lives in the main Tangled Bank site. This is a stub to keep internal links valid.

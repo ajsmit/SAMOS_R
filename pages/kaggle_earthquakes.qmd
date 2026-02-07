@@ -1,0 +1,7 @@
+---
+title: "Kaggle Earthquakes (Placeholder)"
+---
+
+This page is a placeholder in the standalone **SAMOS R** site.
+
+If you need the full Kaggle earthquake workflow, we can port it into this repo later.

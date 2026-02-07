@@ -1,0 +1,111 @@
+project:
+  type: website
+  render:
+    - "**/*.qmd"
+
+# Default author
+author:
+  - name: "Smit, A. J."
+    affiliation: University of the Western Cape
+    affiliation-url: https://uwc.ac.za
+    orcid: 0000-0002-3799-6126
+
+execute:
+  cache: false
+  freeze: false
+  echo: true
+  message: false
+  warning: false
+
+bibliography: references.bib
+citation: true
+csl: styles/marine-biology.csl
+
+format:
+  html:
+    theme: [lumen, styles/styles.scss]
+    css: styles/styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    code-copy: true
+    code-line-numbers: true
+    link-external-newwindow: true
+    fig-align: center
+    out-width: "75%"
+
+website:
+  title: "SAMOS R"
+  description: "SAMOS Core Module 3: Introduction to R and Biostatistics"
+  site-url: "http://samos-r.netlify.app"
+  repo-url: "https://github.com/ajsmit/SAMOS_R"
+  bread-crumbs: true
+  search:
+    location: sidebar
+  page-navigation: true
+
+  navbar:
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Intro to R"
+        href: intro_r/01-RStudio.qmd
+      - text: "Biostatistics"
+        href: basic_stats/02-summarise-and-describe.qmd
+      - text: "Tasks"
+        href: tasks/BCB744_Task_A.qmd
+
+  sidebar:
+    style: floating
+    logo: images/SAMOS-logo-transparent.png
+    contents:
+      - href: index.qmd
+        text: "Home"
+      - section: "Introduction to R"
+        contents:
+          - intro_r/01-RStudio.qmd
+          - intro_r/02-working-with-data.qmd
+          - intro_r/03-quarto.qmd
+          - intro_r/04-data-in-R.qmd
+          - intro_r/05-workflow.qmd
+          - intro_r/06-graphics.qmd
+          - intro_r/07-faceting.qmd
+          - intro_r/08-brewing.qmd
+          - intro_r/09-mapping.qmd
+          - intro_r/10-mapping_style.qmd
+          - intro_r/11-mapping_rnaturalearth.qmd
+          - intro_r/12-mapping_quakes.qmd
+          - intro_r/13-tidy.qmd
+          - intro_r/14-tidier.qmd
+          - intro_r/15-tidiest.qmd
+          - intro_r/16-recap.qmd
+          - intro_r/17-functions.qmd
+          - intro_r/18-base_r.qmd
+          - intro_r/19-dates.qmd
+      - section: "Biostatistics"
+        contents:
+          - basic_stats/02-summarise-and-describe.qmd
+          - basic_stats/03-visualise.qmd
+          - basic_stats/04-distributions.qmd
+          - basic_stats/05-inference.qmd
+          - basic_stats/06-assumptions.qmd
+          - basic_stats/07-t_tests.qmd
+          - basic_stats/08-anova.qmd
+          - basic_stats/09-regressions.qmd
+          - basic_stats/10-correlations.qmd
+          - basic_stats/11-decision_guide.qmd
+          - basic_stats/12-glance.qmd
+          - basic_stats/13-confidence.qmd
+          - basic_stats/14-transformations.qmd
+      - section: "Tasks"
+        contents:
+          - tasks/BCB744_Task_A.qmd
+          - tasks/BCB744_Task_B.qmd
+          - tasks/BCB744_Task_C.qmd
+          - tasks/BCB744_Task_D.qmd
+          - tasks/BCB744_Task_E.qmd
+          - tasks/BCB744_Task_F.qmd
+          - tasks/BCB744_Task_G.qmd
+          - tasks/BCB744_Task_H.qmd
+          - tasks/BCB744_Task_Bonus.qmd

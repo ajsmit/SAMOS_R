@@ -1,0 +1,233 @@
+---
+date: "2021-01-01"
+title: "16. Synthesis"
+---
+
+
+![](/images/SAMOS-logo-transparent.png){width="35%"}
+
+```{r code-brewing-opts, echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "R>", 
+  warning = FALSE, 
+  message = FALSE,
+  fig.width = 4.5,
+  fig.height = 2.625,
+  out.width = "75%",
+  fig.asp = NULL, # control via width/height
+  dpi = 300
+)
+
+ggplot2::theme_set(
+  ggplot2::theme_minimal(base_size = 8)
+)
+ggplot2::theme_set(
+  ggplot2::theme_bw(base_size = 8)
+)
+```
+
+> “*The statistician’s task is not to discover the truth, but to measure uncertainty.*”
+>
+> --- Bradley Efron
+  
+> "*Somewhere, something incredible is waiting to be known.*"
+>
+> --- Carl Sagan
+
+
+
+# Workshop Recap, Assessment Alignment, and What Comes Next
+
+Over the course of this workshop, you have learned not just *how* to use R, but *how to think* in a tidy, reproducible, and analytical way. These skills are foundational for all subsequent assessments and for the Biostatistics component that follows.
+
+# The One Workflow You Will Use Forever
+
+Every analysis you do is a variation of the same loop:
+
+**Import → Inspect → Tidy → Transform → Visualise → Summarise → Communicate → Repeat**
+
+If you can internalise that sequence, you can learn any new package or domain-specific dataset. The tools will change but the loop will not.
+
+# Debugging Is a Core Skill
+
+What breaks is not your fault. Debugging is part of the job. Use this simple routine:
+
+1. **Read the last line of the error** (it usually says what failed).
+2. **Identify the function** that failed (the first line after "Error in ...").
+3. **Check object class and structure** with `str()` or `glimpse()`.
+4. **Reproduce with a minimal example** (smallest input that still fails).
+
+Common failures to watch for:
+
+- factors vs characters
+- `NA` propagation
+- silent recycling (length mismatch)
+- grouping that persists too long
+
+# Predict Before You Execute
+
+Before you run a pipeline, ask:
+
+- "How many rows should I have now?"
+- "What changed conceptually?"
+- "What stayed the same?"
+
+This habit is the difference between button-pushing and analysis.
+
+# Object Hygiene and Naming Discipline
+
+Your objects are your memory so treat them carefully.
+
+- **Overwrite** when you are confident you no longer need the old version.
+- **Create new objects** when you are exploring or unsure.
+- Use names that scale (avoid `df2`, `final_final`, `test`).
+- Periodically **restart R** and run your script top-to-bottom. If it fails, your workflow is not yet reproducible.
+
+# Reproducibility Beyond Quarto
+
+Reproducibility is a mindset:
+
+- Scripts must run from a clean session.
+- Relative paths are scientific hygiene.
+- Results without code are not evidence.
+
+If you cannot re-run it in six months, it does not exist.
+
+# Light-Weight Statistical Instincts
+
+Even before formal statistics, cultivate these instincts:
+
+- **Variability vs central tendency** (do not trust means alone).
+- **Sample size matters** (`n()` is critical to understanding the power of your data).
+- **Plots are models** and offer first insights into your data.
+
+# One Narrative Question
+
+We have been asking the same question all along:
+
+**How does coastal temperature vary in space, time, and depth?**
+
+You saw this question early in simple plots, and later in grouped summaries and spatial maps. The question did not change but your *ability to answer it* did.
+
+# Alignment with Assessments
+
+The workshop has been structured to map directly onto your assessed work. Each assessment assumes that you can independently apply the following skills:
+
+* **Assessment readiness**
+
+  * Import, inspect, and tidy real datasets
+  * Apply a coherent workflow from raw data to final output
+  * Write readable, reproducible R code using tidyverse principles
+  * Produce publication-quality figures using `ggplot2`
+  * Manipulate data confidently using `dplyr` verbs and pipes
+
+* **What assessors will look for**
+
+  * Logical data workflows (not trial-and-error code)
+  * Clear transformation steps (`filter()`, `mutate()`, `summarise()`, `group_by()`)
+  * Appropriate visualisation choices
+  * Evidence that results were *derived*, not manually curated
+  * Liberal application of comments to document your workflow, *i.e.*, code that is understandable by someone else (including your future self)
+
+If you can reproduce the analyses and figures from this workshop *without following along line-by-line*, you are well prepared for the assessments.
+
+# Concept Map: How the Chapters Fit Together
+
+You should be able to combine lessons learned in each chapter, because they play specific roles in a single, coherent analytical framework/workflow:
+
+1. **R and RStudio**
+   *Orientation* --- learning the environment, tools, and expectations of working in R.
+
+2. **Working with Data and Code**
+   *Foundations* --- understanding scripts, objects, and how R thinks.
+
+3. **R Markdown and Quarto**
+   *Reproducibility* --- integrating code, results, and narrative into a single document.
+
+4. **Data Classes and Structures**
+   *Literacy* --- knowing what your data *is* before deciding what to do with it.
+
+5. **R Workflows**
+   *Discipline* --- structuring analyses so they are repeatable and scalable.
+
+6. **Graphics with ggplot2**
+   *Visual reasoning* --- learning to explore and communicate data visually.
+
+7. **Faceting Figures**
+   *Comparison* --- revealing patterns across groups and conditions.
+
+8. **Brewing Colours**
+   *Clarity and accessibility* --- making figures interpretable and professional.
+
+9. **Mapping with ggplot2**
+   *Spatial thinking* --- extending tidy principles to geographic data.
+
+10. **Mapping with Style**
+    *Polish* --- producing maps suitable for reports and publications.
+
+11. **Mapping with Natural Earth / Applied Examples**
+    *Integration* --- combining data sources, projections, and styling.
+
+13. **Tidy Data**
+    *Structure* --- learning the rules that make analysis possible.
+
+14. **Tidier Data**
+    *Transformation* --- filtering, mutating, selecting, and summarising.
+
+15. **Tidiest Data**
+    *Power* --- grouping, pipelines, and complex workflows.
+
+16. **Synthesis**
+    *Synthesis* --- seeing the workflow as a single analytical language.
+
+Together, these chapters teach you how to move from **messy reality → structured data → insight → communication**.
+
+# What You Now Are
+
+You are now someone who can:
+
+- Read unfamiliar R code
+- Tidy real-world data
+- Ask questions of data (not just plot it)
+- Learn new packages independently
+
+# Prelude to Biostatistics
+
+The Biostatistics component builds directly on everything you have learned here. For those of you taking BCB743 as an elective, this work will also be foundational.
+
+In this workshop, you focused on:
+
+* *How to prepare data*
+* *How to explore patterns*
+* *How to visualise structure and variation*
+
+In Biostatistics, you will now ask:
+
+* *Are these patterns meaningful?*
+* *How much uncertainty is there?*
+* *What conclusions are supported by the data?*
+
+The transition looks like this:
+
+* **Tidy data** → prerequisite for valid statistics
+* **Grouping and summarising** → foundation of statistical models
+* **Visual exploration** → guides hypothesis formulation
+* **Reproducible workflows** → ensures transparent inference
+
+Statistical tests, models, and confidence intervals only make sense when applied to well-structured, well-understood data. You now have the tools to ensure that this condition is met.
+
+Think of this workshop as learning the *grammar* of data analysis. Biostatistics is where you begin to write *arguments*.
+
+# Final Note
+
+You are not expected to memorise functions --- that is what the help files are for. You *are* expected to know and implement workflows, patterns, and logic.
+
+Confidence in R comes from practice, patience, and clarity.
+
+If your code reads like a story of what you did and why --- you are doing it right.
+
+
+# Session Info
+```{r code-installed-packages-names-sessioninfo, echo=TRUE, include=TRUE}
+installed.packages()[names(sessionInfo()$otherPkgs), "Version"]
+```

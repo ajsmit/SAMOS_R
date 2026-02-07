@@ -1,0 +1,7 @@
+---
+title: "Graduate Attributes"
+---
+
+This page is a placeholder in the standalone **SAMOS R** site.
+
+The full version lives in the main Tangled Bank site.

@@ -1,0 +1,128 @@
+# Session Data and History files
+.RData
+.Rhistory
+.Renviron
+.Rprofile
+.here
+
+# User-specific files
+.Ruserdata
+
+# IDE files
+.Rproj.user/
+tangled_bank.Rproj
+tangled_bank.code-workspace
+.vscode/
+*.swp
+*.swo
+
+# System files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# Hidden from view
+/_private/*
+/resources/
+/_freeze/
+/_defunct/
+
+# Generated reports and scripts (not needed for website build)
+CLAUDE.md
+CLAUDE.html
+prompt.md
+prompt.html
+
+# Cache directories (prevent recreation)
+**/*_cache/
+**/*_files/
+_freeze/
+!_site/**/*_files/
+!_site/**/*_files/**
+
+# Exclude all assessment files from all modules
+*/assessments/
+
+# (SAMOS assessments removed; no exception needed)
+
+# Office documents (generally not needed for website build)
+*.docx
+*.doc
+*.pptx
+*.ppt
+*.xlsx
+*.xls
+
+# But keep Excel data files that are referenced in Quarto docs
+!data/*.xlsx
+!data/*.xls
+!data/**/*.xlsx
+!data/**/*.xls
+
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+*~
+.#*
+#*#
+
+# Office temporary files
+~$*
+
+# Backup files
+*.backup
+
+# Python cache (if any)
+__pycache__/
+*.pyc
+
+# Node modules (if any)
+node_modules/
+
+# OS generated files
+._.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Lock files
+*.lock
+
+# Compressed files (unless specifically needed for data)
+*.zip
+*.tar.gz
+*.rar
+!data/*.zip
+!data/**/*.zip
+
+# Allow SVG figures (site + source) to be tracked
+!_site/**/*.svg
+!vignettes/figures/**/*.svg
+
+**/*.quarto_ipynb
+
+# Re-ignore macOS metadata under _site after unignore rules
+_site/**/.DS_Store
+
+/.quarto/
+
+/.luarc.json
+
+# Quarto
+_site/
+.quarto/
+_freeze/

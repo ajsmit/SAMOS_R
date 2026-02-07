@@ -1,0 +1,5 @@
+---
+title: "How to Learn"
+---
+
+This page is a placeholder in the standalone **SAMOS R** site.
