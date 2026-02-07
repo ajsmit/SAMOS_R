@@ -123,6 +123,5 @@ _site/**/.DS_Store
 /.luarc.json
 
 # Quarto
-_site/
 .quarto/
 _freeze/

@@ -1,0 +1,3 @@
+[build]
+  publish = "_site"
+  command = "echo 'Skipping build on Netlify: site is pre-rendered and committed.'"

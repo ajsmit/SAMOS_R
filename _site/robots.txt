@@ -1,0 +1,1 @@
+Sitemap: http://samos-r.netlify.app/sitemap.xml

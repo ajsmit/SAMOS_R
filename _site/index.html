@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+<meta name="dcterms.date" content="2025-02-03">
+
+<title>SAMOS Core Module 3: Introduction to R, and Biostatistics – SAMOS R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./intro_r/01-RStudio.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-21fe018c864e78632dc0e35f28f7bac9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tasks/BCB744_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/05-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/06-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/07-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/08-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/09-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/10-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/11-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/12-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/13-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/14-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/15-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Synthesis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Functions by Chapter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Base R Primer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Statistical Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Assumptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Simple Linear Regressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Correlations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Non-Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Confidence Intervals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Data Transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tasks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tasks/BCB744_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#about-samos" id="toc-about-samos" class="nav-link active" data-scroll-target="#about-samos"><span class="header-section-number">1</span> About SAMOS</a></li>
+  <li><a href="#venue-timetable-and-content" id="toc-venue-timetable-and-content" class="nav-link" data-scroll-target="#venue-timetable-and-content"><span class="header-section-number">2</span> Venue, Timetable, and Content</a></li>
+  <li><a href="#description-and-content" id="toc-description-and-content" class="nav-link" data-scroll-target="#description-and-content"><span class="header-section-number">3</span> Description and Content</a></li>
+  <li><a href="#skills-and-graduate-attributes" id="toc-skills-and-graduate-attributes" class="nav-link" data-scroll-target="#skills-and-graduate-attributes"><span class="header-section-number">4</span> Skills and Graduate Attributes</a></li>
+  <li><a href="#sec-policy" id="toc-sec-policy" class="nav-link" data-scroll-target="#sec-policy"><span class="header-section-number">5</span> Assessment Policy</a></li>
+  <li><a href="#data-used" id="toc-data-used" class="nav-link" data-scroll-target="#data-used"><span class="header-section-number">6</span> Data Used</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">7</span> Prerequisites</a></li>
+  <li><a href="#method-of-instruction" id="toc-method-of-instruction" class="nav-link" data-scroll-target="#method-of-instruction"><span class="header-section-number">8</span> Method of Instruction</a></li>
+  <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning"><span class="header-section-number">9</span> Learning</a></li>
+  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software"><span class="header-section-number">10</span> Software</a></li>
+  <li><a href="#computers" id="toc-computers" class="nav-link" data-scroll-target="#computers"><span class="header-section-number">11</span> Computers</a></li>
+  <li><a href="#attendance" id="toc-attendance" class="nav-link" data-scroll-target="#attendance"><span class="header-section-number">12</span> Attendance</a></li>
+  <li><a href="#support" id="toc-support" class="nav-link" data-scroll-target="#support"><span class="header-section-number">13</span> Support</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SAMOS Core Module 3: Introduction to R, and Biostatistics</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Smit, A. J. <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 3, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="./images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></p>
+<section id="about-samos" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> About SAMOS</h1>
+<p>The <strong>South African Master of Ocean Sciences (SAMOS / AOS‑SAMOS)</strong> is a joint Master’s programme organised by multiple South African and European partner universities, supported by the EU <strong>ERASMUS+ Capacity Building in Higher Education (CBHE)</strong> programme. The programme builds on the strengths of the <strong>Applied Ocean Sciences (AOS)</strong> Master’s, and aims to train multidisciplinary ocean professionals for the evolving needs of the blue bio‑economy and for research supporting the sustainable use and conservation of marine ecosystems.</p>
+<p>In <strong>2026</strong>, the AOS programme serves as the pilot course for <strong>SAMOS</strong>, with teaching contributions from the SAMOS partners. The coursework component is largely delivered at the <strong>Ocean Sciences Campus of Nelson Mandela University (Gqeberha)</strong> over the February–June period.</p>
+<p>Sources: - https://maris.uct.ac.za/aos-samos-masters-course - https://maris.uct.ac.za/aos-course-structure - https://samos-edu.eu/</p>
+</section>
+<section id="venue-timetable-and-content" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Venue, Timetable, and Content</h1>
+<p>The venue for the module is the 5th Floor Computer Lab, BCB Department, University of the Western Cape.</p>
+<ul>
+<li><strong>Introduction to R</strong> runs from <strong>23 to 27 February 2026</strong> (starting <strong>the afternoon of 23 February</strong>).</li>
+<li><strong>Biostatistics</strong> runs from <strong>20 to 24 April 2026</strong>.</li>
+</ul>
+<p>Lectures will run from 09:00 to 16:30 on the days indicated in the table below.</p>
+<p>The module coordinator and lecturer is Prof AJ Smit (Room 4.103), and the teaching assistant for the module is Mr.&nbsp;Jesse Phillips (4115146@myuwc.ac.za). For queries about the Honours programme in general, please consult Dr.&nbsp;Patrick O’Farrell (Room 4.111).</p>
+<ul>
+<li><strong>Introduction to R</strong>: <strong>23–27 February 2026</strong> (starting the afternoon of 23 February).</li>
+<li><strong>Biostatistics</strong>: <strong>20–24 April 2026</strong>.</li>
+<li><strong>Important links:</strong>
+<ul>
+<li><span class="my-highlight"><a href="https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing"><strong>Module data (Google Drive)</strong></a></span></li>
+</ul></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Wk</th>
+<th style="text-align: left;">Lecture</th>
+<th style="text-align: left;">Topic</th>
+<th style="text-align: left;">Class Date</th>
+<th style="text-align: left;">Tasks/Assess.</th>
+<th style="text-align: left;">Task/Assess. due</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>INTRODUCTION TO R</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wk8</td>
+<td style="text-align: left;">L1 (PM)</td>
+<td style="text-align: left;">About the Module</td>
+<td style="text-align: left;">23 Feb 26</td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_A.html">Task A</a></td>
+<td style="text-align: left;">25 Feb 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/01-RStudio.html">1. R and RStudio</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/02-working-with-data.html">2. Working With Data and Code</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./intro_r/03-quarto.html">3. R Markdown and Quarto</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L2 (AM)</td>
+<td style="text-align: left;"><a href="intro_r/04-data-in-R.html">4. Data Classes and Structures in R</a></td>
+<td style="text-align: left;">24 Feb 26</td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_A.html">Task A</a></td>
+<td style="text-align: left;">25 Feb 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/05-workflow.html">5. R Workflows</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L3</td>
+<td style="text-align: left;"><a href="intro_r/06-graphics.html">6. Graphics With <strong>ggplot2</strong></a></td>
+<td style="text-align: left;">25 Feb 26</td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_B.html">Task B</a></td>
+<td style="text-align: left;">27 Feb 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/07-faceting.html">7. Faceting Figures</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/08-brewing.html">8. Brewing Colours</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L4</td>
+<td style="text-align: left;"><a href="intro_r/09-mapping.html">9. Mapping With <strong>ggplot2</strong></a></td>
+<td style="text-align: left;">26 Feb 26</td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_C.html">Task C</a></td>
+<td style="text-align: left;">02 Mar 26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/10-mapping_style.html">10. Mapping With Style</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/11-mapping_rnaturalearth.html">11. Mapping With Natural Earth and the <strong>sf</strong> Package</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Self</td>
+<td style="text-align: left;"><a href="intro_r/12-mapping_quakes.html">12. The Fiji Earthquake Data</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_Bonus.html">Bonus Task</a></td>
+<td style="text-align: left;">06 Mar 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L5</td>
+<td style="text-align: left;"><a href="intro_r/13-tidy.html">13. Tidy Data</a></td>
+<td style="text-align: left;">27 Feb 26</td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_D.html">Task D</a></td>
+<td style="text-align: left;">02 Mar 26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/14-tidier.html">14. Tidier Data</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="intro_r/15-tidiest.html">15. Tidiest Data</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L6</td>
+<td style="text-align: left;"><a href="./intro_r/16-recap.html">16. Synthesis</a></td>
+<td style="text-align: left;">27 Feb 26</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="my-highlight"><strong>Test 1: Intro R Theory Test</strong></span></td>
+<td style="text-align: left;">TBA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">TBA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="my-highlight"><strong>Test 1: Intro R Prac Test</strong></span></td>
+<td style="text-align: left;">TBA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">TBA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>BIOSTATISTICS</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wk16</td>
+<td style="text-align: left;">L1</td>
+<td style="text-align: left;">1. Introduction to Statistics</td>
+<td style="text-align: left;">20 Apr 26</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/02-summarise-and-describe.html">2. Exploring With Summaries and Descriptions</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_E.html">Task E</a></td>
+<td style="text-align: left;">21 Apr 26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/03-visualise.html">3. Exploring With Figures</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_E.html">Task E</a></td>
+<td style="text-align: left;">21 Apr 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L2</td>
+<td style="text-align: left;"><a href="./basic_stats/04-distributions.html">4. Data Distributions</a></td>
+<td style="text-align: left;">21 Apr 26</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/05-inference.html">5. Statistical Inference and Hypothesis Testing</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/06-assumptions.html">6. Assumptions</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/07-t_tests.html">7. Inferences About One or Two Populations</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_F.html">Task F</a></td>
+<td style="text-align: left;">22 Apr 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L3</td>
+<td style="text-align: left;"><a href="./basic_stats/08-anova.html">8. Analysis of Variance (ANOVA)</a></td>
+<td style="text-align: left;">22 Apr 26</td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_G.html">Task G</a></td>
+<td style="text-align: left;">23 Apr 26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/09-regressions.html">9. Simple Linear Regressions</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_H.html">Task H</a></td>
+<td style="text-align: left;">24 Apr 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/10-correlations.html">10. Correlations</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="tasks/BCB744_Task_H.html">Task H</a></td>
+<td style="text-align: left;">24 Apr 26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">L4</td>
+<td style="text-align: left;"><a href="./basic_stats/11-decision_guide.html">11. A Guide to Selecting the Right Parametric Test</a></td>
+<td style="text-align: left;">23 Apr 26</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/12-glance.html">12. Non-Parametric Statistics</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/13-confidence.html">13. Confidence Intervals</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/14-transformations.html">14. Data Transformations</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="my-highlight"><strong>Test 2: Biostatistics Theory Test</strong></span></td>
+<td style="text-align: left;">TBA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">TBA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="my-highlight"><strong>Test 2: Biostatistics Prac Test</strong></span></td>
+<td style="text-align: left;">TBA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">TBA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="my-highlight"><strong>Exam: Biostatistics Prac Exam (Intro R + Biostatistics)</strong></span></td>
+<td style="text-align: left;">TBA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">TBA</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="description-and-content" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Description and Content</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Course Description</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Theoretical Content</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Statistical Content</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Yes, the comma in this page’s title is correct: “SAMOS Core Module 3: Introduction to R, and Biostatistics.” The module provides an introduction to the R software language. I will also teach biostatistics.</p>
+<p>This is a core module in your Honours programme. You will learn to use R for data analysis, visualisation, and statistical inference. You will also learn fundamental biostatistics concepts, such as hypothesis testing, probabilities, confidence intervals, regression analysis, Analysis of Variance, and other staples of biostatistics. I will use real-world datasets from the biological, ecological, and environmental fields that you can use to practice applying your R and biostatistics skills.</p>
+<p>The approach taken in this module is not dissimilar from a course in Data Science. However, in this module, we will not do data science, but we will use R to actually <strong>do</strong> science. There is a difference! Any scientist that can use R is also ideally equipped to be a data scientist, and some people who have completed this module actually do just that. The difference between the two ideas, philosophies, and careers is provided in the box immediately below.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real Scientists and Data ‘scientists’
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am deliberate in my use of the phrase <em>not real scientists</em>. This is a claim about epistemic practice.</p>
+<p>Data “science” involves the manipulation of data and by technical fluency with statistical or computational tools. Science, as defined by how it is practiced, is a framework around a structured relationship between theory, question formation, experimental or observational design, and inference. A scientist begins with a problem framed within an existing body of knowledge and articulates expectations that could, in principle, fail. They then construct a procedure whose purpose may involve pattern discovery and downstream analyses, and, importantly, adds layers of explanation for the phenomenon under scrutiny.</p>
+<p>Much of what is commonly called <em>data science</em> (primarily by data “scientists” themselves) goes in the opposite direction of what real scientists do. Large, often poorly characterised datasets are subjected to algorithmic exploration (more often using unsupervised methods without human guidance) in search of statistically admissible regularities, after which interpretation is retrofitted. This is not hypothesis testing in any meaningful sense; it is <em>post hoc</em> rationalisation constrained primarily by optimisation criteria rather than by theory. The fact that such procedures <em>can</em> generate predictions does not grant them scientific status. Prediction without explanation is engineering, at best, with statistical underpinnings.</p>
+<p>A data science practitioner who can move seamlessly from marketing data to genomic counts to social media engagement metrics does so precisely because the underlying activity is detached from any requirement to understand the causal structure of the system under study. Scientific work does not grant this mobility. One cannot meaningfully investigate trophic dynamics, atmospheric circulation, or physiological regulation without years of undergraduate, domain-specific instruction in the theory and practice of the field. The data science methods are transferable but understanding is not.</p>
+<p>The claim of “data-driven discovery” also does not rescue the position. Scientific discovery necessitates falsifiability and humility to being wrong in a way that matters theoretically. Data analysis tools blindly applied do not invite this risk. When a model underperforms, it is replaced. When a scientific hypothesis fails, something about the world has resisted our attempt to describe it.</p>
+<p>This distinction is why traditional scientific training places much weight on experimental design, controls, and prior expectation. They are supported by a rich philosophical tradition that guides the practitioner in confronting ideas with reality. Data science may be technically demanding, commercially valuable, or computationally impressive, but without the scientific philosophy it is not science.</p>
+<p>Calling data scientists “scientists” therefore reflects sloppy language, a slippage that mistakes proximity to data for engagement with explanation, and a willingness to dilute epistemic categories until they describe little more than technical competence with fashionable tools. If the word <em>scientist</em> is to retain its true, intended meaning, it must refer to a mode of inquiry defined by theory-driven questions and disciplined inference and not just by the capacity to process data (often at scale).</p>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>The Intro R component of this module focuses on the functionality offered by the <a href="https://www.tidyverse.org/"><strong>tidyverse</strong></a> suite of packages. I designed this component to introduce you to a powerful set of tools for data manipulation, exploration, and visualisation. The <strong>tidyverse</strong> is a collection of R packages that work together to provide a cohesive set of functions for manipulating data. This course will cover the most popular packages in the <strong>tidyverse</strong>, including <strong>tidyr</strong> for data reshaping, <strong>dplyr</strong> for data ‘wrangling’, and <strong>ggplot2</strong> for data visualisation. You will learn how to clean, transform, and visualise data, as well as how to use these tools to build reproducible, informative data analysis pipelines. With a focus on practical application and hands-on exercises, you will gain the skills and knowledge needed to effectively use the tidyverse in your own data analysis projects.</p>
+<!-- One of the key heuristic devices I use throughout is to focus on figures, particularly maps. Maps can be a powerful tool for teaching coding because they combine both aesthetics, information in a visually compelling format. Maps are not only beautiful but they also provide insights and context that can be difficult to grasp through numbers or text alone. By working with code to create your own maps, you can learn programming concepts, techniques while also developing your visual literacy skills. This engaging and interactive approach to learning coding can help to demystify the subject and make it more accessible when you do not have a background in coding. -->
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>In biological and ecological sciences, statistical methods play a crucial role in analysing, interpreting data. Some of the basic statistical methods used include:</p>
+<ul>
+<li><p><strong>Descriptive statistics</strong> These methods are used to summarise and describe the basic features of a dataset, such as the mean, median, and standard deviation.</p></li>
+<li><p><strong>Inferential statistics</strong> These allow you, the scientist, to make predictions, inferences about a population based on a sample of data. Common inferential statistical techniques include <em>t</em>-tests and ANOVA, and regression analysis.</p></li>
+<li><p><strong>Non-parametric statistics</strong> Non-parametric methods are called for when the data do not meet the assumptions of parametric statistics. Examples of non-parametric techniques include Wilcoxon rank-sum test and Kruskal-Wallis test.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Insert table here -->
+</section>
+<section id="skills-and-graduate-attributes" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Skills and Graduate Attributes</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Core Skills</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Graduate Attributes</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>By the end of this module, you will be able to:</p>
+<ul>
+<li>Understand and use R within the RStudio IDE</li>
+<li>Know and understand the <strong>tidyverse</strong> suite of functions and approach to data analysis and graphics</li>
+<li>Understand the principles underlying <em>tidy data</em></li>
+<li>Understand the types of data and data distributions that biologists and ecologists will frequently encounter</li>
+<li>Understand and be able to execute the most frequently used inferential statistical tests</li>
+<li>Use the R software and associated packages to undertake these analyses</li>
+<li>Interpret the outcomes of these analyses and use it to probabilistically make inferences about the scientific enquiries</li>
+<li>Communicate the findings by written and oral form</li>
+</ul>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>The <a href="../pages/graduate_attributes.qmd"><strong>graduate attributes</strong></a> resulting from completion of this module align with the expectations of the workplace across diverse organisations and institutions where graduates typically find employment.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-policy" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Assessment Policy</h1>
+<p><strong>Continuous Assessment (CA)</strong> and a <strong>Final Assessment</strong> will provide a <strong>Final Mark</strong> for the module. These modes of assessment meet our needs as far as <a href="../pages/assessment_theory.qmd">formative and summative assessments</a> are concerned. The weighting of the CA and the Final Assessment is 0.6 and 0.4, respectively. Except for the Biostatistics Theory Test, all assessments are open book, so consult your code, reading material if and when you need to.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 14%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Assessment Component</th>
+<th style="text-align: left;">Weight</th>
+<th style="text-align: left;">Contribution (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>CONTINUOUS ASSESSMENT</strong></td>
+<td style="text-align: left;"><strong>(0.6)</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Introduction to R</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Progress Portfolio</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Self-Assessment Tasks A–D (Random penalty)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">(max. -10)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="my-highlight">Intro R Test (0.3 × theory + 0.7 × prac)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Biostatistics</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Presentations</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Progress Portfolio</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Self-Assessment Tasks E–H (Random penalty)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">(max. -10)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="my-highlight">Biostatistics Test (0.3 × theory + 0.7 × prac)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><em>Total</em></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>100</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>FINAL ASSESSMENT</strong></td>
+<td style="text-align: left;"><strong>(0.4)</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="my-highlight"><em>Biostatistics Prac Exam (Intro R + Biostatistics)</em></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>100</em></td>
+</tr>
+</tbody>
+</table>
+<p>Care must be taken that the tests and exams are submitted as instructed, <em>i.e.</em> paying attention to naming conventions, the format of the files submitted — typically this will be in a Quarto document (.qmd) and the knitted output (I prefer .html).</p>
+<p>Random quizzes will not form part of the CA for BCB744.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Progress Portfolio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Presentations</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Self-assessment Tasks</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false" href="">Tests</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-5" role="tab" aria-controls="tabset-3-5" aria-selected="false" href="">Exam</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-6" role="tab" aria-controls="tabset-3-6" aria-selected="false" href="">Submission of Assignments</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Starting 3 February 2026, you will submit a thoroughly annotated <code>.html</code> file produced from a Quarto document, that outlines each day’s teaching material you covered as you followed along in the class. Since it is made within Quarto, you will have to include code chunks, their output, and some narrative text that describes what each portion of your code does. The document must be:</p>
+<ul>
+<li><strong>One continuous file</strong> that you add to each day (use a clear heading with the date and topic for every new day).</li>
+<li><strong>Rendered to HTML</strong> and submitted daily starting <strong>3 February 2026</strong>, on the <strong>same</strong> day of the lecture your portfolio material covers.</li>
+<li><strong>Complete and readable</strong>, with the code you ran, the outputs it produced, and a few sentences explaining what the code does. Include any notes that you made for your future self, which will aid you to study the work for assessments you will encounter. Any text added must be in your own words, and explained in a way that you understand (in good English, without grammatical and spelling errors).</li>
+<li><strong>Neatly structured</strong>, with short sections, headings, and clear figure/table outputs (no screenshots). I will significantly weigh the visual impression you ceate, so take pride in your work.</li>
+</ul>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>The presentations are a critical part of the CA. They are designed to help you develop your communication around topics tangentially to the broad field of knowledge generation. The presentations will cover topics such as the nature of knowledge and belief, the nature of science, the scientific method, the limits to science, and other broader societal topics.</p>
+<p>For more detail, see the module instructions provided in class.</p>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p>BCB744 (Introduction to R and Biostatistics) relies on regular, honest self-reflection about your grasp of each day’s lecture content. After every lecture, complete the Daily Self-Assessment Tasks to gauge your understanding; answers will be provided the following day, before introducing new content. Each task should be rated on a personal scale from 1 (no real comprehension) to 10 (complete mastery). These self-assessment marks will be kept on record and checked randomly, and we will discourage students from undertaking the Intro R Test and the BioStats Test if their self-assessment scores are consistently low.</p>
+<p>If you realise you are struggling, seek assistance from the lecturer or teaching assistant early (ideally on the day). Consistent, candid self-assessment strongly correlates with later performance in the Intro R Test, the Biostatistics Test, and the combined Exam. The goal is to align your learning strategies with course expectations and build a foundation for success.</p>
+<p><span class="my-highlight"><strong>For the daily self-assessment tasks to be effective, you must work alone on all of them.</strong></span></p>
+<p>For more detail, see the module instructions provided in class.</p>
+</div>
+<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
+<p>At the conclusion of Intro R and Biostatistics, you will take the more rigorous <strong>Intro R Test</strong> and <strong>Biostatistics Test</strong>. As indicated in the table above, these assessments carry significant weight. The tests will be conducted over several days, and you may complete them either at home or on campus. They constitute a key component of Continuous Assessment (CA) and are designed to prepare you for the final exam.</p>
+<p>Each test consists of two parts:</p>
+<ol type="1">
+<li><strong>Theory Test (30%)</strong> — This is a <strong>written, closed-book</strong> assessment where you will be tested on theoretical concepts. The only resource available during this test is the R help system.</li>
+<li><strong>Practical Test (70%)</strong> — In this <strong>open-book coding assessment</strong>, you will apply your theoretical knowledge to real data problems. While you may reference online materials (including ChatGPT), collaboration with peers is strictly prohibited.</li>
+</ol>
+<p>The practical component of the tests will be graded as follows:</p>
+<ul>
+<li>Content (20%):
+<ul>
+<li>Questions answered in order</li>
+<li>A written explanation of approach included for each question</li>
+<li>Appropriate formatting of text, for example, fonts not larger than necessary, headings used properly, etc. Be sensible, tasteful.</li>
+</ul></li>
+<li>Code formatting, structure, and correctness (50%):
+<ul>
+<li>Use <strong>Tidyverse</strong> code</li>
+<li>No more than ~80 characters of code per line (pay particular attention to the comments)</li>
+<li>Application of <a href="http://adv-r.had.co.nz/Style.html">R code conventions</a>, <em>e.g.</em> spaces around <code>&lt;-</code>, after <code>#</code>, after <code>,</code>, etc.</li>
+<li>New line for each <code>dplyr</code> function (lines end in <code>%&gt;%</code>) and each <code>ggplot</code> layer (lines end in <code>+</code>)</li>
+<li>Proper indentation of pipes and <code>ggplot()</code> layers</li>
+<li>All chunks labelled without spaces</li>
+<li>No unwanted / commented out code left behind in the document</li>
+</ul></li>
+<li>Figures (30%):
+<ul>
+<li>Sensible use of themes / colours</li>
+<li>Publication quality</li>
+<li>Informative and complete titles, axes labels, legends, etc.</li>
+<li>No redundant features or aesthetics</li>
+</ul></li>
+</ul>
+</div>
+<div id="tabset-3-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-5-tab">
+<p>The Exam is the final assessment. As such, it will test your skills broadly <strong>across both Intro R, Biostatistics</strong>. The Exam may be up to five days in duration. It will involve the analysis of real world data. Some of the questions might expect that you write 1) statements of aims and objectives, and hypotheses; 2) the full, detailed methods followed by analyses together with all code and 3) full reporting of results in a manner suited for peer reviewed publications; 4) graphical support highlighting the patterns observed (again with the code), and 5) a discussion if, when required. The weighting of marks to these various sections is:</p>
+<ol type="1">
+<li>Aims, objectives, and hypotheses: 5%</li>
+<li>Methods and analyses: 45%</li>
+<li>Results: 20%</li>
+<li>Graphs: 15%</li>
+<li>Discussion: 15%</li>
+</ol>
+<p>Other questions might be shorter in nature, designed to specifically test important aspects of BCB744. Such questions might be worth anything from 10 to 50 marks.</p>
+<p>The Exam is also open book. Review the questions carefully, answer them at home, and submit by the deadline.</p>
+</div>
+<div id="tabset-3-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-6-tab">
+<ul>
+<li>The Progress Portfolios must be submitted on the day of the lectures they cover.</li>
+<li>The Tasks must be submitted by the date specified in the time table.</li>
+</ul>
+<p>A statement such as the one below accompanies every assignment — pay attention, as failing to observe this instruction may result in a loss of marks (<em>i.e.</em> if an assignment remains ungraded because the owner of the material cannot be identified):</p>
+<p>Submit the output of your Quarto script, wherein you provide answers to the task questions, by no later than 8:30 the following date (or the Monday in cases when assignments were given on Fridays). Label the script as follows (<em>e.g.</em>): <strong>BCB744_Smit_Task_A.html</strong>.</p>
+<p><strong>Late Submissions</strong></p>
+<p>Late assignments will be penalised 10% per day and will not be accepted more than 48 hours late, unless evidence such as a doctor’s note, a death certificate, or another documented emergency can be provided. If you know in advance that a submission will be late, please discuss this, seek prior approval. This policy is based on the idea that in order to learn how to translate your human thoughts into computer language (coding) you should be working with them at multiple times each week — ideally daily. Time has been allocated in class for working on assignments and students are expected to continue to work on the assignments outside of class. Successfully completing (and passing) this module requires that you finish assignments based on what we have covered in class by the following class period. Work diligently from the onset so that even if something unexpected happens at the last minute you should already be close to done. This approach also allows rapid feedback to be provided to you and which can only be accomplished by returning assignments quickly and punctually.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="data-used" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Data Used</h1>
+<p>All the data required for BCB744 may be <a href="https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing">downloaded here</a>. After you have downloaded the archived (.zip) data, unzip it in a folder named <code>data</code> placed at the root of your R project. This will ensure that all the data are easily accessible to you.</p>
+<p>R also gives you access to many built-in datasets that are useful for practising our R skills. To find out which datasets are available to you on your system, execute the following command. Help files for each of the datasets are also available:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load the data like this:</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">data</span>()</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># find help, for example:</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>?datasets<span class="sc">::</span>ChickWeight</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It is important to use these (or any) datasets to practice your R skills. Actively engaging with my web pages and practising on the included datasets will make the difference between a 60% average mark for the module and a mark in excess of 80%.</p>
+</section>
+<section id="prerequisites" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Prerequisites</h1>
+<p>You should have a moderate numerical literacy, but prior programming experience is not required. In all sciences, practical problem solving skills and tenacity in the face of challenges are crucial for success. Scientific disciplines constantly evolve and present new and complex problems that require creative and innovative solutions. You will have to demonstrate agile and adaptive approaches to solving challenges and you must have the ability to break down complex problems into smaller parts and approach them systematically. You must also be able to identify and overcome roadblocks, and be persistent in your efforts to find a solution. These attributes will allow you to be effective in this module.</p>
+</section>
+<section id="method-of-instruction" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Method of Instruction</h1>
+<p>The workshop is designed to be as interactive as possible, so while you are working on exercises the tutor, I will circulate among you and engage with you to help you understand any material and the associated code you are uncomfortable with. Often this will result in discussions of novel applications and alternative approaches to the data analysis challenges you are required to solve. More challenging concepts might emerge during the Tasks and Assignments (typically these will be submitted the following day) and any such challenges will be dealt with in class prior to learning new concepts.</p>
+<p>Although the module ultimately supports the application of biologically-oriented statistics, a large part of it is also about programming. It is up to you to take your coding skills to the next level and move beyond what I teach in class. Coding is a bit like learning a language and, as such, programming is a skill that is best learned by doing.</p>
+</section>
+<section id="learning" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Learning</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Collaboration</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Found Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false" href="">Ai Tools</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Also Read: How to Learn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Please refer to my <a href="../pages/How_to_learn.qmd">advice about how to learn</a>.</p>
+</div>
+</div>
+<p>Collaborative learning provides an opportunity to work together and learn from each other. It develops communication, teamwork, and leadership, and it can deepen your understanding of the subject matter. Discuss the BCB744 module activities with your peers as you work on them. Use the WhatsApp group set up for the module for discussion purposes (I might assist via this medium if necessary if your questions/comments have relevance to the whole class). A better option is to use <a href="./quantecol/#help-via-bcb744-and-bcb743-issues-on-github">GitHub Issues</a>. Ask questions, answer questions, and share ideas liberally. Please identify your work partners by name on all assignments (if you decide to work in pairs).</p>
+<p>At the same time, you are individually responsible for the submitted work. Collaboration means discussing ideas, approaches, and interpretations; it does not include sharing or reusing code, text, or outputs. Anything you submit must be your own, and any external material (including AI-generated code or web-sourced snippets) must be clearly cited. Plagiarism is a serious offence and will be dealt with concisely. Consequences of cheating are severe — they range from a 0% for the assignment or exam up to dismissal from the course for a second offence.</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>A huge volume of code is available on the web and it can be adapted to solve your own problems. You may make use of any online resources (<em>e.g.</em>, from <a href="https://stackoverflow.com/">StackOverflow</a>, a thoroughly-used source of discussion about <a href="https://stackoverflow.com/questions/tagged/r">R code</a>) — but you <strong>MUST</strong> clearly indicate (cite) that your solution relies on found code, regardless of how much you have modified it to your own needs. Reused code that is discovered via a web search, which is not explicitly cited, is plagiarism and will be treated as such. On assignments you may not directly share code with your peers in this workshop.</p>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<p>The 2025 BSc (Hons) cohort will be the first to experience the use of AI tools in the BCB744 module. The use of AI tools is a new development and it is important that you are exposed to these tools. The use of AI tools will be limited to the use of the OpenAI ChatGPT tool, which may be used to generate ‘proto-code’ that will assist you in becoming familiar with the R language. We will explore ideas together, and the mark allocation to tasks and assignments will be adjusted accordingly.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="software" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Software</h1>
+<p>In this course you will rely entirely on <a href="https://cran.r-project.org/">R</a> running within the <a href="https://www.rstudio.com/">RStudio</a> IDE. The use of R is covered in the <strong>Introduction to R</strong> section of this site (start here: <a href="intro_r/01-RStudio.html">R and RStudio</a>).</p>
+<p>Additionally, the very basics — <em>i.e.</em> about R, RStudio, packages, their installation, etc. — can also be found on the <a href="https://moderndive.netlify.app/1-getting-started.html">ModernDive</a> website. A slightly longer, more detailed account of the installation process and the very basics is provided on the <a href="https://www.datacamp.com/tutorial/r-studio-tutorial">datacamp</a> platform.</p>
+<p><a href="https://moderndive.netlify.app">ModernDive</a> also provides a nice overview of using R for data science.</p>
+<p>For more in-depth coverage of the R language, refer to R Master <a href="https://r4ds.hadley.nz/">Hadley Wickham’s</a> pages. There you will find everything you need to know in a well thought through presentation. Thoroughly working through this material, page by page, will quickly make you a R Master yourself (well, almost).</p>
+</section>
+<section id="computers" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Computers</h1>
+<p>You are encouraged to provide your own laptops and to install the necessary software before the module starts. Limited support can be provided if required, but in the end, the onus is on you to understand how your computer works (from the filesystem through to dealing with software installation issues). There are also computers with R, RStudio (and the necessary add-on libraries) available in the 5th floor lab in the BCB Department.</p>
+</section>
+<section id="attendance" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Attendance</h1>
+<p>This workshop-based, hands on course can only deliver acceptable outcomes if you attend all classes. The schedule is set, cannot be changed. Sometimes an occasional absence cannot be avoided. Please be courteous and notify myself or the tutor in advance of any absence. If you work with a partner in class and notify them too. Keep up with the reading assignments while you are away and we will all work with you to get you back up to speed on what you miss. If you do miss a class, however, the assignments must still be submitted on time (also see <a href="#late-submission-of-ca"><strong>Late submission of CA</strong></a>).</p>
+<p>Since you may decide to work in collaboration with a peer on tasks and assignments, please keep this person informed at all times in case some emergency makes you unavailable for a period of time. Someone might depend on your input, contributions — do not leave someone in the lurch so that they cannot complete a task in your absence.</p>
+</section>
+<section id="support" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Support</h1>
+<p>It is expected that some tricky aspects of the module will take time to master, and the best way to master problematic material is to practice, practice some more, and then to ask questions. Trying for 10 minutes and then giving up is rarely enough. I will be more sympathetic to your cause if you can demonstrate sustained effort before asking me. When you ask questions about a challenge, explain the approaches you tried and how they failed. <em>I will not help you if you have not tried to help yourself first</em> (maybe with advice from friends). There will be time in class to do this, typically before we embark on a new topic. You are also encouraged to bring up related questions that arise in your own B.Sc. (Hons.) research project.</p>
+<p>Should you require more time with me, find out when I am ‘free’, set an appointment by sending me a calendar invitation. I am happy to have a personal meeting with you via Zoom but I prefer face-to-face in my office.</p>
+<p><strong>Guidelines for asking questions:</strong></p>
+<ul>
+<li>First search existing issues (open or closed) for answers. If the question has already been answered, you are done! If there is an open issue, feel free to contribute to it. Or feel free to open a closed issue if you believe the answer is not satisfactory.</li>
+<li>Give your issue an informative title.
+<ul>
+<li>Good: “Error: could not find function”ggplot””</li>
+<li>Bad: “My code does not work!” Note that you can edit an issue’s title after it has been posted.</li>
+</ul></li>
+<li>Format your questions nicely using markdown and code formatting. Preview your issue prior to posting.</li>
+<li>As I explained above, your peers and I will be more sympathetic to your cause if you can show <em>all the things you have tried yourself to fix the issue first</em>.</li>
+<li>Include code and example data so the person trying to help you have something to work with (and which results in the error, perhaps)</li>
+<li>Where appropriate, provide links to specific files, or even lines within them, in the body of your issue. This will help your peers understand your question. Note that only the teaching team will have access to private repos.</li>
+<li>(Optional) Tag someone or some group of people. Start by typing their GitHub username prefixed with the @ symbol. Of course this supposes that each of you have a GitHub account and username.</li>
+<li>Hit <strong>Submit new issue</strong> when you are ready to post.</li>
+</ul>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>A maximum of 10% may be deducted from your presentation marks should you be found to be dishonest in your self assessments.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2025,
+  author = {A. J. , Smit},
+  title = {SAMOS {Core} {Module} 3: {Introduction} to {R,} and
+    {Biostatistics}},
+  date = {2025-02-03},
+  url = {http://samos-r.netlify.app/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2025" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2025) SAMOS Core Module 3: Introduction to R, and
+Biostatistics. <a href="http://samos-r.netlify.app/">http://samos-r.netlify.app/. </a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./intro_r/01-RStudio.html" class="pagination-link" aria-label="1. R and RStudio">
+        <span class="nav-page-text">1. R and RStudio</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

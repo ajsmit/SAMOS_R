@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+<meta name="dcterms.date" content="2021-01-01">
+
+<title>2. Working with Data and Code – SAMOS R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../intro_r/03-quarto.html" rel="next">
+<link href="../intro_r/01-RStudio.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-21fe018c864e78632dc0e35f28f7bac9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tasks/BCB744_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/02-working-with-data.html">2. Working with Data and Code</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/05-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/06-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/08-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/09-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/10-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/11-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/12-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Synthesis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Functions by Chapter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Base R Primer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Statistical Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Assumptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Simple Linear Regressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Correlations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Non-Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Confidence Intervals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Data Transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tasks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#navigating-the-file-system-and-the-working-directory" id="toc-navigating-the-file-system-and-the-working-directory" class="nav-link" data-scroll-target="#navigating-the-file-system-and-the-working-directory"><span class="header-section-number">2</span> Navigating the File System and the Working Directory</a>
+  <ul class="collapse">
+  <li><a href="#the-working-directory" id="toc-the-working-directory" class="nav-link" data-scroll-target="#the-working-directory"><span class="header-section-number">2.1</span> The Working Directory</a></li>
+  <li><a href="#rstudio-projects" id="toc-rstudio-projects" class="nav-link" data-scroll-target="#rstudio-projects"><span class="header-section-number">2.2</span> Rstudio Projects</a></li>
+  </ul></li>
+  <li><a href="#types-of-data-files" id="toc-types-of-data-files" class="nav-link" data-scroll-target="#types-of-data-files"><span class="header-section-number">3</span> Types of Data Files</a>
+  <ul class="collapse">
+  <li><a href="#delimited-text-files-csv-and-tsv" id="toc-delimited-text-files-csv-and-tsv" class="nav-link" data-scroll-target="#delimited-text-files-csv-and-tsv"><span class="header-section-number">3.1</span> Delimited Text Files (CSV and TSV)</a></li>
+  <li><a href="#microsoft-excel-files" id="toc-microsoft-excel-files" class="nav-link" data-scroll-target="#microsoft-excel-files"><span class="header-section-number">3.2</span> Microsoft Excel Files</a></li>
+  <li><a href="#rdata-files" id="toc-rdata-files" class="nav-link" data-scroll-target="#rdata-files"><span class="header-section-number">3.3</span> Rdata Files</a></li>
+  <li><a href="#sec-binary" id="toc-sec-binary" class="nav-link" data-scroll-target="#sec-binary"><span class="header-section-number">3.4</span> Other Binary Files</a></li>
+  <li><a href="#sec-netcdf" id="toc-sec-netcdf" class="nav-link" data-scroll-target="#sec-netcdf"><span class="header-section-number">3.5</span> Netcdf, Grib, and Hdf Files</a></li>
+  <li><a href="#larger-than-memory-data" id="toc-larger-than-memory-data" class="nav-link" data-scroll-target="#larger-than-memory-data"><span class="header-section-number">3.6</span> Larger Than Memory Data</a></li>
+  </ul></li>
+  <li><a href="#file-extensions" id="toc-file-extensions" class="nav-link" data-scroll-target="#file-extensions"><span class="header-section-number">4</span> File Extensions</a></li>
+  <li><a href="#r-code-conventions" id="toc-r-code-conventions" class="nav-link" data-scroll-target="#r-code-conventions"><span class="header-section-number">5</span> R Code Conventions</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">6</span> Exercise</a></li>
+  <li><a href="#sec-reproducibility" id="toc-sec-reproducibility" class="nav-link" data-scroll-target="#sec-reproducibility"><span class="header-section-number">7</span> Reproducible Research</a>
+  <ul class="collapse">
+  <li><a href="#required-practice-in-bcb744" id="toc-required-practice-in-bcb744" class="nav-link" data-scroll-target="#required-practice-in-bcb744"><span class="header-section-number">7.1</span> Required Practice in Bcb744</a></li>
+  <li><a href="#a-look-to-the-future" id="toc-a-look-to-the-future" class="nav-link" data-scroll-target="#a-look-to-the-future"><span class="header-section-number">7.2</span> A Look to the Future</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/02-working-with-data.html">2. Working with Data and Code</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">2. Working with Data and Code</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Smit, A. J. <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></p>
+<blockquote class="blockquote">
+<p><em>“The plural of anecdote is not data.”</em></p>
+<p>— Roger Brinner</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“<em>To consult the statistician after an experiment is finished is often merely to ask him to conduct a post-mortem examination.</em>”</p>
+<p>— Ronald A. Fisher</p>
+</blockquote>
+<p>In this Chapter we will cover:</p>
+<ul>
+<li>Data file formats</li>
+<li>The use of file extensions</li>
+<li>Review some R code conventions</li>
+<li>Introduce the concept of reproducible research</li>
+</ul>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>In today’s rapidly evolving scientific fields, understanding the basic principles of coding (also called scripting or programming) and data handling has become indispensable. The complexity and volume of data continue to grow, and traditional manual data analysis methods are no longer sufficient to deal with the demands of research as practised today. Coding and data manipulation skills will unlock the potential of your computer and allow you to analyse datasets, fit models, and reveal hidden patterns that may not be apparent through conventional methods. Proficiency in coding and data handling will help you to collaborate effectively with multidisciplinary teams (as is increasingly the case today), access data from various data sources in different formats, cross the gap between theory and practical applications, and contribute to the advancement of scientific knowledge in a transparent and efficient way.</p>
+<p>A useful way to understand the material in this chapter is to recognise that most failures in data analysis do not arise from advanced statistical methods, but from mismatches at the interface between how and where data are stored, how software interprets those representations, and how we interact with both. File systems organise data, file formats encode assumptions, software enforces expectations, and you, the budding scientist, bring good and bad habits into that system.</p>
+<p>Each section in this chapter addresses a different point at which data can be misrepresented, misunderstood, or clarified, and the aim throughout is to make those points visible.</p>
+<p>Throughout this discussion there are a few underlying assumptions which organise the practical guidance that follows.</p>
+<ol type="1">
+<li>Data have structure independent of the software used to store or analyse them.</li>
+<li>Software necessarily imposes assumptions on that structure, whether explicitly or by default behaviour.</li>
+<li>Reproducibility is as much a property of workflows and data representations <em>and</em> of intention or care.</li>
+</ol>
+<p>Below, I focus on how they play out in routine analytical choices. First — before we look at how data are stored — let’s look at <em>how</em> and <em>where</em> to find data and the outputs of your analyses once they reside on your computer.</p>
+</section>
+<section id="navigating-the-file-system-and-the-working-directory" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Navigating the File System and the Working Directory</h1>
+<p>Many analytical errors arise from confusion about where data and code actually live on a computer. Before software can read a file, the you must specify <em>where</em> that file is located. Where the file lives is not random, but poor understanding of how to navigate your computer’s file system makes it feel haphazard at best or like a black box at worst. You <em>should store files deliberately in precisely known locations</em>. This requires a working grasp of the file system: how files are organised, how locations are described, and how software interprets those descriptions.</p>
+<p>So, before R can read data or write results, it must know where it is working. This sounds trivial but many failures you’ll encounter in the early days on your journey to becoming a biostatistician or data analyst trace back to uncertainty about file locations rather than to coding errors. This section introduces the minimal concepts required to reason correctly about files, directories, and paths, and explains how R and RStudio use these ideas in practice.</p>
+<p>A <strong>file system</strong> is the hierarchical structure by which an operating system stores and organises files. At the top of this hierarchy sits a <em>root</em>, from which all folders (directories) and files descend. Every file therefore occupies a unique position within this structure, defined by the sequence of directories leading to it.</p>
+<p>A <strong>directory</strong> (or <em>folder</em>) is simply a container that can hold files and other directories. When a directory sits inside another directory, it is a <strong>sub-directory</strong>. This nesting can continue indefinitely, producing a tree-like structure. Although Windows, macOS, and Linux differ in visual presentation, this underlying structure is shared across all three systems.</p>
+<p>To refer to a file, we use a <strong>file path</strong>: a textual description of its location within the file system. You can observe these file paths within RStudio, near the top of the <strong>Console</strong>.</p>
+<p>An <strong>absolute path</strong> specifies a file’s location starting from the root of the file system. Because it begins at the root, it uniquely identifies the file regardless of the current working context.</p>
+<p><strong>Examples:</strong></p>
+<p>Windows:</p>
+<p><code>C:\Users\Student\Documents\BCB744\data\BCB744\kelp.csv</code></p>
+<p>macOS / Linux:</p>
+<p><code>/home/student/BCB744/data/BCB744/kelp.csv</code></p>
+<p>Notice that Windows uses backslashes <code>\</code> and maxOS and Linux use forward slashes <code>/</code>. This is a very important distinction between Windows and Unix-like operating systems.</p>
+<p>Absolute paths are unambiguous, but they are not very helpful when moving R (or other) scripts between different users. This is because they encode machine-specific details (usernames, drive letters) that differ between those users’ computers.</p>
+<p>A <strong>relative path</strong> specifies a file’s location <em>relative to the current working directory</em>. It does not begin at the root, but instead assumes a starting point. Relative paths are shorter, portable, and central to reproducible workflows.</p>
+<p>Assume the current working directory is:</p>
+<ul>
+<li><code>BCB744/</code></li>
+</ul>
+<p>Then:</p>
+<ul>
+<li><code>data/kelp.csv</code> refers to a file called <code>kelp.csv</code> inside the <code>data/BCB744</code> sub-directory.</li>
+<li><code>scripts/analysis.R</code> refers to an R file named <code>analysis.R</code> inside the <code>scripts</code> sub-directory.</li>
+</ul>
+<p>Two special symbols appear frequently in relative paths:</p>
+<ul>
+<li><code>.</code> refers to the current directory.</li>
+<li><code>..</code> refers to the parent directory (one level up).</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li><code>../data/kelp.csv</code> means “go up one directory, then into <code>data/BCB744</code>”.</li>
+<li><code>../../raw/sst.nc</code> means “go up two levels, then into <code>raw</code>”.</li>
+</ul>
+<section id="the-working-directory" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="the-working-directory"><span class="header-section-number">2.1</span> The Working Directory</h2>
+<p>The <strong>working directory</strong> is the directory that R treats as its current location. All relative paths are interpreted with respect to this directory.</p>
+<p>You can think of the working directory as the answer to the question:</p>
+<blockquote class="blockquote">
+<p>“If I refer to a file without giving its full address, where will R look?”*</p>
+</blockquote>
+<p>In R, the working directory can be inspected with:</p>
+<ul>
+<li><code>getwd()</code></li>
+</ul>
+<p>and (technically) changed with:</p>
+<ul>
+<li><code>setwd("some/path")</code></li>
+</ul>
+<p>Beginners sometimes try to fix file-not-found errors by repeatedly calling <code>setwd()</code>. This usually makes things worse. Changing the working directory inside scripts creates hidden assumptions about where the code is run and breaks reproducibility.</p>
+<p>The preferred solution is not to move the working directory around, but to <strong>control it once</strong>, deliberately.</p>
+</section>
+<section id="rstudio-projects" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="rstudio-projects"><span class="header-section-number">2.2</span> Rstudio Projects</h2>
+<p>An <strong>RStudio Project</strong> defines a directory as the root of an analysis and sets it as the working directory whenever the project is opened. This has three consequences that are foundational for this course:</p>
+<ol type="1">
+<li><code>getwd()</code> always returns the project root.</li>
+<li>All scripts, data, and outputs can be referenced using relative paths.</li>
+<li>Code runs the same way on different computers.</li>
+</ol>
+<p>A typical project structure might look like this:</p>
+<ul>
+<li><code>BCB744_project/</code></li>
+</ul>
+<p>With sub-folders specific to the different purposes:</p>
+<ul>
+<li><code>data/</code></li>
+<li><code>scripts/</code></li>
+<li><code>figures/</code></li>
+<li><code>reports/</code></li>
+</ul>
+<p>If this directory is an RStudio Project, then a script inside <code>scripts/</code> can read data using:</p>
+<ul>
+<li><code>data/kelp.csv</code></li>
+</ul>
+<p>without calling <code>setwd()</code>, and without caring where the project lives on the machine.</p>
+<p>This is why projects are treated as non-negotiable infrastructure in this course. They make file paths explicit, stable, and inspectable.</p>
+<p>Software such as R interprets all file paths relative to its <strong>working directory</strong> — the directory it currently considers as “here”. Confusion about file paths is therefore almost always confusion about the working directory. When files cannot be found, the problem is rarely the file itself; it is the path used to describe it.</p>
+<p>For this reason, analyses should be organised as <strong>projects</strong>, with a clear internal structure. A minimal example might look like this:</p>
+<ul>
+<li><p><code>BCB744/</code></p>
+<ul>
+<li><code>data/</code> … (raw or cleaned data)</li>
+<li><code>scripts/</code> … (R scripts)</li>
+<li><code>figures/</code> … (output plots)</li>
+<li><code>reports/</code> … (Quarto or R Markdown documents)</li>
+</ul></li>
+</ul>
+<p>When code is run from the project root, all file access can use relative paths, avoiding hard-coded references to specific machines.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do This Now
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>On your computer, create a directory called <code>filesystem_practice</code>. Inside it, create three sub-directories: <code>data</code>, <code>scripts</code>, and <code>output</code>. Place a small text file inside <code>data</code>.</p></li>
+<li><p>Place a small text or CSV file inside <code>data</code>. From the R Console, run <code>getwd()</code> and confirm that it points to the project root.</p></li>
+<li><p>From a script inside <code>scripts</code>, write the relative path needed to read the file in <code>data</code>. Then write the absolute path to the same file. Which one would still work on another computer?</p></li>
+<li><p>Deliberately break a path by misspelling a directory name. Observe the error message produced by the software. Correct the path and rerun the command.</p></li>
+<li><p>(Deliberately bad practice) Use <code>setwd()</code> to point R directly at the data directory. Now try running the script again from a different location. Explain why this approach fails as a general strategy.</p></li>
+</ol>
+<p>These exercises should help you to develop a form of spatial reasoning that underlies all your analyses 9and working with your computer in general — good housekeeping stems from this! If you cannot reliably locate files you also cannot reason clearly about data provenance, reproducibility, or control over your analysis.</p>
+</div>
+</div>
+<p>Note: graphical file browsers hide structure behind icons and clicks. Code exposes structure explicitly. Learning to think in paths rather than windows is a necessary transition from consumer software use to scientific computing.</p>
+<p>Now that we know how and where to locate your data, let’s take a look at how those data are represented.</p>
+</section>
+</section>
+<section id="types-of-data-files" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Types of Data Files</h1>
+<p>The choice of data file format determines how information is stored and which assumptions software will make when reading it, and which errors are likely to remain invisible.</p>
+<p>R will read in many types of data, including spreadsheets, text files, binary files, and files from other statistical packages.</p>
+<p>It is useful to treat questions about which file type to use as answering recurring practical questions. At different stages of an analysis, we may need data to be easily readable by humans, reliably exchanged across software and operating systems, efficient to store or process at scale, or well annotated with metadata. No single format optimises all of these requirements simultaneously. The non-exhaustive list of file formats mentioned below offer different compromises among these constraints, and their suitability depends on which problem is being prioritised.</p>
+<section id="delimited-text-files-csv-and-tsv" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="delimited-text-files-csv-and-tsv"><span class="header-section-number">3.1</span> Delimited Text Files (CSV and TSV)</h2>
+<p>CSV and TSV files optimise human readability.</p>
+<p>Delimited text files represent the simplest and most transparent way of storing tabular data. Both comma-separated value (CSV) files and tab-separated value (TSV) files encode tables as plain text, with rows separated by line breaks and columns separated by a designated delimiter. The distinction between them arises from how reliably the chosen delimiter can be distinguished from the data themselves.</p>
+<p>CSV files use commas to separate fields (columns), which makes them widely supported and easy to exchange across software and platforms. However, this choice becomes ambiguous when data values themselves contain commas, such as free text, lists, or numbers formatted with thousands separators. TSV files address this ambiguity by using tab characters as delimiters, which are far less likely to occur naturally within data values. In this sense, TSV files trade a small loss in visual familiarity for greater robustness during parsing.</p>
+<p>As such, CSV files are a simple and widely used format amongst biologists and ecologists, but they can become impractical for large datasets with complex structures or metadata.</p>
+<p>We will most frequently use the functions <code>read.csv()</code> and <code>readr::read_csv()</code> (and related forms) for reading in CSV data. We can write CSV files to disk with the <code>write.csv()</code> and <code>readr::write_csv()</code> commands. For very large datasets that might take a long time to read in or save, <code>data.table::fread()</code> and <code>data.table::fwrite()</code> are faster alternatives to the aforementioned base R or <strong>tidyverse</strong> options. Even faster options are <code>feather::read_feather()</code> and <code>feather::write_feather()</code>; although <strong>feather</strong> saves tabular data, the format is not actually an ASCII CSV, however.</p>
+<p>The same functions that read or write CSV files in R can be used for TSV, but one has to set the arguments <code>sep = "\t"</code> or <code>delim = "\t"</code> for the functions <code>read.csv()</code> and <code>read_csv()</code> respectively.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ascii Files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ASCII stands for “American Standard Code for Information Interchange”. An ASCII file is a plain text file that contains ASCII characters. ASCII is a character encoding standard that assigns a unique numeric code to each character, including letters, numbers, punctuation, and other symbols commonly used in the English language.</p>
+<p>ASCII files are the most basic type of text file and are supported by virtually all operating systems and applications. We can create and edit ASCII files using any text editor, such as Notepad, TextEdit, or <a href="https://code.visualstudio.com/">VS Code</a>. ASCII files are typically used for storing, sharing simple text-based information such as program source code, configuration files, and other types of data that do not require special formatting or rich media content.</p>
+<p>ASCII files are limited in their ability to represent non-English characters or symbols that are not included in the ASCII character set. To handle these types of characters, other character encoding standards such as UTF-8 and Unicode are used. However, ASCII files remain an important and widely used format for storing and sharing simple text-based data.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Missing Values and Csv and Tsv Files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Where we have missing data (blanks), the CSV format separates these by commas with empty field in-between. However, there can be problems with blanks if we read in a space-delimited format file. If we are having trouble reading in missing data as blanks, try replacing them in the spreadsheet with <code>NA</code>, the missing data code in R. In Excel, highlight the area of the spreadsheet that includes all the cells we need to fill with <code>NA</code>. Do an ‘Edit/Replace…’ and leave the ‘Find what:’ text box blank and in the ‘Replace with:’ text box enter <code>NA</code>. Once imported into R, the <code>NA</code> values will be recognised as missing data.</p>
+</div>
+</div>
+</section>
+<section id="microsoft-excel-files" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="microsoft-excel-files"><span class="header-section-number">3.2</span> Microsoft Excel Files</h2>
+<p>Excel files optimise human convenience, engagement, and presentation.</p>
+<p>However, Excel files also emphasise that software convenience can obscure underlying data transformations, which moves the analytical risk from computation to problems that might stem from user interaction.</p>
+<p>Microsoft Excel files are a type of file format that is used to store data in a tabular form, much like CSV files. However, Excel files are proprietary and are specifically designed to work with Excel software. Excel files can contain more advanced formatting features such as colours, fonts, and formulas, which make them a popular choice for people who like embellishments.</p>
+<p>These software behaviours impose constraints that are poorly aligned with statistical analysis, and it is from these constraints that the following limitations arise:</p>
+<ul>
+<li><p><strong>Compatibility</strong> Excel files may not be compatible with all data science tools and programming languages. For example, R cannot read Excel files directly.</p></li>
+<li><p><strong>Data integrity</strong> Excel files can be prone to errors and inconsistencies in the data. For example, if a user changes a formula or formatting, it could affect the entire dataset. Also, it is possible for Excel to change the data types of certain columns, or to mix the class of data <em>within a column</em>, which can cause issues with data processing and analysis.</p></li>
+<li><p><strong>File size</strong> Excel files can quickly become very large when dealing with large datasets, which can lead to performance issues, storage problems.</p></li>
+<li><p><strong>Version control</strong> Excel files can make it difficult to keep track of changes and versions of the data, particularly when multiple people are working on the same file.</p></li>
+</ul>
+<p>In contrast, CSV files are a simple, lightweight, and widely supported file format that can be easily used with most data science tools and programming languages. CSV files are also less prone to errors and inconsistencies than Excel files, making them a more reliable choice for data science tasks.</p>
+<p>For these reasons, Excel is best used as a tool for data entry rather than data analysis. Exporting deliberately to plain-text formats such as CSV fixes the data representation, reveals assumptions to inspection, and sets a clear boundary between data generation and analysis. Naming exported files explicitly (often with dates or version identifiers) further tightens provenance and reduces ambiguity about which data underlie a given result.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Well-known Excel Errors
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Excel is a widely used spreadsheet application, but it has been responsible for several serious errors in data analysis, science, and data science. Some of these errors include:</p>
+<ul>
+<li><p><strong>Gene name errors (2016):</strong> Accurate. Ziemann, Eren, and El-Osta published their findings in <em>Genome Biology</em>, demonstrating that Excel’s automatic conversion transformed gene symbols like SEPT2 and MARCH1 into dates. Their survey examined supplementary files from 3,597 published papers across 18 journals between 2005 and 2015, finding that roughly one-fifth contained such errors. This remains one of the most damaging documented cases of Excel undermining scientific reproducibility, and it directly affects biology students working with genomic data.</p></li>
+<li><p>Another compelling case involves <strong>automatic data type conversion destroying scientific measurements</strong>. Excel converts identifiers that look like scientific notation (<em>e.g.</em>, “1E4” becomes 10,000) or treats leading zeros (<em>e.g.</em>, “0001”) in sample IDs as insignificant (<em>i.e.</em>, Excel displays “1”). Ecologists working with plot identifiers or anyone using structured identifiers encounters this pervasive, insidious problem.</p></li>
+<li><p><strong>Truncation of large numbers</strong> Excel can handle only a limited number of digits for large numbers, truncating any value that exceeds this limit. This truncation has led to a loss of precision and inaccurate calculations in scientific and data analysis contexts where exact values were important.</p></li>
+<li><p><strong>Issues with floating-point arithmetic</strong> Excel uses IEEE 754 double-precision floating-point representation, which produces rounding errors. The classic demonstration involves calculations like <code>(0.1 + 0.2) ≠ 0.3</code> in binary representation. For iterative scientific calculations or cumulative errors in modelling, this matters.</p></li>
+<li><p>The <strong>UK COVID-19 testing data loss (October 2020)</strong> deserves attention. Public Health England used the legacy <code>.xls</code> format (limited to 65,536 rows) rather than the newer <code>.xlsx</code> (limited to 1,048,576 rows), resulting in 15,841 positive test results being lost when the file exceeded row limits. This directly affected contact tracing during a pandemic.</p></li>
+<li><p>The <strong>date format ambiguity problem</strong> creates reproducibility nightmares across international collaborations. Excel interprets “01/02/2020” differently depending on regional settings (January 2nd vs.&nbsp;February 1st), and automatically converting text strings to dates corrupts datasets when shared between researchers using different locale settings. This affects any collaborative science.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="rdata-files" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="rdata-files"><span class="header-section-number">3.3</span> Rdata Files</h2>
+<p>Specialist files such as Rdata, binary files (<a href="#sec-binary" class="quarto-xref">Section&nbsp;3.4</a>), and NetCDF (<a href="#sec-netcdf" class="quarto-xref">Section&nbsp;3.5</a>) files were developed for optimasing scale (data size), metadata (data about data), and coupling (issues around speed and performance).</p>
+<p>Rdata files are a file format used by the R programming language to store data objects. These files can contain any type of R object, such as vectors, matrices, dataframes, lists, and more. Rdata files are binary files, which means they are not human-readable like text files such as CSV files. Binary R data files have a <code>.rda</code> or <code>.Rdata</code> file extension and can be created or read using the <code>save()</code> and <code>load()</code>, respectively, functions in R.</p>
+<p>Rdata files are convenient for a number of reasons:</p>
+<ul>
+<li><p><strong>Efficient storage</strong> Rdata files can be more compact (they can be compressed) and efficient than other file formats, such as CSV files, because they are stored in a binary format. This means they take up less disk space and can be read and written faster.</p></li>
+<li><p><strong>Easy access to R objects</strong> Rdata files make it easy to save and load R objects, which can be useful for preserving data objects for future analysis, sharing them with others. This is especially useful for complex datasets or objects that would be difficult to recreate.</p></li>
+<li><p><strong>Preserve metadata</strong> Rdata files can preserve metadata such as variable names, row names, column names, and other attributes of R objects. This makes it easier to work with the data objects in the future without having to recreate this metadata.</p></li>
+<li><p><strong>Convenient for reproducibility</strong> Rdata files can be used to save and load data objects as part of a reproducible research workflow. This can help ensure that data objects are preserved and can be easily accessed in the future, even if the data sources or code have changed.</p></li>
+</ul>
+<p>On the downside, they can only be used within R, making them a less than ideal proposition when you intend to share your data with colleagues who sadly do not use R.</p>
+</section>
+<section id="sec-binary" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-binary"><span class="header-section-number">3.4</span> Other Binary Files</h2>
+<p>As a biostatistician, you may encounter several other binary data files in your work. Such binary data files may be software-specific and can be used to store large datasets or data objects that are not easily represented in a text format. For example, a binary data file might contain a large matrix or array of numeric data that would be difficult to store in a text file. Binary data files can also be used to store images, audio files, and other types of data that are not represented as text.</p>
+<p>One common type of binary data file that you may encounter as a statistician is a SAS data file. SAS is a statistical software package that is widely used in data analysis, and SAS data files are a binary format used to store datasets in SAS. These files typically have a <code>.sas7bdat</code> file extension and contain metadata such as variable names and formats in addition to the data itself. Another type of binary data file you may encounter is a binary <code>.mat</code> data file, which is a file format used to store Matlab data.</p>
+<p>When working with binary data files, it is important to be aware of the specific format of the file, the tools and software needed to read and manipulate the data. Some statistical software packages may have built-in functions for reading and writing certain types of binary data files, while others may require additional libraries or packages.</p>
+</section>
+<section id="sec-netcdf" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-netcdf"><span class="header-section-number">3.5</span> Netcdf, Grib, and Hdf Files</h2>
+<p>NetCDF, HDF, and GRIB are file formats commonly used in the scientific and research communities to store and share large and complex datasets. These datasets are optimised for storing gridded (regular intervals in space and time) data that are interoperable amongst computing systems. Here is a brief overview of each file format:</p>
+<ul>
+<li><p><strong>NetCDF (Network Common Data Form)</strong> is a binary file format that is designed for storing and sharing scientific data. It can store multidimensional arrays and metadata, such as variable names and units, in a self-describing format. NetCDF files are commonly used in fields such as atmospheric science, oceanography, and climate modelling.</p></li>
+<li><p>Like NetCDF files, <strong>HDF (Hierarchical Data Format)</strong> is a file format that is designed to store and organise large and complex data structures. It can store a wide variety of data types, including multidimensional arrays, tables, and hierarchical data. HDF files are commonly used in fields such as remote sensing, astronomy, and engineering.</p></li>
+<li><p>Again, <strong>GRIB (GRIdded Binary)</strong> files are similar to NetCDF files. They are a binary file format used to store meteorological and oceanographic data. It can store gridded data, such as atmospheric and oceanic model output, in a compact and efficient binary format. GRIB files are commonly used by weather forecasting agencies and research organisations.</p></li>
+</ul>
+<p>Compared to CSV files, these file formats offer several benefits for storing, sharing complex datasets:</p>
+<ul>
+<li><p><strong>Support for multidimensional arrays</strong> These file formats can store and handle multidimensional arrays, which cannot be represented in a CSV file. However, they can be <em>exported</em> as CSV files, often after subsetting the data, but the resultant CSV files consume significant amounts of disk space.</p></li>
+<li><p><strong>Efficient storage</strong> Binary file formats can be more compact and efficient than text-based formats such as CSV files, which can save disk space and make it easier to share and transfer large datasets.</p></li>
+<li><p><strong>Memory use efficiency</strong> NetCDF, GRIB, and HDF files are better for memory use efficiency compared to CSV files because they can store multidimensional arrays and metadata in a compact binary format, which can save disk space and memory when working with large and complex datasets. Also, they do not have to be read into memory all at once.</p></li>
+<li><p><strong>Self-describing metadata</strong> These file formats can include metadata, such as variable names and units, which are self-describing and can be easily accessed and understood by other researchers and software.</p></li>
+<li><p><strong>Support for compression</strong> Binary file formats can support compression, which can further reduce file size and make it easier to share and transfer large datasets.</p></li>
+</ul>
+<p>The various efficiencies mentioned above may be offset by them being quite challenging to work with, and as such novices might experience steep learning curves.</p>
+</section>
+<section id="larger-than-memory-data" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="larger-than-memory-data"><span class="header-section-number">3.6</span> Larger Than Memory Data</h2>
+<p>Above we dealt with data that fit into your computer’s memory (RAM). However, there are many datasets that are too large to fit into memory, and as such, we need to use alternative methods to work with them. These methods include:</p>
+<ul>
+<li>Apache Arrow in the <code>arrow</code> package in R, which has support for the ‘feather’ file format, ‘parquet’ files</li>
+<li>DuckDB in the <code>duckdb</code> package in R, which create a database on disk, can be queried using SQL</li>
+</ul>
+<p>I will develop vignettes for these in the future. We will not use these in this course, but it is important to be aware of them.</p>
+</section>
+</section>
+<section id="file-extensions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> File Extensions</h1>
+<p>This section is about teaching you the value of knowing what to expect of a file, and how the data are represented inside it, by simply inspecting how it is named rather than relying on what software choose to display by default. File extensions are one of the simplest points at which this representation can be made either explicit or opaque, and they provide a real example of how small interface choices might affect analytical error.</p>
+<p>File extensions are three or four character suffixes added to the end of a filename, usually preceded by a period (<em>e.g.</em>, <code>.txt</code>, <code>.jpg</code>, <code>.pdf</code>, <code>.csv</code>, <code>.xlsx</code>). These extensions indicate the format or type of the file, providing information about the content and structure of the data within the file. Some file extensions are particular to Windows (such as <code>.exe</code>) and others to MacOS (<em>e.g.</em>, <code>.dmg</code>), but many are transportable across operating systems. File extensions help both the operating system and applications recognise the file type and determine which program or application should be used to open, view, or edit the file.</p>
+<p>The default setting for Windows computers is for file extensions to be hidden when files are viewed in the Windows Explorer. This is silly and irresponsible, and a frequent major source of frustration, annoyance, and irritability when I try to help a student with an issue on their computers. Displaying file extensions on your computer is essential for effective data science work because it allows us to quickly identify, manage various file types that we may encounter during our projects.</p>
+<p>Some reasons why it is important to display file extensions if we are to effectively use your computer in scientific computing applications:</p>
+<ul>
+<li><p><strong>Differentiate file formats</strong> When analysing data, you will often work with multiple file formats, such as CSV, TSV, Excel, JSON, and others. By displaying the file extensions you can easily differentiate between these formats so that you may use the most appropriate tools and methods to process and analyse your data.</p></li>
+<li><p><strong>Prevent errors</strong> Knowing the exact file type helps you avoid errors when importing or exporting data, as different formats require specific handling techniques. For instance, using a CSV file reader on a TSV file could lead to unexpected outcomes.</p></li>
+<li><p><strong>Improve file organisation</strong> When working on complex projects, it is important that you maintain an organised file structure. Being able to see file extensions at a glance helps you keep track of various data files, scripts, and output files, and it will be easier for you to manage your project, ensure its reproducibility.</p></li>
+<li><p><strong>Enhance security</strong> Displaying file extensions can also help you identify potentially malicious files disguised as legitimate ones. For example, a file with an extension ‘.txt.exe’ might appear to be a harmless text file if the extension is hidden, but it is actually an executable file that could be harmful.</p></li>
+<li><p><strong>Facilitate collaboration</strong> When sharing files with colleagues or collaborators, knowing the file format is essential for smooth communication, seamless collaboration. Displaying file extensions ensures that everyone is aware of the file types being used and can handle them accordingly.</p></li>
+</ul>
+<p>To display file extensions on your computer, you will need to adjust the settings in your operating system’s file explorer. The specific steps to do this vary depending on whether you are using Windows, MacOS, or a Linux-based system. A quick online search will provide you with the necessary instructions. Since most people use Windows, I have included the instructions for Windose user in the box, below, titled “Displaying File Extensions in Windows”.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Displaying File Extension in Windows
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be a responsible adult and display the file extensions on your computer. To display file extensions in Windows Explorer on the latest version of Windows (assuming Windows 11), follow these steps:</p>
+<ol type="1">
+<li>Open a new File Explorer window by clicking on the File Explorer icon on the taskbar or pressing the ‘Windows key + E’ on your keyboard.</li>
+<li>In the File Explorer window, click on the three horizontal dots in the upper-right corner to open the ‘More options’ menu.</li>
+<li>From the ‘More options’ menu, click on ‘Options’ to open the ‘Folder Options’ window.</li>
+<li>In the ‘Folder Options’ window, switch to the ‘View’ tab.</li>
+<li>Under the ‘Advanced settings’ list, locate the option ‘Hide extensions for known file types’, uncheck the box next to it.</li>
+<li>Click ‘Apply’ to save your changes, and then click ‘OK’ to close the ‘Folder Options’ window.</li>
+</ol>
+<p>Now, the file extensions should be visible for all files in Windows Explorer. Remember that this setting applies to all folders on your computer. If you want to revert to hiding the file extensions, simply follow the same steps, check the box next to ‘Hide extensions for known file types’ in the ‘View’ tab of the ‘Folder Options’ window.</p>
+</div>
+</div>
+</section>
+<section id="r-code-conventions" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> R Code Conventions</h1>
+<p>When writing code in support of a statistical data analysis in R, the primary aim is of course to produce the correct output. Equally important, though, is to produce work that remains intelligible, inspectable, and usable long after it has been written. The conventions below should therefore serve as practical expressions of three main principles: <em>consistency</em>, <em>legibility</em> to others, and future <em>recoverability</em>. Good code is disciplined writing, and the practices below follow from that discipline.</p>
+<p><strong>Consistency</strong> supports readability across an analysis. A consistent coding style allows both humans and software to detect structure without re-interpretation. Adopting an established style guide (such as the <a href="https://style.tidyverse.org/"><strong>tidyverse</strong> style guide</a>, the <a href="http://adv-r.had.co.nz/Style.html">R Style Guide</a>, or <a href="https://google.github.io/styleguide/Rguide.html">Google’s R Style Guide</a>) provides a stable baseline for decisions about spacing, indentation, line breaks, and operator placement. The specific guide matters less than applying one style coherently throughout a project. Inconsistent formatting increases cognitive load and obscures logical structure, even when the code itself is correct. You want to ensure your code is a pleasure to read by others — in this first instance, especially your instructors responsible for marking your reports.</p>
+<p>Practices such as regular indentation, consistent use of spaces around operators and commas, and sensible line breaking all accomplish this goal. Long lines should be split in ways that preserve syntactic clarity, for example by leaving brackets open or ending a line with an operator (<code>+</code> in <strong>ggplot2</strong> and <code>|&gt;</code> elsewhere in the <strong>tidyverse</strong>) so that continuation is unambiguous to R and to the reader.</p>
+<p><strong>Legibility to others</strong> concerns whether the intent of your analysis is visible without reconstruction, and without ambiguity. Code is read far more often than it is written, and this includes being read by your future self. Meaningful variable and function names make data transformations interpretable at a glance, and it reduces the need for explanatory comments (although these are still necessary). Where code is complex, comments should clarify <em>why</em> something is done, not merely restate <em>what</em> the code does.</p>
+<p>Modularising code into small, well-named functions further supports legibility by isolating conceptual units of work. This makes analyses easier to follow, easier to debug (problems arise often!), and easier to extend. Code that can only be understood as a continuous script quickly becomes opaque once it grows beyond trivial size.</p>
+<p><strong>Future recoverability</strong> addresses whether an analysis can be resumed, audited, or extended once its original context has faded. Version control systems such as Git, used via platforms like GitHub or GitLab, provide an explicit record of how code evolves and allow earlier states to be recovered without ambiguity. Organising projects into clear directory structures (for data, scripts, and outputs) serves the same purpose at the file-system level.</p>
+<p>Recoverability also depends on making dependencies explicit. All required packages should be declared and loaded deliberately upfront so that analyses do not rely on accidental features of a particular session. Relative file paths should be used wherever possible to avoid embedding machine-specific assumptions. Where appropriate, tests can be written to verify that functions behave as expected, providing early warning when changes introduce unintended effects.</p>
+<p>It is worth noting that conventions vary across programming languages and research communities. What matters is not universal agreement on style, but internal coherence. Once a set of conventions is chosen, they should be applied consistently throughout an analysis so that structure, intent, and provenance remain visible.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Naming Variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R imposes strict rules on variable naming, and violating them leads to errors that are often frustrating to diagnose. Variable names should never contain spaces or special characters, and should avoid masking existing function names (such as <code>mean</code>). As a general rule, spaces should be avoided not only in variable names, but also in file and directory names used in a project.</p>
+<p>Several naming conventions are commonly encountered:</p>
+<p><strong>Pascal case</strong> capitalises the first letter of each word and is often used for classes or types (<em>e.g.</em> <code>SpeciesName</code>, <code>PetalColour</code>, <code>FunctionalType</code>).</p>
+<p><strong>Snake case</strong> separates words with underscores and uses lowercase letters, and is widely used in scripting and file naming (<em>e.g.</em> <code>species_name</code>, <code>petal_colour</code>, <code>functional_type</code>).</p>
+<p><strong>Camel case</strong> capitalises words except for the first and is often used for variables or methods in object-oriented contexts (<em>e.g.</em> <code>speciesName</code>, <code>petalColour</code>, <code>functionalType</code>).</p>
+<p><strong>Hungarian notation</strong> prefixes variable names with type indicators (<em>e.g.</em> <code>iSpeciesID</code>, <code>strPetalColour</code>), but is rarely used in modern R practice.</p>
+<p>No naming convention is inherently superior. What matters is choosing one that supports readability and applying it consistently throughout a project.</p>
+</div>
+</div>
+</section>
+<section id="exercise" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Exercise</h1>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do This Now
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Goal:</strong> You will (i) create a small dataset in Excel, (ii) export it to three delimited text formats (CSV, TSV, and semicolon-delimited), (iii) save them into a known location inside an R Project folder using disciplined file naming, and (iv) read <em>one</em> of the exported files from a new R script in RStudio.</p>
+<p><strong>Part A — Create a Project folder with known locations</strong></p>
+<ol type="1">
+<li><p>In RStudio, create a new project: <strong>File → New Project → New Directory → New Project</strong>. Name it <code>bcb744_file_formats_exercise</code> and create it in a location you can find again (<em>e.g.</em>, Documents).</p></li>
+<li><p>In the Files pane in RStudio (bottom right), confirm you can see the project folder and that it contains an <code>.Rproj</code> file.</p></li>
+<li><p>Inside the project folder, create these subfolders:</p>
+<ul>
+<li><code>data-raw/</code></li>
+<li><code>data/BCB744/</code></li>
+<li><code>scripts/</code></li>
+</ul>
+<p>(You can do this in the Files pane: <strong>New Folder</strong>.)</p></li>
+<li><p>Decide on a file naming pattern you will follow for exports in this exercise (later, not now). Use this pattern exactly:</p>
+<ul>
+<li><code>survey_demo_YYYYMMDD_v01.csv</code></li>
+<li><code>survey_demo_YYYYMMDD_v01.tsv</code></li>
+<li><code>survey_demo_YYYYMMDD_v01.scsv</code></li>
+</ul>
+<p>Replace <code>YYYYMMDD</code> with today’s date. Keep <code>v01</code> as written.</p>
+<p><em>Note:</em> <code>.scsv</code> here is just a human-visible label meaning “semicolon CSV”; it is still a plain text file.</p></li>
+</ol>
+<p><strong>Part B — Create a small dataset in Excel</strong></p>
+<ol start="5" type="1">
+<li><p>Open Excel and create a new blank workbook.</p></li>
+<li><p>In row 1, enter these column names (exact spelling):</p>
+<ul>
+<li><code>id</code></li>
+<li><code>species</code></li>
+<li><code>site</code></li>
+<li><code>temp_C</code></li>
+<li><code>notes</code></li>
+</ul></li>
+<li><p>Enter at least <strong>10 rows</strong> of data. Include the following features on purpose:</p>
+<ul>
+<li>at least one missing value (leave one cell blank in <code>temp_C</code>)</li>
+<li>at least one <code>notes</code> cell that contains a comma (<em>e.g.</em>, <code>juvenile, small</code>)</li>
+<li>at least one <code>notes</code> cell that contains a semicolon (<em>e.g.</em>, <code>recheck; uncertain</code>)</li>
+</ul></li>
+<li><p>Save the Excel workbook into your project folder under <code>data-raw/</code> with this name:</p>
+<ul>
+<li><code>survey_demo_YYYYMMDD_source.xlsx</code></li>
+</ul></li>
+</ol>
+<p><strong>Part C — Export three delimited text files into the project</strong></p>
+<p>Your target location for <em>all exports</em> is:</p>
+<ul>
+<li><code>bcb744_file_formats_exercise/data/</code></li>
+</ul>
+<ol start="9" type="1">
+<li><p>Export to <strong>CSV (comma delimited)</strong> using the naming scheme defined above:</p>
+<ul>
+<li>Use <strong>File → Save As</strong> (or <strong>Save a Copy</strong>) and choose <strong>CSV (Comma delimited)</strong>.</li>
+<li>Save into the project’s <code>data/BCB744/</code> folder as: <code>survey_demo_YYYYMMDD_v01.csv</code></li>
+</ul></li>
+<li><p>Export to <strong>TSV (tab delimited)</strong>:</p></li>
+</ol>
+<ul>
+<li>Use <strong>Save As</strong> and choose <strong>Text (Tab delimited)</strong> (or equivalent).</li>
+<li>Save into the project’s <code>data/BCB744/</code> folder as: <code>survey_demo_YYYYMMDD_v01.tsv</code></li>
+</ul>
+<ol start="11" type="1">
+<li>Export to <strong>semicolon-delimited</strong> (“semi-colon derived derivative”):</li>
+</ol>
+<ul>
+<li><p>If your Excel offers a direct <strong>CSV (Semicolon delimited)</strong> option, use it and save as: <code>survey_demo_YYYYMMDD_v01.scsv</code></p></li>
+<li><p>If it does <em>not</em> offer that option, do this instead:</p>
+<ol type="1">
+<li>Open the saved CSV file (<code>survey_demo_YYYYMMDD_v01.csv</code>) in a plain text editor (Notepad / TextEdit / VS Code).</li>
+<li>Save a new copy into the same <code>data/BCB744/</code> folder named <code>survey_demo_YYYYMMDD_v01.scsv</code>.</li>
+<li>In that <code>.scsv</code> copy, replace field separators <strong>commas that function as delimiters</strong> with semicolons. Do not alter commas inside quoted text fields (your <code>notes</code> column will reveal why this matters).</li>
+</ol></li>
+</ul>
+<ol start="12" type="1">
+<li>In your file explorer (Windows Explorer / Finder), navigate to the project’s <code>data/BCB744/</code> folder and confirm that these three files exist there:</li>
+</ol>
+<ul>
+<li><code>survey_demo_YYYYMMDD_v01.csv</code></li>
+<li><code>survey_demo_YYYYMMDD_v01.tsv</code></li>
+<li><code>survey_demo_YYYYMMDD_v01.scsv</code></li>
+</ul>
+<p><strong>Part D — Read one exported file from a new R script in RStudio</strong></p>
+<ol start="13" type="1">
+<li><p>In RStudio, create a new script: <strong>File → New File → R Script</strong>.</p></li>
+<li><p>Save the script into <code>scripts/</code> with this name:</p></li>
+</ol>
+<ul>
+<li><code>01_read_delimited_files.R</code></li>
+</ul>
+<ol start="15" type="1">
+<li>Copy, and run the following lines <strong>one at a time</strong>, top to bottom.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># 1) Confirm you are working inside the project</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">getwd</span>()</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># 2) List the exported files (you should see your three exports)</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">list.files</span>(<span class="st">"data"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># 3) Choose ONE file to read first (edit the filename to match your date)</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>file_csv  <span class="ot">&lt;-</span> <span class="st">"data/BCB744/survey_demo_YYYYMMDD_v01.csv"</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>file_tsv  <span class="ot">&lt;-</span> <span class="st">"data/BCB744/survey_demo_YYYYMMDD_v01.tsv"</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>file_scsv <span class="ot">&lt;-</span> <span class="st">"data/BCB744/survey_demo_YYYYMMDD_v01.scsv"</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># 4) Read one of them (start with TSV to avoid comma ambiguity in notes)</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(file_tsv, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># 5) Inspect what you imported</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="fu">str</span>(dat)</span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="fu">head</span>(dat, <span class="dv">3</span>)</span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co"># 6) Basic checks: dimensions and missingness</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="fu">dim</span>(dat)</span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(dat))</span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="co"># 7) Now read the comma CSV version and compare</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>dat_csv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(file_csv, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="fu">identical</span>(<span class="fu">names</span>(dat), <span class="fu">names</span>(dat_csv))</span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="co"># 8) Read the semicolon-delimited version explicitly</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>dat_scsv <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(file_scsv, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="co"># 9) Compare what happened to the notes column across imports</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="fu">head</span>(dat<span class="sc">$</span>notes, <span class="dv">3</span>)</span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="fu">head</span>(dat_csv<span class="sc">$</span>notes, <span class="dv">3</span>)</span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="fu">head</span>(dat_scsv<span class="sc">$</span>notes, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="16" type="1">
+<li>When you are done, answer these questions in a short paragraph in your notebook or as comments at the bottom of the script:</li>
+</ol>
+<ol type="a">
+<li>Which file type imported with the least friction, and why?</li>
+<li>Did any import alter the <code>notes</code> column in a way you did not expect? What does that suggest about delimiter choice?</li>
+<li>Which steps in your workflow made it easy to locate the files again without clicking through folders?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="sec-reproducibility" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Reproducible Research</h1>
+<p>Reproducible research refers to the capacity for an analysis to be re-run, inspected, and verified using the same data and code, giving the same results. In this course, reproducibility is treated as a practical property of workflows: it depends on how data are represented, how code is written, and how analytical steps are organised over time. In advanced situations, such reprodicibility can recreate an entire scientific publication, or a thesis, from its initial data, code, and textual building blocks (see <a href="../intro_r/03-quarto.html">3. R Markdown and Quarto</a>). The aim here is to distinguish clearly between practices you are expected to implement now and tools you should recognise as part of the broader reproducibility landscape.</p>
+<section id="required-practice-in-bcb744" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="required-practice-in-bcb744"><span class="header-section-number">7.1</span> Required Practice in Bcb744</h2>
+<p>At this stage, reproducibility requires a small number of essential habits. These are the practices you are expected to adopt consistently and that will be evaluated in all assessments.</p>
+<p>Analyses should be conducted using scripted code rather than manual interaction. Scripts provide an explicit record of analytical decisions and allow results to be regenerated without reliance on memory or interface state. Code should be organised within a coherent project structure, with separate locations for raw data, processed data, scripts, and outputs, so that analytical flow can be reconstructed with ease.</p>
+<p>Version control forms part of this basic practice. Using Git (typically via platforms such as GitHub or GitLab) provides a transparent history of how analyses evolve and allows earlier states to be recovered if errors are introduced. This is not about public dissemination, but about maintaining an explicit record of change.</p>
+<p>Literate programming tools such as R Markdown and Quarto are also part of required practice. These tools integrate code, output, and narrative text within a single document, making analytical reasoning visible alongside results. When data or code change, documents are regenerated rather than edited by hand, reducing the risk of divergence between analysis and interpretation.</p>
+<p>Finally, reproducibility depends on making dependencies explicit. Required packages should be declared deliberately, relative file paths should be used to avoid machine-specific assumptions, and data files should be treated as fixed inputs rather than mutable artefacts. Together, these practices establish a workflow that can be re-run by others — or by your future self — without guesswork.</p>
+</section>
+<section id="a-look-to-the-future" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="a-look-to-the-future"><span class="header-section-number">7.2</span> A Look to the Future</h2>
+<p>Beyond these core practices lies a wider R ecosystem of tools made to support reproducibility at larger scales or higher levels of complexity. You are not expected to use these tools in BCB744, but you should be aware of the problems they address and the contexts in which they become relevant.</p>
+<p>Workflow management tools such as <strong>workflowr</strong> and <strong>targets</strong> formalise analytical pipelines by making dependencies between steps explicit and automating re-execution when inputs change. These tools are useful for large or long-running projects, but they introduce additional complexities that is unnecessary at this stage.</p>
+<p>Containerisation technologies such as Docker provide isolated computational environments with fixed software versions and dependencies. They are widely used in collaborative or production settings where analyses must run identically across different machines. They are powerful, but sit beyond the scope of this course and should be seen as an extension of the principles already discussed, not as a prerequisite.</p>
+<p>Testing frameworks such as <strong>testthat</strong> enable systematic verification of code behaviour, which becomes increasingly important as projects grow in size or are reused across contexts. At present, the emphasis is on writing code that is clear enough to inspect, rather than on formal test suites.</p>
+<p>The purpose of introducing these tools here is not to encourage their immediate adoption, but to situate current practices within a broader trajectory. As projects scale, the same concerns (visibility, control, and recoverability) are addressed using increasingly formal mechanisms.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The Mars Climate Orbiter Mission in 1998
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>One of the most famous examples of unclear communication is the Mars Climate Orbiter mission in 1998. NASA lost the spacecraft due to a navigation error caused by a unit conversion mistake. The error occurred because one team used metric units (newtons), while another team used imperial units (pound-force) for a crucial spacecraft operation parameter. The discrepancy in units led to incorrect trajectory calculations, causing the Mars Climate Orbiter to approach Mars at a dangerously low altitude, ultimately disintegrate in the Martian atmosphere.</p>
+<p>This incident highlights the importance of clear communication, proper data handling, and rigorous verification processes in mission-critical systems, including space missions. The event emphasises the need for using appropriate tools, software, and methodologies to minimise the risk of errors in complex engineering projects.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
+  author = {A. J. , Smit},
+  title = {2. {Working} with {Data} and {Code}},
+  date = {2021-01-01},
+  url = {http://samos-r.netlify.app/intro_r/02-working-with-data.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2021" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2021) 2. Working with Data and Code. <a href="http://samos-r.netlify.app/intro_r/02-working-with-data.html">http://samos-r.netlify.app/intro_r/02-working-with-data.html.
+</a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../intro_r/01-RStudio.html" class="pagination-link" aria-label="1. R and RStudio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">1. R and RStudio</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../intro_r/03-quarto.html" class="pagination-link" aria-label="3. R Markdown and Quarto">
+        <span class="nav-page-text">3. R Markdown and Quarto</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

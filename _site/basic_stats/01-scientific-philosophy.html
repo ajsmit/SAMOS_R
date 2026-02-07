@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+<meta name="dcterms.date" content="2024-03-28">
+
+<title>1. Philosophy of Science – SAMOS R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-21fe018c864e78632dc0e35f28f7bac9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tasks/BCB744_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">1. Philosophy of Science</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/05-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/06-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/08-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/09-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/10-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/11-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/12-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Synthesis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Functions by Chapter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Base R Primer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Statistical Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Assumptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Simple Linear Regressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Correlations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Non-Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Confidence Intervals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Data Transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tasks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#karl-popper-falsification-and-a-search-for-certainty" id="toc-karl-popper-falsification-and-a-search-for-certainty" class="nav-link active" data-scroll-target="#karl-popper-falsification-and-a-search-for-certainty"><span class="header-section-number">1</span> Karl Popper, Falsification, and a Search for Certainty</a></li>
+  <li><a href="#popper-critical-rationalism-and-the-iterative-scientific-process" id="toc-popper-critical-rationalism-and-the-iterative-scientific-process" class="nav-link" data-scroll-target="#popper-critical-rationalism-and-the-iterative-scientific-process"><span class="header-section-number">2</span> Popper, Critical Rationalism, and the Iterative Scientific Process</a></li>
+  <li><a href="#hypothesis-testing-in-traditional-biostatistics-and-beyond" id="toc-hypothesis-testing-in-traditional-biostatistics-and-beyond" class="nav-link" data-scroll-target="#hypothesis-testing-in-traditional-biostatistics-and-beyond"><span class="header-section-number">3</span> Hypothesis Testing in Traditional Biostatistics… and Beyond</a>
+  <ul class="collapse">
+  <li><a href="#parametric-statistics" id="toc-parametric-statistics" class="nav-link" data-scroll-target="#parametric-statistics"><span class="header-section-number">3.1</span> Parametric Statistics</a></li>
+  <li><a href="#non-parametric-statistics" id="toc-non-parametric-statistics" class="nav-link" data-scroll-target="#non-parametric-statistics"><span class="header-section-number">3.2</span> Non-parametric Statistics</a></li>
+  <li><a href="#multivariate-analyses" id="toc-multivariate-analyses" class="nav-link" data-scroll-target="#multivariate-analyses"><span class="header-section-number">3.3</span> Multivariate Analyses</a></li>
+  <li><a href="#bayesian-methods" id="toc-bayesian-methods" class="nav-link" data-scroll-target="#bayesian-methods"><span class="header-section-number">3.4</span> Bayesian Methods</a></li>
+  <li><a href="#taxonomy-systematics-and-phylogenetics" id="toc-taxonomy-systematics-and-phylogenetics" class="nav-link" data-scroll-target="#taxonomy-systematics-and-phylogenetics"><span class="header-section-number">3.5</span> Taxonomy, Systematics, and Phylogenetics</a></li>
+  <li><a href="#artificial-intelligence-and-machine-learning" id="toc-artificial-intelligence-and-machine-learning" class="nav-link" data-scroll-target="#artificial-intelligence-and-machine-learning"><span class="header-section-number">3.6</span> Artificial Intelligence and Machine Learning</a></li>
+  <li><a href="#models-and-simulations" id="toc-models-and-simulations" class="nav-link" data-scroll-target="#models-and-simulations"><span class="header-section-number">3.7</span> Models and Simulations</a></li>
+  <li><a href="#qualitative-analysis" id="toc-qualitative-analysis" class="nav-link" data-scroll-target="#qualitative-analysis"><span class="header-section-number">3.8</span> Qualitative Analysis</a></li>
+  <li><a href="#phylogenetic-analysis" id="toc-phylogenetic-analysis" class="nav-link" data-scroll-target="#phylogenetic-analysis"><span class="header-section-number">3.9</span> Phylogenetic Analysis</a></li>
+  </ul></li>
+  <li><a href="#challenges-to-the-dominance-of-falsification" id="toc-challenges-to-the-dominance-of-falsification" class="nav-link" data-scroll-target="#challenges-to-the-dominance-of-falsification"><span class="header-section-number">4</span> Challenges to the Dominance of Falsification</a></li>
+  <li><a href="#a-toolkit-not-a-dogma" id="toc-a-toolkit-not-a-dogma" class="nav-link" data-scroll-target="#a-toolkit-not-a-dogma"><span class="header-section-number">5</span> A Toolkit, Not a Dogma</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">1. Philosophy of Science</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Smit, A. J. <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 28, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></p>
+<blockquote class="blockquote">
+<p><em>“Most people use statistics like a drunk man uses a lamppost; more for support than illumination.”</em></p>
+<p>— Andrew Lang</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>“If your experiment needs a statistician, you need a better experiment.”</em></p>
+<p>— Ernest Rutherford</p>
+</blockquote>
+<p>Today, we are going to delve into the concept of hypothesis testing. We will look at its foundations, its uses in various disciplines, and the ongoing debates about its role in the greater scheme of scientific knowledge creation. To start, let us go back to a key figure in the philosophy of science…</p>
+<section id="karl-popper-falsification-and-a-search-for-certainty" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Karl Popper, Falsification, and a Search for Certainty</h1>
+<p>Karl Popper (1902-1994) was an influential philosopher of science. His ideas revolutionised how we think about scientific inquiry. He challenged the prevailing view of his time, <em>verificationism</em>, which held that science seeks to <em>prove</em> theories true through evidence.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verificationist and Inductivist Approaches
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Verificationism</strong> is closely associated with the logical positivist movement prominent in the early 20th century. Logical positivists argued that for a statement to be meaningful, it must be either empirically verifiable, analytically true (true by definition). According to verificationists or a scientific statement is only meaningful if it can be verified through observation or experiment. In this view, the purpose of scientific inquiry is to accumulate observations that support, verify hypotheses and theories.</p>
+<p>Verificationists believe that through the accumulation of positive observations they can confirm the validity of a theory. This approach is often linked with the principle of induction.</p>
+<p><strong>Inductivism</strong> emphasises developing knowledge through making generalisations based on a number of specific observations or experiments. This process is called indiction. For example, observing that the sun rises in the east every morning leads to the general principle that the sun always rises in the east.</p>
+<p>In inductivism, scientific knowledge is built up from a base of empirical observations. We observe phenomena, detect patterns, formulate general laws from these observations, and then infer broader theories that can explain the laws. The more observations that align with a theory, the stronger the inductive support for that theory. Inductive reasoning is, therefore, the process of moving from particular instances to general conclusions.</p>
+</div>
+</div>
+<p>Popper took a different approach. He argued that true scientific hypotheses are inherently <em>falsifiable.</em> They must be stated in a way that could, in principle, be proven wrong. While we can never <em>definitively</em> prove an hypothesis false, but we can gain support for alternative outcomes that cause us to not accept the null statement. This emphasises scepticism, rigour, and an understanding that scientific knowledge is always evolving as weaker arguments are discarded in the face of mounting new evidence.</p>
+<p>Hypothesis testing, as it us used today, has Popper’s philosophy at its heart. Think about it: The null hypothesis (H0), the sceptical default statement of ‘no effect’, is a clearly stated falsifiable claim. The alternative (H1), the outcome we are often more interested in, offers a precise, opposing prediction. Experiments are designed precisely to <em>try</em>, disprove the null.</p>
+<p>Of course, the statistical tools we use <em>within</em> this framework owe much to statisticians like Fisher, Neyman, Pearson, and Tukey. Their work gave us the means to decide, with a level of calculated confidence, whether the data does indeed contradict our null hypothesis.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The Fathers of Modern Inferential Statistics
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Ronald Fisher (1890 — 1962):</strong> Fisher is often referred to as the father of modern statistics. His contributions are vast, including the development of Analysis of Variance (ANOVA), Fisher’s exact test, and the concept of maximum likelihood estimation. Fisher’s work in the early 20th century, particularly in the 1920s, 1930s and laid the groundwork for much of the statistical hypothesis testing and experimental design used today.</p>
+<p><strong>Egon Pearson (1895 — 1980):</strong> Egon Pearson is best known for his collaboration with Jerzy Neyman. Together, they developed the Neyman-Pearson lemma in the 1930s, which established the foundation for hypothesis testing. Their work introduced the concepts of Type I, Type II errors and the power of a test, which are critical to the field of statistical decision theory.</p>
+<p><strong>Jerzy Neyman (1894 — 1981):</strong> While Neyman’s collaboration with Pearson was pivotal, his contributions to the practice of statistics extended beyond. Notably, in the 1930s, onwards and Neyman developed confidence intervals and furthered the formal mathematical basis of statistical hypothesis testing. His work, alongside Pearson, has been instrumental in defining the procedures for statistical inference.</p>
+<p><strong>John Tukey (1915 — 2000):</strong> Tukey’s influence became pronounced in the mid-20th century. He introduced the box plot, the Fast Fourier Transform (FFT) algorithm, and coined the term ‘bit’. Tukey was instrumental in developing exploratory data analysis (EDA), which emphasises the importance of exploring data before making assumptions, hypotheses. His work in the 1960s and 1970s on robust statistics and data analysis has had a lasting impact on the field.</p>
+</div>
+</div>
+</section>
+<section id="popper-critical-rationalism-and-the-iterative-scientific-process" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Popper, Critical Rationalism, and the Iterative Scientific Process</h1>
+<p>Popper’s ideas tie into the broader philosophy of <em>critical rationalism.</em> Science is a process of conjecture and refutation. We propose hypotheses, test them mercilessly, and adjust our understanding based on the evidence. This constant cycle of refinement is what moves knowledge forward. This philosophy of asserted conjecture, attempts at deliberate refutation applies across disciplines and even those that may not use statistical hypothesis testing in the traditional sense. It is about a mindset of challenging our ideas and seeking ways to improve or even overturn them.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Critical Realism
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Critical realism is a philosophical approach to understanding the nature of reality and the methods through which we can come to know it. It was developed primarily by the philosopher Roy Bhaskar in the 1970s. Critical realism posits that the world exists independently of our perceptions, theories, and constructions, embodying a realist ontology. However, it also acknowledges the complexity of this reality, suggesting that our understanding of it is always mediated by social, cultural, and linguistic factors, which aligns with a constructivist epistemology.</p>
+</div>
+</div>
+</section>
+<section id="hypothesis-testing-in-traditional-biostatistics-and-beyond" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Hypothesis Testing in Traditional Biostatistics… and Beyond</h1>
+<p>Scientific research takes many forms, from the quantitative to the qualitative. Our choice of analytical methods — parametric, non-parametric, Bayesian, or even approaches outside statistics entirely — depends heavily on the data, our research question.</p>
+<p>In biostatistics courses like BCB744, we focus on traditional hypothesis tests. A <em>t</em>-test to compare means, a <em>chi</em>-square to look for associations… these give us a <em>toolkit</em> when our data, questions fit a certain mould. But it is just one of many toolkits. Let us briefly explore some others and discuss where they might be a better fit.</p>
+<section id="parametric-statistics" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="parametric-statistics"><span class="header-section-number">3.1</span> Parametric Statistics</h2>
+<p>Parametric statistics rely on certain distributional assumptions — most commonly, the normal distribution — and serve as a foundation in quantitative analysis across many scientific disciplines. They facilitate the extraction of precise statistical properties, parameter estimates and making them particularly powerful for testing hypotheses and deriving inferences in controlled experimental setups or data derived from systematic, structured sampling campaigns. In cases where data do not conform to the assumed distributions, we must employ data transformations, leverage non-parametric methods that do not require specific distributional assumptions.</p>
+</section>
+<section id="non-parametric-statistics" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="non-parametric-statistics"><span class="header-section-number">3.2</span> Non-parametric Statistics</h2>
+<p>While parametric statistics offer significant advantages in terms of precision and power, their applicability across various scientific disciplines necessitates a thorough understanding of their assumptions, limitations. Non-parametric statistics are inherently more flexible and do not depend on restrictive assumptions about the nature of our data — as such and they can accommodate non-normal data, skewed data, or data measured on an ordinal scale. They focus instead on ranks, medians rather than mean values and provide a means to conduct robust set of statistical inference tests on a far wider range of data types.</p>
+<p>There are a few trade-offs we need to know about when opting for non-rarametric approaches. This includes the potential loss in statistical power and the nuances of interpreting rank-based or median-based results as opposed to mean values. Nevertheless, non-parametric statistics are a critical component of our toolbox across disciplines such as taxonomy, systematics, organismal biology, ecology, socio-ecological studies, and Earth sciences.</p>
+</section>
+<section id="multivariate-analyses" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="multivariate-analyses"><span class="header-section-number">3.3</span> Multivariate Analyses</h2>
+<p>Ecologists consider questions about the complex interactions between the biotic and abiotic world. Often they work across multiple spatial and temporal scales. Multivariate analyses such as cluster analysis and ordination are powerful exploratory tools. They untangle ecological datasets to discern patterns and relationships among multiple variables — be it species abundance across different habitats, environmental gradients, or the dynamical properties of ecosystems. Cluster analysis groups similar entities based on their characteristics, reveals natural groupings within the data. Ordination and on the other hand, reduces multidimensional space, making it easier to visualise, interpret complex ecological relationships. In contrast to the more traditional parametric and non-parametric statistics and which often focus on testing hypotheses about the relationships between variables, multivariate analyses provide a more overarching view. They allow us to uncover hidden structures, gradients in the data without <em>a priori</em> hypotheses. While parametric methods hinge on assumptions about data distribution and non-parametric methods offer flexibility in handling data that do not meet these assumptions and multivariate analyses surpass these by focusing on the ecosystem’s interconnectedness and the patterns emerging from these connections.</p>
+</section>
+<section id="bayesian-methods" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="bayesian-methods"><span class="header-section-number">3.4</span> Bayesian Methods</h2>
+<p>Bayesian methods offer a distinct perspective within the statistical toolbox, allowing us to formally incorporate prior knowledge into our data analysis. Unlike traditional frequentist statistics, which focus solely on the observed data, Bayesian approaches let us blend in existing beliefs, information and then update those beliefs as new evidence comes in. This emphasis on continuously refining our understanding or rather than just finding a single best-fit hypothesis given the data, makes Bayesian methods powerful in scientific fields where we have substantial background knowledge but still need to carefully quantify uncertainty. Bayesian methods are particularly useful in fields like ecology, phyologenetics or where prior knowledge about species interactions or relatiosnhips, environmental conditions, or ecosystem dynamics can be leveraged to make more informed inferences. They also provide a natural framework for decision-making under uncertainty, allowing us to quantify the risks, benefits of different courses of action.</p>
+<p>The downside of Bayesian analyses is that they can be computationally intensive, especially when dealing with complex models, large datasets. They also require careful consideration of the prior distributions or which can introduce subjectivity into the analysis. But as computational resources continue to expand and methodologies evolve, Bayesian approaches are likely to play an increasingly prominent role in advancing our understanding of the natural world.</p>
+</section>
+<section id="taxonomy-systematics-and-phylogenetics" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="taxonomy-systematics-and-phylogenetics"><span class="header-section-number">3.5</span> Taxonomy, Systematics, and Phylogenetics</h2>
+<p>Phylogenetic analysis, while grounded in data, statistical principles and operates within a distinct framework from traditional parametric, non-parametric, or multivariate methods. Its primary goal is to infer evolutionary relationships, patterns of change and rather than classical hypothesis testing. Phylogenetics explicitly models the interconnectedness of evolutionary lineages, a stark contrast to the assumption of independent data points often found in other statistical approaches. While multivariate analyses help examine complex interactions among multiple variables, phylogenetics focuses on how those variables (traits, genes) have evolved across a branching or tree-like structure. Bayesian statistics offer a powerful tool within phylogenetics, aiding in the estimation of probabilities for different evolutionary histories. Yet, the core of phylogenetics lies in specialised algorithms, models designed to reconstruct these evolutionary narratives.</p>
+<p>Phylogenetic analysis is deeply intertwined with systematics and taxonomy, disciplines that seek to understand, classify the diversity of life. Systematics broadly encompasses the study of organismal relationships and while taxonomy focuses on the practice of naming and classification. Phylogenetics serves as a powerful tool within the systematics toolbox, using data to infer evolutionary patterns, inform classification decisions. While statistical methods like parametric and non-parametric tests are used in systematics and taxonomy (<em>e.g.</em> and for comparing morphological traits), much of the analytical toolkit centres on techniques specifically designed for evolutionary data. These techniques include methods for building phylogenetic trees, assessing congruence between different data sources (like genes, morphology) and interpreting patterns of diversification over time.</p>
+</section>
+<section id="artificial-intelligence-and-machine-learning" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="artificial-intelligence-and-machine-learning"><span class="header-section-number">3.6</span> Artificial Intelligence and Machine Learning</h2>
+</section>
+<section id="models-and-simulations" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="models-and-simulations"><span class="header-section-number">3.7</span> Models and Simulations</h2>
+</section>
+<section id="qualitative-analysis" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="qualitative-analysis"><span class="header-section-number">3.8</span> Qualitative Analysis</h2>
+</section>
+<section id="phylogenetic-analysis" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="phylogenetic-analysis"><span class="header-section-number">3.9</span> Phylogenetic Analysis</h2>
+<ul>
+<li><strong>Non-Parametric Statistics:</strong>Free us from strict distributional assumptions, great in areas like taxonomy where data might violate parametric rules.</li>
+<li><strong>Multivariate Analyses:</strong> Let us tackle ecological complexity where multiple factors interweave with messy, non-linear outcomes.</li>
+<li><strong>Bayesian Statistics:</strong> Update our beliefs based on evidence, valuable where prior knowledge exists, data is uncertain.</li>
+<li><strong>AI and Machine Learning:</strong> Data-driven patterns and prediction,a powerful addition to the hypothesis-testing arsenal.</li>
+<li><strong>Models and Simulations:</strong> Allow us to explore complex systems and make predictions, vital in fields like oceanography.</li>
+<li><strong>Qualitative Analysis:</strong> Socio-ecological studies benefit from in-depth exploration of human attitudes and actions, where quantification may not tell the full story.</li>
+<li><strong>Phylogenetic Analysis:</strong> Data-driven exploration of evolutionary relationships, less about statistical tests, more about algorithms and inference.</li>
+</ul>
+</section>
+</section>
+<section id="challenges-to-the-dominance-of-falsification" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Challenges to the Dominance of Falsification</h1>
+<p>Not everyone agrees that Popper-style hypothesis testing should be the pinnacle of science. The Duhem-Quine thesis reminds us that experiments rarely test a hypothesis in isolation — a failure could mean many things, not just that our main idea is wrong.</p>
+<p>Bayesian approaches focus less on outright rejection, and more on how evidence shifts the probability of a hypothesis being true.This aligns well with that notion of iterative, evolving knowledge.</p>
+<p>Importantly, some argue that hypothesis testing should not be our sole focus.Inductive reasoning, spotting patterns, and exploratory research are also vital in building our understanding of the world.</p>
+</section>
+<section id="a-toolkit-not-a-dogma" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> A Toolkit, Not a Dogma</h1>
+<p>Rather than getting stuck in philosophical battles, it is wiser to see these approaches as complementary.Rigorous hypothesis testing is essential in many fields. But here is the key:</p>
+<ul>
+<li><strong>Context Matters:</strong> The right approach depends on your question, your data, and your discipline’s norms.</li>
+<li><strong>Meaning, Not Just Numbers:</strong> Statistics help us decide, but it is up to <em>us</em> to understand the real-world implications of what the data says.</li>
+<li><strong>Science Evolves:</strong> Knowledge progresses through testing, refinement, and occasionally, whole new paradigms when the old models truly fail.</li>
+</ul>
+<p>Whether you are using traditional statistics, phylogenetic trees, or in-depth interviews, the core of good science is the same: asking questions, seeking evidence in a structured way, and being open to the possibility that you might be wrong. That is true scientific thinking.</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2024,
+  author = {A. J. , Smit},
+  title = {1. {Philosophy} of {Science}},
+  date = {2024-03-28},
+  url = {http://samos-r.netlify.app/basic_stats/01-scientific-philosophy.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2024) 1. Philosophy of Science. <a href="http://samos-r.netlify.app/basic_stats/01-scientific-philosophy.html">http://samos-r.netlify.app/basic_stats/01-scientific-philosophy.html.
+</a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

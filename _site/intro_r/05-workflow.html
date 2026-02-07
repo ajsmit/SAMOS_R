@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+<meta name="dcterms.date" content="2021-01-01">
+
+<title>5. R Workflows – SAMOS R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../intro_r/06-graphics.html" rel="next">
+<link href="../intro_r/04-data-in-R.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-21fe018c864e78632dc0e35f28f7bac9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tasks/BCB744_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/05-workflow.html">5. R Workflows</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/05-workflow.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/06-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/08-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/09-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/10-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/11-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/12-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Synthesis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Functions by Chapter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Base R Primer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Statistical Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Assumptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Simple Linear Regressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Correlations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Non-Parametric Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Confidence Intervals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Data Transformations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tasks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#r-scripts" id="toc-r-scripts" class="nav-link" data-scroll-target="#r-scripts"><span class="header-section-number">2</span> R Scripts</a></li>
+  <li><a href="#reading-data-into-r" id="toc-reading-data-into-r" class="nav-link" data-scroll-target="#reading-data-into-r"><span class="header-section-number">3</span> Reading Data into R</a>
+  <ul class="collapse">
+  <li><a href="#preparing-data-for-r" id="toc-preparing-data-for-r" class="nav-link" data-scroll-target="#preparing-data-for-r"><span class="header-section-number">3.1</span> Preparing Data for R</a></li>
+  <li><a href="#converting-data" id="toc-converting-data" class="nav-link" data-scroll-target="#converting-data"><span class="header-section-number">3.2</span> Converting Data</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data"><span class="header-section-number">3.3</span> Importing Data</a></li>
+  <li><a href="#loading-a-file" id="toc-loading-a-file" class="nav-link" data-scroll-target="#loading-a-file"><span class="header-section-number">3.4</span> Loading a File</a></li>
+  </ul></li>
+  <li><a href="#working-with-data" id="toc-working-with-data" class="nav-link" data-scroll-target="#working-with-data"><span class="header-section-number">4</span> Working with Data</a>
+  <ul class="collapse">
+  <li><a href="#examine-your-data" id="toc-examine-your-data" class="nav-link" data-scroll-target="#examine-your-data"><span class="header-section-number">4.1</span> Examine Your Data</a></li>
+  <li><a href="#tidyverse-sneak-peek" id="toc-tidyverse-sneak-peek" class="nav-link" data-scroll-target="#tidyverse-sneak-peek"><span class="header-section-number">4.2</span> <strong>Tidyverse</strong> Sneak Peek</a></li>
+  <li><a href="#subsetting" id="toc-subsetting" class="nav-link" data-scroll-target="#subsetting"><span class="header-section-number">4.3</span> Subsetting</a></li>
+  <li><a href="#basic-stats" id="toc-basic-stats" class="nav-link" data-scroll-target="#basic-stats"><span class="header-section-number">4.4</span> Basic Stats</a></li>
+  </ul></li>
+  <li><a href="#summary-of-all-variables-in-a-dataframe" id="toc-summary-of-all-variables-in-a-dataframe" class="nav-link" data-scroll-target="#summary-of-all-variables-in-a-dataframe"><span class="header-section-number">5</span> Summary of All Variables in a Dataframe</a>
+  <ul class="collapse">
+  <li><a href="#summary-statistics-by-variable" id="toc-summary-statistics-by-variable" class="nav-link" data-scroll-target="#summary-statistics-by-variable"><span class="header-section-number">5.1</span> Summary Statistics by Variable</a></li>
+  <li><a href="#more-complex-calculations" id="toc-more-complex-calculations" class="nav-link" data-scroll-target="#more-complex-calculations"><span class="header-section-number">5.2</span> More Complex Calculations</a></li>
+  </ul></li>
+  <li><a href="#saving-data" id="toc-saving-data" class="nav-link" data-scroll-target="#saving-data"><span class="header-section-number">6</span> Saving Data</a></li>
+  <li><a href="#visualisations" id="toc-visualisations" class="nav-link" data-scroll-target="#visualisations"><span class="header-section-number">7</span> Visualisations</a></li>
+  <li><a href="#clearing-the-memory" id="toc-clearing-the-memory" class="nav-link" data-scroll-target="#clearing-the-memory"><span class="header-section-number">8</span> Clearing the Memory</a></li>
+  <li><a href="#sec-rprojects" id="toc-sec-rprojects" class="nav-link" data-scroll-target="#sec-rprojects"><span class="header-section-number">9</span> RStudio Projects</a>
+  <ul class="collapse">
+  <li><a href="#creating-and-opening-a-project" id="toc-creating-and-opening-a-project" class="nav-link" data-scroll-target="#creating-and-opening-a-project"><span class="header-section-number">9.1</span> Creating and Opening a Project</a></li>
+  <li><a href="#checking-that-the-project-is-active" id="toc-checking-that-the-project-is-active" class="nav-link" data-scroll-target="#checking-that-the-project-is-active"><span class="header-section-number">9.2</span> Checking That the Project Is Active</a></li>
+  <li><a href="#how-projects-affect-file-paths" id="toc-how-projects-affect-file-paths" class="nav-link" data-scroll-target="#how-projects-affect-file-paths"><span class="header-section-number">9.3</span> How Projects Affect File Paths</a></li>
+  <li><a href="#what-is-expected-at-this-stage" id="toc-what-is-expected-at-this-stage" class="nav-link" data-scroll-target="#what-is-expected-at-this-stage"><span class="header-section-number">9.4</span> What Is Expected at This Stage</a></li>
+  </ul></li>
+  <li><a href="#help" id="toc-help" class="nav-link" data-scroll-target="#help"><span class="header-section-number">10</span> Help</a></li>
+  <li><a href="#other-data" id="toc-other-data" class="nav-link" data-scroll-target="#other-data"><span class="header-section-number">11</span> Other Data</a></li>
+  <li><a href="#your-progress-thus-far" id="toc-your-progress-thus-far" class="nav-link" data-scroll-target="#your-progress-thus-far"><span class="header-section-number">12</span> Your Progress Thus Far</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/05-workflow.html">5. R Workflows</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">5. R Workflows</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Smit, A. J. <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></p>
+<blockquote class="blockquote">
+<p>“<em>A dream does not become reality through magic; it takes sweat, determination, hard work.</em>”</p>
+<p>— Colin Powell</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“<em>Choose a job you love, and you will never have to work a day in your life.</em>”</p>
+<p>— Confucius</p>
+</blockquote>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>In this chapter, a <em>workflow</em> refers to the explicit ordering of analytical actions acting on named data objects, recorded in a form (a script) that can be inspected, rerun, and revised. A workflow produces the code itself, and results in outputs; it is the visible trace of how you move data from raw input to the result. Scripts, projects, and saved files matter here because they make assumptions, transformations, and dependencies visible to the user.</p>
+<p>We will do a practical example to show you how R makes your life easier.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Exercise in Frustration
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This exercise requires that you analyse the data provided in <code>data/BCB744/SACTN_SAWS.csv</code> within <code>&lt;that which shall not be named&gt;</code>.</p>
+<p>This dataset contains monthly seawater temperature time series for a selection of sites around the coast of South Africa.</p>
+<ol type="1">
+<li>How many sites are there?</li>
+</ol>
+<p>For each of the sites there are monthly mean temperatures for every year the 1970s to the 2000s.</p>
+<ol start="2" type="1">
+<li><p>What is the earliest and latest date for which temperature measurements are available, and which sites do they belong to?</p></li>
+<li><p>In this exercise, please create, <strong>for each site</strong>, a <em>monthly climatology</em> using all available data in the time series (see box below).</p></li>
+<li><p>Plot the monthly climatology for each site as a line graph showing the mean temperature for each month.</p></li>
+<li><p>Optionally, you could also calculate the standard deviation of the monthly mean temperatures to represent the variability in temperature within each month. This information can be used to determine the range of typical temperatures for each month.</p></li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Wmo Guidelines for Calculating Climatologies
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The World Meteorological Organisation (WMO) provides guidelines for the calculation of climatologies, including monthly, annual climatologies. The WMO guidelines are based on standard meteorological practices and are designed to ensure consistent and accurate calculation of climatological data.</p>
+<p>A monthly climatology is a study of the average temperature of seawater (or any environmental variable that is expected to vary over time in a cyclical seasonal manner) over a specified period of time, typically over a year, and broken down by month. Climatologies provide insight into the patterns, trends of weather phenomena and how they vary from one month to another and from year to year.</p>
+<p>By analysing long-term data, a monthly climatology can determine the average seawater temperature for each month, the range of temperatures that are typical for each month, as well as finding deviations from expected patterns. This information can be used for a variety of purposes, such as predicting weather patterns, studying the effects of climate change, or understanding the impacts of ocean temperature on marine life.</p>
+<p>In essence, a monthly climatology provides a comprehensive, organised overview of the variability and patterns in seawater temperature over a given period of time.</p>
+<p>The steps for calculating a monthly climatology according to the WMO guidelines are as follows:</p>
+<ul>
+<li><p><strong>Obtain long-term meteorological observations:</strong> The WMO recommends using at least 30 years of data, although longer periods are preferred, to ensure the climatology is representative of the long-term average conditions.</p></li>
+<li><p><strong>Group the observations into months:</strong> The observations should be grouped into months, such as January, February, etc.</p></li>
+<li><p><strong>Calculate the mean value for each month:</strong> For each month over the observation period, the mean value should be calculated as the sum of all the observations for that month divided by the number of observations.</p></li>
+<li><p><strong>Calculate the mean climatology for each month:</strong> The mean climatology for each month is calculated by taking the mean of the monthly mean values for each month over the period of record.</p></li>
+<li><p><strong>Quality control and homogeneity adjustment:</strong> The WMO recommends checking the quality and consistency of the data, and adjusting the data if necessary to correct for inhomogeneities, biases.</p></li>
+</ul>
+<p>The steps for calculating an annual climatology are similar, with the observations being grouped into years rather than months. The WMO guidelines also provide recommendations for the calculation of other types of climatologies, such as seasonal, daily climatologies.</p>
+<p>The WMO guidelines are not mandatory, but they are widely used, respected in the meteorological community as the standard for calculating climatologies.</p>
+</div>
+</div>
+</section>
+<section id="r-scripts" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> R Scripts</h1>
+<p>The emphasis at this point is operational, and the goal is to establish a reproducible <em>sequence of actions</em> before introducing conventions about how such sequences should be written, named, or judged.</p>
+<p>The first step for any project in R is to create a new script. You do this by clicking on the ‘New Document’ button (in the top left and selecting ‘R Script’). This creates an unnamed file in the <strong>Source Editor</strong> pane. Best to save it first of all so you do not lose what you do. ‘File’ &gt; ‘Save As’ and the Working Directory should come up. Type in <code>Day_1</code> as the file name and click ‘Save.’ R will automatically add a <code>.R</code> extension.</p>
+<p>Now, the script is the authoritative record of the analysis. Commands typed only into the <strong>Console</strong> should be treated as provisional and disposable; analytical work becomes durable only when it is saved.</p>
+<p>I recommended that you start your script with some basic information for you to refer back to later. Start with a comment line (the line begins with a <code>#</code>) that tells you the name of the script, something about the script, who created it, and the date it was created. In the source editor enter to following lines, save the file again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Day_1.R</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># Reads in some data about Laminaria collected along the Cape Peninsula</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Do various data manipulations, analyses and graphs</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># &lt;your_name&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># &lt;curent_date&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Remember that anything appearing after the <code>#</code> is not executed by R as script since it is a comment. What follows after the <code>#</code> does change R’s memory. Comments record intent and do not result in effects. No objects exist yet in R’s environment since nothing has been executed.</p>
+<p>It is recommend that for each day of the workshop you start a new script (in the <strong>Source Editor</strong>), type in the code as you go along, and only execute the required lines. That way you will have a record of what you have done.</p>
+<p>From here onward, any command not saved in a script should be treated as provisional (<em>i.e.</em>, they are temporary, and will be lost when you exit R and/or RStudio). Analytical work becomes durable only when its steps are recorded in a form that can be rerun without recollection. Until code has been saved and rerun from the script, it should be regarded as not yet part of the analysis.</p>
+<p>Below, you will learn how to import the file <code>laminaria.csv</code> into R, assign it to a dataframe named <code>laminaria</code>, and spend a while looking it over. These data reflect results of a sampling campaign on one of the species of kelps (<em>Laminaria pallida</em>) in the Western Cape designed to find the morphometric properties of populations at different sites. We visited 13 different locations along the Cape Peninsula (<code>site</code>), and at each site, collected <em>ca.</em> 13 specimens of the largest kelps we could find. We then brought the kelps back to the shore, measured/calculated nine morphometric properties of the plants (<em>e.g.</em>, the mass of the fronds (<code>blade_weight</code>), the frond length (<code>blade_length</code>), <em>etc.</em>).</p>
+</section>
+<section id="reading-data-into-r" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Reading Data into R</h1>
+<p>You will now see how easy it is to read data into R. R will read in many types of data, including spreadsheets, text files, binary files, files from other statistical packages and software.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Full Stops
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Unfortunately in South Africa you are taught from a young age to use commas (<code>,</code>) instead of full stops (<code>.</code>) for decimal places. This simply will not do when you are working with a computer. You must always use a full stop for a decimal place and never insert commas anywhere into any numbers.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Commas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R generally thinks that commas mean the user is telling the computer to separate values. So if you think you are typing a big number like 2,300 you may actually end up with two numbers — especially when working with <code>.csv</code> files, where columns are delimited by commas. Therefore, never use commas with numbers.</p>
+</div>
+</div>
+<p>Before any data are read, the analysis already depends on an assumption about <em>where</em> files live. File paths and projects are the foundational structures that make data import, export, and reruns of analyses possible. When paths are fragile (<em>i.e.</em>, as with absolute file paths) or incorrectly defined, analyses will fail.</p>
+<section id="preparing-data-for-r" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="preparing-data-for-r"><span class="header-section-number">3.1</span> Preparing Data for R</h2>
+<p>Importing data can actually take longer than the statistical analysis itself! In order to avoid as much frustration as possible it is important to remember that for R to be able to analyse your data they need to be in a consistent format, with each variable in a column, each sample in a row. The format within each variable (column) needs to be consistent and is commonly one of the following types: a continuous numeric variable (<em>e.g.</em>, and fish length (m): <code>0.133</code>, <code>0.145</code>); a factor or categorical variable (<em>e.g.</em>, Month: <code>Jan</code>, <code>Feb</code> and <code>1</code>, <code>2</code>, <code>…</code>, <code>12</code>); a nominal variable (<em>e.g.</em>, algal colour: <code>red</code>, <code>green</code>, <code>brown</code>); or a logical variable (<em>i.e.</em>, <code>TRUE</code> and <code>FALSE</code>). You can also use other more specific formats such as dates and times, and more general text formats.</p>
+<p>You will learn more about working with data in R — specifically, you will teach you about the <strong>tidyverse</strong> principles, the distinction between <em>long</em> and <em>wide</em> format data in more detail on Day 4. For most of our work in R you require our data to be in the long format but Excel users (poor things!) are more familiar with data stored in the wide format.</p>
+<p>(The problem with Excel is that it without warning alters data and obscures provenance, making analytical state difficult to reconstruct.)</p>
+<p>For now let us bring some data into R and not worry too much about the data being tidy.</p>
+</section>
+<section id="converting-data" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="converting-data"><span class="header-section-number">3.2</span> Converting Data</h2>
+<p>Before you can read in the <em>Laminaria</em> dataset provided for the following exercises, you need to convert the Excel file supplied into a <code>.csv</code> file. Open <code>laminaria.xlsx</code> in Excel, then select ‘Save As’ from the File menu. In the ‘Format’ drop-down menu, select the option called ‘Comma Separated Values’, then hit ‘Save’. You will get a warning that formatting will be removed, that only one sheet will be exported; simply ‘Continue’. Your working directory should now contain a file called <code>laminaria.csv</code>.</p>
+</section>
+<section id="importing-data" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="importing-data"><span class="header-section-number">3.3</span> Importing Data</h2>
+<p>At this point, successful data import depends on whether the workflow has a fixed point of reference on the file system.</p>
+<p>The easiest way to import data into R is by changing your working directory to be the same as the file path where the file(s) are you want to load. A file path is effectively an address. In most operating systems, if you open the folder where your files are you may click on the navigation bar, it will show you the complete file path. Many people develop the nasty habit of squirrelling away their files within folders within folders within folders within folders… within folders within folders. Please do not do that.</p>
+<p>The concept of file paths is either one that you are familiar with, or you have never heard of before. There tends to be little middle ground. Happily, RStudio allows us to circumvent this issue. You do this by using the <code>Intro_R_Workshop.Rproj</code> that you may find in the files downloaded for this workshop. If you have not already switched to the <code>Intro_R_Workshop.Rproj</code> as outlined in Chapter 2, click on the project button in the top right corner your RStudio window. Then navigate to where you saved <code>Intro_R_Workshop.Rproj</code> and select it. Notice that your RStudio has changed a bit and all of the objects you may have previously created in your environment have been removed and any tabs in the source editor pane have been closed. That is fine for now, but it may mean you need to re-open the <code>Day_1.R</code> script you just created.</p>
+<p>Once you have the working directory set, either by doing it manually with <code>setwd()</code> (but refrain from doing this unless <em>absolutely</em> necessary) or by loading a project, R will now know where to look for the files you want to read. The function <code>read_csv()</code> is the most convenient way to read in raw data. There are several other ways to read in data, but for the purposes of this workshop we will stick to this one, for now. To find out what it does, you will go to its help entry in the usual way (<em>i.e.</em>, <code>?read_csv</code>).</p>
+<p>All R Help items are in the same format. A short <em>Description</em> (of what it does), <em>Usage</em>, <em>Arguments</em> (the different inputs it requires), <em>Details</em> (of what it does), <em>Value</em> (what it returns), <em>Examples</em>. Arguments (the parameters that are passed to the function) are the lifeblood of any function and as this is how you provide information to R. You do not need to specify all arguments, as most have appropriate default values for your requirements, and others might not be needed for your particular case.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Data Formats
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R has pedantic requirements for naming variables. It is safest to not use spaces, special characters (<em>e.g.</em>, commas, semicolons, any of the shift characters above the numbers), or function names (<em>e.g.</em>, mean). One can use ‘camelCase’, such as <code>myFirstVariable</code>, or simply separate the ‘parts’ of the variable name using an underscore such as in <code>my_first_variable</code>. Always make sure to use meaningful names; eventually you will learn to find a balance between meaningfulness and something short that is easy enough to retype repeatedly (although R’s ability to use tab completion helps with not having to type long names to often).</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Import
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>read_csv()</code> is simply a ‘wrapper’ (<em>i.e.</em>, a command that modifies) a more basic command called <code>read_delim()</code>, which itself allows you to read in many types of files besides <code>.csv</code>. To find out more, type <code>?read_delim()</code>.</p>
+</div>
+</div>
+</section>
+<section id="loading-a-file" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="loading-a-file"><span class="header-section-number">3.4</span> Loading a File</h2>
+<p>To load the <code>laminaria.csv</code> file you created, and assign it to an object name in R, you will use the <code>read_csv()</code> function from the <strong>tidyverse</strong> package, so let us make sure it is activated.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Depending on the version of Excel you are using, or perhaps the settings within it, the <code>laminaria.csv</code> file you created may be corrupted in different ways. Generally Excel likes to replace the <code>,</code> between columns in our .csv files with <code>;</code>. This may seem like a triviality but sadly it is not. Lucky for use, the <strong>tidyverse</strong> knows about this problem, they have made a plan. Please open your<code>laminaria.csv</code> file and look at which character is being used to separate columns. If it is <code>,</code> then you will load the data with <code>read_csv()</code>. If the columns are separated with <code>;</code> you will use <code>read_csv2()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Run this if 'laminaria.csv` has columns separated by ','</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># Run this if 'laminaria.csv` has columns separated by ';'</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Using <code>here::here()</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>here::here()</code> builds a file path from the <strong>project root</strong>, so you do not have to set or guess the working directory. It exists to make your code portable: the same script works on different computers as long as the project folder stays intact.</p>
+<p>The default way is to give a plain path string, for example <code>"data/BCB744/laminaria.csv"</code>. <code>here::here()</code> just constructs that path for you. So:</p>
+<ul>
+<li><code>here::here("data", "BCB744", "laminaria.csv")</code></li>
+<li>is equivalent to <code>"data/BCB744/laminaria.csv"</code></li>
+</ul>
+<p>If you prefer the default style, you can replace any <code>here::here(...)</code> call with the plain path string it would build.</p>
+</div>
+</div>
+<p>The workflow now depends on a single named object in memory. Moving onward, all results depend on the contents, structure, and provenance of <code>laminaria</code>.</p>
+<p>If one clicks on the newly created <code>laminaria</code> object in the <strong>Environment</strong> pane it will open a new panel that shows the information as a spreadsheet. To go back to your script click the appropriate tab in the <strong>Source Editor</strong> pane. With these data loaded you may now perform analyses on them.</p>
+<p>At any point when working in R, you can see exactly what objects are in memory in several ways. First, you can look at the <strong>Environment</strong> tab in RStudio, then <strong>Workspace Browser</strong>. Alternatively you can type either of the following:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ls</span>()</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># or</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">objects</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You can delete an object from memory by specifying the <code>rm()</code> function with the name of the object:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">rm</span>(laminaria)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This will of course delete our variable, so you will import it in again using whichever of the following two lines of code matched our Excel situation. The workflow has now lost access to its primary data object. Any subsequent analysis thus depends on recreating it by important the data again.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Managing Variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is good practice to remove variables from memory that you are not using, especially if they are large.</p>
+</div>
+</div>
+<p>The workflow has now reached an important point where the analysis depends, for the first time in the workflow, on a single, named object whose contents, structure, and provenance (origin, history) must remain stable for subsequent steps to be interpretable.</p>
+</section>
+</section>
+<section id="working-with-data" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Working with Data</h1>
+<p>At this stage, the aim is reproducibility and traceability: you should be able to recognise these tools and functions, follow their logic, and rerun your own analysis without any reconstruction.</p>
+<section id="examine-your-data" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="examine-your-data"><span class="header-section-number">4.1</span> Examine Your Data</h2>
+<p>Once the data are in R, you need to check there are no glaring errors. It is useful to call up the first few lines of the dataframe using the function <code>head()</code>. Add the following lines to your script and run them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">head</span>(laminaria)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 6 × 12
+R&gt;   region site        Ind blade_weight blade_length blade_thickness stipe_mass
+R&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;
+R&gt; 1 WC     Kommetjie     2         1.9           160            2          1.5 
+R&gt; 2 WC     Kommetjie     3         1.5           120            1.4        2.25
+R&gt; 3 WC     Kommetjie     4         0.55          110            1.5        1.15
+R&gt; 4 WC     Kommetjie     5         1             159            1.5        2.6 
+R&gt; 5 WC     Kommetjie     6         2.3           149            2         NA   
+R&gt; 6 WC     Kommetjie     7         1.6           107            1.75       2.9 
+R&gt; # ℹ 5 more variables: stipe_length &lt;dbl&gt;, stipe_diameter &lt;dbl&gt;, digits &lt;dbl&gt;,
+R&gt; #   thallus_mass &lt;dbl&gt;, total_length &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>This lists the first six lines of each of the variables in the dataframe as a table. You can similarly retrieve the last six lines of a dataframe by an identical call to the function <code>tail()</code>. Of course, this works better when you have fewer than 10, so variables (columns); for larger data sets or things can get a little messy. If you want more or fewer rows in your head or tail, tell R how many rows it is you want by adding this information to your function call. Add the following lines to your script and run them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">head</span>(laminaria, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 3 × 12
+R&gt;   region site        Ind blade_weight blade_length blade_thickness stipe_mass
+R&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;
+R&gt; 1 WC     Kommetjie     2         1.9           160             2         1.5 
+R&gt; 2 WC     Kommetjie     3         1.5           120             1.4       2.25
+R&gt; 3 WC     Kommetjie     4         0.55          110             1.5       1.15
+R&gt; # ℹ 5 more variables: stipe_length &lt;dbl&gt;, stipe_diameter &lt;dbl&gt;, digits &lt;dbl&gt;,
+R&gt; #   thallus_mass &lt;dbl&gt;, total_length &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">tail</span>(laminaria, <span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 2 × 12
+R&gt;   region site         Ind blade_weight blade_length blade_thickness stipe_mass
+R&gt;   &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;
+R&gt; 1 WC     Rocky Bank    12          2.1          194             1.4       3.75
+R&gt; 2 WC     Rocky Bank    13          1.3          160             1.9       2.45
+R&gt; # ℹ 5 more variables: stipe_length &lt;dbl&gt;, stipe_diameter &lt;dbl&gt;, digits &lt;dbl&gt;,
+R&gt; #   thallus_mass &lt;dbl&gt;, total_length &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>You can also check the structure of your data by using the <code>glimpse()</code> function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">glimpse</span>(laminaria)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Rows: 140
+R&gt; Columns: 12
+R&gt; $ region          &lt;chr&gt; "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", "WC", …
+R&gt; $ site            &lt;chr&gt; "Kommetjie", "Kommetjie", "Kommetjie", "Kommetjie", "K…
+R&gt; $ Ind             &lt;dbl&gt; 2, 3, 4, 5, 6, 7, 8, 10, 11, 1, 3, 4, 5, 6, 7, 8, 9, 1…
+R&gt; $ blade_weight    &lt;dbl&gt; 1.90, 1.50, 0.55, 1.00, 2.30, 1.60, 0.65, 0.95, 2.30, …
+R&gt; $ blade_length    &lt;dbl&gt; 160, 120, 110, 159, 149, 107, 104, 111, 178, 145, 146,…
+R&gt; $ blade_thickness &lt;dbl&gt; 2.00, 1.40, 1.50, 1.50, 2.00, 1.75, 2.00, 1.25, 2.50, …
+R&gt; $ stipe_mass      &lt;dbl&gt; 1.50, 2.25, 1.15, 2.60, NA, 2.90, 0.75, 1.60, 4.20, 0.…
+R&gt; $ stipe_length    &lt;dbl&gt; 120, 149, 97, 167, 146, 161, 110, 136, 176, 82, 118, 1…
+R&gt; $ stipe_diameter  &lt;dbl&gt; 56.0, 68.5, 69.0, 60.0, 73.0, 63.0, 51.0, 56.0, 76.0, …
+R&gt; $ digits          &lt;dbl&gt; 12, 12, 13, 8, 15, 17, 11, 11, 8, 19, 20, 23, 20, 24, …
+R&gt; $ thallus_mass    &lt;dbl&gt; 3000, 3750, 1700, 3600, 5100, 4500, 1400, 2550, 6500, …
+R&gt; $ total_length    &lt;dbl&gt; 256, 269, 207, 326, 295, 268, 214, 247, 354, 227, 264,…</code></pre>
+</div>
+</div>
+<p>This very handy function lists the variables in your dataframe by name, tells you what sorts of data are contained in each variable (<em>e.g.</em>, continuous number, discrete factor), provides an indication of the actual contents of each.</p>
+<p>If you wanted only the names of the variables (columns) in the dataframe, you could use:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">names</span>(laminaria)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt;  [1] "region"          "site"            "Ind"             "blade_weight"   
+R&gt;  [5] "blade_length"    "blade_thickness" "stipe_mass"      "stipe_length"   
+R&gt;  [9] "stipe_diameter"  "digits"          "thallus_mass"    "total_length"</code></pre>
+</div>
+</div>
+<p>Another option, but by no means the only one remaining, is to install a library called <strong>skimr</strong>, to use the <code>skim()</code> function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">skim</span>(iris) <span class="co"># using built-in `iris` data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">iris</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">150</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Species</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">set: 50, ver: 50, vir: 50</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sepal.Length</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5.84</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">4.3</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">5.80</td>
+<td style="text-align: right;">6.4</td>
+<td style="text-align: right;">7.9</td>
+<td style="text-align: left;">▆▇▇▅▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sepal.Width</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.06</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">2.8</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: left;">▁▆▇▂▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Petal.Length</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.76</td>
+<td style="text-align: right;">1.77</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">4.35</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">6.9</td>
+<td style="text-align: left;">▇▁▆▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Petal.Width</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.20</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">1.30</td>
+<td style="text-align: right;">1.8</td>
+<td style="text-align: right;">2.5</td>
+<td style="text-align: left;">▇▁▇▅▃</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="tidyverse-sneak-peek" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="tidyverse-sneak-peek"><span class="header-section-number">4.2</span> <strong>Tidyverse</strong> Sneak Peek</h2>
+<p>Before you begin to manipulate our data further I need to briefly introduce you to the <a href="https://www.tidyverse.org/"><strong>tidyverse</strong></a>. And no introduction can be complete within learning about the <em>pipe</em> command, <code>%&gt;%</code>. You may type this by pushing the following keys together: <strong>ctrl-shift-m</strong>. The pipe (<code>%&gt;%</code>, <code>|&gt;</code> if you selected to use the native pipe operator under ‘Global Options’) allows you to perform calculations sequentially, which helps us to avoid making errors.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The Pipe Operator
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>pipe operator</strong> allows you to take the output of one function and pass it directly as the input to the next function. This creates a more intuitive and readable way to string together a series of data operations. Instead of nesting functions inside one another, which can quickly become confusing, hard to read and the pipe operator lets you lay out your data processing steps sequentially. This makes your code cleaner and easier to understand, as it clearly outlines the workflow from start to finish, almost like a step-by-step recipe for your data analysis.</p>
+</div>
+</div>
+<p>The pipe works best in tandem with the following common functions:</p>
+<ul>
+<li>Arrange observations (rows) with <code>arrange()</code></li>
+<li>Filter observations (rows) with <code>filter()</code></li>
+<li>Select variables (columns) with <code>select()</code></li>
+<li>Create new variables (columns) with <code>mutate()</code></li>
+<li>Summarise variables (columns) with <code>summarise()</code></li>
+<li>Group observations (rows) with <code>group_by()</code></li>
+</ul>
+<p>You will cover these functions in more detail on Day 4. For now you will ease ourselves into the code with some simple examples.</p>
+</section>
+<section id="subsetting" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="subsetting"><span class="header-section-number">4.3</span> Subsetting</h2>
+<p>Now let us have a look at specific parts of the data. You will likely need to do this in almost every script you write. If you want to refer to a variable, you specify the dataframe then the column name within the <code>select()</code> function. In your script type:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Note: output NOT assigned to an object (no `&lt;-`):</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Tell R which dataframe you are using</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">select</span>(site, total_length) <span class="co"># Select only specific columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This operation produces a temporary result only. Because it is not assigned to a name, the state of the workflow is unchanged.</p>
+<p>If you want to only select values from specific columns you insert one more line of code.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>laminaria <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">select</span>(site, total_length) <span class="sc">%&gt;%</span> <span class="co"># Select specific columns first</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">slice</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">78</span>)</span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="co"># what does the '56:78' do? Change some numbers and run the code again. What happens?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you wanted to select only the rows of data belonging to the Kommetjie site, you could type:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>laminaria <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"Kommetjie"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The function <code>filter()</code> has two arguments: the first is a dataframe (we specify <code>laminaria</code> in the previous line and the pipe supplies this for us) and the second is an expression that relates to which rows of a particular variable you want to include. Here you include all rows for Kommetjie and you find that in the variable site. It returns a subset that is actually a dataframe itself; it is in the same form as the original dataframe. You could assign that subset of the full dataframe to a new dataframe if you wanted to.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>lam_kom <span class="ot">&lt;-</span> laminaria <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"Kommetjie"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>At this point the workflow has branched. There are now two data objects in memory (the original unmodified <code>laminaria</code> and the new <code>lam_kom</code>), each with a distinct role and purpose.</p>
+</section>
+<section id="basic-stats" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="basic-stats"><span class="header-section-number">4.4</span> Basic Stats</h2>
+<p>Straight out of the box it is possible in R to perform a broad range of statistical calculations on a dataframe. If you wanted to know how many samples you have at Kommetjie, you simply type the following:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Tell R which dataset to use</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"Kommetjie"</span>) <span class="sc">%&gt;%</span> <span class="co"># Filter out only records from Kommetjie</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">nrow</span>() <span class="co"># Count the number of remaining rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Or, if you want to select only the row with the greatest total length:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Tell R which dataset to use</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">filter</span>(total_length <span class="sc">==</span> <span class="fu">max</span>(total_length)) <span class="co"># Select row with max total length</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do This Now
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Purpose:</strong> to demonstrate that the analysis can be reconstructed from the script alone.</p>
+<p>Using pipes, subset the <em>Laminaria</em> data to include regions where the blade thickness is thicker than 5 cm, retain only the columns site and region, blade weight, blade thickness. Now exit RStudio. Pretend it is three days later and revisit your analysis. Calculate the number of entries at Kommetjie and find the row with the greatest length. Do this now.</p>
+</div>
+</div>
+<p>Imagine doing this daily as our analysis grows in complexity. It will very soon become quite repetitive if each day you had to retype all these lines of code. And now, six weeks into the research, attendant statistical analysis and you discover that there were some mistakes and some of the raw data were incorrect. Now everything would have to be repeated by retyping it at the command prompt. Or worse still (and bad for repetitive strain injury) doing all of it in SPSS and remembering which buttons to click and then re-clicking them. A pain. Let us avoid that altogether and do it the right way by writing an R script to automate and annotate all of this.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Dealing with Missing Data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>.csv</code> file format is usually the most robust for reading data into R. Where you have missing data (blanks), the <code>.csv</code> format separates these by commas. However, there can be problems with blanks if you read in a space-delimited format file. If you are having trouble reading in missing data as blanks, replace them in your spreadsheet with <code>NA</code>, the missing data code in R. In Excel, highlight the area of the spreadsheet that includes all the cells you need to fill with <code>NA</code>. Do an Edit/Replace… and leave the ‘Find what:’ textbox blank and in the ‘Replace with:’ textbox enter <code>NA</code>, the missing value code. Once imported into R, the <code>NA</code> values will be recognised as missing data.</p>
+</div>
+</div>
+<p>So far you have calculated the mean and standard deviation of some data in the <em>Laminaria</em> data set. If you have not, please append those lines of code to the end of your script. You can run individual lines of code by highlighting them, pressing <strong>ctrl-Enter</strong> (<strong>cmd-Enter</strong> on a Mac). Do this.</p>
+<p>Your file will now look similar to this one, but of course you will have added your own notes, comments as you went along:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Day_1.R</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co"># Reads in some data about Laminaria collected along the Cape Peninsula</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co"># do various data manipulations, analyses and graphs</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co"># AJ Smit</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co"># 9 January 2020</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co"># Find the current working directory (it will be correct if a project was</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co"># created as instructed earlier)</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="fu">getwd</span>()</span>
+<span id="cb24-10"><a href="#cb24-10"></a></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="co"># If the directory is wrong because you chose not to use an Rworkspace (project),</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="co"># set your directory manually to where the script will be saved and where the data</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="co"># are located</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="co"># setwd("&lt;insert_path_here&gt;")</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a></span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="co"># Load libraries</span></span>
+<span id="cb24-17"><a href="#cb24-17"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-18"><a href="#cb24-18"></a></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="co"># Load the data</span></span>
+<span id="cb24-20"><a href="#cb24-20"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span>
+<span id="cb24-21"><a href="#cb24-21"></a></span>
+<span id="cb24-22"><a href="#cb24-22"></a><span class="co"># Examine the data</span></span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="fu">head</span>(laminaria, <span class="dv">5</span>) <span class="co"># First five lines</span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="fu">tail</span>(laminaria, <span class="dv">2</span>) <span class="co"># Last two lines</span></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="fu">glimpse</span>(laminaria) <span class="co"># A more thorough summary</span></span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="fu">names</span>(laminaria) <span class="co"># THe names of the columns</span></span>
+<span id="cb24-27"><a href="#cb24-27"></a></span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="co"># Subsetting data</span></span>
+<span id="cb24-29"><a href="#cb24-29"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Tell R which dataframe to use</span></span>
+<span id="cb24-30"><a href="#cb24-30"></a>  <span class="fu">select</span>(site, total_length) <span class="sc">%&gt;%</span> <span class="co"># Select specific columns</span></span>
+<span id="cb24-31"><a href="#cb24-31"></a>  <span class="fu">slice</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">78</span>) <span class="co"># Select specific rows</span></span>
+<span id="cb24-32"><a href="#cb24-32"></a></span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="co"># How many data points do you have at Kommetjie?</span></span>
+<span id="cb24-34"><a href="#cb24-34"></a>laminaria <span class="sc">%&gt;%</span></span>
+<span id="cb24-35"><a href="#cb24-35"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"Kommetjie"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-36"><a href="#cb24-36"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb24-37"><a href="#cb24-37"></a></span>
+<span id="cb24-38"><a href="#cb24-38"></a><span class="co"># The row with the greatest length</span></span>
+<span id="cb24-39"><a href="#cb24-39"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Tell R which dataset to use</span></span>
+<span id="cb24-40"><a href="#cb24-40"></a>  <span class="fu">filter</span>(total_length <span class="sc">==</span> <span class="fu">max</span>(total_length)) <span class="co"># Select row with max total length</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Making sure all the latest edits in your R script have been saved, close your R session. Pretend this is now 2019, you need to revisit the analysis. Open the file you created in 2017 in RStudio. All you need to do now is highlight the file’s entire contents and hit <strong>ctrl-Enter</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Stick with <code>.csv</code> Files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There are packages in R to read in Excel spreadsheets (<em>e.g.</em>, <code>.xlsx</code>), but remember there are likely to be problems reading in formulae, graphs, macros, multiple worksheets. You recommend exporting data deliberately to <code>.csv</code> files (which are also commonly used in other programs). This not only avoids complications, but also allows you to unambiguously identify the data you based your analysis on. This last statement should give you the hint that it is good practice to name your <code>.csv</code> slightly differently each time you export it from Excel, perhaps by appending a reference to the date it was exported.</p>
+<p>Because these transformations are often invisible, downstream results can no longer be unambiguously traced to their source.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Remember…
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Friends do not let friends use Excel.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="summary-of-all-variables-in-a-dataframe" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Summary of All Variables in a Dataframe</h1>
+<p>Import the data into a dataframe called <code>laminaria</code> once more (if it is not already in your <strong>Environment</strong>), and check that it is in order. Once we are happy that the data have imported correctly, and that you know what the variables are called, what sorts of data they contain and you can dig a little deeper. Add the following lines to your script and run them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">summary</span>(laminaria)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The output is quite informative. It tabulates variables by name, and for each provides summary statistics. For continuous variables, the name, minimum, maximum, first, second (median), third quartiles and the mean are provided. For factors (categorical variables), a list of the levels of the factor, the count of each level are given. In either case and the last line of the table indicates how many NAs are contained in the variable. The function <code>summary()</code> is useful to remember as it can be applied to many different R objects (<em>e.g.</em>, variables, dataframes, models, arrays, <em>etc.</em>), will give you a summary of that object. You will use it liberally throughout the workshop.</p>
+<section id="summary-statistics-by-variable" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="summary-statistics-by-variable"><span class="header-section-number">5.1</span> Summary Statistics by Variable</h2>
+<p>This is all very convenient, but you may want to ask R specifically for just the mean of a particular variable. In this case, you simply need to tell R which summary statistic you are interested in, and to specify the variable to apply it to using <code>summarise()</code>. Add the following lines to your script and run them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Chose the dataframe</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">summarise</span>(<span class="at">avg_bld_wdt =</span> <span class="fu">mean</span>(blade_length)) <span class="co"># Calculate mean blade length</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Or, if you wanted to know the mean, standard deviation for the total lengths of all the plants across all sites and do:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Tell R that you want to use the 'laminaria' dataframe</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">summarise</span>(<span class="at">avg_stp_ln =</span> <span class="fu">mean</span>(total_length), <span class="co"># Create a summary of the mean of the total lengths</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>            <span class="at">sd_stp_ln =</span> <span class="fu">sd</span>(total_length)) <span class="co"># Create a summary of the sd of the total lengths</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Of course, the mean, standard deviation are not the only summary statistic that R can calculate. In your script, execute <code>max()</code>, <code>min()</code>, <code>median()</code>, <code>range()</code>, <code>sd()</code> and <code>var()</code>. Do they return the values you expected? Add the following lines to your script and run them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>laminaria <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">summarise</span>(<span class="at">avg_stp_ms =</span> <span class="fu">mean</span>(stipe_mass))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The answer probably is not what you would expect. Why not? Sometimes, you need to tell R how you want it to deal with missing data. In this case, you have NAs in the named variable, and R takes the cautious approach of giving you the answer of <code>NA</code>, meaning that there are missing values here. This may not seem useful, but as the programmer, you can tell R to respond differently, and it will. Simply append an argument to your function call, and you will get a different response. Type:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>laminaria <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">summarise</span>(<span class="at">avg_stp_ms =</span> <span class="fu">mean</span>(stipe_mass, <span class="at">na.rm =</span> T))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>na.rm</code> argument tells R to remove (or more correctly ‘strip’) NAs from the data string before calculating the mean. It now returns the correct answer. Although needing to deal explicitly with missing values in this way can be a bit painful, it does make you more aware of missing data, what the analyses in R are doing, and makes you decide explicitly how you will treat missing data.</p>
+</section>
+<section id="more-complex-calculations" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="more-complex-calculations"><span class="header-section-number">5.2</span> More Complex Calculations</h2>
+<p>Let us say you want to calculate something that is not standard in R, say the standard error of the mean for a variable, rather than just the corresponding standard deviation. How can this be done?</p>
+<p>The trick is to remember that R is a calculator, so you can use it to do maths, even complex maths (which you will not do). The formula for standard error is:</p>
+<p><span class="math display">\[se = \frac{var}{\sqrt{n}}\]</span></p>
+<p>You know that the variance is given by <code>var()</code>, so all you need to do is figure out how to get <code>n</code> and calculate a square root. The simplest way to determine the number of elements in a variable is a call to the function <code>nrow()</code>, as you saw previously. You may therefore calculate standard error with one chunk of code, step by step, using the pipe. Furthermore, by using <code>group_by()</code> you may calculate the standard error for all sites in one go.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>laminaria <span class="sc">%&gt;%</span> <span class="co"># Select 'laminaria'</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">group_by</span>(site) <span class="sc">%&gt;%</span> <span class="co"># Group the dataframe by site</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">summarise</span>(<span class="at">var_bl =</span> <span class="fu">var</span>(blade_length), <span class="co"># Calculate variance</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a>            <span class="at">n_bl =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span>  <span class="co"># Count number of values</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">mutate</span>(<span class="at">se_bl =</span> var_bl <span class="sc">/</span> <span class="fu">sqrt</span>(n_bl)) <span class="co"># Calculate se</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>When calculating the mean, you specified that R should strip the NAs, using the argument <code>na.rm = TRUE</code>. In the example above, you did not have NAs in the variable of interest. What happens if you <em>do</em>?</p>
+<p>Unfortunately, the call to the function <code>nrow()</code> has no arguments telling R how to treat NAs; instead, they are simply treated as elements of the variable, are therefore counted. The easiest way to resolve this problem is to strip out NAs in advance of any calculations. Add the following lines to your script and run them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>laminaria <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">select</span>(stipe_mass) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>then:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>laminaria <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">select</span>(stipe_mass) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You will notice that the function <code>na.omit()</code> removes NAs from the variable that is specified as its argument.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do This Now
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Purpose:</strong> to demonstrate controlled use of a small family of related functions.</p>
+<ul>
+<li><p>Using this new information, <em>calculate</em> the mean stipe mass, the corresponding standard error.</p></li>
+<li><p>Create a new data frame from the <em>Laminaria</em> dataset that meets the following criteria: contains only the site column and a new column called <code>total_length_half</code> containing values that are half of the <code>total_length</code>. In this <code>total_length_half</code> column, there are no NAs, all values are less than 100. Hint: think about how the commands should be ordered to produce this data frame!</p></li>
+<li><p>Use <code>group_by()</code> and <code>summarise()</code> to find the <code>mean()</code>, <code>min()</code>, <code>max()</code> <code>blade_length</code> for each site. Also add the number of observations (hint: see <code>?n</code>).</p></li>
+<li><p>What was the heaviest stipe measured in each site? Return the columns <code>site</code>, <code>region</code>, <code>stipe_length</code>.</p></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="saving-data" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Saving Data</h1>
+<p>A data format is suitable for reproducible workflows only if its contents can be inspected without invoking the software that created it.</p>
+<p>A major advantage of R over many other statistics packages is that you can generate exactly the same answers time and time again by simply re-running saved code. However, there are times when you will want to output data to a file that can be read by a spreadsheet program such as Excel (but try not to… please). The simplest general format is <code>.csv</code> (comma-separated values). This format is easily read by Excel, and also by many other software programs. To output a <code>.csv</code> type in your script:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">write_csv</span>(site_by_region, <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"kelp_summary.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The first argument is simply the name of an object in R, in this case our table (a data object of class <em>table</em>) of counts by region, site (other sorts of data are available and so play around to see what can be done). The second argument is the name of the file you want to write to. This file will always be written to your working directory, unless otherwise specified by including a different path in the file name. Remember that file names need to be within quotation marks. The resultant file can sadly be opened in Excel.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do This Now
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recreate the <strong>Exercise in frustration</strong> in R. Repeat all the step, but you are welcome to omit making figures of the monthly climatologies.</p>
+</div>
+</div>
+</section>
+<section id="visualisations" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Visualisations</h1>
+<p>R has powerful and flexible graphics capabilities. In this Workshop you will not use the traditional graphics (<em>i.e.</em>, <em>base R graphics</em> in the graphics package automatically loaded in R). You will instead use a package called <strong><code>ggplot2</code></strong> that has the ability for extensive customisation (see the examples at the beginning of tomorrow’s section), so it will cover most of the graphs that you will want to produce. You will spend the next two days working on your <strong><code>ggplot2</code></strong> skills. Here is a quick example of a <strong><code>ggplot2</code></strong> graphic made from two of the kelp variables to show the relationship between them — paste this script into your workspace and run it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> laminaria, <span class="fu">aes</span>(<span class="at">x =</span> stipe_mass, <span class="at">y =</span> stipe_length)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">colour =</span> <span class="st">"salmon"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Stipe mass (kg)"</span>, <span class="at">y =</span> <span class="st">"Stipe length (cm)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-workflow-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-workflow-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-workflow_files/figure-html/fig-workflow-1-1.png" class="img-fluid figure-img" style="width:75.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-workflow-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Scatterplot of stipe mass vs.&nbsp;stipe length for Laminaria.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="clearing-the-memory" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Clearing the Memory</h1>
+<p>You will be left with many objects after working through these examples. Note that in RStudio when you quit it can save the Environment if you choose, and so it can retain the objects in memory when you start RStudio again. The choice to save the objects resulting from an R Session until next time can be selected in the Global Options menu (‘Tools’ &gt; ‘Global Options’ &gt; ‘General’ &gt; ‘Save workspace to .RData on exit’). Personally, you never save objects as it is preferable to start on a clean slate when one opens RStudio. Either way, to avoid long load times, clogged memory and it is good practice to clear the objects in memory every now and then unless you can think of a compelling reason not to. This may be done by clicking on the broom icon at the top of the <strong>Environment</strong> pane.</p>
+<p>Of course, you could remove an individual object by placing only its name within the brackets of <code>rm()</code>. Do not use this line of code carelessly in the middle of your script; doing so will mean that you have to go back and regenerate the objects you accidentally removed — this is more of a nuisance than a train smash, especially for long, complicated scripts, as you will have (I hope!) saved the R script from which the objects in memory can be regenerated at any time.</p>
+</section>
+<section id="sec-rprojects" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> RStudio Projects</h1>
+<p>So far, your work has relied on the assumption that files can be found when needed and written where expected. That assumption is not guaranteed by R itself. It is guaranteed by the <em>project context</em> in which R is running. RStudio Projects exist to make that context explicit and stable.</p>
+<p>An RStudio <strong>Project</strong> defines the working directory automatically when it is opened. Scripts, data files, and outputs are then interpreted relative to that fixed location on your computer (which might differ between users). This is why projects are infrastructural and not optional… without a stable context, analyses fail in ways that resemble coding or statistical errors but are in fact file-system problems.</p>
+<section id="creating-and-opening-a-project" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="creating-and-opening-a-project"><span class="header-section-number">9.1</span> Creating and Opening a Project</h2>
+<p>If you have been provided with an <code>.Rproj</code> file (for example, <code>Intro_R_Workshop.Rproj</code>), activate it as follows:</p>
+<ol type="1">
+<li>In RStudio, locate the <strong>Project menu</strong> in the top right corner of the window.</li>
+<li>Click the menu and select <strong>Open Project…</strong></li>
+<li>Navigate to the folder containing the <code>.Rproj</code> file and select it.</li>
+</ol>
+<p>RStudio will restart the session. This is expected behaviour. Any objects previously in memory will be cleared, and previously open scripts may close.</p>
+<p>Or, you may navigate to the <code>.Rproj</code> file in your file system (Windows Explorer or some other file navigation tool), and simply double click on the file. When you do this, a new RStudio window will open with the active project in focus.</p>
+<p>If you are starting a new analysis from scratch:</p>
+<ol type="1">
+<li>Select <strong>File → New Project…</strong></li>
+<li>Choose <strong>New Directory</strong>, then <strong>New Project</strong></li>
+<li>Select a location on your computer and give the project a meaningful name</li>
+<li>Click <strong>Create Project</strong></li>
+</ol>
+<p>RStudio will create a new folder containing an <code>.Rproj</code> file and open it immediately.</p>
+</section>
+<section id="checking-that-the-project-is-active" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="checking-that-the-project-is-active"><span class="header-section-number">9.2</span> Checking That the Project Is Active</h2>
+<p>You should always verify that a project is active before reading or writing files.</p>
+<p>There are three ways to do this:</p>
+<ul>
+<li><strong>Visual check</strong>: the name of the project appears in the top right corner of the RStudio window.</li>
+<li><strong>Files pane</strong>: the Files tab shows the contents of the project directory.</li>
+<li><strong>Console check</strong>: type the following in the Console or script and run it:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The returned path should correspond to the folder containing the <code>.Rproj</code> file. If it does not, the project is not active.</p>
+</section>
+<section id="how-projects-affect-file-paths" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="how-projects-affect-file-paths"><span class="header-section-number">9.3</span> How Projects Affect File Paths</h2>
+<p>When a project is active, all relative file paths are interpreted with respect to the project root. This means that code such as</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>will work reliably as long as the file exists inside the project directory, regardless of where the project is stored on your computer or whose computer it is run on.</p>
+<p>Avoid manually changing the working directory with <code>setwd()</code> inside scripts. Doing so introduces hidden state and makes scripts dependent on local file paths. Projects remove the need for this entirely.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reproducibility Checklist (use This for Every task)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Work inside an <strong>R Project</strong> (open the <code>.Rproj</code> and confirm with <code>getwd()</code>).</li>
+<li>Use <strong>project-relative paths</strong> (e.g., <code>here::here("data", ...)</code>) rather than hard-coded absolute paths.</li>
+<li>Do <strong>not</strong> use <code>setwd()</code> inside scripts.</li>
+<li>Keep <code>install.packages(...)</code> out of scripts; scripts should start with <code>library(...)</code>.</li>
+<li>When randomness is involved, set a seed (e.g., <code>set.seed(1)</code>) and say why.</li>
+<li>Record your environment when submitting work (e.g., <code>sessionInfo()</code> or <code>sessioninfo::session_info()</code>).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="what-is-expected-at-this-stage" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="what-is-expected-at-this-stage"><span class="header-section-number">9.4</span> What Is Expected at This Stage</h2>
+<p>At this point, your work will probably not expect you to design elaborate project structures or manage complex dependencies. But you need to recognise R Projects and understand their relationship with the physical location of files on your computer’s file system. You should know how to open a project, confirm that it is active, and understand that scripts and data assume such a context exists. Reproducibility depends on this relationship being fixed.</p>
+<p>Later in the your career, you might be expected to understand how projects interact with reporting, version control, and larger workflows. For now, treat the project as the outer container of your analysis, a place where everything that matters should live.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Organising R Projects
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For every R Project, set up a separate directory in your file system that includes the scripts, data files, outputs. You should have your personal, clearly-developed philosophy that dictate where and how you store files on your computer — this is very basic, like managing rooms in your house. Each room has a purpose.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="help" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Help</h1>
+<p>The help files in R are not readily clear. It requires a bit of work to understand them well, but it is effort worth spending. There is method however to what appears to be madness. Soon you will grasp how sensible they really are. The figure below shows the beginning of a help file for a function in R. Please type <code>?read.table()</code> in your console now to bring up this help file in your RStudio GUI.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/R_helpfiles.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>R help files</figcaption>
+</figure>
+</div>
+<p>The first thing you see at the top of the help file in small font is the name of the function, and the package it comes from in curly braces. After this, in very large text, is a very short description of what the function is used for. After this is the ‘Description’ section, which gives a sentence, two more fully explaining the use(s) of the function. The ‘Usage’ then shows all of the arguments that may be given to the function and what their default settings are. When you write a function in our script you do <em>not</em> need to include all of the possible arguments. The help file shows us all of them so that you know what our options are. In some cases a help file will show the usage of several different functions together. This is done, as is the case here, if these functions forma a sort of ‘family’, share many common purposes. The ‘Arguments’ section gives a long explanation for what each individual argument may do. The Arguments section here is particularly verbose. Up next is the ‘Details’ section that gives a more in depth description of what the function does. The ‘Value’ section tells us what sort of output you may expect from the function. Some of the more well documented functions such as this one, will have additional sections that are not a requirement for function documentation. In this case the ‘Memory usage’, ‘Note’ sections are not things one should always expect to see in help files. Also not always present is a ‘References’ section. Should there be actual published documentation for the function or the function has been used in a publication for some other purpose, these references tend to be listed here. There are many functions in the <strong><code>vegan</code></strong> package that have been used in dozens of publications. If there is additional reading relevant to the function in question, the authors may also have included a ‘See also’ section, but this is not standard. Lastly, any well documented function should end with an ‘Examples’ section. The code is this section is designed to be able to be copy-pasted directly from the help file into the users R script, console and run <em>as is</em>. It is perhaps a bad habit but when I am looking up a help file for a function, I tend to look first at the Examples section. And only if I cannot solve my problem with the examples do I actually read the documentation.</p>
+</section>
+<section id="other-data" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Other Data</h1>
+<p>Many of the R packages that can be installed come with additional datasets that are available for you to use. They can easily be loaded into the workspace, but the trick is finding them first. This <a href="https://ajsmit.github.io/BCB744/R_datasets.html">presentation</a> shows how to go about doing this, and it focuses in on a few of interesting ones you can use to practice your R skills on. Please explore them — in fact, many exercises in the workshop will require that you find some of you ‘own’ datasets, use them to demonstrate your understanding of important concepts.</p>
+</section>
+<section id="your-progress-thus-far" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Your Progress Thus Far</h1>
+<p>Across the exercises you have encountered thus far, success is defined by whether the analysis can be understood, rerun, and trusted. Although we should care about how compact or clever the code appears, this is not going to be the emphasis of this course.</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
+  author = {A. J. , Smit},
+  title = {5. {R} {Workflows}},
+  date = {2021-01-01},
+  url = {http://samos-r.netlify.app/intro_r/05-workflow.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2021" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2021) 5. R Workflows. <a href="http://samos-r.netlify.app/intro_r/05-workflow.html">http://samos-r.netlify.app/intro_r/05-workflow.html.
+</a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../intro_r/04-data-in-R.html" class="pagination-link" aria-label="4. Data Classes and Structures">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">4. Data Classes and Structures</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../intro_r/06-graphics.html" class="pagination-link" aria-label="6. Graphics with **ggplot2**">
+        <span class="nav-page-text">6. Graphics with <strong>ggplot2</strong></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
