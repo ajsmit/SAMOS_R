@@ -26,7 +26,7 @@ ggplot2::theme_set(
 )
 ```
 
-![A reminder that accuracy matters.](../../images/accurate.jpg){width=75%}
+![A reminder that accuracy matters.](../images/accurate.jpg){width=75%}
 
 > "*Order and simplification are the first steps toward the mastery of a subject.*"
 >
@@ -39,7 +39,7 @@ ggplot2::theme_set(
 
 The [Tidyverse](http://tidyverse.org) is a collection of R packages designed for data manipulation, exploration, and visualisation. It is based on a philosophy of "tidy data," which is a standardised way of organising data. The purpose of these packages is to make working with data more efficient. The core Tidyverse packages were created by Hadley Wickham, but over the last few years other individuals have added some packages to the collective, which has significantly expanded our data analytical capabilities through improved ease of use, efficiency. All packages that are built on tidy principles provide the use of a consistent set of tools across a wide range of data analysis tasks. The core Tidyverse packages can be loaded collectively by calling the **tidyverse** package and as we have seen throughout this workshop. The packages making up the Tidyverse are shown in @fig-tidyverse.
 
-![A tidy workflow.](../../images/tidyverse_website.png){width=80% #fig-tidyverse}
+![A tidy workflow.](../images/tidyverse_website.png){width=80% #fig-tidyverse}
 
 ```{r code-tidy-lib, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -66,7 +66,7 @@ If that error feels annoying, good. The tidy rules exist to prevent *this* kind 
 
 As you may see in @fig-tidyworkflow, the tidying of ones data should be the second step in any workflow, after loading the data.
 
-![Data tidying in the data processing pipeline. Reproduced from [R for Data Science](http://r4ds.had.co.nz/workflow-basics.html).](../../images/r4ds_data-science.png){width=80% #fig-tidyworkflow}
+![Data tidying in the data processing pipeline. Reproduced from [R for Data Science](http://r4ds.had.co.nz/workflow-basics.html).](../images/r4ds_data-science.png){width=80% #fig-tidyworkflow}
 
 But what exactly are **tidy data**? It is not just a word I use because I am pedantic, there is a real definition. In three parts, to be exact. Taken from Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz/workflow-basics.html):
 
@@ -88,7 +88,7 @@ dplyr::slice(kelp_long, 76:85)
 
 The core principle of tidy data is represented graphically in @fig-tidyrules). One will generally satisfy these three rules simply by never putting more than one dataset in a file, and never putting more (or less) than one variable in the same column. We will go over this several more times today so do not fret if those guidelines are not immediately clear.
 
-![Following three rules make a dataset tidy --- variables are in columns, observations are in rows, and values are in cells. Reproduced from [R for Data Science](http://r4ds.had.co.nz/workflow-basics.html).](../../images/tidy-1.png){width=80% #fig-tidyrules}
+![Following three rules make a dataset tidy --- variables are in columns, observations are in rows, and values are in cells. Reproduced from [R for Data Science](http://r4ds.had.co.nz/workflow-basics.html).](../images/tidy-1.png){width=80% #fig-tidyrules}
 :::
 
 ::: {.callout-note appearance="simple"}

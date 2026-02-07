@@ -26,7 +26,7 @@ ggplot2::theme_set(
 )
 ```
 
-![A reminder that names and classifications matter.](../../images/thesaurus.jpg){width=75%}
+![A reminder that names and classifications matter.](../images/thesaurus.jpg){width=75%}
 
 
 > "*In the beginning there was nothing, which exploded.*"

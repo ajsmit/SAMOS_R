@@ -29,7 +29,7 @@ ggplot2::theme_set(
 
 This script covers some of the more common issues we may face while dealing with dates.
 
-![Dates](../../images/Dates.png){width=60%}
+![Dates](../images/Dates.png){width=60%}
 
 ```{r code-dates-load}
 # Load libraries

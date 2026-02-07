@@ -2,202 +2,202 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://samos-r.netlify.app/vignettes/MHW_MCS_horizonplots.html</loc>
-    <lastmod>2026-02-07T08:08:32.871Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.796Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_G.html</loc>
-    <lastmod>2026-02-07T08:05:07.696Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.793Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_E.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.793Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_C.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.794Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_B.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.794Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/pages/kaggle_earthquakes.html</loc>
-    <lastmod>2026-02-07T08:08:32.870Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.795Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/pages/assessment_theory.html</loc>
-    <lastmod>2026-02-07T08:08:32.867Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.795Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/r_markdown_example.html</loc>
-    <lastmod>2026-02-07T08:07:56.674Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.784Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/18-base_r.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.787Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/16-recap.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.784Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/14-tidier.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.784Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/12-mapping_quakes.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.782Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/10-mapping_style.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.784Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/08-brewing.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.783Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/06-graphics.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.780Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/04-data-in-R.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.781Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/02-working-with-data.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.787Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/index.html</loc>
-    <lastmod>2026-02-07T08:05:03.181Z</lastmod>
+    <lastmod>2026-02-07T08:51:50.623Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/13-confidence.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.792Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/11-decision_guide.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.789Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/09-regressions.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.790Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/07-t_tests.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.792Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/05-inference.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.787Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/03-visualise.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.791Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/01-scientific-philosophy.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.791Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/BCB743/BCB743_index.html</loc>
-    <lastmod>2026-02-07T08:08:32.872Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.796Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/02-summarise-and-describe.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.789Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/04-distributions.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.790Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/06-assumptions.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.791Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/08-anova.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.789Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/10-correlations.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.788Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/12-glance.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.788Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/14-transformations.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.788Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/01-RStudio.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.783Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/03-quarto.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.780Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/05-workflow.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.782Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/07-faceting.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.783Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/09-mapping.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.785Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/11-mapping_rnaturalearth.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.786Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/13-tidy.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.785Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/15-tidiest.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.786Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/17-functions.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.785Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/19-dates.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.781Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/pages/How_to_learn.html</loc>
-    <lastmod>2026-02-07T08:08:32.868Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.795Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/pages/graduate_attributes.html</loc>
-    <lastmod>2026-02-07T08:08:32.866Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.795Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_A.html</loc>
-    <lastmod>2026-02-07T08:11:20.714Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.794Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_Bonus.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.795Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_D.html</loc>
-    <lastmod>2026-02-06T09:38:05.000Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.792Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_F.html</loc>
-    <lastmod>2026-02-07T08:05:11.502Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.793Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_H.html</loc>
-    <lastmod>2026-02-07T08:05:16.923Z</lastmod>
+    <lastmod>2026-02-07T08:49:49.794Z</lastmod>
   </url>
 </urlset>

@@ -314,7 +314,7 @@ where $x$ is a continuous random variable, $\mu$ (mu) is the mean,$\sigma$ (sigm
 :::
 
 ::: {.column-margin}
-![The idealised Normal distribution showing the proportion of data within 1, 2, and 3SD from the mean.](../../images/Standard_deviation_diagram.svg){#fig-expectednormal}
+![The idealised Normal distribution showing the proportion of data within 1, 2, and 3SD from the mean.](../images/Standard_deviation_diagram.svg){#fig-expectednormal}
 :::
 
 Another name for this kind of distribution is a Gaussian distribution. A random sample with a Gaussian distribution is normally distributed. These values are *independent and identically distributed* random variables (i.i.d.), and they have an expected mean given by $\mu$ (or $\hat{x}$ in Chapter 3.2.1) and a finite variance given by $\sigma^{2}$ (or $S^{2}$ in Chapter 3.3.1); if the number of samples drawn from a population is sufficiently large, the estimated mean, SD will be indistinguishable from the population (as per the central limit theorem). It is represented by @eq-normal (@fig-normal).

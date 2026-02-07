@@ -1,5 +1,5 @@
 ---
-date: "2025-02-03"
+date: "2026-02-07"
 title: "SAMOS Core Module 3: Introduction to R, and Biostatistics"
 ---
 
@@ -28,11 +28,12 @@ ggplot2::theme_set(
 
 # About SAMOS
 
-The **South African Master of Ocean Sciences (SAMOS / AOS‑SAMOS)** is a joint Master’s programme organised by multiple South African and European partner universities, supported by the EU **ERASMUS+ Capacity Building in Higher Education (CBHE)** programme. The programme builds on the strengths of the **Applied Ocean Sciences (AOS)** Master’s, and aims to train multidisciplinary ocean professionals for the evolving needs of the blue bio‑economy and for research supporting the sustainable use and conservation of marine ecosystems.
+The **South African Master of Ocean Sciences (SAMOS / AOS‑SAMOS)** is a joint Master’s programme organised by multiple South African and European partner universities, supported by the EU **ERASMUS+ Capacity Building in Higher Education (CBHE)** programme. The programme builds on the strengths of the University of Cape Town's **Applied Ocean Sciences (AOS)** Master’s, and aims to train multidisciplinary ocean professionals for the evolving needs of the blue bio‑economy and for research supporting the sustainable use and conservation of marine ecosystems.
 
 In **2026**, the AOS programme serves as the pilot course for **SAMOS**, with teaching contributions from the SAMOS partners. The coursework component is largely delivered at the **Ocean Sciences Campus of Nelson Mandela University (Gqeberha)** over the February–June period.
 
 Sources:
+
 - https://maris.uct.ac.za/aos-samos-masters-course
 - https://maris.uct.ac.za/aos-course-structure
 - https://samos-edu.eu/

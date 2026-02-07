@@ -178,7 +178,7 @@ Lines 35-48 make the code chunk, which is where we embed our R code. The `#| fig
 
 After you've rendered this file, you'll see the following output (the HTML output shown):
 
-![The HTML output of the above Quarto document.](../../images/r_markdown_example.png){width="100%"}
+![The HTML output of the above Quarto document.](../images/r_markdown_example.png){width="100%"}
 
 ### Supported output formats
 

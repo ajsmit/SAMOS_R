@@ -125,7 +125,7 @@ The choice of *p*-value at which we reject $H_{0}$ is arbitrary and exists by co
 
 ::: {.column-margin}
 Statistical tests indicate a statistically significant outcome (the $p \leq 0.05$) and we accept the $H_{a}$, or it does not ($p \gt 0.05$) and we do not reject the $H_{0}$. There is no "almost significant". It is, or it is not.
-![A reminder that "almost significant" is not significant.](../../images/approaching-significance.jpeg){fig-align="center" width="600"}
+![A reminder that "almost significant" is not significant.](../images/approaching-significance.jpeg){fig-align="center" width="600"}
 :::
 
 We generally refer to $p \leq 0.05$ as being statistically significant. Statistically highly significant is seen at as $p \leq 0.001$. In the first instance there is a less than 1 in 20 chance that our experimental sample is not different from the reference group, and in the second instance there is a less than 1 in a 1000 chance tat they are the same. This says something about the acceptable error rates: there is a better chance the $H_{0}$ may in fact be falsely accepted or rejected when the *p*-value is set at 0.05 than at 0.001.

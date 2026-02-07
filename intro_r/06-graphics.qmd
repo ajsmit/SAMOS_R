@@ -57,30 +57,30 @@ R comes with its own built-in graphics capabilities, and it is capable of creati
 
 Just to whet the appetite, below is provided a small selection of the figures that R and **ggplot2** are capable of producing. These are things that AJ and/or myself have produced for publication or in some cases just for personal interest. Remember, just because we are learning this for work, does not mean we cannot use it for fun, too. The idea of using R for fun may seem bizarre, but perhaps by the end of Day 5 we will have been able to convince you otherwise!
 
-![A hypsometric map showing the distribution of linefish catches.](../../images/hypsometric_DFFE_linefish1.png)
-![Another variation of the previous hypsometric map.](../../images/hypsometric_DFFE_linefish2.png)
+![A hypsometric map showing the distribution of linefish catches.](../images/hypsometric_DFFE_linefish1.png)
+![Another variation of the previous hypsometric map.](../images/hypsometric_DFFE_linefish2.png)
 
-![The effect of variance (SD) within a temperature time series on the accurate modelling of decadal trends.](../../images/all_plt0_no_interp_natural.png)
+![The effect of variance (SD) within a temperature time series on the accurate modelling of decadal trends.](../images/all_plt0_no_interp_natural.png)
 
-![The (currently) three most infamous marine heatwaves (MHWs) around the world.](../../images/deeper-infamous-event-plots-1.png)
+![The (currently) three most infamous marine heatwaves (MHWs) around the world.](../images/deeper-infamous-event-plots-1.png)
 
-![Changes in seaweed biodiversity along the South African coastline.](../../images/Ecography_figure5a-d.jpg)
+![Changes in seaweed biodiversity along the South African coastline.](../images/Ecography_figure5a-d.jpg)
 
-![Polar plots of monthly temperatures.](../../images/insitu_polarPlots_month_v3.2.jpg)
+![Polar plots of monthly temperatures.](../images/insitu_polarPlots_month_v3.2.jpg)
 
-![Most appropriate autoregressive correlation coefficients for areas around western boundary current.](../../images/mo_coef.jpg)
+![Most appropriate autoregressive correlation coefficients for areas around western boundary current.](../images/mo_coef.jpg)
 
-![The bathymetry of South Africa with SSTs from the MUR product.](../../images/MUR_bathy_plot_discrete_20090228.jpg)
+![The bathymetry of South Africa with SSTs from the MUR product.](../images/MUR_bathy_plot_discrete_20090228.jpg)
 
-![The power of the detected decadal trend at each coastal temperature collection site given a hypothetical number of months.](../../images/sw-fig-7-1.jpg)
+![The power of the detected decadal trend at each coastal temperature collection site given a hypothetical number of months.](../images/sw-fig-7-1.jpg)
 
-![An inset map of False Bay.](../../images/false_bay_inset_map_labels2.jpg)
+![An inset map of False Bay.](../images/false_bay_inset_map_labels2.jpg)
 
-![The strength of the relationship between each site based on their biodiversity.](../../images/PLOS_ONE_Fig4.jpg)
+![The strength of the relationship between each site based on their biodiversity.](../images/PLOS_ONE_Fig4.jpg)
 
-![A hierarchical cluster analysis.](../../images/hierarchical_clustsig.jpg)
+![A hierarchical cluster analysis.](../images/hierarchical_clustsig.jpg)
 
-![Current velcoties of Western Boundary Currents.](../../images/Fig01_AvisoMeanVelocityMean.png)
+![Current velcoties of Western Boundary Currents.](../images/Fig01_AvisoMeanVelocityMean.png)
 
 # **ggplot2**, ggplot, and `ggplot()`
 
