@@ -59,6 +59,10 @@ _freeze/
 !data/**/*.xlsx
 !data/**/*.xls
 
+# --- SAMOS course datasets ---
+# Keep processed teaching datasets, but ignore large/raw downloads.
+/data/SAMOS/raw/
+
 # LaTeX auxiliary files
 *.aux
 *.fdb_latexmk
