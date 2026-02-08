@@ -61,13 +61,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./intro_r/01-RStudio.html" rel="next">
+<script src="site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -75,10 +76,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-21fe018c864e78632dc0e35f28f7bac9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a72d73f98a4a7f3df5cb9b4599317c55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -106,6 +110,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>html{ scroll-behavior: smooth; }</style>
+
 
 <link rel="stylesheet" href="styles/styles.css">
 </head>
@@ -121,6 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <span class="navbar-title">SAMOS R</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -143,8 +167,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Tasks</span></a>
   </li>  
 </ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ajsmit/tangled_bank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -187,13 +231,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Introduction to R</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
@@ -312,13 +356,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Biostatistics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
@@ -401,13 +445,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Tasks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
@@ -477,21 +521,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#about-samos" id="toc-about-samos" class="nav-link active" data-scroll-target="#about-samos"><span class="header-section-number">1</span> About SAMOS</a></li>
   <li><a href="#venue-timetable-and-content" id="toc-venue-timetable-and-content" class="nav-link" data-scroll-target="#venue-timetable-and-content"><span class="header-section-number">2</span> Venue, Timetable, and Content</a></li>
   <li><a href="#description-and-content" id="toc-description-and-content" class="nav-link" data-scroll-target="#description-and-content"><span class="header-section-number">3</span> Description and Content</a></li>
-  <li><a href="#skills-and-graduate-attributes" id="toc-skills-and-graduate-attributes" class="nav-link" data-scroll-target="#skills-and-graduate-attributes"><span class="header-section-number">4</span> Skills and Graduate Attributes</a></li>
-  <li><a href="#sec-policy" id="toc-sec-policy" class="nav-link" data-scroll-target="#sec-policy"><span class="header-section-number">5</span> Assessment Policy</a></li>
+  <li><a href="#skills-and-graduate-attributes" id="toc-skills-and-graduate-attributes" class="nav-link" data-scroll-target="#skills-and-graduate-attributes"><span class="header-section-number">4</span> Skills and Graduate Attributes</a>
+  <ul class="collapse">
+  <li><a href="#core-skills" id="toc-core-skills" class="nav-link" data-scroll-target="#core-skills"><span class="header-section-number">4.1</span> Core Skills</a></li>
+  <li><a href="#graduate-attributes" id="toc-graduate-attributes" class="nav-link" data-scroll-target="#graduate-attributes"><span class="header-section-number">4.2</span> Graduate Attributes</a></li>
+  </ul></li>
+  <li><a href="#sec-policy" id="toc-sec-policy" class="nav-link" data-scroll-target="#sec-policy"><span class="header-section-number">5</span> Assessment Policy</a>
+  <ul class="collapse">
+  <li><a href="#progress-portfolio" id="toc-progress-portfolio" class="nav-link" data-scroll-target="#progress-portfolio"><span class="header-section-number">5.1</span> Progress Portfolio</a></li>
+  <li><a href="#self-assessment-tasks" id="toc-self-assessment-tasks" class="nav-link" data-scroll-target="#self-assessment-tasks"><span class="header-section-number">5.2</span> Self-assessment Tasks</a></li>
+  <li><a href="#formal-assessment" id="toc-formal-assessment" class="nav-link" data-scroll-target="#formal-assessment"><span class="header-section-number">5.3</span> Formal Assessment</a></li>
+  <li><a href="#submission-of-assignments" id="toc-submission-of-assignments" class="nav-link" data-scroll-target="#submission-of-assignments"><span class="header-section-number">5.4</span> Submission of Assignments</a></li>
+  </ul></li>
   <li><a href="#data-used" id="toc-data-used" class="nav-link" data-scroll-target="#data-used"><span class="header-section-number">6</span> Data Used</a>
   <ul class="collapse">
   <li><a href="#world-ocean-atlas-woa-data-used-in-this-module" id="toc-world-ocean-atlas-woa-data-used-in-this-module" class="nav-link" data-scroll-target="#world-ocean-atlas-woa-data-used-in-this-module"><span class="header-section-number">6.1</span> World Ocean Atlas (WOA) data used in this module</a></li>
+  <li><a href="#built-in-data" id="toc-built-in-data" class="nav-link" data-scroll-target="#built-in-data"><span class="header-section-number">6.2</span> Built-in Data</a></li>
   </ul></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">7</span> Prerequisites</a></li>
   <li><a href="#method-of-instruction" id="toc-method-of-instruction" class="nav-link" data-scroll-target="#method-of-instruction"><span class="header-section-number">8</span> Method of Instruction</a></li>
-  <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning"><span class="header-section-number">9</span> Learning</a></li>
+  <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning"><span class="header-section-number">9</span> Learning</a>
+  <ul class="collapse">
+  <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration"><span class="header-section-number">9.1</span> Collaboration</a></li>
+  <li><a href="#found-code" id="toc-found-code" class="nav-link" data-scroll-target="#found-code"><span class="header-section-number">9.2</span> Found Code</a></li>
+  <li><a href="#ai-tools" id="toc-ai-tools" class="nav-link" data-scroll-target="#ai-tools"><span class="header-section-number">9.3</span> AI Tools</a></li>
+  </ul></li>
   <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software"><span class="header-section-number">10</span> Software</a></li>
   <li><a href="#computers" id="toc-computers" class="nav-link" data-scroll-target="#computers"><span class="header-section-number">11</span> Computers</a></li>
   <li><a href="#attendance" id="toc-attendance" class="nav-link" data-scroll-target="#attendance"><span class="header-section-number">12</span> Attendance</a></li>
   <li><a href="#support" id="toc-support" class="nav-link" data-scroll-target="#support"><span class="header-section-number">13</span> Support</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -507,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Smit, A. J. <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+    <p class="author"><a href="https://samos-r.netlify.app">Smit, A. J.</a> <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -536,7 +596,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><img src="./images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></p>
+<p><a href="./images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="./images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
 <section id="about-samos" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> About SAMOS</h1>
 <p>The <strong>South African Master of Ocean Sciences (SAMOS / AOS‑SAMOS)</strong> is a joint Master’s programme organised by multiple South African and European partner universities, supported by the EU <strong>ERASMUS+ Capacity Building in Higher Education (CBHE)</strong> programme. The programme builds on the strengths of the University of Cape Town’s <strong>Applied Ocean Sciences (AOS)</strong> Master’s, and aims to train multidisciplinary ocean professionals for the evolving needs of the blue bio‑economy and for research supporting the sustainable use and conservation of marine ecosystems.</p>
@@ -556,7 +616,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Biostatistics</strong> runs from <strong>20 to 24 April 2026</strong>.</li>
 </ul>
 <p>Lectures will run from 09:00 to 16:30 on the days indicated in the table below.</p>
-<p>The module coordinator and lecturer is Prof AJ Smit (Room 4.103), and the teaching assistant for the module is Mr.&nbsp;Jesse Phillips (4115146@myuwc.ac.za). For queries about the Honours programme in general, please consult Dr.&nbsp;Patrick O’Farrell (Room 4.111).</p>
+<p>The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and the teaching assistant for the module is Mr.&nbsp;Jesse Phillips (4115146@myuwc.ac.za). For queries about the SAMOS programme in general, please consult Dr Denise Schael (Ocean Sciences Campus, Office 0210, 2nd Floor, E-Block Extension, Building 1105).</p>
 <ul>
 <li><strong>Introduction to R</strong>: <strong>23–27 February 2026</strong> (starting the afternoon of 23 February).</li>
 <li><strong>Biostatistics</strong>: <strong>20–24 April 2026</strong>.</li>
@@ -565,7 +625,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><span class="my-highlight"><a href="https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing"><strong>Module data (Google Drive)</strong></a></span></li>
 </ul></li>
 </ul>
-<table class="caption-top table">
+<table class="table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Wk</th>
@@ -893,25 +953,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Yes, the comma in this page’s title is correct: “SAMOS Core Module 3: Introduction to R, and Biostatistics.” The module provides an introduction to the R software language. I will also teach biostatistics.</p>
 <p>This is a core module in your Honours programme. You will learn to use R for data analysis, visualisation, and statistical inference. You will also learn fundamental biostatistics concepts, such as hypothesis testing, probabilities, confidence intervals, regression analysis, Analysis of Variance, and other staples of biostatistics. I will use real-world datasets from the biological, ecological, and environmental fields that you can use to practice applying your R and biostatistics skills.</p>
 <p>The approach taken in this module is not dissimilar from a course in Data Science. However, in this module, we will not do data science, but we will use R to actually <strong>do</strong> science. There is a difference! Any scientist that can use R is also ideally equipped to be a data scientist, and some people who have completed this module actually do just that. The difference between the two ideas, philosophies, and careers is provided in the box immediately below.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Real Scientists and Data ‘scientists’
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>I am deliberate in my use of the phrase <em>not real scientists</em>. This is a claim about epistemic practice.</p>
-<p>Data “science” involves the manipulation of data and by technical fluency with statistical or computational tools. Science, as defined by how it is practiced, is a framework around a structured relationship between theory, question formation, experimental or observational design, and inference. A scientist begins with a problem framed within an existing body of knowledge and articulates expectations that could, in principle, fail. They then construct a procedure whose purpose may involve pattern discovery and downstream analyses, and, importantly, adds layers of explanation for the phenomenon under scrutiny.</p>
-<p>Much of what is commonly called <em>data science</em> (primarily by data “scientists” themselves) goes in the opposite direction of what real scientists do. Large, often poorly characterised datasets are subjected to algorithmic exploration (more often using unsupervised methods without human guidance) in search of statistically admissible regularities, after which interpretation is retrofitted. This is not hypothesis testing in any meaningful sense; it is <em>post hoc</em> rationalisation constrained primarily by optimisation criteria rather than by theory. The fact that such procedures <em>can</em> generate predictions does not grant them scientific status. Prediction without explanation is engineering, at best, with statistical underpinnings.</p>
-<p>A data science practitioner who can move seamlessly from marketing data to genomic counts to social media engagement metrics does so precisely because the underlying activity is detached from any requirement to understand the causal structure of the system under study. Scientific work does not grant this mobility. One cannot meaningfully investigate trophic dynamics, atmospheric circulation, or physiological regulation without years of undergraduate, domain-specific instruction in the theory and practice of the field. The data science methods are transferable but understanding is not.</p>
-<p>The claim of “data-driven discovery” also does not rescue the position. Scientific discovery necessitates falsifiability and humility to being wrong in a way that matters theoretically. Data analysis tools blindly applied do not invite this risk. When a model underperforms, it is replaced. When a scientific hypothesis fails, something about the world has resisted our attempt to describe it.</p>
-<p>This distinction is why traditional scientific training places much weight on experimental design, controls, and prior expectation. They are supported by a rich philosophical tradition that guides the practitioner in confronting ideas with reality. Data science may be technically demanding, commercially valuable, or computationally impressive, but without the scientific philosophy it is not science.</p>
-<p>Calling data scientists “scientists” therefore reflects sloppy language, a slippage that mistakes proximity to data for engagement with explanation, and a willingness to dilute epistemic categories until they describe little more than technical competence with fashionable tools. If the word <em>scientist</em> is to retain its true, intended meaning, it must refer to a mode of inquiry defined by theory-driven questions and disciplined inference and not just by the capacity to process data (often at scale).</p>
-</div>
-</div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>The Intro R component of this module focuses on the functionality offered by the <a href="https://www.tidyverse.org/"><strong>tidyverse</strong></a> suite of packages. I designed this component to introduce you to a powerful set of tools for data manipulation, exploration, and visualisation. The <strong>tidyverse</strong> is a collection of R packages that work together to provide a cohesive set of functions for manipulating data. This course will cover the most popular packages in the <strong>tidyverse</strong>, including <strong>tidyr</strong> for data reshaping, <strong>dplyr</strong> for data ‘wrangling’, and <strong>ggplot2</strong> for data visualisation. You will learn how to clean, transform, and visualise data, as well as how to use these tools to build reproducible, informative data analysis pipelines. With a focus on practical application and hands-on exercises, you will gain the skills and knowledge needed to effectively use the tidyverse in your own data analysis projects.</p>
@@ -931,10 +972,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="skills-and-graduate-attributes" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Skills and Graduate Attributes</h1>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Core Skills</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Graduate Attributes</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<section id="core-skills" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="core-skills"><span class="header-section-number">4.1</span> Core Skills</h2>
 <p>By the end of this module, you will be able to:</p>
 <ul>
 <li>Understand and use R within the RStudio IDE</li>
@@ -946,179 +985,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Interpret the outcomes of these analyses and use it to probabilistically make inferences about the scientific enquiries</li>
 <li>Communicate the findings by written and oral form</li>
 </ul>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+</section>
+<section id="graduate-attributes" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="graduate-attributes"><span class="header-section-number">4.2</span> Graduate Attributes</h2>
 <p>The <a href="../pages/graduate_attributes.qmd"><strong>graduate attributes</strong></a> resulting from completion of this module align with the expectations of the workplace across diverse organisations and institutions where graduates typically find employment.</p>
-</div>
-</div>
-</div>
+</section>
 </section>
 <section id="sec-policy" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Assessment Policy</h1>
-<p><strong>Continuous Assessment (CA)</strong> and a <strong>Final Assessment</strong> will provide a <strong>Final Mark</strong> for the module. These modes of assessment meet our needs as far as <a href="../pages/assessment_theory.qmd">formative and summative assessments</a> are concerned. The weighting of the CA and the Final Assessment is 0.6 and 0.4, respectively. Except for the Biostatistics Theory Test, all assessments are open book, so consult your code, reading material if and when you need to.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 47%">
-<col style="width: 14%">
-<col style="width: 38%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Assessment Component</th>
-<th style="text-align: left;">Weight</th>
-<th style="text-align: left;">Contribution (%)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>CONTINUOUS ASSESSMENT</strong></td>
-<td style="text-align: left;"><strong>(0.6)</strong></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Introduction to R</strong></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Progress Portfolio</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Self-Assessment Tasks A–D (Random penalty)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">(max. -10)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="my-highlight">Intro R Test (0.3 × theory + 0.7 × prac)</span></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">35</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Biostatistics</strong></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Presentations</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Progress Portfolio</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">10</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Self-Assessment Tasks E–H (Random penalty)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">(max. -10)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="my-highlight">Biostatistics Test (0.3 × theory + 0.7 × prac)</span></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">35</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><em>Total</em></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><em>100</em></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>FINAL ASSESSMENT</strong></td>
-<td style="text-align: left;"><strong>(0.4)</strong></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="my-highlight"><em>Biostatistics Prac Exam (Intro R + Biostatistics)</em></span></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><em>100</em></td>
-</tr>
-</tbody>
-</table>
-<p>Care must be taken that the tests and exams are submitted as instructed, <em>i.e.</em> paying attention to naming conventions, the format of the files submitted — typically this will be in a Quarto document (.qmd) and the knitted output (I prefer .html).</p>
-<p>Random quizzes will not form part of the CA for BCB744.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Progress Portfolio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Presentations</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Self-assessment Tasks</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false" href="">Tests</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-5" role="tab" aria-controls="tabset-3-5" aria-selected="false" href="">Exam</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-6" role="tab" aria-controls="tabset-3-6" aria-selected="false" href="">Submission of Assignments</a></li></ul>
-<div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<p>Starting 3 February 2026, you will submit a thoroughly annotated <code>.html</code> file produced from a Quarto document, that outlines each day’s teaching material you covered as you followed along in the class. Since it is made within Quarto, you will have to include code chunks, their output, and some narrative text that describes what each portion of your code does. The document must be:</p>
+<p>TBD.</p>
+<section id="progress-portfolio" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="progress-portfolio"><span class="header-section-number">5.1</span> Progress Portfolio</h2>
+<p>Starting 23 February 2026, you will submit a thoroughly annotated <code>.html</code> file produced from a Quarto document, that outlines each day’s teaching material you covered as you followed along in the class. Since it is made within Quarto, you will have to include code chunks, their output, and some narrative text that describes what each portion of your code does. The document must be:</p>
 <ul>
 <li><strong>One continuous file</strong> that you add to each day (use a clear heading with the date and topic for every new day).</li>
 <li><strong>Rendered to HTML</strong> and submitted daily starting <strong>3 February 2026</strong>, on the <strong>same</strong> day of the lecture your portfolio material covers.</li>
 <li><strong>Complete and readable</strong>, with the code you ran, the outputs it produced, and a few sentences explaining what the code does. Include any notes that you made for your future self, which will aid you to study the work for assessments you will encounter. Any text added must be in your own words, and explained in a way that you understand (in good English, without grammatical and spelling errors).</li>
 <li><strong>Neatly structured</strong>, with short sections, headings, and clear figure/table outputs (no screenshots). I will significantly weigh the visual impression you ceate, so take pride in your work.</li>
 </ul>
-</div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p>The presentations are a critical part of the CA. They are designed to help you develop your communication around topics tangentially to the broad field of knowledge generation. The presentations will cover topics such as the nature of knowledge and belief, the nature of science, the scientific method, the limits to science, and other broader societal topics.</p>
-<p>For more detail, see the module instructions provided in class.</p>
-</div>
-<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<p>BCB744 (Introduction to R and Biostatistics) relies on regular, honest self-reflection about your grasp of each day’s lecture content. After every lecture, complete the Daily Self-Assessment Tasks to gauge your understanding; answers will be provided the following day, before introducing new content. Each task should be rated on a personal scale from 1 (no real comprehension) to 10 (complete mastery). These self-assessment marks will be kept on record and checked randomly, and we will discourage students from undertaking the Intro R Test and the BioStats Test if their self-assessment scores are consistently low.</p>
+</section>
+<section id="self-assessment-tasks" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="self-assessment-tasks"><span class="header-section-number">5.2</span> Self-assessment Tasks</h2>
+<p>Core Module 3.3 and 3,4 (Introduction to R, and Statistics) relies on regular, honest self-reflection about your grasp of each day’s lecture content. After every lecture, complete the Daily Self-Assessment Tasks to gauge your understanding; answers will be provided the following day, before introducing new content. Each task should be rated on a personal scale from 1 (no real comprehension) to 10 (complete mastery). These self-assessment marks will be kept on record and checked randomly, and we will discourage students from undertaking the Intro R Test and the BioStats Test if their self-assessment scores are consistently low.</p>
 <p>If you realise you are struggling, seek assistance from the lecturer or teaching assistant early (ideally on the day). Consistent, candid self-assessment strongly correlates with later performance in the Intro R Test, the Biostatistics Test, and the combined Exam. The goal is to align your learning strategies with course expectations and build a foundation for success.</p>
 <p><span class="my-highlight"><strong>For the daily self-assessment tasks to be effective, you must work alone on all of them.</strong></span></p>
 <p>For more detail, see the module instructions provided in class.</p>
-</div>
-<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<p>At the conclusion of Intro R and Biostatistics, you will take the more rigorous <strong>Intro R Test</strong> and <strong>Biostatistics Test</strong>. As indicated in the table above, these assessments carry significant weight. The tests will be conducted over several days, and you may complete them either at home or on campus. They constitute a key component of Continuous Assessment (CA) and are designed to prepare you for the final exam.</p>
-<p>Each test consists of two parts:</p>
-<ol type="1">
-<li><strong>Theory Test (30%)</strong> — This is a <strong>written, closed-book</strong> assessment where you will be tested on theoretical concepts. The only resource available during this test is the R help system.</li>
-<li><strong>Practical Test (70%)</strong> — In this <strong>open-book coding assessment</strong>, you will apply your theoretical knowledge to real data problems. While you may reference online materials (including ChatGPT), collaboration with peers is strictly prohibited.</li>
-</ol>
-<p>The practical component of the tests will be graded as follows:</p>
-<ul>
-<li>Content (20%):
-<ul>
-<li>Questions answered in order</li>
-<li>A written explanation of approach included for each question</li>
-<li>Appropriate formatting of text, for example, fonts not larger than necessary, headings used properly, etc. Be sensible, tasteful.</li>
-</ul></li>
-<li>Code formatting, structure, and correctness (50%):
-<ul>
-<li>Use <strong>Tidyverse</strong> code</li>
-<li>No more than ~80 characters of code per line (pay particular attention to the comments)</li>
-<li>Application of <a href="http://adv-r.had.co.nz/Style.html">R code conventions</a>, <em>e.g.</em> spaces around <code>&lt;-</code>, after <code>#</code>, after <code>,</code>, etc.</li>
-<li>New line for each <code>dplyr</code> function (lines end in <code>%&gt;%</code>) and each <code>ggplot</code> layer (lines end in <code>+</code>)</li>
-<li>Proper indentation of pipes and <code>ggplot()</code> layers</li>
-<li>All chunks labelled without spaces</li>
-<li>No unwanted / commented out code left behind in the document</li>
-</ul></li>
-<li>Figures (30%):
-<ul>
-<li>Sensible use of themes / colours</li>
-<li>Publication quality</li>
-<li>Informative and complete titles, axes labels, legends, etc.</li>
-<li>No redundant features or aesthetics</li>
-</ul></li>
-</ul>
-</div>
-<div id="tabset-3-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-5-tab">
-<p>The Exam is the final assessment. As such, it will test your skills broadly <strong>across both Intro R, Biostatistics</strong>. The Exam may be up to five days in duration. It will involve the analysis of real world data. Some of the questions might expect that you write 1) statements of aims and objectives, and hypotheses; 2) the full, detailed methods followed by analyses together with all code and 3) full reporting of results in a manner suited for peer reviewed publications; 4) graphical support highlighting the patterns observed (again with the code), and 5) a discussion if, when required. The weighting of marks to these various sections is:</p>
-<ol type="1">
-<li>Aims, objectives, and hypotheses: 5%</li>
-<li>Methods and analyses: 45%</li>
-<li>Results: 20%</li>
-<li>Graphs: 15%</li>
-<li>Discussion: 15%</li>
-</ol>
-<p>Other questions might be shorter in nature, designed to specifically test important aspects of BCB744. Such questions might be worth anything from 10 to 50 marks.</p>
-<p>The Exam is also open book. Review the questions carefully, answer them at home, and submit by the deadline.</p>
-</div>
-<div id="tabset-3-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-6-tab">
+</section>
+<section id="formal-assessment" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="formal-assessment"><span class="header-section-number">5.3</span> Formal Assessment</h2>
+<p>TBD.</p>
+</section>
+<section id="submission-of-assignments" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="submission-of-assignments"><span class="header-section-number">5.4</span> Submission of Assignments</h2>
 <ul>
 <li>The Progress Portfolios must be submitted on the day of the lectures they cover.</li>
-<li>The Tasks must be submitted by the date specified in the time table.</li>
+<li>The Self-Assessment Tasks must be submitted by the date specified in the time table.</li>
 </ul>
-<p>A statement such as the one below accompanies every assignment — pay attention, as failing to observe this instruction may result in a loss of marks (<em>i.e.</em> if an assignment remains ungraded because the owner of the material cannot be identified):</p>
-<p>Submit the output of your Quarto script, wherein you provide answers to the task questions, by no later than 8:30 the following date (or the Monday in cases when assignments were given on Fridays). Label the script as follows (<em>e.g.</em>): <strong>BCB744_Smit_Task_A.html</strong>.</p>
-<p><strong>Late Submissions</strong></p>
-<p>Late assignments will be penalised 10% per day and will not be accepted more than 48 hours late, unless evidence such as a doctor’s note, a death certificate, or another documented emergency can be provided. If you know in advance that a submission will be late, please discuss this, seek prior approval. This policy is based on the idea that in order to learn how to translate your human thoughts into computer language (coding) you should be working with them at multiple times each week — ideally daily. Time has been allocated in class for working on assignments and students are expected to continue to work on the assignments outside of class. Successfully completing (and passing) this module requires that you finish assignments based on what we have covered in class by the following class period. Work diligently from the onset so that even if something unexpected happens at the last minute you should already be close to done. This approach also allows rapid feedback to be provided to you and which can only be accomplished by returning assignments quickly and punctually.</p>
-</div>
-</div>
-</div>
+</section>
 </section>
 <section id="data-used" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Data Used</h1>
@@ -1141,6 +1044,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>phosphate</li>
 <li>silicate</li>
 </ul>
+</section>
+<section id="built-in-data" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="built-in-data"><span class="header-section-number">6.2</span> Built-in Data</h2>
 <p>R also gives you access to many built-in datasets that are useful for practising our R skills. To find out which datasets are available to you on your system, execute the following command. Help files for each of the datasets are also available:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load the data like this:</span></span>
@@ -1163,10 +1069,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="learning" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> Learning</h1>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Collaboration</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Found Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false" href="">Ai Tools</a></li></ul>
-<div class="tab-content">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<section id="collaboration" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="collaboration"><span class="header-section-number">9.1</span> Collaboration</h2>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1182,15 +1086,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Collaborative learning provides an opportunity to work together and learn from each other. It develops communication, teamwork, and leadership, and it can deepen your understanding of the subject matter. Discuss the BCB744 module activities with your peers as you work on them. Use the WhatsApp group set up for the module for discussion purposes (I might assist via this medium if necessary if your questions/comments have relevance to the whole class). A better option is to use <a href="./quantecol/#help-via-bcb744-and-bcb743-issues-on-github">GitHub Issues</a>. Ask questions, answer questions, and share ideas liberally. Please identify your work partners by name on all assignments (if you decide to work in pairs).</p>
 <p>At the same time, you are individually responsible for the submitted work. Collaboration means discussing ideas, approaches, and interpretations; it does not include sharing or reusing code, text, or outputs. Anything you submit must be your own, and any external material (including AI-generated code or web-sourced snippets) must be clearly cited. Plagiarism is a serious offence and will be dealt with concisely. Consequences of cheating are severe — they range from a 0% for the assignment or exam up to dismissal from the course for a second offence.</p>
-</div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+</section>
+<section id="found-code" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="found-code"><span class="header-section-number">9.2</span> Found Code</h2>
 <p>A huge volume of code is available on the web and it can be adapted to solve your own problems. You may make use of any online resources (<em>e.g.</em>, from <a href="https://stackoverflow.com/">StackOverflow</a>, a thoroughly-used source of discussion about <a href="https://stackoverflow.com/questions/tagged/r">R code</a>) — but you <strong>MUST</strong> clearly indicate (cite) that your solution relies on found code, regardless of how much you have modified it to your own needs. Reused code that is discovered via a web search, which is not explicitly cited, is plagiarism and will be treated as such. On assignments you may not directly share code with your peers in this workshop.</p>
-</div>
-<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+</section>
+<section id="ai-tools" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="ai-tools"><span class="header-section-number">9.3</span> AI Tools</h2>
 <p>The 2025 BSc (Hons) cohort will be the first to experience the use of AI tools in the BCB744 module. The use of AI tools is a new development and it is important that you are exposed to these tools. The use of AI tools will be limited to the use of the OpenAI ChatGPT tool, which may be used to generate ‘proto-code’ that will assist you in becoming familiar with the R language. We will explore ideas together, and the mark allocation to tasks and assignments will be adjusted accordingly.</p>
-</div>
-</div>
-</div>
+</section>
 </section>
 <section id="software" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Software</h1>
@@ -1201,7 +1105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="computers" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Computers</h1>
-<p>You are encouraged to provide your own laptops and to install the necessary software before the module starts. Limited support can be provided if required, but in the end, the onus is on you to understand how your computer works (from the filesystem through to dealing with software installation issues). There are also computers with R, RStudio (and the necessary add-on libraries) available in the 5th floor lab in the BCB Department.</p>
+<p>You are encouraged to provide your own laptops and to install the necessary software before the module starts. Limited support can be provided if required, but in the end, the onus is on you to understand how your computer works (from the filesystem through to dealing with software installation issues).</p>
 </section>
 <section id="attendance" class="level1" data-number="12">
 <h1 data-number="12"><span class="header-section-number">12</span> Attendance</h1>
@@ -1210,34 +1114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="support" class="level1" data-number="13">
 <h1 data-number="13"><span class="header-section-number">13</span> Support</h1>
-<p>It is expected that some tricky aspects of the module will take time to master, and the best way to master problematic material is to practice, practice some more, and then to ask questions. Trying for 10 minutes and then giving up is rarely enough. I will be more sympathetic to your cause if you can demonstrate sustained effort before asking me. When you ask questions about a challenge, explain the approaches you tried and how they failed. <em>I will not help you if you have not tried to help yourself first</em> (maybe with advice from friends). There will be time in class to do this, typically before we embark on a new topic. You are also encouraged to bring up related questions that arise in your own B.Sc. (Hons.) research project.</p>
+<p>It is expected that some tricky aspects of the module will take time to master, and the best way to master problematic material is to practice, practice some more, and then to ask questions. Trying for 10 minutes and then giving up is rarely enough. I will be more sympathetic to your cause if you can demonstrate sustained effort before asking me. When you ask questions about a challenge, explain the approaches you tried and how they failed. <em>I will not help you if you have not tried to help yourself first</em> (maybe with advice from friends). There will be time in class to do this, typically before we embark on a new topic.</p>
 <p>Should you require more time with me, find out when I am ‘free’, set an appointment by sending me a calendar invitation. I am happy to have a personal meeting with you via Zoom but I prefer face-to-face in my office.</p>
-<p><strong>Guidelines for asking questions:</strong></p>
-<ul>
-<li>First search existing issues (open or closed) for answers. If the question has already been answered, you are done! If there is an open issue, feel free to contribute to it. Or feel free to open a closed issue if you believe the answer is not satisfactory.</li>
-<li>Give your issue an informative title.
-<ul>
-<li>Good: “Error: could not find function”ggplot””</li>
-<li>Bad: “My code does not work!” Note that you can edit an issue’s title after it has been posted.</li>
-</ul></li>
-<li>Format your questions nicely using markdown and code formatting. Preview your issue prior to posting.</li>
-<li>As I explained above, your peers and I will be more sympathetic to your cause if you can show <em>all the things you have tried yourself to fix the issue first</em>.</li>
-<li>Include code and example data so the person trying to help you have something to work with (and which results in the error, perhaps)</li>
-<li>Where appropriate, provide links to specific files, or even lines within them, in the body of your issue. This will help your peers understand your question. Note that only the teaching team will have access to private repos.</li>
-<li>(Optional) Tag someone or some group of people. Start by typing their GitHub username prefixed with the @ symbol. Of course this supposes that each of you have a GitHub account and username.</li>
-<li>Hit <strong>Submit new issue</strong> when you are ready to post.</li>
-</ul>
 
 
 </section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>A maximum of 10% may be deducted from your presentation marks should you be found to be dishonest in your self assessments.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
   author = {A. J. , Smit},
   title = {SAMOS {Core} {Module} 3: {Introduction} to {R,} and
     {Biostatistics}},
@@ -1341,6 +1224,8 @@ Biostatistics. <a href="http://samos-r.netlify.app/">http://samos-r.netlify.app/
             if (link.getAttribute("rel") === null) {
               link.setAttribute("rel", "noopener");
             }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1664,8 +1549,54 @@ Biostatistics. <a href="http://samos-r.netlify.app/">http://samos-r.netlify.app/
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026, AJ Smit</p>
+</div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

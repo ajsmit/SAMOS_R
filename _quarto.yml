@@ -4,12 +4,20 @@ project:
     - "**/*.qmd"
     - "!intro_r/includes/**"
 
+vars:
+  github-url: "https://github.com/ajsmit/SAMOS_R"
+
 # Default author
 author:
   - name: "Smit, A. J."
+    url: https://samos-r.netlify.app
     affiliation: University of the Western Cape
     affiliation-url: https://uwc.ac.za
     orcid: 0000-0002-3799-6126
+
+copyright:
+  holder: "Smit, A. J."
+  year: 2026
 
 execute:
   cache: false
@@ -21,32 +29,60 @@ execute:
 bibliography: references.bib
 citation: true
 csl: styles/marine-biology.csl
+funding: "The author received no specific funding for this work."
+license: "CC BY-NC-SA"
+lightbox: auto
+title-block-banner: false
+title-block-style: default
 
 format:
   html:
-    theme: [lumen, styles/styles.scss]
-    css: styles/styles.css
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    number-depth: 3
     code-copy: true
     code-line-numbers: true
-    link-external-newwindow: true
+    css: styles/styles.css
     fig-align: center
+    highlight-style: github
+    html-math-method: mathjax
+    number-sections: true
+    number-depth: 3
+    link-external-icon: true
+    link-external-newwindow: true
     out-width: "75%"
+    theme: [lumen, styles/styles.scss]
+    page-layout: article
+    reference-location: document
+    self-contained: false
+    smooth-scroll: true
+    tbl-cap-location: margin
+    tbl-colwidths: false
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-title: "On this page"    
 
 website:
   title: "SAMOS R"
   description: "SAMOS Core Module 3: Introduction to R and Biostatistics"
   site-url: "http://samos-r.netlify.app"
   repo-url: "https://github.com/ajsmit/SAMOS_R"
+  repo-actions: [edit, issue]
+  reader-mode: true  
   bread-crumbs: true
+  cookie-consent:
+    type: express
+    style: headline
+    palette: light
   search:
     location: sidebar
   page-navigation: true
+  page-footer:
+    left: "© 2026, AJ Smit"
+    background: light
 
   navbar:
+    background: primary
+    search: true
+    collapse-below: lg
     left:
       - text: "Home"
         file: index.qmd
@@ -56,9 +92,23 @@ website:
         href: basic_stats/02-summarise-and-describe.qmd
       - text: "Tasks"
         href: tasks/BCB744_Task_A.qmd
+    right:
+    - icon: github
+      menu:
+        - text: Source Code
+          url:  https://github.com/ajsmit/tangled_bank
+
 
   sidebar:
+    alignment: left
+    background: light
+    back-to-top-navigation: true
+    border: false
     style: floating
+    pinned: true
+    search: true
+    type: light
+    collapse-level: 1
     logo: images/SAMOS-logo-transparent.png
     contents:
       - href: index.qmd
