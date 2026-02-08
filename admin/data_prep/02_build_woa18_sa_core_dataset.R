@@ -124,11 +124,15 @@ message("[ok] wrote ", out_file)
 
 # Also emit a lightweight provenance file next to the output
 prov_file <- file.path(out_dir, "woa18_sa_core_1deg_monthly_PROVENANCE.md")
+pkg_ver <- function(pkg) as.character(utils::packageVersion(pkg))
+
 writeLines(
   c(
     "# Provenance: WOA18 Southern Africa core dataset",
     "",
     paste0("Created: ", format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z")),
+    paste0("R: ", R.version.string),
+    paste0("Packages: tidyverse ", pkg_ver("tidyverse"), "; data.table ", pkg_ver("data.table")),
     "",
     "## Inputs",
     "- NOAA NCEI World Ocean Atlas 2018 (WOA18)",

@@ -1,6 +1,8 @@
 # Provenance: WOA18 Southern Africa core dataset
 
-Created: 2026-02-08 06:31:51 SAST
+Created: 2026-02-08 06:32:44 SAST
+R: R version 4.5.2 (2025-10-31)
+Packages: tidyverse 2.0.0; data.table 1.18.2.1
 
 ## Inputs
 - NOAA NCEI World Ocean Atlas 2018 (WOA18)
