@@ -41,24 +41,24 @@
     <lastmod>2026-02-07T08:49:49.784Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/14-tidier.html</loc>
-    <lastmod>2026-02-08T15:28:58.535Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/14-mapping_rnaturalearth.html</loc>
+    <lastmod>2026-02-08T16:38:02.096Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/12-mapping_quakes.html</loc>
-    <lastmod>2026-02-08T15:29:09.649Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/12-mapping.html</loc>
+    <lastmod>2026-02-08T15:29:09.640Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/10-mapping_style.html</loc>
-    <lastmod>2026-02-08T15:29:09.642Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/10-faceting.html</loc>
+    <lastmod>2026-02-08T15:28:58.541Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/08-brewing.html</loc>
-    <lastmod>2026-02-08T15:28:58.543Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/08-tidiest.html</loc>
+    <lastmod>2026-02-08T15:28:58.537Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/06-graphics.html</loc>
-    <lastmod>2026-02-08T15:28:58.539Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/06-tidy.html</loc>
+    <lastmod>2026-02-08T15:28:58.532Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/04-data-in-R.html</loc>
@@ -70,7 +70,7 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/index.html</loc>
-    <lastmod>2026-02-08T14:53:13.346Z</lastmod>
+    <lastmod>2026-02-08T16:37:19.069Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/13-confidence.html</loc>
@@ -106,7 +106,7 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/02-summarise-and-describe.html</loc>
-    <lastmod>2026-02-07T08:49:49.789Z</lastmod>
+    <lastmod>2026-02-08T16:37:38.220Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/04-distributions.html</loc>
@@ -145,24 +145,24 @@
     <lastmod>2026-02-07T08:49:49.782Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/07-faceting.html</loc>
-    <lastmod>2026-02-08T15:28:58.541Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/07-tidier.html</loc>
+    <lastmod>2026-02-08T15:28:58.535Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/09-mapping.html</loc>
-    <lastmod>2026-02-08T15:29:09.640Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/09-graphics.html</loc>
+    <lastmod>2026-02-08T15:28:58.539Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/11-mapping_rnaturalearth.html</loc>
-    <lastmod>2026-02-08T15:29:23.193Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/11-brewing.html</loc>
+    <lastmod>2026-02-08T15:28:58.543Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/13-tidy.html</loc>
-    <lastmod>2026-02-08T15:28:58.532Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/13-mapping_style.html</loc>
+    <lastmod>2026-02-08T15:29:09.642Z</lastmod>
   </url>
   <url>
-    <loc>http://samos-r.netlify.app/intro_r/15-tidiest.html</loc>
-    <lastmod>2026-02-08T15:28:58.537Z</lastmod>
+    <loc>http://samos-r.netlify.app/intro_r/15-mapping_quakes.html</loc>
+    <lastmod>2026-02-08T15:29:09.649Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/17-functions.html</loc>

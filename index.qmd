@@ -63,16 +63,16 @@ The module coordinator and lecturer is Prof AJ Smit (Room 4.103), and the teachi
 |      |         | [3. R Markdown and Quarto](intro_r/03-quarto.qmd)                                              |            |                                            |                  |
 |      | L2 (AM) | [4. Data Classes and Structures in R](intro_r/04-data-in-R.html)                               | 24 Feb 26  | [Task A](tasks/BCB744_Task_A.html)         | 25 Feb 26        |
 |      |         | [5. R Workflows](intro_r/05-workflow.html)                                                     |            |                                            |                  |
-|      | L3      | [13. Tidy Data](intro_r/13-tidy.html)                                                          | 25 Feb 26  | [Task D](tasks/BCB744_Task_D.html)         | 27 Feb 26        |
-|      |         | [14. Tidier Data](intro_r/14-tidier.html)                                                      |            |                                            |                  |
-|      |         | [15. Tidiest Data](intro_r/15-tidiest.html)                                                    |            |                                            |                  |
-|      | L4      | [6. Graphics With **ggplot2**](intro_r/06-graphics.html)                                       | 26 Feb 26  | [Task B](tasks/BCB744_Task_B.html)         | 02 Mar 26        |
-|      |         | [7. Faceting Figures](intro_r/07-faceting.html)                                                |            |                                            |                  |
-|      |         | [8. Brewing Colours](intro_r/08-brewing.html)                                                  |            |                                            |                  |
-|      | L5      | [9. Mapping With **ggplot2**](intro_r/09-mapping.html)                                         | 27 Feb 26  | [Task C](tasks/BCB744_Task_C.html)         | 06 Mar 26        |
-|      |         | [10. Mapping With Style](intro_r/10-mapping_style.html)                                        |            |                                            |                  |
-|      |         | [11. Mapping With Natural Earth and the **sf** Package](intro_r/11-mapping_rnaturalearth.html) |            |                                            |                  |
-|      | Self    | [12. The Fiji Earthquake Data](intro_r/12-mapping_quakes.html)                                 |            | [Bonus Task](tasks/BCB744_Task_Bonus.html) | 06 Mar 26        |
+|      | L3      | [6. Tidy Data](intro_r/06-tidy.html)                                                          | 25 Feb 26  | [Task D](tasks/BCB744_Task_D.html)         | 27 Feb 26        |
+|      |         | [7. Tidier Data](intro_r/07-tidier.html)                                                      |            |                                            |                  |
+|      |         | [8. Tidiest Data](intro_r/08-tidiest.html)                                                    |            |                                            |                  |
+|      | L4      | [9. Graphics With **ggplot2**](intro_r/09-graphics.html)                                       | 26 Feb 26  | [Task B](tasks/BCB744_Task_B.html)         | 02 Mar 26        |
+|      |         | [10. Faceting Figures](intro_r/10-faceting.html)                                                |            |                                            |                  |
+|      |         | [11. Brewing Colours](intro_r/11-brewing.html)                                                  |            |                                            |                  |
+|      | L5      | [12. Mapping With **ggplot2**](intro_r/12-mapping.html)                                         | 27 Feb 26  | [Task C](tasks/BCB744_Task_C.html)         | 06 Mar 26        |
+|      |         | [13. Mapping With Style](intro_r/13-mapping_style.html)                                        |            |                                            |                  |
+|      |         | [14. Mapping With Natural Earth and the **sf** Package](intro_r/14-mapping_rnaturalearth.html) |            |                                            |                  |
+|      | Self    | [15. The Fiji Earthquake Data](intro_r/15-mapping_quakes.html)                                 |            | [Bonus Task](tasks/BCB744_Task_Bonus.html) | 06 Mar 26        |
 |      | L6      | [16. Synthesis](intro_r/16-recap.qmd)                                                          | 27 Feb 26  |                                            |                  |
 |      |         | [**Test 1: Intro R Theory Test**]{.my-highlight}                                               | TBA        |                                            | TBA              |
 |      |         | [**Test 1: Intro R Prac Test**]{.my-highlight}                                                 | TBA        |                                            | TBA              |

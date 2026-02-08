@@ -321,4 +321,4 @@ When you start from scratch, use this quick recipe:
 
 # Example
 
-Here are examples that use the built-in [Fiji earthquake data](12-mapping_quakes.qmd) or the [Kaggle earthquake data](../../pages/kaggle_earthquakes.qmd).
+Here are examples that use the built-in [Fiji earthquake data](15-mapping_quakes.qmd) or the [Kaggle earthquake data](../../pages/kaggle_earthquakes.qmd).
