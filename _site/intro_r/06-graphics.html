@@ -482,12 +482,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#geom_-the-pipe-or-and-the-sign" id="toc-geom_-the-pipe-or-and-the-sign" class="nav-link" data-scroll-target="#geom_-the-pipe-or-and-the-sign"><span class="header-section-number">3.1</span> <code>geom_*()</code>, the Pipe (<code>%&gt;%</code> or <code>|&gt;</code>), and the <code>+</code> Sign</a></li>
   <li><a href="#aes" id="toc-aes" class="nav-link" data-scroll-target="#aes"><span class="header-section-number">3.2</span> <code>aes()</code></a></li>
   </ul></li>
-  <li><a href="#the-chickweight-dataset" id="toc-the-chickweight-dataset" class="nav-link" data-scroll-target="#the-chickweight-dataset"><span class="header-section-number">4</span> The <code>ChickWeight</code> Dataset</a>
+  <li><a href="#the-world-ocean-atlas-woa18-core-dataset" id="toc-the-world-ocean-atlas-woa18-core-dataset" class="nav-link" data-scroll-target="#the-world-ocean-atlas-woa18-core-dataset"><span class="header-section-number">4</span> The World Ocean Atlas (WOA18) Core Dataset</a>
   <ul class="collapse">
-  <li><a href="#how-to-read-this-code" id="toc-how-to-read-this-code" class="nav-link" data-scroll-target="#how-to-read-this-code"><span class="header-section-number">4.1</span> How to Read This Code</a></li>
+  <li><a href="#first-plot-a-classic-temperaturesalinity-ts-view" id="toc-first-plot-a-classic-temperaturesalinity-ts-view" class="nav-link" data-scroll-target="#first-plot-a-classic-temperaturesalinity-ts-view"><span class="header-section-number">4.1</span> First plot: a classic Temperature–Salinity (T–S) view</a></li>
+  <li><a href="#how-to-read-this-code" id="toc-how-to-read-this-code" class="nav-link" data-scroll-target="#how-to-read-this-code"><span class="header-section-number">4.2</span> How to Read This Code</a></li>
   </ul></li>
   <li><a href="#to-aes-or-not-to-aes-that-is-the-question" id="toc-to-aes-or-not-to-aes-that-is-the-question" class="nav-link" data-scroll-target="#to-aes-or-not-to-aes-that-is-the-question"><span class="header-section-number">5</span> To <code>aes()</code> or Not to <code>aes()</code>, That Is the Question</a></li>
   <li><a href="#changing-labels" id="toc-changing-labels" class="nav-link" data-scroll-target="#changing-labels"><span class="header-section-number">6</span> Changing Labels</a></li>
+  <li><a href="#reusable-woa-examples-for-other-chapters" id="toc-reusable-woa-examples-for-other-chapters" class="nav-link" data-scroll-target="#reusable-woa-examples-for-other-chapters"><span class="header-section-number">7</span> Reusable WOA examples (for other chapters)</a></li>
   </ul>
 </nav>
     </div>
@@ -687,119 +689,148 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For example, if you have a dataframe with two variables <code>x</code> and <code>y</code>, you can create a scatterplot of <code>x</code> against <code>y</code> by calling <code>ggplot(data, aes(x, y)) + geom_point()</code>. The <code>aes(x, y)</code> function maps the variables (columns) in the dataframe to the <em>x</em> and <em>y</em> positions of the points in the scatterplot. Similarly, we can map variables in the dataframe to non-positional aesthetics, such as colour (<em>e.g.</em>, a colour might be more intense as the magnitude of the values in a column increase), size (larger symbols for bigger values), transparency, or grouping.</p>
 </section>
 </section>
-<section id="the-chickweight-dataset" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> The <code>ChickWeight</code> Dataset</h1>
+<section id="the-world-ocean-atlas-woa18-core-dataset" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The World Ocean Atlas (WOA18) Core Dataset</h1>
+<p>In this course we will increasingly use <strong>real ocean data</strong>. To keep things simple (and fast), we will use a small, tidy extract of <strong>World Ocean Atlas 2018 (WOA18)</strong> climatologies.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Built-in Datasets
+<span class="screen-reader-only">Note</span>About the dataset used in this chapter (World Ocean Atlas 2018)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>R has many built-in datasets that are useful for practicing our R skills. To find out which datasets are available to you on your system, execute the following command:</p>
+<p>In this chapter we use a small, tidy extract of <strong>World Ocean Atlas 2018 (WOA18)</strong> climatologies for the broader Southern Africa region.</p>
+<p>Why WOA matters in ocean science:</p>
+<ul>
+<li><strong>Temperature</strong> and <strong>salinity</strong> are the fundamental state variables of seawater, and together shape density and stratification.</li>
+<li><strong>Dissolved oxygen</strong> is a key indicator of ventilation, productivity, and habitat suitability.</li>
+<li><strong>Nutrients</strong> (nitrate, phosphate, silicate) constrain primary production and structure ecosystems.</li>
+</ul>
+<p>These variables are not “just numbers”: they encode the physical and biogeochemical structure of the ocean.</p>
+</div>
+</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">data</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Load the core teaching dataset (WOA18 climatology extract)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>woa <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"processed"</span>, <span class="st">"woa18_sa_core_1deg_monthly.csv"</span>),</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Quick look</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">glimpse</span>(woa)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Rows: 200,382
+R&gt; Columns: 8
+R&gt; $ lat      &lt;dbl&gt; -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5…
+R&gt; $ lon      &lt;dbl&gt; 6.5, 7.5, 9.5, 12.5, 14.5, 15.5, 19.5, 20.5, 22.5, 24.5, 26.5…
+R&gt; $ depth_m  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+R&gt; $ value    &lt;dbl&gt; NA, 295.308, 295.840, NA, 280.251, NA, 270.377, 270.764, 289.…
+R&gt; $ month    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+R&gt; $ variable &lt;chr&gt; "dissolved_oxygen", "dissolved_oxygen", "dissolved_oxygen", "…
+R&gt; $ unit     &lt;chr&gt; "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/…
+R&gt; $ source   &lt;chr&gt; "WOA18 decav 1.00° CSV", "WOA18 decav 1.00° CSV", "WOA18 deca…</code></pre>
 </div>
-<p>A new tab will open and the list of datasets will be displayed. For example, the following might be displayed:</p>
-<pre><code>Data sets in package ‘datasets’:
-
-AirPassengers                       Monthly Airline Passenger Numbers 1949-1960
-BJsales                             Sales Data with Leading Indicator
-BJsales.lead (BJsales)              Sales Data with Leading Indicator
-BOD                                 Biochemical Oxygen Demand
-CO2                                 Carbon Dioxide Uptake in Grass Plants
-ChickWeight                         Weight versus age of chicks on different diets
-DNase                               Elisa assay of DNase
-EuStockMarkets                      Daily Closing Prices of Major European Stock Indices, 1991-1998
-Formaldehyde                        Determination of Formaldehyde
-HairEyeColor                        Hair and Eye Color of Statistics Students
-Harman23.cor                        Harman Example 2.3
-[...]</code></pre>
-<p>The exact list might vary from user to user, as this depends on which packages have been installed on your system. For example, scrolling all the way to the bottom of the list produced above using the <code>data()</code> command, you will see the following information and code that can be executed to show all the datasets in all the packages available on your system:</p>
-<pre><code>Use ‘data(package = .packages(all.available = TRUE))’
-to list the data sets in all *available* packages.</code></pre>
-<p>A particular dataset can be loaded as follows:</p>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Data dictionary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See: <code>data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md</code></p>
+</div>
+</div>
+<section id="first-plot-a-classic-temperaturesalinity-ts-view" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="first-plot-a-classic-temperaturesalinity-ts-view"><span class="header-section-number">4.1</span> First plot: a classic Temperature–Salinity (T–S) view</h2>
+<p>In oceanography, temperature and salinity are often plotted against each other to reveal water-mass structure. Here we do a simple version of that idea using <strong>surface</strong> climatology (0 m) for <strong>February</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">data</span>(acacia, <span class="at">package =</span> <span class="st">"ade4"</span>) <span class="co"># the package name is listed also in the data() display</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<p>The <code>ChickWeight</code> dataset can be seen in the list above. Before plotting any dataset, take a quick look at its structure so you know what variables you have and how they are stored. A fast way to do this is <code>glimpse(ChickWeight)</code>.</p>
-<p>We will load and use it now.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Load data</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>ChickWeight <span class="ot">&lt;-</span> datasets<span class="sc">::</span>ChickWeight</span>
-<span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co"># Create a basic figure</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Chick))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-basic-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-woa-ts-basic" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-basic-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="06-graphics_files/figure-html/fig-basic-1-1.png" class="img-fluid figure-img" style="width:75.0%">
+<div aria-describedby="fig-woa-ts-basic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-graphics_files/figure-html/fig-woa-ts-basic-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Chick weights over time with individual trajectories.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-ts-basic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: WOA18 surface (0 m) February climatology: temperature vs salinity.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="how-to-read-this-code" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="how-to-read-this-code"><span class="header-section-number">4.1</span> How to Read This Code</h2>
-<p>Read the plot like a sentence with grammar: <strong>subject → verb → modifiers</strong>. The subject is the data (<code>ChickWeight</code>), the verb is the geometric action (<code>geom_point()</code> or <code>geom_line()</code>), and the modifiers are the aesthetic mappings (<code>aes(...)</code>) that tell ggplot <em>how</em> to draw. The <code>ggplot(...)</code> line sets the stage (data + core mappings), and each <code>geom_*()</code> line adds a new clause. The <code>+</code> sign means “and then add another clause.”</p>
-<p>So what is that code doing? We may see from the figure that it is creating a little black dot for every data point, with the <code>Time</code> of sampling on the <em>x</em> axis, and the <code>weight</code> of the chicken during that time on the <em>y</em> axis. It then connects the dots for each chicken in the dataset. Let us break this code down line for line to get a better idea of what it is doing.</p>
+</section>
+<section id="how-to-read-this-code" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="how-to-read-this-code"><span class="header-section-number">4.2</span> How to Read This Code</h2>
+<p>Read the plot like a sentence with grammar: <strong>subject → verb → modifiers</strong>. The subject is the data (here: a filtered slice of <code>woa</code>), the verb is the geometric action (<code>geom_point()</code>), and the modifiers are the aesthetic mappings (<code>aes(...)</code>) that tell ggplot <em>how</em> to draw. The <code>ggplot(...)</code> line sets the stage (data + core mappings), and each <code>geom_*()</code> line adds a new clause. The <code>+</code> sign means “and then add another clause.”</p>
+<p>So what is that code doing? We may see from the figure that it is creating a dot for every grid cell, placing <strong>salinity</strong> on the x‑axis and <strong>temperature</strong> on the y‑axis (a very common oceanography view).</p>
 <p>As a workflow, it is perfectly normal to build plots incrementally: start with a minimal plot, confirm the axes are correct, then add layers one at a time. Partial plots are not failures; they are thinking tools.</p>
 <p>The first line of code is telling R that we want to create a ggplot figure. We know this because we are using the <code>ggplot()</code> function. Inside of that function we are telling R which dataframe (or tibble) we want to create a figure from. Lastly, with the <code>aes()</code> function we tell R what the necessary parts of the figure will be. This is also known as ‘mapping’ (variables map to the visual appearance and arrangement of figure elements).</p>
 <p>The second line of code then takes all of that information and makes points (dots) out of it, added as a layer on the set of axes created by the <code>aes()</code> argument provided within <code>ggplot(...)</code> — in other words, we add a ‘geometry’ layer, and hence the name of the kind of ‘shape’ we want to plot the data as is prefixed by <code>geom_</code>.</p>
-<p>The third line takes the same information and creates lines from it — it adds yet another layer on top of the pre-existing one. Notice in the third line that we have provided another mapping argument by telling R to group the data by <code>Chick</code>. This is the third mental model: grouping is a statement about data identity, not decoration. It tells ggplot which observations belong together, so it draws an individual line for each chicken rather than one big jagged line.</p>
-<p>If you remove <code>group = Chick</code>, ggplot defaults to a single group for the whole dataset. That default makes ggplot connect points in the order they appear in the data frame, which produces the jagged line that jumps across different chicks. The problem is not “a bad line,” it is a missing identity rule for the data.</p>
-<p>Try running this code without the group argument for <code>geom_line()</code> and see what happens.</p>
-<p>This figure does not look like much yet. We saw some examples above that show how sophisticated figures may become. This is a remarkably straightforward task. But do not take my word for it, let us see for ourselves. By adding one more aesthetic to the code above we will now show each <code>Diet</code> as a different colour.</p>
+<p>In many cases (especially time series) you will add a <code>geom_line()</code> layer. With the WOA climatology we typically do not connect points with lines because they are not ordered in time within each location.</p>
+<p>However, we <em>can</em> add an extra aesthetic mapping to include a third variable. Below we colour points by <strong>dissolved oxygen</strong> (surface, February). This is an example of mapping a continuous variable to a continuous colour scale.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">colour =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Chick))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dissolved_oxygen), <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">scale_colour_viridis_c</span>(<span class="at">name =</span> <span class="st">"Oxygen (µmol/kg)"</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-basic-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-woa-ts-oxygen" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-basic-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="06-graphics_files/figure-html/fig-basic-3-1.png" class="img-fluid figure-img" style="width:75.0%">
+<div aria-describedby="fig-woa-ts-oxygen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-graphics_files/figure-html/fig-woa-ts-oxygen-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Chick weights over time coloured by diet.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-ts-oxygen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Surface February climatology: T–S scatter coloured by dissolved oxygen.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Do any patterns appear to emerge from the data? Perhaps there is a better way to visualise them? With linear models for example?</p>
+<p>Do any patterns appear to emerge? Typically oxygen is higher in cooler surface waters (and lower in warmer waters), but the relationship is not purely linear because circulation and biology both matter.</p>
+<p>We can still add a simple best‑fit line through the points to demonstrate <code>geom_smooth()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">colour =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> dissolved_oxygen)) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">y =</span> <span class="st">"Dissolved oxygen (µmol/kg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-first-lm" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-woa-ts-oxygen-lm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-first-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="06-graphics_files/figure-html/fig-first-lm-1.png" class="img-fluid figure-img" style="width:75.0%">
+<div aria-describedby="fig-woa-ts-oxygen-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-graphics_files/figure-html/fig-woa-ts-oxygen-lm-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-first-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Chick weights over time with linear trends by diet.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-ts-oxygen-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Same plot with a simple linear trend (for demonstration).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>How is a linear model calculated? What patterns do we see in the data now? If you were a chicken, which feed would you want?</p>
 </section>
 </section>
 <section id="to-aes-or-not-to-aes-that-is-the-question" class="level1" data-number="5">
@@ -808,23 +839,28 @@ Figure&nbsp;3: Chick weights over time with linear trends by diet.
 <p>The astute eye will have noticed by now that most arguments we have added to the code have been inside of the <code>aes()</code> function. So what exactly is that <code>aes()</code> function doing sitting inside of the other functions? The reason for the <code>aes()</code> function is that it controls the look of the other functions dynamically based on the variables you provide it. If we want to change the look of the plot by some static value we would do this by passing the argument for that variable to the geom of our choosing <em>outside</em> of the <code>aes()</code> function. Let us see what this looks like by changing the colour of the dots.</p>
 <p>Why does ggplot need this distinction at all? Because it builds a <strong>mapping object</strong> before it draws anything. That mapping object tells ggplot which variables drive scales, legends, and warnings. Mapped aesthetics (inside <code>aes()</code>) are treated as data-driven and get scales and legends; constant aesthetics (outside <code>aes()</code>) are treated as fixed settings and do not.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Chick, <span class="at">colour =</span> <span class="st">"blue"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-basic-6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-woa-constant-colour" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-basic-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="06-graphics_files/figure-html/fig-basic-6-1.png" class="img-fluid figure-img" style="width:75.0%">
+<div aria-describedby="fig-woa-constant-colour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-graphics_files/figure-html/fig-woa-constant-colour-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Constant colour set outside aes for points and lines.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-constant-colour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Constant colour set outside aes (no legend is created).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Why are the points blue, but the lines are salmon with a legend that says they are ‘blue’? We may see that in the line responsible for the points (<code>geom_point()</code>) we did not put the colour argument inside of the <code>aes()</code> function, but for the lines (<code>geom_line()</code>) we did. If we know that we want some aspect of our figure to be a static value we set this value outside of the <code>aes()</code> function. If we want some aspect of our figure to reflect some part of the data in our dataframe, we must set that inside of <code>aes()</code>. Let us see an example where we set the size of the dots to equal the weight of the chicken and the thickness of the linear model lines to one static value.</p>
+<p>Why did no legend appear? Because the colour was set <em>outside</em> <code>aes()</code>, so ggplot treats it as a fixed setting, not a mapping. If you put a constant inside <code>aes()</code> (for example, <code>aes(colour = "steelblue")</code>), ggplot thinks you are mapping a category called “steelblue” and will create a legend.</p>
+<p>Next we set the <strong>size</strong> of points as a mapped variable (nitrate), while keeping other aesthetics constant.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -843,23 +879,28 @@ Figure&nbsp;4: Constant colour set outside aes for points and lines.
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">colour =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> weight)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">size =</span> <span class="fl">1.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"nitrate"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> nitrate), <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">name =</span> <span class="st">"Nitrate (µmol/kg)"</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-basic-8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-woa-size-mapped" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-basic-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="06-graphics_files/figure-html/fig-basic-8-1.png" class="img-fluid figure-img" style="width:75.0%">
+<div aria-describedby="fig-woa-size-mapped-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-graphics_files/figure-html/fig-woa-size-mapped-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Point size mapped to weight with linear trends by diet.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-size-mapped-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Point size mapped to nitrate concentration (surface, February).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Notice that we have set the size of the points and the lines, but one is within <code>aes()</code> and the other not. Because the size of our points equals the weight of the chickens, the points become larger the heavier (juicier) the chickens become. But because we set the size of the lines to one static value, all of the lines are the same size and do not change because of any other variables.</p>
+<p>Notice that we mapped point size inside <code>aes(size = nitrate)</code>. That creates a size scale and legend. Any size you set <em>outside</em> <code>aes()</code> would be constant for all points.</p>
 </section>
 <section id="changing-labels" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Changing Labels</h1>
@@ -868,25 +909,106 @@ Figure&nbsp;5: Point size mapped to weight with linear trends by diet.
 <p><code>labs()</code> changes text that clarifies meaning (axis labels, legend titles, captions). <code>theme()</code> controls layout and emphasis (<em>e.g.</em>, legend position, text size). When you need to change how data values are converted into visual properties, you will use scale functions such as <code>scale_colour_*()</code> or <code>scale_size_*()</code>. These are the bridge between aesthetics and interpretation, and we will return to them later.</p>
 <p>What we want to do next is put the legend on the bottom of our figure with a horizontal orientation and change the axis labels so that they show the units of measurement. To change the labels we will need the <code>labs()</code> function. To change the position of the legend we need the <code>theme()</code> function as it is within this function that all of the little tweaks are performed. This is best placed at the end of your block of <strong>ggplot2</strong> code.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">colour =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Days"</span>, <span class="at">y =</span> <span class="st">"Mass (g)"</span>, <span class="at">colour =</span> <span class="st">"diet type"</span>) <span class="sc">+</span> <span class="co"># Change the labels</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="co"># Change the legend position</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> dissolved_oxygen)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dissolved_oxygen), <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">scale_colour_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="at">x =</span> <span class="st">"Temperature (°C)"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="at">y =</span> <span class="st">"Dissolved oxygen (µmol/kg)"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="at">colour =</span> <span class="st">"Oxygen (µmol/kg)"</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-basic-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-woa-labels-legend" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-basic-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="06-graphics_files/figure-html/fig-basic-4-1.png" class="img-fluid figure-img" style="width:75.0%">
+<div aria-describedby="fig-woa-labels-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-graphics_files/figure-html/fig-woa-labels-legend-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basic-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Chick weights with linear trends and labelled axes.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-labels-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Temperature vs dissolved oxygen, with explicit labels and legend placement.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Notice that when we place the legend at the bottom of the figure ggplot automatically makes it horizontal for us. Why do we use ‘colour’ inside of <code>labs()</code> to change the legend title?</p>
+</section>
+<section id="reusable-woa-examples-for-other-chapters" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Reusable WOA examples (for other chapters)</h1>
+<p>The following small set of plots is deliberately designed to be copy‑pasted and adapted in later chapters.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">library</span>(here)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>woa <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"processed"</span>, <span class="st">"woa18_sa_core_1deg_monthly.csv"</span>),</span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co"># Convenience: a commonly used slice (surface, February)</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>woa_surf_feb <span class="ot">&lt;-</span> woa <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>woa_surf_feb <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"temperature"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">geom_raster</span>() <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">coord_equal</span>(<span class="at">expand =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">"Temp (°C)"</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Longitude (°E)"</span>, <span class="at">y =</span> <span class="st">"Latitude (°N)"</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="06-graphics_files/figure-html/woa-core-example-map-temp-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>WOA18 surface temperature (°C) climatology for February (Southern Africa region).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>woa_surf_feb <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">filter</span>(variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="06-graphics_files/figure-html/woa-core-example-ts-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>A classic T–S view (surface, February) using WOA18 climatology.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"dissolved_oxygen"</span>, <span class="st">"nitrate"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">group_by</span>(variable, unit, depth_m) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> depth_m, <span class="at">colour =</span> variable)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">geom_path</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value (see legend)"</span>, <span class="at">y =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="06-graphics_files/figure-html/woa-core-example-profile-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>Mean vertical profiles (annual climatology, region-average).</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

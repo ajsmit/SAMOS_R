@@ -1,0 +1,51 @@
+```{r woa-core-example-setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(here)
+
+woa <- readr::read_csv(
+  here::here("data", "SAMOS", "processed", "woa18_sa_core_1deg_monthly.csv"),
+  show_col_types = FALSE
+)
+
+# Convenience: a commonly used slice (surface, February)
+woa_surf_feb <- woa %>%
+  filter(month == 2, depth_m == 0)
+```
+
+```{r woa-core-example-map-temp, fig.width=6, fig.asp=0.7, out.width="85%"}
+#| fig-cap: "WOA18 surface temperature (°C) climatology for February (Southern Africa region)."
+woa_surf_feb %>%
+  filter(variable == "temperature") %>%
+  ggplot(aes(x = lon, y = lat, fill = value)) +
+  geom_raster() +
+  coord_equal(expand = 0) +
+  scale_fill_viridis_c(name = "Temp (°C)") +
+  labs(x = "Longitude (°E)", y = "Latitude (°N)") +
+  theme_minimal()
+```
+
+```{r woa-core-example-ts, fig.width=5.5, fig.asp=0.7, out.width="75%"}
+#| fig-cap: "A classic T–S view (surface, February) using WOA18 climatology."
+woa_surf_feb %>%
+  filter(variable %in% c("temperature", "salinity")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(alpha = 0.35, size = 0.7) +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)") +
+  theme_minimal()
+```
+
+```{r woa-core-example-profile, fig.width=5.5, fig.asp=0.7, out.width="75%"}
+#| fig-cap: "Mean vertical profiles (annual climatology, region-average)."
+woa %>%
+  filter(month == 0, variable %in% c("temperature", "dissolved_oxygen", "nitrate")) %>%
+  group_by(variable, unit, depth_m) %>%
+  summarise(value = mean(value, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = value, y = depth_m, colour = variable)) +
+  geom_path(linewidth = 0.8) +
+  scale_y_reverse() +
+  labs(x = "Value (see legend)", y = "Depth (m)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```

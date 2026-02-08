@@ -60,7 +60,16 @@ Colour choices are part of your evidence. Aim for palettes that remain legible f
 
 # R Data (Choosing a Dataset for Colour)
 
-This chapter is about colour, so we need a dataset where colour **matters**. We will use a dataset with both continuous and categorical variables. That way, we can see how colour behaves differently for magnitude versus category. The base R program already comes with heaps of example dataframes that you may use for practice. You do not need to load your own data. Additionally, whenever you install a new package (and by now you have already installed several) it usually comes with some new dataframes. There are many ways to look at the data that you have available from your packages. Below I will show two of the many options.
+This chapter is about colour, so we need a dataset where colour **matters**.
+
+For SAMOS, we will use the WOA18 core dataset because oceanographic variables are inherently spatial and gradients are often the *point* of the figure.
+
+{{< include includes/woa_core_load.qmd >}}
+
+We will use:
+
+- a **continuous** variable (e.g. temperature or dissolved oxygen) to demonstrate continuous palettes;
+- a **categorical** variable (e.g. depth bin) to demonstrate discrete palettes.
 
 ```{r code-data-package-packages-all, eval=FALSE}
 # To create a list of ALL available data
@@ -81,38 +90,36 @@ datasets::
 
 You have an amazing amount of data available to you. So the challenge is not to find a dataframe that works for you, but to just decide on one. My preferred method is to read the short descriptions of the dataframes, pick the one that sounds the funniest. But please use whatever method makes the most sense to you. One note of caution and in R there are generally two different forms of data: wide OR long. You will see in detail what this means on Day 4, and what to do about it. For now you need to know that **ggplot2** works much better with long data. To look at a dataframe of interest, you use the same method you would use to look up a help file for a function.
 
-Over the years I have installed so many packages on my computer that it is difficult to chose a dataframe. The package **`boot`** has some particularly interesting dataframes with a biological focus. Please install this now to access to these data. I have decided to load the `urine` dataframe here. Note that `library(boot)` will not work on your computer if you have not installed the package yet. With these data you will now make a scatterplot with two of the variables, while changing the colour of the dots with a third variable.
+We start with a continuous colour scale. Below we map **dissolved oxygen** (continuous) to colour in a temperature–salinity plot (surface February climatology).
 
 ```{r fig-brew-1, warning=FALSE, message=FALSE}
-#| fig-cap: "Urine osmolality vs. pH coloured by conductivity (continuous palette)."
-# Load libraries
-library(tidyverse)
-library(boot)
-
-# Load data
-urine <- boot::urine
-
-# Look at help file for more info
-# ?urine
-
-# Create a quick scatterplot
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = cond))
+#| fig-cap: "WOA18: temperature vs salinity coloured by dissolved oxygen (continuous palette)."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity", "dissolved_oxygen")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(aes(colour = dissolved_oxygen), alpha = 0.65, size = 0.8) +
+  scale_colour_viridis_c(name = "Oxygen (µmol/kg)") +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
-And now you have a scatterplot that is showing the relationship between the osmolarity and pH of urine, with the conductivity of those urine samples shown in shades of blue. What is important to note here is that the colour scale is continuous. How can we know this by looking at the figure? Look for a **smooth gradient** (ordered transitions) and a **bar-like legend** rather than separate keys.  
+What is important to note here is that the colour scale is continuous. How can we know this by looking at the figure? Look for a **smooth gradient** (ordered transitions) and a **bar-like legend** rather than separate keys.
 
-Rule of thumb: **if your variable has a meaningful order and distance, treat it as continuous; otherwise treat it as discrete.** Using a continuous palette for categories may look nice, but it suggests a false ordering and is misleading.
+Rule of thumb: **if your variable has a meaningful order and distance, treat it as continuous; otherwise treat it as discrete.**
 
-Let us look at the same figure but use a discrete variable for colouring.
+Now we use a discrete variable for colouring. We do this by converting depth to a factor (categorical bins).
 
 ```{r fig-brew-2, warning=FALSE}
-#| fig-cap: "Urine osmolality vs. pH coloured by r as a discrete factor."
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = as.factor(r)))
+#| fig-cap: "WOA18: temperature vs latitude coloured by depth (discrete palette)."
+woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  ggplot(aes(x = lat, y = value)) +
+  geom_point(aes(colour = factor(depth_m)), alpha = 0.35, size = 0.7) +
+  labs(x = "Latitude (°N)", y = "Temperature (°C)", colour = "Depth (m)")
 ```
 
-What is the first thing you notice about the difference in the colours? Notice the **distinct hues** and the **key-style legend** (one swatch per category). Why did you use `as.factor()` for the colour aesthetic for our points? What happens if you do not use this? Try it now.
+What is the first thing you notice about the difference in the colours? Notice the **distinct hues** and the **key-style legend** (one swatch per category).
 
 ::: {.callout-warning appearance="simple"}
 ## Bad Colour Choices (and Why They Fail)
@@ -138,20 +145,29 @@ Think of these as a family of translators between data and appearance.
 :::
 
 ```{r fig-brew-3, warning=FALSE}
-#| fig-cap: "Urine osmolality vs. pH with a sequential distiller palette."
-# The continuous colour scale figure
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = cond)) +
-  scale_colour_distiller() # Change the continuous variable colour palette
+#| fig-cap: "WOA18: oxygen-coloured T–S plot using a sequential distiller palette."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity", "dissolved_oxygen")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(aes(colour = dissolved_oxygen), alpha = 0.65, size = 0.8) +
+  scale_colour_distiller(palette = "YlGnBu", name = "Oxygen (µmol/kg)") +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
 Does this look different? If so, how? The second page of the colour cheat sheet we included in the course material shows some different colour brewer palettes. Let us look at how to use those here.
 
 ```{r fig-brew-4, warning=FALSE}
-#| fig-cap: "Urine osmolality vs. pH with the Spectral continuous palette."
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = cond)) +
-  scale_colour_distiller(palette = "Spectral")
+#| fig-cap: "WOA18: same plot with a different distiller palette (Spectral)."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity", "dissolved_oxygen")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(aes(colour = dissolved_oxygen), alpha = 0.65, size = 0.8) +
+  scale_colour_distiller(palette = "Spectral", name = "Oxygen (µmol/kg)") +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
 Does that help you to see a pattern in the data? What do you see? Does it look like there are any significant relationships here? How would you test that?
@@ -159,19 +175,25 @@ Does that help you to see a pattern in the data? What do you see? Does it look l
 If you want to use **RColorBrewer** with a discrete variable, you use a slightly different function.
 
 ```{r fig-brew-5, warning=FALSE}
-#| fig-cap: "Urine osmolality vs. pH coloured by r with a discrete brewer palette."
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = as.factor(r))) +
-  scale_colour_brewer() # This is the different function
+#| fig-cap: "WOA18: temperature vs latitude coloured by depth (discrete brewer palette)."
+woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  ggplot(aes(x = lat, y = value)) +
+  geom_point(aes(colour = factor(depth_m)), alpha = 0.35, size = 0.7) +
+  scale_colour_brewer(palette = "Set1", name = "Depth (m)") +
+  labs(x = "Latitude (°N)", y = "Temperature (°C)")
 ```
 
 The default colour scale here is not helpful at all. So let us pick a better one. If you look at our cheat sheet you will see a list of different continuous and discrete colour scales. All you need to do is copy and paste one of these names into your colour brewer function with inverted commas.
 
 ```{r fig-brew-6, warning=FALSE}
-#| fig-cap: "Urine osmolality vs. pH coloured by r with the Set1 palette."
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = as.factor(r))) +
-  scale_colour_brewer(palette = "Set1") # Here I used "Set1", but use what you like
+#| fig-cap: "Same plot but with a different discrete palette (Dark2)."
+woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  ggplot(aes(x = lat, y = value)) +
+  geom_point(aes(colour = factor(depth_m)), alpha = 0.35, size = 0.7) +
+  scale_colour_brewer(palette = "Dark2", name = "Depth (m)") +
+  labs(x = "Latitude (°N)", y = "Temperature (°C)")
 ```
 
 Notice the pattern: `scale_colour_distiller()` is typically used for **continuous** variables, while `scale_colour_brewer()` is typically used for **discrete** variables. They are not interchangeable because they encode different kinds of meaning.
@@ -260,22 +282,34 @@ Before you commit to a custom palette, run a quick checklist:
 Now that you have had some time to play around with the colour generators let us look at how to use them with our figures. I have used the first web link to create a list of five colours. I then copy and pasted them into the code below, separating them with commas, placing them inside of `c()` and inverted commas. Be certain that you insert commas and inverted commas as necessary or you will get errors. Note also that you are using a new function to use our custom palette.
 
 ```{r fig-brew-7, warning=FALSE}
-#| fig-cap: "Urine osmolality vs. pH with a custom continuous gradient."
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = cond)) +
-  scale_colour_gradientn(colours = c("#A5A94D", "#6FB16F", "#45B19B",
-                                    "#59A9BE", "#9699C4", "#CA86AD"))
+#| fig-cap: "WOA18: custom continuous gradient for dissolved oxygen."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity", "dissolved_oxygen")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(aes(colour = dissolved_oxygen), alpha = 0.65, size = 0.8) +
+  scale_colour_gradientn(
+    colours = c("#A5A94D", "#6FB16F", "#45B19B", "#59A9BE", "#9699C4", "#CA86AD"),
+    name = "Oxygen (µmol/kg)"
+  ) +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
 To use your custom colour palettes with a discrete colour scale, you use a different function as seen in the code below. While you are at it, also see how to correct the title of the legend, its text labels. Sometimes the default output is not what you want for our final figure and especially if you are going to be publishing it. Also note in the following code chunk that rather than using hexadecimal character strings to represent colours in your custom palette, you are simply writing in the human name for the colours you want. This will work for the continuous colour palettes above, too.
 
 ```{r fig-brew-8, warning=FALSE}
-#| fig-cap: "Urine osmolality vs. pH with a custom discrete palette and legend."
-ggplot(data = urine, aes(x = osmo, y = ph)) +
-  geom_point(aes(colour = as.factor(r))) +
-  scale_colour_manual(values = c("pink", "maroon"), # How to use custom palette
-                     labels = c("no", "yes")) + # How to change the legend text
-  labs(colour = "crystals") # How to change the legend title
+#| fig-cap: "WOA18: custom discrete palette for depth bins, with legend labels."
+woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  mutate(depth_bin = factor(depth_m)) %>%
+  ggplot(aes(x = lat, y = value)) +
+  geom_point(aes(colour = depth_bin), alpha = 0.35, size = 0.7) +
+  scale_colour_manual(
+    values = c("0" = "navy", "50" = "dodgerblue3", "100" = "turquoise4", "200" = "goldenrod2", "500" = "firebrick3"),
+    labels = c("0" = "0 m", "50" = "50 m", "100" = "100 m", "200" = "200 m", "500" = "500 m")
+  ) +
+  labs(x = "Latitude (°N)", y = "Temperature (°C)", colour = "Depth")
 ```
 
 ::: {.callout-note appearance="simple"}

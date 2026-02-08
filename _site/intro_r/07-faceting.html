@@ -479,10 +479,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#faceting-one-figure" id="toc-faceting-one-figure" class="nav-link" data-scroll-target="#faceting-one-figure"><span class="header-section-number">2</span> Faceting One Figure</a></li>
   <li><a href="#new-figure-types" id="toc-new-figure-types" class="nav-link" data-scroll-target="#new-figure-types"><span class="header-section-number">3</span> New Figure Types</a>
   <ul class="collapse">
-  <li><a href="#line-graph" id="toc-line-graph" class="nav-link" data-scroll-target="#line-graph"><span class="header-section-number">3.1</span> Line Graph</a></li>
-  <li><a href="#smooth-gam-model" id="toc-smooth-gam-model" class="nav-link" data-scroll-target="#smooth-gam-model"><span class="header-section-number">3.2</span> Smooth (GAM) Model</a></li>
-  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram"><span class="header-section-number">3.3</span> Histogram</a></li>
-  <li><a href="#boxplot" id="toc-boxplot" class="nav-link" data-scroll-target="#boxplot"><span class="header-section-number">3.4</span> Boxplot</a></li>
+  <li><a href="#line-graph-a-latitudinal-transect-style-summary" id="toc-line-graph-a-latitudinal-transect-style-summary" class="nav-link" data-scroll-target="#line-graph-a-latitudinal-transect-style-summary"><span class="header-section-number">3.1</span> Line Graph (a latitudinal transect style summary)</a></li>
+  <li><a href="#smooth-model-loess" id="toc-smooth-model-loess" class="nav-link" data-scroll-target="#smooth-model-loess"><span class="header-section-number">3.2</span> Smooth Model (LOESS)</a></li>
+  <li><a href="#histogram-distribution-of-a-chemical-variable" id="toc-histogram-distribution-of-a-chemical-variable" class="nav-link" data-scroll-target="#histogram-distribution-of-a-chemical-variable"><span class="header-section-number">3.3</span> Histogram (distribution of a chemical variable)</a></li>
+  <li><a href="#boxplot-compare-depths" id="toc-boxplot-compare-depths" class="nav-link" data-scroll-target="#boxplot-compare-depths"><span class="header-section-number">3.4</span> Boxplot (compare depths)</a></li>
   </ul></li>
   <li><a href="#gridding-figures" id="toc-gridding-figures" class="nav-link" data-scroll-target="#gridding-figures"><span class="header-section-number">4</span> Gridding Figures</a></li>
   </ul>
@@ -551,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="1"><span class="header-section-number">1</span> When to Facet, Overlay, or Grid</h1>
 <p>Before we write code, we need a simple decision rule:</p>
 <ul>
-<li><strong>Facet</strong> when you want to compare subgroups within the same coordinate system and scales (<em>e.g.</em>, Diet A vs Diet B).</li>
+<li><strong>Facet</strong> when you want to compare subgroups within the same coordinate system and scales (<em>e.g.</em>, 0 m vs 200 m, or temperature vs oxygen).</li>
 <li><strong>Overlay</strong> when the comparisons are most meaningful in a single panel (<em>e.g.</em>, two groups sharing one trend line).</li>
 <li><strong>Grid</strong> when you want to compare different summaries or perspectives side-by-side (<em>e.g.</em>, time series, histogram, and boxplot together).</li>
 </ul>
@@ -565,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="faceting-one-figure" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Faceting One Figure</h1>
 <p>Faceting a single figure is built into <strong>ggplot2</strong> from the ground up and will work with virtually anything that could be passed to the <code>aes()</code> function. The key idea is that faceting <strong>splits the data into panels before any geometry or statistics are calculated</strong>. This means each panel gets its own model fit, summary, or smoothing line, based only on the subset of data in that panel.</p>
-<p>Here we see how to create an individual facet for each <code>Diet</code> within the <code>ChickWeight</code> dataset.</p>
+<p>Here we see how to facet ocean climatology data by depth and variable using the <strong>WOA18 core dataset</strong>.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -592,24 +592,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>By default, facets <strong>share scales</strong>. This is often desirable for comparison, but it can mislead if one group is much larger or smaller than the others. If needed, allow free scales with <code>scales = "free"</code> so each panel can use its own axis ranges.</p>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load data</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>ChickWeight <span class="ot">&lt;-</span> datasets<span class="sc">::</span>ChickWeight</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Create faceted figure</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">colour =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> <span class="co"># Note the `+` sign here</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Diet, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="co"># This is the line that creates the facets</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Days"</span>, <span class="at">y =</span> <span class="st">"Mass (g)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-facet-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-facet-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="07-faceting_files/figure-html/fig-facet-1-1.png" class="img-fluid figure-img" style="width:75.0%">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Simple faceted figure showing a linear model applied to each diet.
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About the dataset used in this chapter (World Ocean Atlas 2018)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this chapter we use a small, tidy extract of <strong>World Ocean Atlas 2018 (WOA18)</strong> climatologies for the broader Southern Africa region.</p>
+<p>Why WOA matters in ocean science:</p>
+<ul>
+<li><strong>Temperature</strong> and <strong>salinity</strong> are the fundamental state variables of seawater, and together shape density and stratification.</li>
+<li><strong>Dissolved oxygen</strong> is a key indicator of ventilation, productivity, and habitat suitability.</li>
+<li><strong>Nutrients</strong> (nitrate, phosphate, silicate) constrain primary production and structure ecosystems.</li>
+</ul>
+<p>These variables are not “just numbers”: they encode the physical and biogeochemical structure of the ocean.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># Load the core teaching dataset (WOA18 climatology extract)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>woa <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"processed"</span>, <span class="st">"woa18_sa_core_1deg_monthly.csv"</span>),</span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># Quick look</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">glimpse</span>(woa)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Rows: 200,382
+R&gt; Columns: 8
+R&gt; $ lat      &lt;dbl&gt; -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5…
+R&gt; $ lon      &lt;dbl&gt; 6.5, 7.5, 9.5, 12.5, 14.5, 15.5, 19.5, 20.5, 22.5, 24.5, 26.5…
+R&gt; $ depth_m  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+R&gt; $ value    &lt;dbl&gt; NA, 295.308, 295.840, NA, 280.251, NA, 270.377, 270.764, 289.…
+R&gt; $ month    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+R&gt; $ variable &lt;chr&gt; "dissolved_oxygen", "dissolved_oxygen", "dissolved_oxygen", "…
+R&gt; $ unit     &lt;chr&gt; "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/…
+R&gt; $ source   &lt;chr&gt; "WOA18 decav 1.00° CSV", "WOA18 decav 1.00° CSV", "WOA18 deca…</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Data dictionary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See: <code>data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md</code></p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> depth_m, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-facet-woa-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-facet-woa-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07-faceting_files/figure-html/fig-facet-woa-1-1.png" class="img-fluid figure-img" style="width:75.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-woa-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Faceting WOA18 climatology: temperature vs latitude by depth (February).
 </figcaption>
 </figure>
 </div>
@@ -626,18 +683,24 @@ Figure&nbsp;1: Simple faceted figure showing a linear model applied to each diet
 <p>Before we can create a gridded figure of several smaller figures, we need to learn how to create a few new types of figures first. The code for these different types is shown below. Notice that we <strong>assign each plot to an object</strong> (<em>e.g.</em>, <code>line_1</code>, <code>histogram_1</code>). This is the standard workflow for composing multi-panel figures.</p>
 <p>Some plot types are best suited to specific questions. For example, if you want to compare <strong>final weights by diet</strong>, it makes sense to filter to the final day. That is why we create a filtered dataset for the histogram and boxplot.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>ChickLast <span class="ot">&lt;-</span> ChickWeight <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">filter</span>(Time <span class="sc">==</span> <span class="dv">21</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># We'll reuse a few simple slices of the WOA dataset</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>woa_feb_surf <span class="ot">&lt;-</span> woa <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>woa_feb_temp_depths <span class="ot">&lt;-</span> woa <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="line-graph" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="line-graph"><span class="header-section-number">3.1</span> Line Graph</h2>
+<section id="line-graph-a-latitudinal-transect-style-summary" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="line-graph-a-latitudinal-transect-style-summary"><span class="header-section-number">3.1</span> Line Graph (a latitudinal transect style summary)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>line_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">colour =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Chick)) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Days"</span>, <span class="at">y =</span> <span class="st">"Mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb4-6"><a href="#cb4-6"></a>line_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>line_1 <span class="ot">&lt;-</span> woa_feb_temp_depths <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">group_by</span>(depth_m, lat) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value, <span class="at">colour =</span> <span class="fu">factor</span>(depth_m))) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">colour =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb6-8"><a href="#cb6-8"></a>line_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-facet-line" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -645,35 +708,23 @@ Figure&nbsp;1: Simple faceted figure showing a linear model applied to each diet
 <img src="07-faceting_files/figure-html/fig-facet-line-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Line graph for the progression of chicken weights (g) over time (days) based on four different diets.
+Figure&nbsp;2: Mean February temperature by latitude, shown separately for several depths.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Faceting vs Grouping
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Grouping (<code>group = Chick</code>) keeps all data in one panel and tells <strong>ggplot2</strong> which observations belong together for a geometry. Faceting (<code>facet_wrap(~Diet)</code>) splits the data into multiple panels before drawing anything. Use grouping when the comparison is clearest in a single coordinate system. Use faceting when each subgroup deserves its own panel, and you want direct visual comparison across panels.</p>
-</div>
-</div>
 </section>
-<section id="smooth-gam-model" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="smooth-gam-model"><span class="header-section-number">3.2</span> Smooth (GAM) Model</h2>
+<section id="smooth-model-loess" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="smooth-model-loess"><span class="header-section-number">3.2</span> Smooth Model (LOESS)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight, <span class="at">colour =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Days"</span>, <span class="at">y =</span> <span class="st">"Mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb5-6"><a href="#cb5-6"></a>lm_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sm_1 <span class="ot">&lt;-</span> woa_feb_temp_depths <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value, <span class="at">colour =</span> <span class="fu">factor</span>(depth_m))) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">colour =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb7-7"><a href="#cb7-7"></a>sm_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-facet-lm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -681,22 +732,23 @@ Figure&nbsp;2: Line graph for the progression of chicken weights (g) over time (
 <img src="07-faceting_files/figure-html/fig-facet-lm-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: GAM smooths for the progression of chicken weights (g) over time (days) based on four different diets.
+Figure&nbsp;3: Same idea, but using a smooth to emphasise broad structure (demonstration).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="histogram" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="histogram"><span class="header-section-number">3.3</span> Histogram</h2>
+<section id="histogram-distribution-of-a-chemical-variable" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="histogram-distribution-of-a-chemical-variable"><span class="header-section-number">3.3</span> Histogram (distribution of a chemical variable)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Note that we are using 'ChickLast', not 'ChickWeight'</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>histogram_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ChickLast, <span class="fu">aes</span>(<span class="at">x =</span> weight)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Diet), <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">binwidth =</span> <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Final Mass (g)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb6-6"><a href="#cb6-6"></a>histogram_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>histogram_1 <span class="ot">&lt;-</span> woa_feb_surf <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"nitrate"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">"grey60"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nitrate (µmol/kg)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb8-7"><a href="#cb8-7"></a>histogram_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-facet-hist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -704,22 +756,22 @@ Figure&nbsp;3: GAM smooths for the progression of chicken weights (g) over time 
 <img src="07-faceting_files/figure-html/fig-facet-hist-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Histogram showing final chicken weights (g) by diet.
+Figure&nbsp;4: Surface February nitrate distribution (WOA18 climatology).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="boxplot" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="boxplot"><span class="header-section-number">3.4</span> Boxplot</h2>
+<section id="boxplot-compare-depths" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="boxplot-compare-depths"><span class="header-section-number">3.4</span> Boxplot (compare depths)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Note that we are using 'ChickLast', not 'ChickWeight'</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>box_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ChickLast, <span class="fu">aes</span>(<span class="at">x =</span> Diet, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Diet)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Diet"</span>, <span class="at">y =</span> <span class="st">"Final Mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb7-6"><a href="#cb7-6"></a>box_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>box_1 <span class="ot">&lt;-</span> woa_feb_temp_depths <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(depth_m), <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"cornsilk"</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Depth (m)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb9-6"><a href="#cb9-6"></a>box_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-facet-box" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -727,7 +779,7 @@ Figure&nbsp;4: Histogram showing final chicken weights (g) by diet.
 <img src="07-faceting_files/figure-html/fig-facet-box-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Violin plot showing the distribution of final chicken weights (g) by diet.
+Figure&nbsp;5: Temperature distributions by depth (February climatology).
 </figcaption>
 </figure>
 </div>
@@ -737,13 +789,16 @@ Figure&nbsp;5: Violin plot showing the distribution of final chicken weights (g)
 </section>
 <section id="gridding-figures" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Gridding Figures</h1>
-<p>With these four different figures created we may now look at how to combine them. By visualising the data in different ways they are able to tell us different parts of the same story. For example, the line plot shows individual growth trajectories, the GAM emphasises overall trends, and the histogram and boxplot summarise final weights and their spread. These are different views of the same data, and together they reduce interpretive blind spots.</p>
-<p><strong>Composition is an analytic decision</strong>: grid plots that answer complementary questions, not just those that look good side-by-side.</p>
+<p>With these four different figures created we may now combine them. They show different views of the same ocean structure:</p>
+<ul>
+<li>broad latitudinal gradients (line + smooth)</li>
+<li>distribution of a nutrient at the surface (histogram)</li>
+<li>how temperature distributions shift with depth (boxplot)</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggarrange</span>(line_1, lm_1, histogram_1, box_1, </span>
-<span id="cb8-2"><a href="#cb8-2"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="co"># Set number of rows and columns</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>), <span class="co"># Label each figure</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>          <span class="at">common.legend =</span> <span class="cn">TRUE</span>) <span class="co"># Create common legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggarrange</span>(line_1, sm_1, histogram_1, box_1,</span>
+<span id="cb10-2"><a href="#cb10-2"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-facet-grid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -751,7 +806,7 @@ Figure&nbsp;5: Violin plot showing the distribution of final chicken weights (g)
 <img src="07-faceting_files/figure-html/fig-facet-grid-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: All four of our figures gridded together with an automagically created common legend.
+Figure&nbsp;6: Four complementary summaries of the WOA18 February climatology.
 </figcaption>
 </figure>
 </div>
@@ -763,63 +818,27 @@ Figure&nbsp;6: All four of our figures gridded together with an automagically cr
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Legend Logic
+<span class="screen-reader-only">Note</span>Why no common legend here?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>common.legend = TRUE</code> works when plots map the <strong>same aesthetic to the same variable</strong> (<em>e.g.</em>, <code>colour = Diet</code>). If legends duplicate or disappear, check whether each plot uses consistent mappings and scales.</p>
+<p>A shared legend only makes sense when panels map the <strong>same aesthetic</strong> to the <strong>same variable</strong>. Here only the first two panels use a depth legend; the histogram and boxplot do not.</p>
+<p>If you <em>want</em> a common legend, design the four plots so they share mappings (for example all plots map <code>colour = factor(depth_m)</code>).</p>
 </div>
 </div>
-<div class="callout callout-style-simple callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Alignment and Scale Mismatches
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Gridded plots can mislead if themes, factor levels, or scales differ between panels. If plots do not align or legends look odd, check that factor levels match and consider using a shared theme.</p>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Why <strong>ggpubr</strong>?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We use <strong>ggpubr</strong> because it provides a straightforward <code>ggarrange()</code> function. Other tools exist (<em>e.g.</em>, <strong>patchwork</strong>), so think of this as a choice within the ecosystem, not the only path.</p>
-</div>
-</div>
-<p>The above figure looks great, so let us save a copy of it as a PDF to our computer. In order to do so we will need to assign our figure to an object, then use the <code>ggsave()</code> function on that object.</p>
+<p>The figure can be saved using <code>ggsave()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># First we must assign the code to an object name</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>grid_1 <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(line_1, lm_1, histogram_1, box_1, </span>
-<span id="cb9-3"><a href="#cb9-3"></a>                    <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>, </span>
-<span id="cb9-4"><a href="#cb9-4"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>),</span>
-<span id="cb9-5"><a href="#cb9-5"></a>                    <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-6"><a href="#cb9-6"></a></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co"># Then we save the object we created</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> grid_1, <span class="at">filename =</span> <span class="st">"figures/grid_1.pdf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>When saving figures, remember that <strong>size and resolution matter</strong>. <code>ggsave()</code> will inherit the size of the last plot unless you specify <code>width</code>, <code>height</code>, and <code>units</code>. If you are exporting for print or assessment, add <code>dpi = 300</code> (or higher). Also note that the path <code>figures/grid_1.pdf</code> is relative to your project root — make sure that folder exists.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Debugging Composition
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If <code>ggarrange()</code> fails or legends duplicate, start by printing each plot object on its own. Check that all plots use the same aesthetic mappings and that factor levels are aligned. If something looks wrong in the grid but fine alone, the issue is usually a mismatched scale or theme.</p>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># First we must assign the code to an object name</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>grid_1 <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(line_1, sm_1, histogram_1, box_1,</span>
+<span id="cb11-3"><a href="#cb11-3"></a>                    <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>))</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># Then we save the object we created</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># (make sure the folder exists)</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="fu">dir.create</span>(<span class="st">"figures"</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-9"><a href="#cb11-9"></a></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> grid_1, <span class="at">filename =</span> <span class="st">"figures/woa_feb_summary_grid.pdf"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11"></a>       <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">

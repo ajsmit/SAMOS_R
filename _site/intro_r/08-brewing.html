@@ -581,39 +581,99 @@ More categories require more separable hues — keep the legend visible.</li>
 </div>
 <section id="r-data-choosing-a-dataset-for-colour" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> R Data (Choosing a Dataset for Colour)</h1>
-<p>This chapter is about colour, so we need a dataset where colour <strong>matters</strong>. We will use a dataset with both continuous and categorical variables. That way, we can see how colour behaves differently for magnitude versus category. The base R program already comes with heaps of example dataframes that you may use for practice. You do not need to load your own data. Additionally, whenever you install a new package (and by now you have already installed several) it usually comes with some new dataframes. There are many ways to look at the data that you have available from your packages. Below I will show two of the many options.</p>
+<p>This chapter is about colour, so we need a dataset where colour <strong>matters</strong>.</p>
+<p>For SAMOS, we will use the WOA18 core dataset because oceanographic variables are inherently spatial and gradients are often the <em>point</em> of the figure.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About the dataset used in this chapter (World Ocean Atlas 2018)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this chapter we use a small, tidy extract of <strong>World Ocean Atlas 2018 (WOA18)</strong> climatologies for the broader Southern Africa region.</p>
+<p>Why WOA matters in ocean science:</p>
+<ul>
+<li><strong>Temperature</strong> and <strong>salinity</strong> are the fundamental state variables of seawater, and together shape density and stratification.</li>
+<li><strong>Dissolved oxygen</strong> is a key indicator of ventilation, productivity, and habitat suitability.</li>
+<li><strong>Nutrients</strong> (nitrate, phosphate, silicate) constrain primary production and structure ecosystems.</li>
+</ul>
+<p>These variables are not “just numbers”: they encode the physical and biogeochemical structure of the ocean.</p>
+</div>
+</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># To create a list of ALL available data</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>  <span class="co"># Not really recommended as the output is overwhelming</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="fu">.packages</span>(<span class="at">all.available =</span> <span class="cn">TRUE</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(here)</span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># To look for datasets within a single known package</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>  <span class="co"># type the name of the package followed by '::'</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>  <span class="co"># This tells R you want to look in the specified package</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="co"># When the autocomplete bubble comes up you may scroll</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>  <span class="co"># through it with the up and down arrows</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>  <span class="co"># Look for objects that have a mini spreadsheet icon</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>  <span class="co"># These are the datasets</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Try typing the following code and see what happens...</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>datasets<span class="sc">::</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Load the core teaching dataset (WOA18 climatology extract)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>woa <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"processed"</span>, <span class="st">"woa18_sa_core_1deg_monthly.csv"</span>),</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Quick look</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">glimpse</span>(woa)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Rows: 200,382
+R&gt; Columns: 8
+R&gt; $ lat      &lt;dbl&gt; -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5…
+R&gt; $ lon      &lt;dbl&gt; 6.5, 7.5, 9.5, 12.5, 14.5, 15.5, 19.5, 20.5, 22.5, 24.5, 26.5…
+R&gt; $ depth_m  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+R&gt; $ value    &lt;dbl&gt; NA, 295.308, 295.840, NA, 280.251, NA, 270.377, 270.764, 289.…
+R&gt; $ month    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+R&gt; $ variable &lt;chr&gt; "dissolved_oxygen", "dissolved_oxygen", "dissolved_oxygen", "…
+R&gt; $ unit     &lt;chr&gt; "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/…
+R&gt; $ source   &lt;chr&gt; "WOA18 decav 1.00° CSV", "WOA18 decav 1.00° CSV", "WOA18 deca…</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Data dictionary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See: <code>data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md</code></p>
+</div>
+</div>
+<p>We will use:</p>
+<ul>
+<li>a <strong>continuous</strong> variable (e.g.&nbsp;temperature or dissolved oxygen) to demonstrate continuous palettes;</li>
+<li>a <strong>categorical</strong> variable (e.g.&nbsp;depth bin) to demonstrate discrete palettes.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># To create a list of ALL available data</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="co"># Not really recommended as the output is overwhelming</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="fu">.packages</span>(<span class="at">all.available =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># To look for datasets within a single known package</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="co"># type the name of the package followed by '::'</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="co"># This tells R you want to look in the specified package</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="co"># When the autocomplete bubble comes up you may scroll</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="co"># through it with the up and down arrows</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="co"># Look for objects that have a mini spreadsheet icon</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="co"># These are the datasets</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># Try typing the following code and see what happens...</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>datasets<span class="sc">::</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You have an amazing amount of data available to you. So the challenge is not to find a dataframe that works for you, but to just decide on one. My preferred method is to read the short descriptions of the dataframes, pick the one that sounds the funniest. But please use whatever method makes the most sense to you. One note of caution and in R there are generally two different forms of data: wide OR long. You will see in detail what this means on Day 4, and what to do about it. For now you need to know that <strong>ggplot2</strong> works much better with long data. To look at a dataframe of interest, you use the same method you would use to look up a help file for a function.</p>
-<p>Over the years I have installed so many packages on my computer that it is difficult to chose a dataframe. The package <strong><code>boot</code></strong> has some particularly interesting dataframes with a biological focus. Please install this now to access to these data. I have decided to load the <code>urine</code> dataframe here. Note that <code>library(boot)</code> will not work on your computer if you have not installed the package yet. With these data you will now make a scatterplot with two of the variables, while changing the colour of the dots with a third variable.</p>
+<p>We start with a continuous colour scale. Below we map <strong>dissolved oxygen</strong> (continuous) to colour in a temperature–salinity plot (surface February climatology).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(boot)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># Load data</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>urine <span class="ot">&lt;-</span> boot<span class="sc">::</span>urine</span>
-<span id="cb2-7"><a href="#cb2-7"></a></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Look at help file for more info</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># ?urine</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># Create a quick scatterplot</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> cond))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dissolved_oxygen), <span class="at">alpha =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">scale_colour_viridis_c</span>(<span class="at">name =</span> <span class="st">"Oxygen (µmol/kg)"</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -621,18 +681,21 @@ More categories require more separable hues — keep the legend visible.</li>
 <img src="08-brewing_files/figure-html/fig-brew-1-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Urine osmolality vs.&nbsp;pH coloured by conductivity (continuous palette).
+Figure&nbsp;1: WOA18: temperature vs salinity coloured by dissolved oxygen (continuous palette).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>And now you have a scatterplot that is showing the relationship between the osmolarity and pH of urine, with the conductivity of those urine samples shown in shades of blue. What is important to note here is that the colour scale is continuous. How can we know this by looking at the figure? Look for a <strong>smooth gradient</strong> (ordered transitions) and a <strong>bar-like legend</strong> rather than separate keys.</p>
-<p>Rule of thumb: <strong>if your variable has a meaningful order and distance, treat it as continuous; otherwise treat it as discrete.</strong> Using a continuous palette for categories may look nice, but it suggests a false ordering and is misleading.</p>
-<p>Let us look at the same figure but use a discrete variable for colouring.</p>
+<p>What is important to note here is that the colour scale is continuous. How can we know this by looking at the figure? Look for a <strong>smooth gradient</strong> (ordered transitions) and a <strong>bar-like legend</strong> rather than separate keys.</p>
+<p>Rule of thumb: <strong>if your variable has a meaningful order and distance, treat it as continuous; otherwise treat it as discrete.</strong></p>
+<p>Now we use a discrete variable for colouring. We do this by converting depth to a factor (categorical bins).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.factor</span>(r)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(depth_m)), <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">colour =</span> <span class="st">"Depth (m)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -640,13 +703,13 @@ Figure&nbsp;1: Urine osmolality vs.&nbsp;pH coloured by conductivity (continuous
 <img src="08-brewing_files/figure-html/fig-brew-2-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Urine osmolality vs.&nbsp;pH coloured by r as a discrete factor.
+Figure&nbsp;2: WOA18: temperature vs latitude coloured by depth (discrete palette).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>What is the first thing you notice about the difference in the colours? Notice the <strong>distinct hues</strong> and the <strong>key-style legend</strong> (one swatch per category). Why did you use <code>as.factor()</code> for the colour aesthetic for our points? What happens if you do not use this? Try it now.</p>
+<p>What is the first thing you notice about the difference in the colours? Notice the <strong>distinct hues</strong> and the <strong>key-style legend</strong> (one swatch per category).</p>
 <div class="callout callout-style-simple callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -688,10 +751,14 @@ Figure&nbsp;2: Urine osmolality vs.&nbsp;pH coloured by r as a discrete factor.
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># The continuous colour scale figure</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> cond)) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">scale_colour_distiller</span>() <span class="co"># Change the continuous variable colour palette</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dissolved_oxygen), <span class="at">alpha =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"YlGnBu"</span>, <span class="at">name =</span> <span class="st">"Oxygen (µmol/kg)"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -699,7 +766,7 @@ Figure&nbsp;2: Urine osmolality vs.&nbsp;pH coloured by r as a discrete factor.
 <img src="08-brewing_files/figure-html/fig-brew-3-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Urine osmolality vs.&nbsp;pH with a sequential distiller palette.
+Figure&nbsp;3: WOA18: oxygen-coloured T–S plot using a sequential distiller palette.
 </figcaption>
 </figure>
 </div>
@@ -707,9 +774,14 @@ Figure&nbsp;3: Urine osmolality vs.&nbsp;pH with a sequential distiller palette.
 </div>
 <p>Does this look different? If so, how? The second page of the colour cheat sheet we included in the course material shows some different colour brewer palettes. Let us look at how to use those here.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> cond)) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dissolved_oxygen), <span class="at">alpha =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>, <span class="at">name =</span> <span class="st">"Oxygen (µmol/kg)"</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -717,7 +789,7 @@ Figure&nbsp;3: Urine osmolality vs.&nbsp;pH with a sequential distiller palette.
 <img src="08-brewing_files/figure-html/fig-brew-4-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Urine osmolality vs.&nbsp;pH with the Spectral continuous palette.
+Figure&nbsp;4: WOA18: same plot with a different distiller palette (Spectral).
 </figcaption>
 </figure>
 </div>
@@ -726,9 +798,12 @@ Figure&nbsp;4: Urine osmolality vs.&nbsp;pH with the Spectral continuous palette
 <p>Does that help you to see a pattern in the data? What do you see? Does it look like there are any significant relationships here? How would you test that?</p>
 <p>If you want to use <strong>RColorBrewer</strong> with a discrete variable, you use a slightly different function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.factor</span>(r))) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">scale_colour_brewer</span>() <span class="co"># This is the different function</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(depth_m)), <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-5" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -736,7 +811,7 @@ Figure&nbsp;4: Urine osmolality vs.&nbsp;pH with the Spectral continuous palette
 <img src="08-brewing_files/figure-html/fig-brew-5-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Urine osmolality vs.&nbsp;pH coloured by r with a discrete brewer palette.
+Figure&nbsp;5: WOA18: temperature vs latitude coloured by depth (discrete brewer palette).
 </figcaption>
 </figure>
 </div>
@@ -744,9 +819,12 @@ Figure&nbsp;5: Urine osmolality vs.&nbsp;pH coloured by r with a discrete brewer
 </div>
 <p>The default colour scale here is not helpful at all. So let us pick a better one. If you look at our cheat sheet you will see a list of different continuous and discrete colour scales. All you need to do is copy and paste one of these names into your colour brewer function with inverted commas.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.factor</span>(r))) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="co"># Here I used "Set1", but use what you like</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(depth_m)), <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>, <span class="at">name =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-6" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -754,7 +832,7 @@ Figure&nbsp;5: Urine osmolality vs.&nbsp;pH coloured by r with a discrete brewer
 <img src="08-brewing_files/figure-html/fig-brew-6-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Urine osmolality vs.&nbsp;pH coloured by r with the Set1 palette.
+Figure&nbsp;6: Same plot but with a different discrete palette (Dark2).
 </figcaption>
 </figure>
 </div>
@@ -779,14 +857,14 @@ Figure&nbsp;6: Urine osmolality vs.&nbsp;pH coloured by r with the Set1 palette.
 <h1 data-number="3"><span class="header-section-number">3</span> Worked Examples With a New Dataset (Iris)</h1>
 <p>Let us reinforce the ideas using a fresh dataset. The built-in <code>iris</code> data give us both continuous variables (<em>e.g.</em> petal length) and categories (species), which makes it perfect for colour decisions.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Load data</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>iris_df <span class="ot">&lt;-</span> datasets<span class="sc">::</span>iris</span>
-<span id="cb8-3"><a href="#cb8-3"></a></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Continuous colour: petal length (magnitude)</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Petal.Length)) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal length"</span>, <span class="at">y =</span> <span class="st">"Sepal width"</span>, <span class="at">colour =</span> <span class="st">"Petal length"</span>) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"YlGnBu"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Load data</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>iris_df <span class="ot">&lt;-</span> datasets<span class="sc">::</span>iris</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># Continuous colour: petal length (magnitude)</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal length"</span>, <span class="at">y =</span> <span class="st">"Sepal width"</span>, <span class="at">colour =</span> <span class="st">"Petal length"</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"YlGnBu"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-iris-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -802,11 +880,11 @@ Figure&nbsp;7: Iris sepal scatterplot coloured by petal length (sequential palet
 </div>
 <p>Notice the smooth gradient and the bar-style legend — this signals an ordered, numeric scale. If you want to emphasise departures above and below a midpoint, use a diverging palette:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Diverging colour around a midpoint (mean petal length)</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Petal.Length)) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal length"</span>, <span class="at">y =</span> <span class="st">"Sepal width"</span>, <span class="at">colour =</span> <span class="st">"Petal length"</span>) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"RdBu"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Diverging colour around a midpoint (mean petal length)</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Petal.Length)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal length"</span>, <span class="at">y =</span> <span class="st">"Sepal width"</span>, <span class="at">colour =</span> <span class="st">"Petal length"</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"RdBu"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-iris-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -822,10 +900,10 @@ Figure&nbsp;8: Iris sepal scatterplot with a diverging palette for petal length.
 </div>
 <p>Now compare a discrete scale where colour represents species (categories):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species)) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal length"</span>, <span class="at">y =</span> <span class="st">"Sepal width"</span>, <span class="at">colour =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal length"</span>, <span class="at">y =</span> <span class="st">"Sepal width"</span>, <span class="at">colour =</span> <span class="st">"Species"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-iris-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -841,10 +919,10 @@ Figure&nbsp;9: Iris sepal scatterplot coloured by species (discrete palette).
 </div>
 <p>Finally, here is a <strong>bad choice</strong> and the fix. A continuous palette for species implies ordering that does not exist:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Misleading: forcing categories into a continuous scale</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.numeric</span>(Species))) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Misleading: forcing categories into a continuous scale</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.numeric</span>(Species))) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-iris-4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -859,10 +937,10 @@ Figure&nbsp;10: Iris sepal scatterplot with a misleading continuous palette for 
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Fix: discrete palette for categorical data</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species)) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Fix: discrete palette for categorical data</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> iris_df, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-iris-5" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -899,10 +977,17 @@ Figure&nbsp;11: Iris sepal scatterplot with a correct discrete palette for speci
 </ul>
 <p>Now that you have had some time to play around with the colour generators let us look at how to use them with our figures. I have used the first web link to create a list of five colours. I then copy and pasted them into the code below, separating them with commas, placing them inside of <code>c()</code> and inverted commas. Be certain that you insert commas and inverted commas as necessary or you will get errors. Note also that you are using a new function to use our custom palette.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> cond)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">scale_colour_gradientn</span>(<span class="at">colours =</span> <span class="fu">c</span>(<span class="st">"#A5A94D"</span>, <span class="st">"#6FB16F"</span>, <span class="st">"#45B19B"</span>,</span>
-<span id="cb13-4"><a href="#cb13-4"></a>                                    <span class="st">"#59A9BE"</span>, <span class="st">"#9699C4"</span>, <span class="st">"#CA86AD"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">select</span>(lon, lat, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> salinity, <span class="at">y =</span> temperature)) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> dissolved_oxygen), <span class="at">alpha =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">scale_colour_gradientn</span>(</span>
+<span id="cb15-8"><a href="#cb15-8"></a>    <span class="at">colours =</span> <span class="fu">c</span>(<span class="st">"#A5A94D"</span>, <span class="st">"#6FB16F"</span>, <span class="st">"#45B19B"</span>, <span class="st">"#59A9BE"</span>, <span class="st">"#9699C4"</span>, <span class="st">"#CA86AD"</span>),</span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="at">name =</span> <span class="st">"Oxygen (µmol/kg)"</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-7" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -910,7 +995,7 @@ Figure&nbsp;11: Iris sepal scatterplot with a correct discrete palette for speci
 <img src="08-brewing_files/figure-html/fig-brew-7-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12: Urine osmolality vs.&nbsp;pH with a custom continuous gradient.
+Figure&nbsp;12: WOA18: custom continuous gradient for dissolved oxygen.
 </figcaption>
 </figure>
 </div>
@@ -918,11 +1003,16 @@ Figure&nbsp;12: Urine osmolality vs.&nbsp;pH with a custom continuous gradient.
 </div>
 <p>To use your custom colour palettes with a discrete colour scale, you use a different function as seen in the code below. While you are at it, also see how to correct the title of the legend, its text labels. Sometimes the default output is not what you want for our final figure and especially if you are going to be publishing it. Also note in the following code chunk that rather than using hexadecimal character strings to represent colours in your custom palette, you are simply writing in the human name for the colours you want. This will work for the continuous colour palettes above, too.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> urine, <span class="fu">aes</span>(<span class="at">x =</span> osmo, <span class="at">y =</span> ph)) <span class="sc">+</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.factor</span>(r))) <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"pink"</span>, <span class="st">"maroon"</span>), <span class="co"># How to use custom palette</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>)) <span class="sc">+</span> <span class="co"># How to change the legend text</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"crystals"</span>) <span class="co"># How to change the legend title</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>woa <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">mutate</span>(<span class="at">depth_bin =</span> <span class="fu">factor</span>(depth_m)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> depth_bin), <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">scale_colour_manual</span>(</span>
+<span id="cb16-7"><a href="#cb16-7"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"0"</span> <span class="ot">=</span> <span class="st">"navy"</span>, <span class="st">"50"</span> <span class="ot">=</span> <span class="st">"dodgerblue3"</span>, <span class="st">"100"</span> <span class="ot">=</span> <span class="st">"turquoise4"</span>, <span class="st">"200"</span> <span class="ot">=</span> <span class="st">"goldenrod2"</span>, <span class="st">"500"</span> <span class="ot">=</span> <span class="st">"firebrick3"</span>),</span>
+<span id="cb16-8"><a href="#cb16-8"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span> <span class="ot">=</span> <span class="st">"0 m"</span>, <span class="st">"50"</span> <span class="ot">=</span> <span class="st">"50 m"</span>, <span class="st">"100"</span> <span class="ot">=</span> <span class="st">"100 m"</span>, <span class="st">"200"</span> <span class="ot">=</span> <span class="st">"200 m"</span>, <span class="st">"500"</span> <span class="ot">=</span> <span class="st">"500 m"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">colour =</span> <span class="st">"Depth"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-8" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -930,7 +1020,7 @@ Figure&nbsp;12: Urine osmolality vs.&nbsp;pH with a custom continuous gradient.
 <img src="08-brewing_files/figure-html/fig-brew-8-1.png" class="img-fluid figure-img" style="width:75.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-brew-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: Urine osmolality vs.&nbsp;pH with a custom discrete palette and legend.
+Figure&nbsp;13: WOA18: custom discrete palette for depth bins, with legend labels.
 </figcaption>
 </figure>
 </div>
@@ -955,17 +1045,17 @@ Figure&nbsp;13: Urine osmolality vs.&nbsp;pH with a custom discrete palette and 
 <h1 data-number="6"><span class="header-section-number">6</span> Worked Examples With the colorspace Package</h1>
 <p>Let us add one more worked example using the <a href="https://colorspace.r-forge.r-project.org"><strong>colorspace</strong></a> package. It is useful because it provides palettes that are designed to be perceptually uniform and more robust for colour‑blind viewing and print. The dataset below (<code>mtcars</code>) gives us a continuous variable (horsepower) and a categorical variable (number of cylinders).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">library</span>(colorspace)</span>
-<span id="cb15-3"><a href="#cb15-3"></a></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># Load data</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a>cars_df <span class="ot">&lt;-</span> datasets<span class="sc">::</span>mtcars</span>
-<span id="cb15-6"><a href="#cb15-6"></a></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="co"># Continuous colour: horsepower (magnitude)</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars_df, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> hp)) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weight"</span>, <span class="at">y =</span> <span class="st">"Fuel efficiency (mpg)"</span>, <span class="at">colour =</span> <span class="st">"Horsepower"</span>) <span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">scale_colour_continuous_sequential</span>(<span class="at">palette =</span> <span class="st">"BluGrn"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">library</span>(colorspace)</span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="co"># Load data</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>cars_df <span class="ot">&lt;-</span> datasets<span class="sc">::</span>mtcars</span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># Continuous colour: horsepower (magnitude)</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars_df, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> hp)) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weight"</span>, <span class="at">y =</span> <span class="st">"Fuel efficiency (mpg)"</span>, <span class="at">colour =</span> <span class="st">"Horsepower"</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a>  <span class="fu">scale_colour_continuous_sequential</span>(<span class="at">palette =</span> <span class="st">"BluGrn"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-colorspace-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -981,10 +1071,10 @@ Figure&nbsp;14: mtcars weight vs.&nbsp;mpg coloured by horsepower (sequential pa
 </div>
 <p>Here the sequential palette reinforces magnitude (low → high) without sudden jumps. Now map a categorical variable with a qualitative palette:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars_df, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weight"</span>, <span class="at">y =</span> <span class="st">"Fuel efficiency (mpg)"</span>, <span class="at">colour =</span> <span class="st">"Cylinders"</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">scale_colour_discrete_qualitative</span>(<span class="at">palette =</span> <span class="st">"Dark 3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars_df, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">as.factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weight"</span>, <span class="at">y =</span> <span class="st">"Fuel efficiency (mpg)"</span>, <span class="at">colour =</span> <span class="st">"Cylinders"</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">scale_colour_discrete_qualitative</span>(<span class="at">palette =</span> <span class="st">"Dark 3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-colorspace-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1000,11 +1090,11 @@ Figure&nbsp;15: mtcars weight vs.&nbsp;mpg coloured by cylinders (qualitative pa
 </div>
 <p>Notice the legend structure again: a <strong>continuous bar</strong> for horsepower and <strong>discrete keys</strong> for cylinders. This is the same diagnostic pattern we used earlier.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Diverging palette for deviations around a midpoint</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars_df, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> hp <span class="sc">-</span> <span class="fu">mean</span>(hp))) <span class="sc">+</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weight"</span>, <span class="at">y =</span> <span class="st">"Fuel efficiency (mpg)"</span>, <span class="at">colour =</span> <span class="st">"HP deviation"</span>) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">scale_colour_continuous_diverging</span>(<span class="at">palette =</span> <span class="st">"Blue-Red 3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Diverging palette for deviations around a midpoint</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cars_df, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> hp <span class="sc">-</span> <span class="fu">mean</span>(hp))) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weight"</span>, <span class="at">y =</span> <span class="st">"Fuel efficiency (mpg)"</span>, <span class="at">colour =</span> <span class="st">"HP deviation"</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">scale_colour_continuous_diverging</span>(<span class="at">palette =</span> <span class="st">"Blue-Red 3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-brew-colorspace-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">

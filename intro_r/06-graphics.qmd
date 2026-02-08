@@ -136,73 +136,31 @@ It helps to separate **positional aesthetics** from **non-positional aesthetics*
 
 For example, if you have a dataframe with two variables `x` and `y`, you can create a scatterplot of `x` against `y` by calling `ggplot(data, aes(x, y)) + geom_point()`. The `aes(x, y)` function maps the variables (columns) in the dataframe to the *x* and *y* positions of the points in the scatterplot. Similarly, we can map variables in the dataframe to non-positional aesthetics, such as colour (*e.g.*, a colour might be more intense as the magnitude of the values in a column increase), size (larger symbols for bigger values), transparency, or grouping.
 
-# The `ChickWeight` Dataset
+# The World Ocean Atlas (WOA18) Core Dataset
 
-::: {.callout-note appearance="simple"}
-## Built-in Datasets
-R has many built-in datasets that are useful for practicing our R skills. To find out which datasets are available to you on your system, execute the following command:
+In this course we will increasingly use **real ocean data**. To keep things simple (and fast), we will use a small, tidy extract of **World Ocean Atlas 2018 (WOA18)** climatologies.
 
-```{r code-data}
-#| eval: false
-data()
-```
+{{< include includes/woa_core_load.qmd >}}
 
-A new tab will open and the list of datasets will be displayed. For example, the following might be displayed:
+## First plot: a classic Temperature–Salinity (T–S) view
 
-```
-Data sets in package ‘datasets’:
+In oceanography, temperature and salinity are often plotted against each other to reveal water-mass structure. Here we do a simple version of that idea using **surface** climatology (0 m) for **February**.
 
-AirPassengers                       Monthly Airline Passenger Numbers 1949-1960
-BJsales                             Sales Data with Leading Indicator
-BJsales.lead (BJsales)              Sales Data with Leading Indicator
-BOD                                 Biochemical Oxygen Demand
-CO2                                 Carbon Dioxide Uptake in Grass Plants
-ChickWeight                         Weight versus age of chicks on different diets
-DNase                               Elisa assay of DNase
-EuStockMarkets                      Daily Closing Prices of Major European Stock Indices, 1991-1998
-Formaldehyde                        Determination of Formaldehyde
-HairEyeColor                        Hair and Eye Color of Statistics Students
-Harman23.cor                        Harman Example 2.3
-[...]
-```
-
-The exact list might vary from user to user, as this depends on which packages have been installed on your system. For example, scrolling all the way to the bottom of the list produced above using the `data()` command, you will see the following information and code that can be executed to show all the datasets in all the packages available on your system:
-
-```
-Use ‘data(package = .packages(all.available = TRUE))’
-to list the data sets in all *available* packages.
-```
-
-A particular dataset can be loaded as follows:
-
-```{r code-data-acacia-package-ade4}
-#| eval: false
-data(acacia, package = "ade4") # the package name is listed also in the data() display
-```
-:::
-
-The `ChickWeight` dataset can be seen in the list above. Before plotting any dataset, take a quick look at its structure so you know what variables you have and how they are stored. A fast way to do this is `glimpse(ChickWeight)`.
-
-We will load and use it now.
-
-```{r fig-basic-1, message=FALSE}
-#| fig-cap: "Chick weights over time with individual trajectories."
-# Load libraries
-library(tidyverse)
-
-# Load data
-ChickWeight <- datasets::ChickWeight
-
-# Create a basic figure
-ggplot(data = ChickWeight, aes(x = Time, y = weight)) +
-  geom_point() +
-  geom_line(aes(group = Chick))
+```{r fig-woa-ts-basic, message=FALSE}
+#| fig-cap: "WOA18 surface (0 m) February climatology: temperature vs salinity."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(alpha = 0.35, size = 0.8) +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
 ## How to Read This Code
-Read the plot like a sentence with grammar: **subject → verb → modifiers**. The subject is the data (`ChickWeight`), the verb is the geometric action (`geom_point()` or `geom_line()`), and the modifiers are the aesthetic mappings (`aes(...)`) that tell ggplot *how* to draw. The `ggplot(...)` line sets the stage (data + core mappings), and each `geom_*()` line adds a new clause. The `+` sign means “and then add another clause.”
+Read the plot like a sentence with grammar: **subject → verb → modifiers**. The subject is the data (here: a filtered slice of `woa`), the verb is the geometric action (`geom_point()`), and the modifiers are the aesthetic mappings (`aes(...)`) that tell ggplot *how* to draw. The `ggplot(...)` line sets the stage (data + core mappings), and each `geom_*()` line adds a new clause. The `+` sign means “and then add another clause.”
 
-So what is that code doing? We may see from the figure that it is creating a little black dot for every data point, with the `Time` of sampling on the *x* axis, and the `weight` of the chicken during that time on the *y* axis. It then connects the dots for each chicken in the dataset. Let us break this code down line for line to get a better idea of what it is doing. 
+So what is that code doing? We may see from the figure that it is creating a dot for every grid cell, placing **salinity** on the x‑axis and **temperature** on the y‑axis (a very common oceanography view). 
 
 As a workflow, it is perfectly normal to build plots incrementally: start with a minimal plot, confirm the axes are correct, then add layers one at a time. Partial plots are not failures; they are thinking tools.
 
@@ -210,31 +168,37 @@ The first line of code is telling R that we want to create a ggplot figure. We k
 
 The second line of code then takes all of that information and makes points (dots) out of it, added as a layer on the set of axes created by the `aes()` argument provided within `ggplot(...)` --- in other words, we add a 'geometry' layer, and hence the name of the kind of 'shape' we want to plot the data as is prefixed by `geom_`.
 
-The third line takes the same information and creates lines from it --- it adds yet another layer on top of the pre-existing one. Notice in the third line that we have provided another mapping argument by telling R to group the data by `Chick`. This is the third mental model: grouping is a statement about data identity, not decoration. It tells ggplot which observations belong together, so it draws an individual line for each chicken rather than one big jagged line.
+In many cases (especially time series) you will add a `geom_line()` layer. With the WOA climatology we typically do not connect points with lines because they are not ordered in time within each location.
 
-If you remove `group = Chick`, ggplot defaults to a single group for the whole dataset. That default makes ggplot connect points in the order they appear in the data frame, which produces the jagged line that jumps across different chicks. The problem is not “a bad line,” it is a missing identity rule for the data.
+However, we *can* add an extra aesthetic mapping to include a third variable. Below we colour points by **dissolved oxygen** (surface, February). This is an example of mapping a continuous variable to a continuous colour scale.
 
-Try running this code without the group argument for `geom_line()` and see what happens.
-
-This figure does not look like much yet. We saw some examples above that show how sophisticated figures may become. This is a remarkably straightforward task. But do not take my word for it, let us see for ourselves. By adding one more aesthetic to the code above we will now show each `Diet` as a different colour.
-
-```{r fig-basic-3}
-#| fig-cap: "Chick weights over time coloured by diet."
-ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
-  geom_point() +
-  geom_line(aes(group = Chick))
+```{r fig-woa-ts-oxygen}
+#| fig-cap: "Surface February climatology: T–S scatter coloured by dissolved oxygen."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity", "dissolved_oxygen")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(aes(colour = dissolved_oxygen), alpha = 0.6, size = 0.8) +
+  scale_colour_viridis_c(name = "Oxygen (µmol/kg)") +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
-Do any patterns appear to emerge from the data? Perhaps there is a better way to visualise them? With linear models for example?
+Do any patterns appear to emerge? Typically oxygen is higher in cooler surface waters (and lower in warmer waters), but the relationship is not purely linear because circulation and biology both matter.
 
-```{r fig-first-lm}
-#| fig-cap: "Chick weights over time with linear trends by diet."
-ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
-  geom_point() +
-  geom_smooth(method = "lm")
+We can still add a simple best‑fit line through the points to demonstrate `geom_smooth()`:
+
+```{r fig-woa-ts-oxygen-lm}
+#| fig-cap: "Same plot with a simple linear trend (for demonstration)."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity", "dissolved_oxygen")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = temperature, y = dissolved_oxygen)) +
+  geom_point(alpha = 0.35, size = 0.8) +
+  geom_smooth(method = "lm") +
+  labs(x = "Temperature (°C)", y = "Dissolved oxygen (µmol/kg)")
 ```
-
-How is a linear model calculated? What patterns do we see in the data now? If you were a chicken, which feed would you want?
 
 # To `aes()` or Not to `aes()`, That Is the Question
 
@@ -244,14 +208,20 @@ The astute eye will have noticed by now that most arguments we have added to the
 
 Why does ggplot need this distinction at all? Because it builds a **mapping object** before it draws anything. That mapping object tells ggplot which variables drive scales, legends, and warnings. Mapped aesthetics (inside `aes()`) are treated as data-driven and get scales and legends; constant aesthetics (outside `aes()`) are treated as fixed settings and do not.
 
-```{r fig-basic-6}
-#| fig-cap: "Constant colour set outside aes for points and lines."
-ggplot(data = ChickWeight, aes(x = Time, y = weight)) +
-  geom_point(colour = "blue") +
-  geom_line(aes(group = Chick, colour = "blue"))
+```{r fig-woa-constant-colour}
+#| fig-cap: "Constant colour set outside aes (no legend is created)."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(colour = "steelblue", alpha = 0.35, size = 0.8) +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
-Why are the points blue, but the lines are salmon with a legend that says they are 'blue'? We may see that in the line responsible for the points (`geom_point()`) we did not put the colour argument inside of the `aes()` function, but for the lines (`geom_line()`) we did. If we know that we want some aspect of our figure to be a static value we set this value outside of the `aes()` function. If we want some aspect of our figure to reflect some part of the data in our dataframe, we must set that inside of `aes()`. Let us see an example where we set the size of the dots to equal the weight of the chicken and the thickness of the linear model lines to one static value.
+Why did no legend appear? Because the colour was set *outside* `aes()`, so ggplot treats it as a fixed setting, not a mapping. If you put a constant inside `aes()` (for example, `aes(colour = "steelblue")`), ggplot thinks you are mapping a category called “steelblue” and will create a legend.
+
+Next we set the **size** of points as a mapped variable (nitrate), while keeping other aesthetics constant.
 
 ::: callout-warning
 ## Pitfalls to Watch for
@@ -260,14 +230,19 @@ Why are the points blue, but the lines are salmon with a legend that says they a
 -   If a legend is missing, check whether you set the aesthetic outside `aes()` when you meant to map it to data.
 :::
 
-```{r fig-basic-8}
-#| fig-cap: "Point size mapped to weight with linear trends by diet."
-ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
-  geom_point(aes(size = weight)) +
-  geom_smooth(method = "lm", size = 1.2)
+```{r fig-woa-size-mapped}
+#| fig-cap: "Point size mapped to nitrate concentration (surface, February)."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "salinity", "nitrate")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(aes(size = nitrate), alpha = 0.35, colour = "black") +
+  scale_size_continuous(name = "Nitrate (µmol/kg)") +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
-Notice that we have set the size of the points and the lines, but one is within `aes()` and the other not. Because the size of our points equals the weight of the chickens, the points become larger the heavier (juicier) the chickens become. But because we set the size of the lines to one static value, all of the lines are the same size and do not change because of any other variables.
+Notice that we mapped point size inside `aes(size = nitrate)`. That creates a size scale and legend. Any size you set *outside* `aes()` would be constant for all points.
 
 # Changing Labels
 
@@ -279,16 +254,30 @@ When we use **ggplot2** we have control over every minute aspect of our figures 
 
 What we want to do next is put the legend on the bottom of our figure with a horizontal orientation and change the axis labels so that they show the units of measurement. To change the labels we will need the `labs()` function. To change the position of the legend we need the `theme()` function as it is within this function that all of the little tweaks are performed. This is best placed at the end of your block of **ggplot2** code.
 
-```{r fig-basic-4}
-#| fig-cap: "Chick weights with linear trends and labelled axes."
-ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(x = "Days", y = "Mass (g)", colour = "diet type") + # Change the labels
-  theme(legend.position = "bottom") # Change the legend position
+```{r fig-woa-labels-legend}
+#| fig-cap: "Temperature vs dissolved oxygen, with explicit labels and legend placement."
+woa %>%
+  filter(month == 2, depth_m == 0, variable %in% c("temperature", "dissolved_oxygen")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = temperature, y = dissolved_oxygen)) +
+  geom_point(aes(colour = dissolved_oxygen), alpha = 0.6, size = 0.9) +
+  scale_colour_viridis_c() +
+  labs(
+    x = "Temperature (°C)",
+    y = "Dissolved oxygen (µmol/kg)",
+    colour = "Oxygen (µmol/kg)"
+  ) +
+  theme(legend.position = "bottom")
 ```
 
 Notice that when we place the legend at the bottom of the figure ggplot automatically makes it horizontal for us. Why do we use 'colour' inside of `labs()` to change the legend title?
+
+# Reusable WOA examples (for other chapters)
+
+The following small set of plots is deliberately designed to be copy‑pasted and adapted in later chapters.
+
+{{< include includes/woa_core_example_plots.qmd >}}
 
 ::: callout-important
 ## Do This Now
