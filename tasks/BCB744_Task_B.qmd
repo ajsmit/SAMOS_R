@@ -13,7 +13,6 @@ execute:
   dev: ragg_png
 ---
 
-
 ![](/images/SAMOS-logo-transparent.png){width="35%"}
 
 ```{r code-brewing-opts, echo=FALSE}
@@ -31,6 +30,7 @@ knitr::opts_chunk$set(
 ggplot2::theme_set(
   ggplot2::theme_minimal(base_size = 8)
 )
+
 ggplot2::theme_set(
   ggplot2::theme_bw(base_size = 8)
 )
@@ -47,342 +47,335 @@ knitr::opts_chunk$set(
   out.width = "100%",
   fig.align = "center"
 )
+
 library(tidyverse)
 library(ggpubr)
 library(ggthemes)
+library(here)
 ```
 
 # [The Self-Assessment Sheet is on iKamva]{.my-highlight} {#sec-assessment}
 
-# 6-8. Graphics With ggplot2, Faceting Figures, and Brewing Colours
+# 6–8. Graphics With ggplot2, Faceting Figures, and Brewing Colours (WOA edition)
 
-In these sets of tasks you will generate several figures. For every figure generated, also please provide a narrative explanation of the patterns shown within the figures (sometimes this is mentioned explicitely, but not always; describe your figure(s) in EVERY question).
+In this task set you will generate several figures using a tidy extract of the **World Ocean Atlas 2018 (WOA18)** climatology.
+
+::: {.callout-note appearance="simple"}
+## Dataset significance (WOA18)
+WOA18 provides globally gridded climatological means for core ocean variables:
+
+- **Temperature** and **salinity** describe the physical state of the ocean.
+- **Dissolved oxygen** reflects ventilation and biogeochemical conditions.
+- **Nutrients** (nitrate, phosphate, silicate) constrain biological productivity.
+
+In this task we use a regional extract (Southern Africa + adjacent ocean) at a 1° grid and a small set of depths.
+:::
+
+```{r code-load-woa}
+woa <- readr::read_csv(
+  here::here("data", "SAMOS", "processed", "woa18_sa_core_1deg_monthly.csv"),
+  show_col_types = FALSE
+)
+
+# convenience slices used repeatedly below
+woa_feb_surf <- woa %>%
+  filter(month == 2, depth_m == 0)
+
+woa_temp_depths <- woa %>%
+  filter(variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500))
+```
+
+::: {.callout-tip appearance="simple"}
+## Data dictionary
+See: `data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md`
+:::
+
+---
 
 ## Question 1
-Create a scatterplot of `bill_length_mm` against `bill_depth_mm` for `Adelie` penguins on `Biscoe` island. **(/10)**
+Create a scatterplot of **salinity** against **temperature** (a classic T–S view) for the **surface (0 m)** climatology in **February**. Label axes with units. **(/10)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r fig-library-palmerpenguins, fig.width=5, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Adelie bill length vs. bill depth on Biscoe Island."
-library(palmerpenguins) # ✓ 
-library(tidyverse) # ✓ 
-data(penguins)
-head(penguins)
-
-penguins %>% # ✓ 
-  filter(island == "Biscoe" & species == "Adelie") %>%  # ✓ 
-  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) +  # ✓ 
-  geom_point() +  # ✓ 
-  labs(title = "Adelie Penguins on Biscoe Island",  # ✓ 
-         x = "Bill Length (mm)", # ✓ 
-         y = "Bill Depth (mm)") # ✓ 
+```{r fig-woa-q1, fig.width=5.5, fig.asp=0.65, out.width="70%"}
+#| fig-cap: "WOA18 February surface climatology: temperature vs salinity (T–S view)."
+woa_feb_surf %>%
+  filter(variable %in% c("temperature", "salinity")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(alpha = 0.35, size = 0.8) +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)") +
+  theme_minimal()
 ```
 
-The scatter reveals a moderately ordered morphometric relationship, *i.e.*, individuals with longer bills tend, generally, to exhibit greater bill depth, though the association is not tightly constrained. The dispersion suggests intraspecific variability rather than discrete clustering, with no obvious sub-grouping. These groupings might be revealed once we take into acocunt the additional categorical structure in the data.
-
-`r if (params$hide_answers) ":::"`
+Interpretation (example): the scatter is not a time series; it is the spatial range of surface conditions across the region. Expect warmer, saltier points toward the subtropics and cooler/fresher points toward higher latitudes and near river-influenced shelves.
+:::
 
 ## Question 2
-Create histograms of `bill_length_mm` for `Adelie` penguins on all three islands (one figure per island). Save each figure as a separate R object which you can later reuse. Again for `Adelie` penguins, create a boxplot for `bill_length_mm` showing all the data on one plot. Save it too as an R object. Combine the four saved figures into one figure using `ggarrange()`. **(/25)**
+Create **three histograms** of surface **nitrate** (February), one for each **depth bin** below (treat depth as a *filter*, not a facet):
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+- 0 m
+- 50 m
+- 200 m
 
-**Answer**
+Save each histogram as an R object. Then combine them into one figure using `ggarrange()` (1 column × 3 rows). **(/25)**
 
-```{r fig-library-ggpubr, fig.width=8, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Adelie bill length histograms by island plus overall boxplot."
-library(ggpubr) # ✓
+::: {.callout-tip collapse="true"}
+## Answer
 
-# Create histograms
-adelie_biscoe <- penguins %>% # ✓ x 5
-  filter(island == "Biscoe" & species == "Adelie") %>% 
-  ggplot(aes(x = bill_length_mm)) + 
-  geom_histogram() + 
-  labs(title = "Adelie Penguins on Biscoe Island", 
-       x = "Bill Length (mm)", 
-       y = "Frequency")
+```{r fig-woa-q2, fig.width=7, fig.asp=1.1, out.width="75%"}
+#| fig-cap: "Nitrate distributions at three depths (February climatology)."
 
-adelie_dream <- penguins %>% # ✓ x 5
-  filter(island == "Dream" & species == "Adelie") %>% 
-  ggplot(aes(x = bill_length_mm)) + 
-  geom_histogram() + 
-  labs(title = "Adelie Penguins on Dream Island", 
-       x = "Bill Length (mm)", 
-       y = "Frequency")
+n0 <- woa %>%
+  filter(month == 2, variable == "nitrate", depth_m == 0) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 40, fill = "grey70", colour = "white") +
+  labs(title = "0 m", x = "Nitrate (µmol/kg)", y = "Count") +
+  theme_minimal()
 
-adelie_torgersen <- penguins %>% # ✓ x 5
-  filter(island == "Torgersen" & species == "Adelie") %>% 
-  ggplot(aes(x = bill_length_mm)) + 
-  geom_histogram() + 
-  labs(title = "Adelie Penguins on Torgersen Island", 
-       x = "Bill Length (mm)", 
-       y = "Frequency")
+n50 <- woa %>%
+  filter(month == 2, variable == "nitrate", depth_m == 50) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 40, fill = "grey70", colour = "white") +
+  labs(title = "50 m", x = "Nitrate (µmol/kg)", y = "Count") +
+  theme_minimal()
 
-# Create boxplot # ✓ x 5
-adelie_boxplot <- penguins %>% 
-  filter(species == "Adelie") %>% 
-  ggplot(aes(x = island, y = bill_length_mm)) + 
-  geom_boxplot() + 
-  labs(title = "Adelie Penguins Bill Length Boxplot", 
-       x = "Island", 
-       y = "Bill Length (mm)")
+n200 <- woa %>%
+  filter(month == 2, variable == "nitrate", depth_m == 200) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 40, fill = "grey70", colour = "white") +
+  labs(title = "200 m", x = "Nitrate (µmol/kg)", y = "Count") +
+  theme_minimal()
 
-# Combine figures # ✓ x 1
-ggarrange(adelie_biscoe, adelie_dream, adelie_torgersen, adelie_boxplot, 
-          ncol = 2, nrow = 2)
+ggarrange(n0, n50, n200, ncol = 1, nrow = 3)
 ```
 
-The histograms indicate island-level differentiation in bill length structure. Biscoe birds *seem* display a distribution shifted toward longer bills, whereas Dream and Torgersen populations centre on shorter modal values. Overlap is extensive across all islands, but the positional offsets imply geographic structuring (whether ecological or genetic) within Adelie morphology.
-
-`r if (params$hide_answers) ":::"`
+Interpretation (example): nitrate is typically low at the surface (consumed by biology) and increases with depth as remineralised nutrients accumulate.
+:::
 
 ## Question 3
-Create a scatter plot of `flipper_length_mm` against `body_mass_g` and use `facet_wrap()` to create separate panels for each island (combine all species). Plot the three species as **distinct point shapes**, and map a **continuous colour scale** to `bill_length_mm`. Add a best‑fit straight line with 95% confidence intervals through the points, ignoring the effect of species. Take into account which variable best belongs on `x` and `y`. Describe your findings. **(/10)**
+Create a scatter plot of **temperature** against **latitude** for February, and use `facet_wrap()` to create separate panels for each depth (0, 50, 100, 200, 500 m). Add a smooth line to each panel. **(/10)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r fig-penguins-x, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Flipper length vs. body mass faceted by island with species shapes and bill-length colour scale."
-penguins %>% # ✓ x 7
-  ggplot(aes(x = body_mass_g, y = flipper_length_mm)) + 
-  geom_point(aes(shape = species, colour = bill_length_mm)) + 
-  scale_colour_viridis_c() +
-  geom_smooth(method = "lm", se = TRUE) +
-  facet_wrap(~island) + 
-  labs(title = "Flipper Length vs Body Mass", 
-       x = "Body Mass (g)",
-       y = "Flipper Length (mm)",
-       colour = "Bill length (mm)")
+```{r fig-woa-q3, fig.width=7, fig.asp=0.9, out.width="85%"}
+#| fig-cap: "Temperature vs latitude by depth (February climatology)."
+woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  ggplot(aes(x = lat, y = value)) +
+  geom_point(alpha = 0.15, size = 0.6) +
+  geom_smooth(se = FALSE, method = "loess") +
+  facet_wrap(~ depth_m, ncol = 3) +
+  labs(x = "Latitude (°N)", y = "Temperature (°C)") +
+  theme_minimal()
 ```
 
-- The `body_mass_g` variable is best suited to the `x`-axis as it is the independent variable. The `flipper_length_mm` variable is best suited to the `y`-axis as it is the dependent variable.
-- ✓ For all penguin species, the `flipper_length_mm` and `body_mass_g` variables show a positive correlation, with larger penguins having longer flippers, higher body masses.
-- ✓ The colour scale shows that bill length tends to increase with body mass, especially for Gentoo penguins.
-- ✓ Species are clearly separated by shape, and Gentoo penguins occupy the largest body‑mass and flipper‑length ranges.
-
-Or something like:
-
-Across all islands, flipper length scales positively with body mass to produce an oblique band of points that points to a biomechanical relationship between flipper properties and body size. Species separation is legible through shapes assigned to the species: Gentoo individuals occupy the upper mass:flipper relationship, while Adelie cluster at lower magnitudes. The colour gradient adds a third dimension—bill length increases along the same mass trajectory, reinforcing the impression of integrated body scaling rather than isolated trait enlargement.
-
-
-`r if (params$hide_answers) ":::"`
+Interpretation (example): the surface panel usually shows the strongest meridional gradient; deeper panels show reduced seasonal/latitudinal contrast.
+:::
 
 ## Question 4
-Create a scatter plot of `bill_length_mm` and `body_mass_g` and use `facet_grid()` to create separate panels for each species and island. Map `bill_length_mm` to a **continuous colour scale** that you customise yourself (do not use the default palette). **(/10)**
+Create a scatter plot of **dissolved oxygen** against **temperature** at the surface (0 m), using all months (1–12). Use `facet_wrap()` to create one panel per month, and map a **continuous colour scale** to oxygen using a custom gradient (not the default). **(/10)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r fig-grid-plt-penguins-x, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Bill length vs. body mass faceted by species and island with a custom colour scale."
-grid_plt <-  penguins %>% # ✓ x 7
-  ggplot(aes(x = body_mass_g, y = bill_length_mm, colour = bill_length_mm)) + 
-  geom_point() + 
-  scale_colour_gradient(low = "lightyellow", high = "darkred") +
-  facet_grid(species ~ island) + 
-  labs(title = "Bill Length vs Body Mass", 
-       x = "Body Mass (g)",
-       y = "Bill Length (mm)",
-       colour = "Bill length (mm)")
-grid_plt
+```{r fig-woa-q4, fig.width=7, fig.asp=0.9, out.width="85%"}
+#| fig-cap: "Surface oxygen vs temperature by month (custom continuous palette)."
+woa %>%
+  filter(depth_m == 0, month %in% 1:12, variable %in% c("temperature", "dissolved_oxygen")) %>%
+  select(lon, lat, month, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = temperature, y = dissolved_oxygen, colour = dissolved_oxygen)) +
+  geom_point(alpha = 0.5, size = 0.7) +
+  facet_wrap(~ month, ncol = 4) +
+  scale_colour_gradientn(
+    colours = c("#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c"),
+    name = "Oxygen (µmol/kg)"
+  ) +
+  labs(x = "Temperature (°C)", y = "Dissolved oxygen (µmol/kg)") +
+  theme_minimal()
 ```
 
-The faceted grid disentangles interspecific from geographic effects. Within each species panel, bill length rises with body mass, though the slope and spread vary. Gentoo shows the steepest scaling and the largest absolute values, while Adelie retains a compressed range. The customised colour gradient intensifies this visual interpretation since it visually thickens the upper mass–length zones and making trait amplification more legible.
-
-`r if (params$hide_answers) ":::"`
+Interpretation (example): oxygen tends to be higher in cooler waters, but the relationship can vary by month and location because circulation and biology matter.
+:::
 
 ## Question 5
-Using the figure created in point 4, also show the effect of `sex` and add a best-fit straight line. Explain the findings. **(/10)**
+Using the figure created in Question 4, also show the effect of **depth** by adding shapes for depth (0 vs 50 m). Fit a single best‑fit straight line (ignoring depth) to each monthly panel. Explain what the line represents. **(/10)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r code-grid-plt-x, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-grid_plt +  # ✓ x 7
-  geom_point(aes(shape = sex)) +
-  geom_smooth(method = "lm", se = TRUE, colour = "black")
+```{r fig-woa-q5, fig.width=7, fig.asp=0.9, out.width="85%"}
+#| fig-cap: "Oxygen vs temperature by month, showing depth via point shape."
+woa %>%
+  filter(depth_m %in% c(0, 50), month %in% 1:12, variable %in% c("temperature", "dissolved_oxygen")) %>%
+  select(lon, lat, month, depth_m, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = temperature, y = dissolved_oxygen)) +
+  geom_point(aes(colour = dissolved_oxygen, shape = factor(depth_m)), alpha = 0.55, size = 0.8) +
+  geom_smooth(method = "lm", se = TRUE, colour = "black") +
+  facet_wrap(~ month, ncol = 4) +
+  scale_colour_viridis_c(name = "Oxygen (µmol/kg)") +
+  labs(
+    x = "Temperature (°C)",
+    y = "Dissolved oxygen (µmol/kg)",
+    shape = "Depth (m)"
+  ) +
+  theme_minimal()
 ```
 
-- ✓ The `bill_length_mm` and `body_mass_g` variables show a positive correlation, with larger penguins having longer bills, higher body masses.
-- ✓ The `sex` variable appears to have an effect on the relationship between `bill_length_mm` and `body_mass_g`, with male penguins tending to be heavier with longer bill lengths.
-- ✓ There also appears to be differences in the relationship between `bill_length_mm` and `body_mass_g` between the different species and islands.
-
-Or...
-
-Introducing sex causes dimorphism to become visible within species–island panels. Males tend to populate the upper mass and bill-length ranges, producing a stratified layering of points. The fitted regression line, which was calculated without sex partitioning, still shows a positive incline, but the sex-coded distribution implies that part of the apparent size scaling is mediated through sexual size differentiation rather than uniform growth alone.
-
-`r if (params$hide_answers) ":::"`
+Interpretation (example): the line is a *within-panel* linear summary of the oxygen–temperature association across all grid cells shown in that month. It is not causal, and it ignores spatial structure and depth effects.
+:::
 
 ## Question 6
 What are the benefits of using faceting in data visualisation? **(/3)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-- ✓ Faceting allows for the visualisation of multiple relationships in a single plot, making it easier to compare relationships between different groups.
-- ✓ Faceting can help to identify patterns and trends in the data that may not be immediately obvious when looking at the data as a whole.
-- ✓ Faceting can help to identify differences in relationships between different groups, such as species, islands or allowing for more detailed analysis of the data.
-
-`r if (params$hide_answers) ":::"`
+- Faceting lets you compare the same relationship across groups (months, depths, variables) using a consistent visual grammar.
+- It reduces overplotting and legend complexity by separating groups into panels.
+- It supports pattern recognition (seasonal structure, depth structure) without changing the underlying plotting code.
+:::
 
 ## Question 7
-Use the built-in `ToothGrowth` dataset (guinea pig tooth length) to create a scatter plot of `len` against `dose`, coloured by `supp`, and faceted by `supp`. Add a best‑fit straight line with a 95% confidence interval. **(/10)**
+Create a scatter plot of **phosphate** against **nitrate** at 200 m for the **annual climatology** (`month == 0`), coloured by **silicate** (continuous palette). **(/10)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r fig-toothgrowth-scatter, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Tooth length vs. dose, coloured and faceted by supplement."
-data(ToothGrowth) # ✓
-
-ToothGrowth %>% # ✓ x 6
-  ggplot(aes(x = dose, y = len, colour = supp)) + 
-  geom_point() + 
-  geom_smooth(method = "lm", se = TRUE) + 
-  facet_wrap(~supp) + 
-  labs(title = "Tooth Length vs Dose by Supplement",
-       x = "Dose (mg/day)",
-       y = "Tooth length")
+```{r fig-woa-q7, fig.width=6, fig.asp=0.7, out.width="80%"}
+#| fig-cap: "Nitrate vs phosphate at 200 m, coloured by silicate."
+woa %>%
+  filter(depth_m == 200, month == 0, variable %in% c("nitrate", "phosphate", "silicate")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = nitrate, y = phosphate)) +
+  geom_point(aes(colour = silicate), alpha = 0.6, size = 0.8) +
+  scale_colour_viridis_c(name = "Silicate (µmol/kg)") +
+  labs(x = "Nitrate (µmol/kg)", y = "Phosphate (µmol/kg)") +
+  theme_minimal()
 ```
 
-- ✓ `dose` is the explanatory variable, so it belongs on the x‑axis; `len` is the response variable.
-- ✓ Tooth length increases with dose for both supplements.
-
-Tooth length increases systematically with dose, producing increasing point clouds in both supplement panels. The regressions reinforce a dose-dependent growth response. But separation between supplements remains, such that at comparable doses, orange juice (OJ) tends to yield longer teeth than vitamin C (VC), implying differential bioavailability or metabolic uptake rather than a uniform pharmacological effect.
-
-`r if (params$hide_answers) ":::"`
+Interpretation (example): nutrients often covary because they are regenerated together at depth, but the ratios can change with region and water mass history.
+:::
 
 ## Question 8
-Create histograms of `len` for each `dose` (all supplements together) using `facet_wrap()`. **(/6)**
+Create histograms of **temperature** for each month (surface, 0 m) using `facet_wrap()`. **(/6)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r fig-toothgrowth-hist, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Tooth length distributions by dose."
-ToothGrowth %>% # ✓ x 4
-  ggplot(aes(x = len)) + 
-  geom_histogram(bins = 8) + 
-  facet_wrap(~dose) + 
-  labs(title = "Tooth Length by Dose",
-       x = "Tooth length",
-       y = "Count")
+```{r fig-woa-q8, fig.width=7, fig.asp=0.8, out.width="85%"}
+#| fig-cap: "Surface temperature distributions by month."
+woa %>%
+  filter(depth_m == 0, month %in% 1:12, variable == "temperature") %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 35, fill = "grey70", colour = "white") +
+  facet_wrap(~ month, ncol = 4) +
+  labs(x = "Temperature (°C)", y = "Count") +
+  theme_minimal()
 ```
-
-Dose stratification adds a new view of the distributions. The lowest dose clusters tightly around shorter tooth lengths, while intermediate and high doses shift the distribution to the right and broadens it. This progressive shift of modal peaks indicates a graded biological response rather than a threshold effect, and variance expansion at higher doses suggests individual heterogeneity in treatment uptake.
-
-`r if (params$hide_answers) ":::"`
+:::
 
 ## Question 9
-Create boxplots of `len` by `dose` and facet by `supp` (one panel per supplement). **(/8)**
+Create boxplots of **dissolved oxygen** by month and facet by depth (0, 50, 200 m). **(/8)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r fig-toothgrowth-box, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Tooth length by dose, separated by supplement."
-ToothGrowth %>% # ✓ x 5
-  ggplot(aes(x = factor(dose), y = len)) + 
-  geom_boxplot() + 
-  facet_grid(supp ~ .) + 
-  labs(title = "Tooth Length by Dose and Supplement",
-       x = "Dose (mg/day)",
-       y = "Tooth length")
+```{r fig-woa-q9, fig.width=7, fig.asp=0.8, out.width="85%"}
+#| fig-cap: "Oxygen by month, separated by depth."
+woa %>%
+  filter(depth_m %in% c(0, 50, 200), month %in% 1:12, variable == "dissolved_oxygen") %>%
+  ggplot(aes(x = factor(month), y = value)) +
+  geom_boxplot(fill = "cornsilk", outlier.alpha = 0.2) +
+  facet_wrap(~ depth_m, ncol = 3) +
+  labs(x = "Month", y = "Dissolved oxygen (µmol/kg)") +
+  theme_minimal()
 ```
-
-Median tooth length rises with dose in both supplements, but the vertical separation between OJ and VC remains visible. OJ panels show higher medians and often wider interquartile ranges at equivalent doses. The boxplot geometry thus reiterates the double structure: dose drives the primary vertical ascent, and supplement modulates its amplitude.
-
-`r if (params$hide_answers) ":::"`
+:::
 
 ## Question 10
-Calculate the mean ± SD of `len` for each combination of `dose` and `supp`, then plot the means with error bars. **(/10)**
+Calculate the mean ± SD of **temperature** at each depth (0, 50, 100, 200, 500 m) for February, then plot the means with error bars. **(/10)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
+```{r fig-woa-q10, fig.width=6, fig.asp=0.7, out.width="80%"}
+#| fig-cap: "Mean ± SD temperature by depth (February climatology)."
+summary_temp <- woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  group_by(depth_m) %>%
+  summarise(
+    mean_temp = mean(value, na.rm = TRUE),
+    sd_temp   = sd(value, na.rm = TRUE),
+    .groups = "drop"
+  )
 
-```{r fig-toothgrowth-mean-sd, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Mean tooth length ± SD by dose and supplement."
-tg_summary <- ToothGrowth %>% # ✓ x 7
-  group_by(dose, supp) %>% 
-  summarise(mean_len = mean(len),
-            sd_len = sd(len),
-            .groups = "drop")
-
-tg_summary %>% 
-  ggplot(aes(x = factor(dose), y = mean_len, colour = supp, group = supp)) + 
-  geom_point(size = 2) + 
-  geom_line() + 
-  geom_errorbar(aes(ymin = mean_len - sd_len, ymax = mean_len + sd_len), width = 0.15) + 
-  labs(title = "Mean Tooth Length ± SD",
-       x = "Dose (mg/day)",
-       y = "Mean tooth length")
+summary_temp %>%
+  ggplot(aes(x = factor(depth_m), y = mean_temp, group = 1)) +
+  geom_point(size = 2) +
+  geom_line() +
+  geom_errorbar(aes(ymin = mean_temp - sd_temp, ymax = mean_temp + sd_temp), width = 0.15) +
+  labs(x = "Depth (m)", y = "Mean temperature (°C)") +
+  theme_minimal()
 ```
 
-The lines show parallel increases across doses and confirms a consistent treatment response. Error bars widen modestly at higher doses, thus showing increased variability. OJ maintains an advantage across all doses, seen in its mean values sitting above those of VC. This reinforces the inference of supplement-specific efficacy layered atop the general dose effect.
-
-`r if (params$hide_answers) ":::"`
+Interpretation (example): mean temperature declines with depth; SD reflects spatial variability across the study region at each depth.
+:::
 
 ## Question 11
-Create a violin plot of `len` by `dose`, filled by `supp`, and facet by `supp`. **(/8)**
+Create a violin plot of **nitrate** by depth (0, 50, 100, 200, 500 m), filled by month group: define `season` as JFM (1–3), AMJ (4–6), JAS (7–9), OND (10–12). **(/8)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r fig-toothgrowth-violin, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="60%", fig.align='center'}
-#| fig-cap: "Tooth length distributions by dose and supplement."
-ToothGrowth %>% # ✓ x 5
-  ggplot(aes(x = factor(dose), y = len, fill = supp)) + 
-  geom_violin(trim = FALSE) + 
-  facet_wrap(~supp) + 
-  labs(title = "Tooth Length Distributions by Dose",
-       x = "Dose (mg/day)",
-       y = "Tooth length")
+```{r fig-woa-q11, fig.width=7, fig.asp=0.75, out.width="85%"}
+#| fig-cap: "Nitrate distributions by depth and season (violin plots)."
+woa %>%
+  filter(month %in% 1:12, variable == "nitrate", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  mutate(
+    season = case_when(
+      month %in% 1:3   ~ "JFM",
+      month %in% 4:6   ~ "AMJ",
+      month %in% 7:9   ~ "JAS",
+      month %in% 10:12 ~ "OND"
+    ),
+    season = factor(season, levels = c("JFM", "AMJ", "JAS", "OND"))
+  ) %>%
+  ggplot(aes(x = factor(depth_m), y = value, fill = season)) +
+  geom_violin(trim = TRUE, alpha = 0.8) +
+  labs(x = "Depth (m)", y = "Nitrate (µmol/kg)", fill = "Season") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
 ```
-
-The violins reveal distributional nuances not visible in the boxplots. Lower doses produce narrow, compact shapes; higher doses widen and elongate. This suggests both upward displacement and variance inflation. OJ violins often extend further into higher length ranges, their density ridges thickening above those of VC, visually encoding supplement divergence.
-
-`r if (params$hide_answers) ":::"`
+:::
 
 ## Question 12
-Create a small summary table showing the number of observations for each combination of `dose` and `supp`. **(/6)**
+Create a small summary table showing the number of observations for each combination of `variable` and `depth_m` (all months combined). **(/6)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
-
-```{r code-toothgrowth-count}
-ToothGrowth %>% # ✓ x 3
-  count(dose, supp)
+```{r code-woa-q12}
+woa %>%
+  count(variable, depth_m) %>%
+  arrange(variable, depth_m)
 ```
-
-The summary table shows neatly balanced sampling, such that each dose–supplement combination contains identical counts. This removes sample-size bias from visual comparisons and allows distributional and mean differences to be interpreted as biological rather than artefactual.
-
-`r if (params$hide_answers) ":::"`
+:::
 
 ## Question 13
 Briefly describe two patterns you observe in any of the figures above. **(/4)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+::: {.callout-tip collapse="true"}
+## Answer
 
-**Answer**
+Example patterns:
 
-- ✓ Tooth length increases as dose increases for both supplements.
-- ✓ At the same dose, the `OJ` supplement tends to have higher tooth lengths than `VC`, especially at lower doses.
-
-Two recurrent structures dominate the figures. First, dose exerts a monotonic positive effect on tooth growth across all representations (scatter, box, violin, and summary mean plots). Second, supplement type modulates this trajectory, so that OJ consistently produces greater tooth length than VC at equivalent doses, with the disparity most visible at lower concentrations where treatment sensitivity appears highest.
-
-
-`r if (params$hide_answers) ":::"`
+1. **Temperature decreases with depth**, and the surface layer shows the strongest latitudinal/seasonal structure.
+2. **Nutrients generally increase with depth** (and are typically lowest at the surface), reflecting biological uptake near the surface and regeneration at depth.
+:::
