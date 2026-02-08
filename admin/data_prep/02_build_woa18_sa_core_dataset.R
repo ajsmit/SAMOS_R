@@ -3,8 +3,12 @@
 # Build a Southern Africa WOA18 core dataset (tidy long form) from downloaded CSVs.
 #
 # Inputs (created by 01_download_woa18_monthlies.R):
-#   data/SAMOS/raw/woa18/temperature/woa18_decav_t00mnMM.csv.gz
-#   data/SAMOS/raw/woa18/salinity/woa18_decav_s00mnMM.csv.gz
+#   data/SAMOS/raw/woa18/temperature/woa18_decav_tTTmn01.csv.gz
+#   data/SAMOS/raw/woa18/salinity/woa18_decav_sTTmn01.csv.gz
+#   data/SAMOS/raw/woa18/oxygen/woa18_all_oTTmn01.csv.gz
+#   data/SAMOS/raw/woa18/nitrate/woa18_all_nTTmn01.csv.gz
+#   data/SAMOS/raw/woa18/phosphate/woa18_all_pTTmn01.csv.gz
+#   data/SAMOS/raw/woa18/silicate/woa18_all_iTTmn01.csv.gz
 #
 # Output:
 #   data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv
@@ -97,26 +101,35 @@ woa_to_long <- function(x, variable, unit, month) {
     filter(depth_m %in% teaching_depths_m)
 }
 
-read_time_slice <- function(tt, month_label) {
-  t_path <- file.path(raw_dir, "temperature", sprintf("woa18_decav_t%02dmn01.csv.gz", tt))
-  s_path <- file.path(raw_dir, "salinity", sprintf("woa18_decav_s%02dmn01.csv.gz", tt))
+vars <- tibble::tribble(
+  ~folder,      ~prefix,       ~letter, ~variable,           ~unit,
+  "temperature", "woa18_decav", "t",     "temperature",       "degC",
+  "salinity",    "woa18_decav", "s",     "salinity",          "psu",
+  "oxygen",      "woa18_all",   "o",     "dissolved_oxygen",  "umol/kg",
+  "nitrate",     "woa18_all",   "n",     "nitrate",           "umol/kg",
+  "phosphate",   "woa18_all",   "p",     "phosphate",         "umol/kg",
+  "silicate",    "woa18_all",   "i",     "silicate",          "umol/kg"
+)
 
-  if (!file.exists(t_path)) stop("Missing: ", t_path)
-  if (!file.exists(s_path)) stop("Missing: ", s_path)
+path_for <- function(folder, prefix, letter, tt) {
+  file.path(raw_dir, folder, sprintf("%s_%s%02dmn01.csv.gz", prefix, letter, tt))
+}
 
-  t <- read_woa_csv_gz(t_path)
-  s <- read_woa_csv_gz(s_path)
+read_one <- function(folder, prefix, letter, variable, unit, tt, month_label) {
+  path <- path_for(folder, prefix, letter, tt)
+  if (!file.exists(path)) stop("Missing: ", path)
 
-  bind_rows(
-    woa_to_long(t, variable = "temperature", unit = "degC", month = month_label),
-    woa_to_long(s, variable = "salinity", unit = "psu", month = month_label)
-  )
+  x <- read_woa_csv_gz(path)
+  woa_to_long(x, variable = variable, unit = unit, month = month_label)
 }
 
 message("Building WOA18 Southern Africa core dataset…")
 
 # We include annual as month=0, and Jan..Dec as 1..12
-out <- map_dfr(c(0, 1:12), ~ read_time_slice(tt = .x, month_label = .x)) %>%
+out <- tidyr::expand_grid(tt = c(0, 1:12), vars) %>%
+  mutate(month_label = tt) %>%
+  # pmap passes columns in order: tt, folder, prefix, letter, variable, unit, month_label
+  pmap_dfr(~ read_one(..2, ..3, ..4, ..5, ..6, ..1, ..7)) %>%
   arrange(variable, month, depth_m, lat, lon)
 
 readr::write_csv(out, out_file)

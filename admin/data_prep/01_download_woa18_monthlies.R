@@ -1,24 +1,26 @@
 #!/usr/bin/env Rscript
 
-# Download WOA18 monthly climatology CSVs (1-degree, decav) for a small core set.
+# Download WOA18 monthly climatology CSVs (1-degree) for the SAMOS_R “core dataset family”.
 #
-# Outputs:
-#   data/SAMOS/raw/woa18/temperature/woa18_decav_t00mnMM.csv.gz
-#   data/SAMOS/raw/woa18/salinity/woa18_decav_s00mnMM.csv.gz
+# Variables downloaded:
+#   - temperature (t)  : decav product
+#   - salinity (s)     : decav product
+#   - oxygen (o)       : all product
+#   - nitrate (n)      : all product
+#   - phosphate (p)    : all product
+#   - silicate (i)     : all product
+#
+# Outputs (raw downloads; ignored by git):
+#   data/SAMOS/raw/woa18/<var>/...
 #
 # Source landing page:
 #   https://www.ncei.noaa.gov/access/world-ocean-atlas-2018/
-#
-# Temperature listing (example):
-#   https://www.ncei.noaa.gov/access/world-ocean-atlas-2018/bin/woa18.pl?parameter=t
 
 options(warn = 1)
 
 base_dir <- file.path("data", "SAMOS", "raw", "woa18")
 
-dir.create(file.path(base_dir, "temperature"), recursive = TRUE, showWarnings = FALSE)
-dir.create(file.path(base_dir, "salinity"), recursive = TRUE, showWarnings = FALSE)
-
+# Base URL for all WOA18 CSV downloads
 base_url <- "https://www.ncei.noaa.gov/data/oceans/woa/WOA18/DATA"
 
 # In WOA18 CSV naming, the two digits after the variable letter are the *time slice*:
@@ -27,12 +29,39 @@ base_url <- "https://www.ncei.noaa.gov/data/oceans/woa/WOA18/DATA"
 #   13..16 = seasonal (JFM, AMJ, JAS, OND)
 # The trailing mn01 indicates the statistical mean field.
 
-t_url <- function(tt) {
-  sprintf("%s/temperature/csv/decav/1.00/woa18_decav_t%02dmn01.csv.gz", base_url, tt)
+vars <- list(
+  temperature = list(product = "decav", letter = "t", folder = "temperature"),
+  salinity    = list(product = "decav", letter = "s", folder = "salinity"),
+  oxygen      = list(product = "all",   letter = "o", folder = "oxygen"),
+  nitrate     = list(product = "all",   letter = "n", folder = "nitrate"),
+  phosphate   = list(product = "all",   letter = "p", folder = "phosphate"),
+  silicate    = list(product = "all",   letter = "i", folder = "silicate")
+)
+
+for (v in names(vars)) {
+  dir.create(file.path(base_dir, vars[[v]]$folder), recursive = TRUE, showWarnings = FALSE)
 }
 
-s_url <- function(tt) {
-  sprintf("%s/salinity/csv/decav/1.00/woa18_decav_s%02dmn01.csv.gz", base_url, tt)
+woa_url <- function(var, tt) {
+  cfg <- vars[[var]]
+  sprintf(
+    "%s/%s/csv/%s/1.00/woa18_%s_%s%02dmn01.csv.gz",
+    base_url,
+    cfg$folder,
+    cfg$product,
+    cfg$product,
+    cfg$letter,
+    tt
+  )
+}
+
+woa_dest <- function(var, tt) {
+  cfg <- vars[[var]]
+  file.path(
+    base_dir,
+    cfg$folder,
+    sprintf("woa18_%s_%s%02dmn01.csv.gz", cfg$product, cfg$letter, tt)
+  )
 }
 
 fetch_one <- function(url, dest) {
@@ -67,14 +96,12 @@ fetch_one <- function(url, dest) {
 
 # Download annual (00) plus monthly (01..12)
 for (tt in c(0, 1:12)) {
-  fetch_one(
-    url  = t_url(tt),
-    dest = file.path(base_dir, "temperature", sprintf("woa18_decav_t%02dmn01.csv.gz", tt))
-  )
-  fetch_one(
-    url  = s_url(tt),
-    dest = file.path(base_dir, "salinity", sprintf("woa18_decav_s%02dmn01.csv.gz", tt))
-  )
+  for (var in names(vars)) {
+    fetch_one(
+      url  = woa_url(var, tt),
+      dest = woa_dest(var, tt)
+    )
+  }
 }
 
 message("Done.")

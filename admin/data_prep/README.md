@@ -21,10 +21,16 @@ Rscript admin/data_prep/02_build_woa18_sa_core_dataset.R
 
 ## What gets created
 
-Raw downloads (gzipped CSVs):
+Raw downloads (gzipped CSVs; ignored by git):
 
-- `data/SAMOS/raw/woa18/temperature/woa18_decav_tTTmn01.csv.gz` (TT = 00 annual; 01..12 = Jan..Dec)
-- `data/SAMOS/raw/woa18/salinity/woa18_decav_sTTmn01.csv.gz` (TT = 00 annual; 01..12 = Jan..Dec)
+- `data/SAMOS/raw/woa18/temperature/woa18_decav_tTTmn01.csv.gz`
+- `data/SAMOS/raw/woa18/salinity/woa18_decav_sTTmn01.csv.gz`
+- `data/SAMOS/raw/woa18/oxygen/woa18_all_oTTmn01.csv.gz`
+- `data/SAMOS/raw/woa18/nitrate/woa18_all_nTTmn01.csv.gz`
+- `data/SAMOS/raw/woa18/phosphate/woa18_all_pTTmn01.csv.gz`
+- `data/SAMOS/raw/woa18/silicate/woa18_all_iTTmn01.csv.gz`
+
+Where TT = 00 annual; 01..12 = Jan..Dec.
 
 Processed “core dataset family” table (tidy long form):
 
