@@ -479,7 +479,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#description-and-content" id="toc-description-and-content" class="nav-link" data-scroll-target="#description-and-content"><span class="header-section-number">3</span> Description and Content</a></li>
   <li><a href="#skills-and-graduate-attributes" id="toc-skills-and-graduate-attributes" class="nav-link" data-scroll-target="#skills-and-graduate-attributes"><span class="header-section-number">4</span> Skills and Graduate Attributes</a></li>
   <li><a href="#sec-policy" id="toc-sec-policy" class="nav-link" data-scroll-target="#sec-policy"><span class="header-section-number">5</span> Assessment Policy</a></li>
-  <li><a href="#data-used" id="toc-data-used" class="nav-link" data-scroll-target="#data-used"><span class="header-section-number">6</span> Data Used</a></li>
+  <li><a href="#data-used" id="toc-data-used" class="nav-link" data-scroll-target="#data-used"><span class="header-section-number">6</span> Data Used</a>
+  <ul class="collapse">
+  <li><a href="#world-ocean-atlas-woa-data-used-in-this-module" id="toc-world-ocean-atlas-woa-data-used-in-this-module" class="nav-link" data-scroll-target="#world-ocean-atlas-woa-data-used-in-this-module"><span class="header-section-number">6.1</span> World Ocean Atlas (WOA) data used in this module</a></li>
+  </ul></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">7</span> Prerequisites</a></li>
   <li><a href="#method-of-instruction" id="toc-method-of-instruction" class="nav-link" data-scroll-target="#method-of-instruction"><span class="header-section-number">8</span> Method of Instruction</a></li>
   <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning"><span class="header-section-number">9</span> Learning</a></li>
@@ -1120,6 +1123,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-used" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Data Used</h1>
 <p>All the data required for BCB744 may be <a href="https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing">downloaded here</a>. After you have downloaded the archived (.zip) data, unzip it in a folder named <code>data</code> placed at the root of your R project. This will ensure that all the data are easily accessible to you.</p>
+<section id="world-ocean-atlas-woa-data-used-in-this-module" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="world-ocean-atlas-woa-data-used-in-this-module"><span class="header-section-number">6.1</span> World Ocean Atlas (WOA) data used in this module</h2>
+<p>Throughout this module we will repeatedly use a small, teaching-focused extract of the <strong>World Ocean Atlas 2018 (WOA18)</strong> climatology for the broader Southern Africa region.</p>
+<ul>
+<li><strong>Processed teaching dataset (CSV):</strong> <code>data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv</code></li>
+<li><strong>Data dictionary:</strong> <code>data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md</code></li>
+<li><strong>Provenance:</strong> a matching <code>*_PROVENANCE.md</code> file is written alongside the dataset.</li>
+</ul>
+<p>The dataset is in <strong>tidy (long) format</strong> and is designed to support the same examples across physical, chemical, and biological oceanography. Key columns include <code>lon</code>, <code>lat</code>, <code>depth_m</code>, <code>month</code> (0 = annual climatology; 1–12 = monthly), <code>variable</code>, <code>value</code>, and <code>unit</code>.</p>
+<p>Variables currently included are:</p>
+<ul>
+<li>temperature</li>
+<li>salinity</li>
+<li>dissolved_oxygen</li>
+<li>nitrate</li>
+<li>phosphate</li>
+<li>silicate</li>
+</ul>
 <p>R also gives you access to many built-in datasets that are useful for practising our R skills. To find out which datasets are available to you on your system, execute the following command. Help files for each of the datasets are also available:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load the data like this:</span></span>
@@ -1129,6 +1150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5"></a>?datasets<span class="sc">::</span>ChickWeight</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>It is important to use these (or any) datasets to practice your R skills. Actively engaging with my web pages and practising on the included datasets will make the difference between a 60% average mark for the module and a mark in excess of 80%.</p>
+</section>
 </section>
 <section id="prerequisites" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Prerequisites</h1>

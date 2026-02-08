@@ -3026,5 +3026,15 @@
       "Tasks",
       "BCB744 Task G"
     ]
+  },
+  {
+    "objectID": "index.html#world-ocean-atlas-woa-data-used-in-this-module",
+    "href": "index.html#world-ocean-atlas-woa-data-used-in-this-module",
+    "title": "SAMOS Core Module 3: Introduction to R, and Biostatistics",
+    "section": "6.1 World Ocean Atlas (WOA) data used in this module",
+    "text": "6.1 World Ocean Atlas (WOA) data used in this module\nThroughout this module we will repeatedly use a small, teaching-focused extract of the World Ocean Atlas 2018 (WOA18) climatology for the broader Southern Africa region.\n\nProcessed teaching dataset (CSV): data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv\nData dictionary: data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md\nProvenance: a matching *_PROVENANCE.md file is written alongside the dataset.\n\nThe dataset is in tidy (long) format and is designed to support the same examples across physical, chemical, and biological oceanography. Key columns include lon, lat, depth_m, month (0 = annual climatology; 1–12 = monthly), variable, value, and unit.\nVariables currently included are:\n\ntemperature\nsalinity\ndissolved_oxygen\nnitrate\nphosphate\nsilicate\n\nR also gives you access to many built-in datasets that are useful for practising our R skills. To find out which datasets are available to you on your system, execute the following command. Help files for each of the datasets are also available:\n\n# load the data like this:\ndata()\n\n# find help, for example:\n?datasets::ChickWeight\n\nIt is important to use these (or any) datasets to practice your R skills. Actively engaging with my web pages and practising on the included datasets will make the difference between a 60% average mark for the module and a mark in excess of 80%.",
+    "crumbs": [
+      "Home"
+    ]
   }
 ]

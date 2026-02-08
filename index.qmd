@@ -265,6 +265,25 @@ Late assignments will be penalised 10% per day and will not be accepted more tha
 
 All the data required for BCB744 may be [downloaded here](https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing). After you have downloaded the archived (.zip) data, unzip it in a folder named `data` placed at the root of your R project. This will ensure that all the data are easily accessible to you.
 
+## World Ocean Atlas (WOA) data used in this module
+
+Throughout this module we will repeatedly use a small, teaching-focused extract of the **World Ocean Atlas 2018 (WOA18)** climatology for the broader Southern Africa region.
+
+- **Processed teaching dataset (CSV):** `data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv`
+- **Data dictionary:** `data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md`
+- **Provenance:** a matching `*_PROVENANCE.md` file is written alongside the dataset.
+
+The dataset is in **tidy (long) format** and is designed to support the same examples across physical, chemical, and biological oceanography. Key columns include `lon`, `lat`, `depth_m`, `month` (0 = annual climatology; 1--12 = monthly), `variable`, `value`, and `unit`.
+
+Variables currently included are:
+
+- temperature
+- salinity
+- dissolved_oxygen
+- nitrate
+- phosphate
+- silicate
+
 R also gives you access to many built-in datasets that are useful for practising our R skills. To find out which datasets are available to you on your system, execute the following command. Help files for each of the datasets are also available:
 
 ```{r code-data}
