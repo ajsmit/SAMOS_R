@@ -55,6 +55,19 @@ load(here::here("data", "BCB744", "SACTN_mangled.RData"))
 
 Try to plot `SACTN2` (wide format). You will immediately become annoyed and frustrated --- columns that *look* like data are actually variable names, and `ggplot2` cannot guess your intent.
 
+::: {.callout-note appearance="simple"}
+## A very gentle `ggplot2` preview (we go deeper later)
+In this chapter we use `ggplot2` only as a **quick visual diagnostic** to check whether our data are in a usable shape.
+
+For now, think of `ggplot()` as:
+
+- *“take a dataset”* +
+- *“map columns to axes”* +
+- *“choose a geometry”* (points/lines)
+
+The full introduction to `ggplot2` comes later (see the dedicated Graphics chapter).
+:::
+
 ```{r code-try-plot-sactn2, eval=FALSE}
 ggplot(SACTN2, aes(x = date, y = temp)) +
   geom_line()

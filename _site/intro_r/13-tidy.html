@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../intro_r/14-tidier.html" rel="next">
-<link href="../intro_r/12-mapping_quakes.html" rel="prev">
+<link href="../intro_r/05-workflow.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -227,6 +227,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-tidy.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">13. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../intro_r/06-graphics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Graphics with <strong>ggplot2</strong></span></a>
   </div>
@@ -265,24 +283,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../intro_r/12-mapping_quakes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">12. The Fiji Earthquake Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/13-tidy.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">13. Tidy Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/14-tidier.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">14. Tidier Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/15-tidiest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">15. Tidiest Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -574,6 +574,26 @@ Figure&nbsp;1: A tidy workflow.
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"SACTN_mangled.RData"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Try to plot <code>SACTN2</code> (wide format). You will immediately become annoyed and frustrated — columns that <em>look</em> like data are actually variable names, and <code>ggplot2</code> cannot guess your intent.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A very gentle <code>ggplot2</code> preview (we go deeper later)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this chapter we use <code>ggplot2</code> only as a <strong>quick visual diagnostic</strong> to check whether our data are in a usable shape.</p>
+<p>For now, think of <code>ggplot()</code> as:</p>
+<ul>
+<li><em>“take a dataset”</em> +</li>
+<li><em>“map columns to axes”</em> +</li>
+<li><em>“choose a geometry”</em> (points/lines)</li>
+</ul>
+<p>The full introduction to <code>ggplot2</code> comes later (see the dedicated Graphics chapter).</p>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(SACTN2, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1361,8 +1381,8 @@ A. J. S (2021) 13. Tidy Data. <a href="http://samos-r.netlify.app/intro_r/13-tid
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro_r/12-mapping_quakes.html" class="pagination-link" aria-label="12. The Fiji Earthquake Data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">12. The Fiji Earthquake Data</span>
+      <a href="../intro_r/05-workflow.html" class="pagination-link" aria-label="5. R Workflows">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">5. R Workflows</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

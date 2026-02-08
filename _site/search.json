@@ -901,7 +901,7 @@
   {
     "objectID": "index.html#footnotes",
     "href": "index.html#footnotes",
-    "title": "SAMOS Core Module 3: Introduction to R, and Biostatistics",
+    "title": "13. Tidy Data",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nA maximum of 10% may be deducted from your presentation marks should you be found to be dishonest in your self assessments.↩︎",
     "crumbs": [
@@ -3073,6 +3073,56 @@
       "Home",
       "Introduction to R",
       "7. Faceting Figures"
+    ]
+  },
+  {
+    "objectID": "index.html#pivot_longer",
+    "href": "index.html#pivot_longer",
+    "title": "13. Tidy Data",
+    "section": "18.1 pivot_longer()",
+    "text": "18.1 pivot_longer()\n\n\n\n\n\n\nTipDiagnostic: When Do I Need pivot_longer()?\n\n\n\nAsk yourself:\n\nDo my column names encode data values? (e.g., “DEA”, “SAWS”)\nIs one variable split across multiple columns?\n\nIf yes, you likely need pivot_longer().\n\n\nThe R function pivot_longer() is a useful tool for transforming data from wide to long format. It belongs to the tidyr package (loaded with tidyverse) and allows you to reshape your dataframe by gathering multiple columns into key-value pairs. Specifically, pivot_longer() takes in a dataframe and allows you to select a set of columns that you would like to pivot into longer format, while specifying the names of the key, value columns that you want to create. The resulting data frame will have a new row for each unique combination of key and value pairs. This function is particularly useful when you need to reshape your data in order to carry out certain analyses or visualisations.\nHave a look now at SACTN2 for an example of what wide data look like, and how to fix it.\nIn SACTN2 you can see that the src column has been removed and that the temperatures are placed in columns that denote the collecting source. This may at first seem like a reasonable way to organise these data, but it is not tidy because the collecting source is one variable, and so should not take up more than one column (i.e., there are multiple observations per row). You need to gather these source columns together into one column so that the separate measurements (observations) can conform to the one observation per row rule. You do this by telling pivot_longer() the names of the columns you want to squish together. You then tell it the name of the key (names_to) column. This is the column that will contain all of the old column names we are gathering. In this case you may call it source. The last piece of this puzzle is the value (values_to) column. This is where you decide what the name of the column will be for measurements you are gathering up. In this case you may name it temperature, because you are gathering up the temperature values that were incorrectly spread out by the source of the measurements.\n{r code-tidy-2, eval=FALSE} SACTN2_tidy &lt;- pivot_longer(SACTN2, cols = c(\"DEA\", \"KZNSB\", \"SAWS\"),                             names_to = \"src\",                             values_to = \"temp\")",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#pivot_wider",
+    "href": "index.html#pivot_wider",
+    "title": "13. Tidy Data",
+    "section": "18.2 pivot_wider()",
+    "text": "18.2 pivot_wider()\n\n\n\n\n\n\nTipDiagnostic: When Do I Need pivot_wider()?\n\n\n\nAsk yourself:\n\nAre multiple variables stacked in one column? (e.g., var + val)\nIs each observation split across multiple rows?\n\nIf yes, you likely need pivot_wider().\n\n\nThe function pivot_wider() is a tool for transforming data from long to wide format. It is the counterpart to the pivot_longer() function. pivot_wider() allows you to take a set of columns containing key-value pairs and convert them into a wider format, where each unique key value becomes a separate column in the resulting data frame. You can also specify a set of value columns that you want to spread across the new columns created by the key values. With pivot_wider(), you can quickly transform your data from long format into a more intuitive, wide format that is easier to work with in some applications.\nShould your data be too long for a particular application (typically a non-Tidyverse application) or your liking, meaning when individual observations are spread across multiple rows, you will need to use pivot_wider() to rectify the situation. This is generally the case when you have two or more variables stored within the same column, as you will see in SACTN3. This is not terribly common as it would require someone to put quite a bit of time into making a dataframe this way. But never say never. To spread data to become wider, you first tell R what the name of the column is that contains more than one variable, in this case the var column. You then tell R what the name of the column is that contains the values that need to be spread, in this case the val column.\n{r code-tidy-3, eval=FALSE} SACTN3_tidy1 &lt;- SACTN3 %&gt;%    pivot_wider(names_from = \"var\", values_from = \"val\")\n\n\n\n\n\n\nNotePivot Rule of Thumb (and a Quick anti-example)\n\n\n\n\npivot_longer() turns column names → values.\npivot_wider() turns values → column names.\n\nIf you use the wrong one, you either explode the data (too many rows) or flatten it (too many columns) and lose the one-observation-per-row rule.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#separate",
+    "href": "index.html#separate",
+    "title": "13. Tidy Data",
+    "section": "19.1 Separate",
+    "text": "19.1 Separate\nLooking at SACTN4a, you see that you no longer have a site and src column. Rather these have been replaced by an index column. This is an efficient way to store these data, but it is not tidy because the site and source of each observation have now been combined into one column (variable). Remember that tidy data calls for each of the things known about the data to be its own variable. To re-create site and src columns, you must separate the index column. There are two options: separate_wider_delim() and separate_wider_position(). What does each do? First you give R the name of the column you want to separate, in this case index. Next you specify what the names of the new columns will be. Remember that because we are creating new column names, you feed these into R within inverted commas. Lastly, you should tell R where to separate the index column. If you look at the data you will see that the values you want to split up are separated with / (including a space), so that is what you need to tell R.\nSACTN4a_tidy &lt;- SACTN4a |&gt; \n  separate_wider_delim(index, names = c(\"site\", \"src\"), delim = \"/ \")",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#separating-dates-using-mutate",
+    "href": "index.html#separating-dates-using-mutate",
+    "title": "13. Tidy Data",
+    "section": "19.2 Separating Dates Using mutate()",
+    "text": "19.2 Separating Dates Using mutate()\nAlthough the date column represents an example of a date date type or class (a kind of data in its own right), you might also want to split this column into its constituent parts, i.e., create separate columns for day, month, and year. In this case you can spread these components of the date vector into three columns using the mutate() function and some functions in the lubridate package (part of the tidyverse).\nSACTN_tidy2 &lt;- SACTN4a %&gt;% \n  separate_wider_delim(index, names = c(\"site\", \"src\"), delim = \"/ \") %&gt;% \n  mutate(day = lubridate::day(date),\n         month = lubridate::month(date),\n         year = lubridate::year(date))\nNote that when the date is split into component parts the data are no longer tidy (see below).\n\n\n\n\n\n\nWarningDates Are a Semantic Unit\n\n\n\nSplitting dates can be useful for grouping, but it also violates tidy principles by scattering one concept across multiple columns. Use this tactically and re-unite when you are done.",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "index.html#unite",
+    "href": "index.html#unite",
+    "title": "13. Tidy Data",
+    "section": "19.3 Unite",
+    "text": "19.3 Unite\nIt is not uncommon that field/lab instruments split values across multiple columns while they are making recordings. You might sometimes see this with date values where the year, month, and day values are given in different columns. There are uses for the data in this way, though it is not terribly tidy. You usually want the date of any observation to be shown in just one column. If you look at SACTN4b you will see that there is a year, month, day column. To unite() them you must first tell R what you want the united column to be labelled, in this case you will use date. You then list the columns to be united; here this is year, month, day. Lastly, decide if you want the united values to have a separator between them. The standard separator for date values is “-”.\nSACTN4b_tidy &lt;- SACTN4b |&gt; \n  unite(col = \"date\", year, month, day, sep = \"-\")",
+    "crumbs": [
+      "Home"
     ]
   }
 ]
