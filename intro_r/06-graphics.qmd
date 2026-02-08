@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "6. Graphics with **ggplot2**"
+title: "9. Graphics with **ggplot2**"
 ---
 
 

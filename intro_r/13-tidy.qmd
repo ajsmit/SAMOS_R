@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "13. Tidy Data"
+title: "6. Tidy Data"
 ---
 
 

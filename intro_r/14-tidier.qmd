@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "14. Tidier Data"
+title: "7. Tidier Data"
 ---
 
 

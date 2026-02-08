@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "12. The Fiji Earthquake Data"
+title: "15. The Fiji Earthquake Data"
 ---
 
 

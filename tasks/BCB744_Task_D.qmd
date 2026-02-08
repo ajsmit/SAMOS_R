@@ -1,5 +1,5 @@
 ---
-title: "BCB744 Bonus Task"
+title: "BCB744 Task D"
 format: 
   html:
     fig-format: png
@@ -9,7 +9,7 @@ execute:
   dev: ragg_png
   fig-format: png
 params: 
-  hide_answers: true
+  hide_answers: false
 ---
 
 
@@ -35,66 +35,58 @@ ggplot2::theme_set(
 )
 ```
 
-# [[Assessment Sheet](BCB744_Task_Bonus_Surname.xlsx)]{.my-highlight} {#sec-assessment}
+# [[Assessment Sheet](BCB744_Task_D_Surname.xlsx)]{.my-highlight} {#sec-assessment}
 
-# 12--14. Tidy Data
+# 6–8. Tidy Data (Tidy / Tidier / Tidiest)
 
 ## Question 1
 What are the key principles of tidy data? **(/3)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
-
-**Answer**
+::: {.callout-tip collapse="true"}
+## Answer
 
 - ✓ Each variable forms a column.
 - ✓ Each observation forms a row.
 - ✓ Each type of observational unit forms a table.
-
-```{r code-chunk, echo=FALSE, eval=FALSE, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="80%", fig.align='center'}
-
-```
-
-`r if (params$hide_answers) ":::"`
+:::
 
 ## Question 2
 Using the untidy data (`SACTN2`) and the tidy data (`SACTN2_tidy`), create line graphs, one for each of DEA, SAWS, and KZNSB, showing a time series of temperature. Ensure you have a column of three figures (ncol = 1). Use the fewest number of lines of code possible. You should end up with two graphs, each with three panels. **(/13)**
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
-
-**Answer**
+::: {.callout-tip collapse="true"}
+## Answer
 
 ```{r fig-library-tidyverse, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.asp=0.65, out.width="80%", fig.align='center'}
 #| fig-cap: "SACTN2 temperature time series faceted by source."
 library(tidyverse)
+library(here)
 
-load(here::here("data", "BCB744", "SACTN_mangled.RData")) # ✓
+load(here::here("data", "BCB744", "SACTN_mangled.RData"))
 
-SACTN2_tidy <- pivot_longer(SACTN2, cols = c("DEA", "KZNSB", "SAWS"),
-                            names_to = "src",
-                            values_to = "temp") # ✓
+SACTN2_tidy <- pivot_longer(
+  SACTN2,
+  cols = c("DEA", "KZNSB", "SAWS"),
+  names_to = "src",
+  values_to = "temp"
+)
 
-# Starting with SACTN2: one could be sneaky and cheat by using
-# 'pivot_wider()' in the pipeline
-SACTN2 |>  # ✓ x 6
-  pivot_longer(cols = c("DEA", "KZNSB", "SAWS"),
-               names_to = "src",
-               values_to = "temp") |> 
+# Starting with SACTN2 (untidy): tidy it on the fly, then plot
+SACTN2 |> 
+  pivot_longer(
+    cols = c("DEA", "KZNSB", "SAWS"),
+    names_to = "src",
+    values_to = "temp"
+  ) |> 
   ggplot(aes(x = date, y = temp)) +
   geom_line(aes(col = site, linetype = type)) +
   facet_wrap(~ src, ncol = 1) +
-  labs(title = "Untidy Data", # ✓
-       x =  "Date", y = "Temperature (°C)")
+  labs(title = "Untidy (tidied in pipeline)", x = "Date", y = "Temperature (°C)")
 
-# For the untidy data, above, I will also allocate marks if you insisted in 
-# creating more work for yourself by doing it the long way.... ( # ✓ x 7)
+# Starting with the already-tidy data
 
-# Starting with SACTN2_tidy
-# (creates an identical plot)
-ggplot(data = SACTN2_tidy, aes(x = date, y = temp)) +  # ✓ x 4
+ggplot(data = SACTN2_tidy, aes(x = date, y = temp)) +
   geom_line(aes(col = site, linetype = type)) +
   facet_wrap(~ src, ncol = 1) +
-  labs(title = "Tidy Data", # ✓
-       x =  "Date", y = "Temperature (°C)")
+  labs(title = "Already tidy", x = "Date", y = "Temperature (°C)")
 ```
-
-`r if (params$hide_answers) ":::"`
+:::

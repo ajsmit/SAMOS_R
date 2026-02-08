@@ -51,7 +51,7 @@ library(ggthemes)
 
 # [[Assessment Sheet](BCB744_Task_A_Surname.xlsx)]{.my-highlight} {#sec-assessment}
 
-# 2. R and RStudio
+# 1. R and RStudio
 
 ## Question 1
 Why will I get annoyed when you say in your Methods section of your paper that you used RStudio for your analysis? **(/1)**
@@ -147,7 +147,7 @@ round(sd(apples), 2)
 
 `r if (params$hide_answers) ":::"`
 
-# 3. Working with Data and Code
+# 2. Working with Data and Code
 
 ## Question 6
 What is the difference between an Excel file and a CSV file? **(/2)**
@@ -185,7 +185,7 @@ Why is it important to see the file extension when working with data files? **(/
 
 `r if (params$hide_answers) ":::"`
 
-# 4. Data Classes and Structures in R
+# 3. Data Classes and Structures in R
 
 ## Question 9
 Using examples (new data), explain how the `as.vector()` function works when applied to matrices and arrays. How does it decide in what order to string the elements of the matrices and arrays together? **(/6)**
@@ -282,7 +282,7 @@ dim(new_arr3)
 
 `r if (params$hide_answers) ":::"`
 
-# 5. R Workflows
+# 4. R Workflows
 
 ## Question 11
 What is the purpose of commenting code? Name at least three reasons why you should comment your code. **(/3)**
