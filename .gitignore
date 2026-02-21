@@ -12,6 +12,8 @@
 .Rproj.user/
 tangled_bank.Rproj
 tangled_bank.code-workspace
+SAMOS_R.Rproj
+SAMOS_R.code-workspace
 .vscode/
 *.swp
 *.swo
