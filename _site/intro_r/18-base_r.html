@@ -61,7 +61,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -69,6 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <link href="../intro_r/19-dates.html" rel="next">
 <link href="../intro_r/17-functions.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -76,10 +77,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-21fe018c864e78632dc0e35f28f7bac9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a72d73f98a4a7f3df5cb9b4599317c55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -107,6 +111,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>html{ scroll-behavior: smooth; }</style>
+
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -122,6 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <span class="navbar-title">SAMOS R</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -144,8 +168,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Tasks</span></a>
   </li>  
 </ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ajsmit/tangled_bank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -313,13 +357,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Biostatistics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
@@ -402,13 +446,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Tasks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
@@ -490,7 +534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dataframe-creation" id="toc-dataframe-creation" class="nav-link" data-scroll-target="#dataframe-creation"><span class="header-section-number">13</span> Dataframe Creation</a></li>
   <li><a href="#dataframe-indices" id="toc-dataframe-indices" class="nav-link" data-scroll-target="#dataframe-indices"><span class="header-section-number">14</span> Dataframe Indices</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/18-base_r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -506,7 +550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Smit, A. J. <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+    <p class="author"><a href="https://samos-r.netlify.app">Smit, A. J.</a> <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -535,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></p>
+<p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
 <p>Please note that the following chapter departs from the syntax employed by the <strong>tidyverse</strong>, as utilised throughout this workshop, in favour of the base R syntax. This may be changed in the future, but has been left for now in order to better highlight the fundamental machinations of the R language, upon which the <strong>tidyverse</strong> is based.</p>
 <section id="dataframes" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Dataframes</h1>
@@ -746,7 +790,7 @@ R&gt;  [9] "Hamburg"       "Durban"        "Richards Bay"  "Sodwana"</code></pre
 <p>See the next chapter about dates.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../collection/intro_r/chapters/16-base_r_files/Dried-dates.webp" class="img-fluid figure-img" style="width:80.0%"></p>
+<p><a href="../collection/intro_r/chapters/16-base_r_files/Dried-dates.webp" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Dates."><img src="../collection/intro_r/chapters/16-base_r_files/Dried-dates.webp" class="img-fluid figure-img" style="width:80.0%" alt="Dates."></a></p>
 <figcaption>Dates.</figcaption>
 </figure>
 </div>
@@ -903,19 +947,19 @@ R&gt;  [8]  77.77778  88.88889 100.00000</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">13</span>, <span class="at">sd =</span> <span class="fl">0.13</span>) <span class="co"># random numbers with known mean and sd</span></span>
 <span id="cb108-2"><a href="#cb108-2"></a><span class="fu">rep</span>(a, <span class="dv">5</span>) <span class="co"># one may omit the times argument</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;   [1] 13.03387 13.07597 12.88998 13.03200 13.07453 13.03613 13.02269 13.09094
-R&gt;   [9] 12.96712 13.08885 12.99384 13.01171 13.05844 12.89924 12.97684 12.98463
-R&gt;  [17] 12.78023 13.26077 12.76935 13.11499 13.03387 13.07597 12.88998 13.03200
-R&gt;  [25] 13.07453 13.03613 13.02269 13.09094 12.96712 13.08885 12.99384 13.01171
-R&gt;  [33] 13.05844 12.89924 12.97684 12.98463 12.78023 13.26077 12.76935 13.11499
-R&gt;  [41] 13.03387 13.07597 12.88998 13.03200 13.07453 13.03613 13.02269 13.09094
-R&gt;  [49] 12.96712 13.08885 12.99384 13.01171 13.05844 12.89924 12.97684 12.98463
-R&gt;  [57] 12.78023 13.26077 12.76935 13.11499 13.03387 13.07597 12.88998 13.03200
-R&gt;  [65] 13.07453 13.03613 13.02269 13.09094 12.96712 13.08885 12.99384 13.01171
-R&gt;  [73] 13.05844 12.89924 12.97684 12.98463 12.78023 13.26077 12.76935 13.11499
-R&gt;  [81] 13.03387 13.07597 12.88998 13.03200 13.07453 13.03613 13.02269 13.09094
-R&gt;  [89] 12.96712 13.08885 12.99384 13.01171 13.05844 12.89924 12.97684 12.98463
-R&gt;  [97] 12.78023 13.26077 12.76935 13.11499</code></pre>
+<pre><code>R&gt;   [1] 12.89871 13.22460 13.02772 12.94973 12.88508 13.12321 12.98432 12.94410
+R&gt;   [9] 13.20406 13.03914 13.09520 13.26705 12.96697 12.95799 12.95745 13.00568
+R&gt;  [17] 12.88261 13.05035 12.99353 13.22523 12.89871 13.22460 13.02772 12.94973
+R&gt;  [25] 12.88508 13.12321 12.98432 12.94410 13.20406 13.03914 13.09520 13.26705
+R&gt;  [33] 12.96697 12.95799 12.95745 13.00568 12.88261 13.05035 12.99353 13.22523
+R&gt;  [41] 12.89871 13.22460 13.02772 12.94973 12.88508 13.12321 12.98432 12.94410
+R&gt;  [49] 13.20406 13.03914 13.09520 13.26705 12.96697 12.95799 12.95745 13.00568
+R&gt;  [57] 12.88261 13.05035 12.99353 13.22523 12.89871 13.22460 13.02772 12.94973
+R&gt;  [65] 12.88508 13.12321 12.98432 12.94410 13.20406 13.03914 13.09520 13.26705
+R&gt;  [73] 12.96697 12.95799 12.95745 13.00568 12.88261 13.05035 12.99353 13.22523
+R&gt;  [81] 12.89871 13.22460 13.02772 12.94973 12.88508 13.12321 12.98432 12.94410
+R&gt;  [89] 13.20406 13.03914 13.09520 13.26705 12.96697 12.95799 12.95745 13.00568
+R&gt;  [97] 12.88261 13.05035 12.99353 13.22523</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb110"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1007,13 +1051,13 @@ R&gt; length</code></pre>
 <span id="cb133-7"><a href="#cb133-7"></a>df1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(vec1, vec2, vec3)</span>
 <span id="cb133-8"><a href="#cb133-8"></a><span class="fu">head</span>(df1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;      vec1 vec2   vec3                 
-R&gt; [1,] "A"  "4018" "-0.0382408147813468"
-R&gt; [2,] "A"  "4019" "0.341357384489311"  
-R&gt; [3,] "A"  "4020" "-0.287220551206493" 
-R&gt; [4,] "A"  "4021" "-0.513036884930185" 
-R&gt; [5,] "A"  "4022" "0.488500664273602"  
-R&gt; [6,] "B"  "4023" "0.426319439580489"</code></pre>
+<pre><code>R&gt;      vec1 vec2   vec3                
+R&gt; [1,] "A"  "4018" "0.318431691301252" 
+R&gt; [2,] "A"  "4019" "0.210834316319072" 
+R&gt; [3,] "A"  "4020" "-0.058055555436217"
+R&gt; [4,] "A"  "4021" "-0.547777700204098"
+R&gt; [5,] "A"  "4022" "-0.216709777698383"
+R&gt; [6,] "B"  "4023" "-0.448594759325863"</code></pre>
 </div>
 </div>
 <p>Another way to achieve the same thing is to use the <code>data.frame()</code> function that will allow you to achieve all of the above steps at once. Here is the example:</p>
@@ -1025,8 +1069,8 @@ R&gt; [6,] "B"  "4023" "0.426319439580489"</code></pre>
 <span id="cb135-5"><a href="#cb135-5"></a><span class="fu">head</span>(df2, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   vec1       vec2     vec3
-R&gt; 1    A 1981-01-01 2.977690
-R&gt; 2    A 1981-01-02 1.942919</code></pre>
+R&gt; 1    A 1981-01-01 1.085283
+R&gt; 2    A 1981-01-02 1.664869</code></pre>
 </div>
 </div>
 <p>What about the names of the dataframe that you just created? Are you happy that they are descriptive enough? If you are not, do not fear. There are several different ways in which we can change it. We can assign the existing separate vectors <code>vec1</code>, <code>vec2</code> and <code>vec3</code> to more user-friendly names using the <code>data.frame()</code> function, like this:</p>
@@ -1037,8 +1081,8 @@ R&gt; 2    A 1981-01-02 1.942919</code></pre>
 <span id="cb137-4"><a href="#cb137-4"></a><span class="fu">head</span>(df1, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   level sample.date measurement
-R&gt; 1     A  1981-01-01 -0.03824081
-R&gt; 2     A  1981-01-02  0.34135738</code></pre>
+R&gt; 1     A  1981-01-01   0.3184317
+R&gt; 2     A  1981-01-02   0.2108343</code></pre>
 </div>
 </div>
 <p>Another way is to change the name after you have created the dataframe using the <code>colnames()</code> assignment function, as in:</p>
@@ -1047,8 +1091,8 @@ R&gt; 2     A  1981-01-02  0.34135738</code></pre>
 <span id="cb139-2"><a href="#cb139-2"></a><span class="fu">head</span>(df2, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   level sample.date measurement
-R&gt; 1     A  1981-01-01    2.977690
-R&gt; 2     A  1981-01-02    1.942919</code></pre>
+R&gt; 1     A  1981-01-01    1.085283
+R&gt; 2     A  1981-01-02    1.664869</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb141"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1"></a><span class="fu">names</span>(df2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1062,9 +1106,9 @@ R&gt; 2     A  1981-01-02    1.942919</code></pre>
 <span id="cb143-3"><a href="#cb143-3"></a>df2<span class="fl">.1</span><span class="sc">$</span>meas.diff <span class="ot">&lt;-</span> df2<span class="fl">.1</span><span class="sc">$</span>measurement <span class="sc">-</span> df2<span class="fl">.1</span><span class="sc">$</span>meas.anom</span>
 <span id="cb143-4"><a href="#cb143-4"></a><span class="fu">head</span>(df2<span class="fl">.1</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;   level sample.date measurement   meas.anom    meas.diff
-R&gt; 1     A  1981-01-01 -0.03824081 -0.03198301 -0.006257809
-R&gt; 2     A  1981-01-02  0.34135738  0.34761519 -0.006257809</code></pre>
+<pre><code>R&gt;   level sample.date measurement meas.anom  meas.diff
+R&gt; 1     A  1981-01-01   0.3184317 0.4466506 -0.1282189
+R&gt; 2     A  1981-01-02   0.2108343 0.3390532 -0.1282189</code></pre>
 </div>
 </div>
 <p>We can also combine dataframes in different ways. Perhaps you have two (or more) dataframe that conform to the same layout, <em>i.e.</em>, they have the same number of columns (although the length of the dataframes may differ), they have the same data type in those columns, the names of those columns are the same. Also and the order of the columns must be identical in all the dataframes. Two separate dataframe with the same structure may, for example, result from two identical experiments that were repeated at different times. We can then stack one on top (<em>e.g.</em>, combine our experiments) of the other using the <em>r</em>ow bind function <code>rbind()</code>, as in:</p>
@@ -1085,8 +1129,8 @@ R&gt; 2     A  1981-01-02  0.34135738  0.34761519 -0.006257809</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb151"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1"></a><span class="fu">head</span>(df3, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   level sample.date measurement
-R&gt; 1     A  1981-01-01 -0.03824081
-R&gt; 2     A  1981-01-02  0.34135738</code></pre>
+R&gt; 1     A  1981-01-01   0.3184317
+R&gt; 2     A  1981-01-02   0.2108343</code></pre>
 </div>
 </div>
 <p>But now how do we know how the portions of the stacked dataframe relate to the experiments that resulted in the data in the first place? There is no label to distinguish one experiment from the other. We can fix this by adding a new column to the stacked dataframe that contains the coding for the two experiments. We can achieve it like this:</p>
@@ -1095,14 +1139,14 @@ R&gt; 2     A  1981-01-02  0.34135738</code></pre>
 <span id="cb153-2"><a href="#cb153-2"></a><span class="fu">head</span>(df3, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   level sample.date measurement exp.no
-R&gt; 1     A  1981-01-01 -0.03824081   exp1
-R&gt; 2     A  1981-01-02  0.34135738   exp1</code></pre>
+R&gt; 1     A  1981-01-01   0.3184317   exp1
+R&gt; 2     A  1981-01-02   0.2108343   exp1</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb155"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1"></a><span class="fu">tail</span>(df3, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;    level sample.date measurement exp.no
-R&gt; 29     C  1981-01-14    1.165008   exp2
-R&gt; 30     C  1981-01-15    2.180826   exp2</code></pre>
+R&gt; 29     C  1981-01-14    1.966875   exp2
+R&gt; 30     C  1981-01-15    2.486678   exp2</code></pre>
 </div>
 </div>
 <p>We can combine dataframes in another way — that is, bind columns side-by-side using the function <code>cbind()</code>. We used it before to place vectors of the same length next to each other to create a dataframe. This function is similar to <code>rbind()</code>, but where <code>rbind()</code> fusses over the names of the columns, <code>cbind()</code> does not. What does concern <code>cbind()</code>, however, is that the number of rows in the two (or more) dataframes that will be ‘glued’ side-by-side is the same. Try it yourself with your own dataframes.</p>
@@ -1140,7 +1184,7 @@ R&gt; 30     C  1981-01-15    2.180826   exp2</code></pre>
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
   author = {A. J. , Smit},
   title = {18. {Base} {R} {Primer}},
   date = {2021-01-01},
@@ -1243,6 +1287,8 @@ A. J. S (2021) 18. Base R Primer. <a href="http://samos-r.netlify.app/intro_r/18
             if (link.getAttribute("rel") === null) {
               link.setAttribute("rel", "noopener");
             }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1569,8 +1615,54 @@ A. J. S (2021) 18. Base R Primer. <a href="http://samos-r.netlify.app/intro_r/18
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026, AJ Smit</p>
+</div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/18-base_r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

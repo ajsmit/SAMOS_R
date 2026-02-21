@@ -1,6 +1,7 @@
 ---
 date: "2026-02-07"
-title: "SAMOS Core Module 3: Introduction to R, and Biostatistics"
+title: "SAMOS Core Module 3.2 & 3.4"
+subtitle: "R Workshop (3.2) and Statistics in Ocean Sciences (3.4)"
 ---
 
 
@@ -43,14 +44,14 @@ Sources:
 The venue for the module is the 5th Floor Computer Lab, BCB Department, University of the Western Cape.
 
 - **Introduction to R** runs from **23 to 27 February 2026** (starting **the afternoon of 23 February**).
-- **Biostatistics** runs from **20 to 24 April 2026**.
+- **Statistics** runs from **20 to 24 April 2026**.
 
 Lectures will run from 09:00 to 16:30 on the days indicated in the table below.
 
-The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and the teaching assistant for the module is Mr. Jesse Phillips (4115146\@myuwc.ac.za). For queries about the SAMOS programme in general, please consult Dr Denise Schael (Ocean Sciences Campus, Office 0210, 2nd Floor, E-Block Extension, Building 1105).
+The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and the teaching assistant for the module is Mr. Jesse Phillips (4115146\@myuwc.ac.za). For queries about the SAMOS programme in general, please consult Dr. Denise Schael (Ocean Sciences Campus, Office 0210, 2nd Floor, E-Block Extension, Building 1105).
 
 -   **Introduction to R**: **23–27 February 2026** (starting the afternoon of 23 February).
--   **Biostatistics**: **20–24 April 2026**.
+-   **Statistics**: **20–24 April 2026**.
 -   **Important links:**
     -   [[**Module data (Google Drive)**](https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing)]{.my-highlight}
 
@@ -76,7 +77,7 @@ The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and 
 |      | L6      | [16. Synthesis](intro_r/16-recap.qmd)                                                          | 27 Feb 26  |                                            |                  |
 |      |         | [**Test 1: Intro R Theory Test**]{.my-highlight}                                               | TBA        |                                            | TBA              |
 |      |         | [**Test 1: Intro R Prac Test**]{.my-highlight}                                                 | TBA        |                                            | TBA              |
-|      |         | **BIOSTATISTICS**                                                                              |            |                                            |                  |
+|      |         | **STATISTICS FOR OCEAN SCIENCES**                                                                              |            |                                            |                  |
 | Wk16 | L1      | 1. Introduction to Statistics                                                                  | 20 Apr 26  |                                            |                  |
 |      |         | [2. Exploring With Summaries and Descriptions](basic_stats/02-summarise-and-describe.qmd)      |            | [Task E](tasks/BCB744_Task_E.html)         | 21 Apr 26        |
 |      |         | [3. Exploring With Figures](basic_stats/03-visualise.qmd)                                      |            | [Task E](tasks/BCB744_Task_E.html)         | 21 Apr 26        |
@@ -91,17 +92,17 @@ The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and 
 |      |         | [12. Non-Parametric Statistics](basic_stats/12-glance.qmd)                                     |            |                                            |                  |
 |      |         | [13. Confidence Intervals](basic_stats/13-confidence.qmd)                                      |            |                                            |                  |
 |      |         | [14. Data Transformations](basic_stats/14-transformations.qmd)                                 |            |                                            |                  |
-|      |         | [**Test 2: Biostatistics Theory Test**]{.my-highlight}                                         | TBA        |                                            | TBA              |
-|      |         | [**Test 2: Biostatistics Prac Test**]{.my-highlight}                                           | TBA        |                                            | TBA              |
-|      |         | [**Exam: Biostatistics Prac Exam (Intro R + Biostatistics)**]{.my-highlight}                   | TBA        |                                            | TBA              |
+|      |         | [**Test 2: Statistics Theory Test**]{.my-highlight}                                         | TBA        |                                            | TBA              |
+|      |         | [**Test 2: Statistics Prac Test**]{.my-highlight}                                           | TBA        |                                            | TBA              |
+|      |         | [**Exam: Statistics Prac Exam (Intro R + Statistics)**]{.my-highlight}                   | TBA        |                                            | TBA              |
 
 # Description and Content
 
 :::: panel-tabset
 ## Course Description {#sec-descr}
-Yes, the comma in this page's title is correct: "SAMOS Core Module 3: Introduction to R, and Biostatistics." The module provides an introduction to the R software language. I will also teach biostatistics.
+Yes, the comma in this page's title is correct: "SAMOS Core Module 3: Introduction to R, and Statistics." The module provides an introduction to the R software language. I will also teach Statistics.
 
-This is a core module in your Honours programme. You will learn to use R for data analysis, visualisation, and statistical inference. You will also learn fundamental biostatistics concepts, such as hypothesis testing, probabilities, confidence intervals, regression analysis, Analysis of Variance, and other staples of biostatistics. I will use real-world datasets from the biological, ecological, and environmental fields that you can use to practice applying your R and biostatistics skills.
+This is a core module in your Honours programme. You will learn to use R for data analysis, visualisation, and statistical inference. You will also learn fundamental Statistics concepts, such as hypothesis testing, probabilities, confidence intervals, regression analysis, Analysis of Variance, and other staples of Statistics. I will use real-world datasets from the biological, ecological, and environmental fields that you can use to practice applying your R and Statistics skills.
 
 The approach taken in this module is not dissimilar from a course in Data Science. However, in this module, we will not do data science, but we will use R to actually **do** science. There is a difference! Any scientist that can use R is also ideally equipped to be a data scientist, and some people who have completed this module actually do just that. The difference between the two ideas, philosophies, and careers is provided in the box immediately below.
 
@@ -152,9 +153,9 @@ Starting 23 February 2026, you will submit a thoroughly annotated `.html` file p
 - **Neatly structured**, with short sections, headings, and clear figure/table outputs (no screenshots). I will significantly weigh the visual impression you ceate, so take pride in your work.
 
 ## Self-assessment Tasks
-Core Module 3.3 and 3,4 (Introduction to R, and Statistics) relies on regular, honest self-reflection about your grasp of each day’s lecture content. After every lecture, complete the Daily Self-Assessment Tasks to gauge your understanding; answers will be provided the following day, before introducing new content. Each task should be rated on a personal scale from 1 (no real comprehension) to 10 (complete mastery). These self-assessment marks will be kept on record and checked randomly, and we will discourage students from undertaking the Intro R Test and the BioStats Test if their self-assessment scores are consistently low.
+Core Module 3.3 and 3,4 (Introduction to R, and Statistics) relies on regular, honest self-reflection about your grasp of each day’s lecture content. After every lecture, complete the Daily Self-Assessment Tasks to gauge your understanding; answers will be provided the following day, before introducing new content. Each task should be rated on a personal scale from 1 (no real comprehension) to 10 (complete mastery). These self-assessment marks will be kept on record and checked randomly, and we will discourage students from undertaking the Intro R Test and the Statistics Test if their self-assessment scores are consistently low.
 
-If you realise you are struggling, seek assistance from the lecturer or teaching assistant early (ideally on the day). Consistent, candid self-assessment strongly correlates with later performance in the Intro R Test, the Biostatistics Test, and the combined Exam. The goal is to align your learning strategies with course expectations and build a foundation for success.
+If you realise you are struggling, seek assistance from the lecturer or teaching assistant early (ideally on the day). Consistent, candid self-assessment strongly correlates with later performance in the Intro R Test, the Statistics Test, and the combined Exam. The goal is to align your learning strategies with course expectations and build a foundation for success.
 
 [**For the daily self-assessment tasks to be effective, you must work alone on all of them.**]{.my-highlight}
 
