@@ -9,7 +9,7 @@
 <meta name="author" content="Smit, A. J.">
 <meta name="dcterms.date" content="2021-01-01">
 
-<title>14. Mapping with Natural Earth – SAMOS R</title>
+<title>12. Mapping with ggplot2 – SAMOS R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro_r/15-mapping_quakes.html" rel="next">
-<link href="../intro_r/13-mapping_style.html" rel="prev">
+<link href="../intro_r/14-mapping_style.html" rel="next">
+<link href="../intro_r/12-brewing.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -198,7 +198,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/14-mapping_rnaturalearth.html">14. Mapping with Natural Earth</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/13-mapping.html">12. Mapping with <strong>ggplot2</strong></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -271,85 +271,91 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/06-tidy.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Tidy Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/07-tidier.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7. Tidier Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/08-tidiest.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. Tidiest Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/09-graphics.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9. Graphics with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/10-faceting.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">10. Faceting Figures</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/11-brewing.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">11. Brewing Colours</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/12-mapping.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">12. Mapping with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/13-mapping_style.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">13. Mapping with Style</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/14-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link active">
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">14. Mapping with Natural Earth</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/15-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">15. The Fiji Earthquake Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">16. Synthesis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/18-functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">17. Functions by Chapter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/19-base_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">18. Base R Primer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/20-dates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">19. Dates</span></a>
   </div>
 </li>
@@ -519,38 +525,22 @@ cookieconsent.run({
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#orientation-what-you-are-here-to-learn" id="toc-orientation-what-you-are-here-to-learn" class="nav-link active" data-scroll-target="#orientation-what-you-are-here-to-learn"><span class="header-section-number">1</span> Orientation: What You Are Here to Learn</a>
-  <ul class="collapse">
-  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link" data-scroll-target="#learning-goals"><span class="header-section-number">1.1</span> Learning Goals</a></li>
-  <li><a href="#workflow-overview" id="toc-workflow-overview" class="nav-link" data-scroll-target="#workflow-overview"><span class="header-section-number">1.2</span> Workflow Overview</a></li>
-  <li><a href="#web-resources-for-spatial-work-in-r" id="toc-web-resources-for-spatial-work-in-r" class="nav-link" data-scroll-target="#web-resources-for-spatial-work-in-r"><span class="header-section-number">1.3</span> Web Resources for Spatial Work in R</a></li>
-  <li><a href="#what-to-aspire-to" id="toc-what-to-aspire-to" class="nav-link" data-scroll-target="#what-to-aspire-to"><span class="header-section-number">1.4</span> What to Aspire to</a></li>
-  </ul></li>
-  <li><a href="#the-sf-package" id="toc-the-sf-package" class="nav-link" data-scroll-target="#the-sf-package"><span class="header-section-number">2</span> The <strong>sf</strong> Package</a></li>
-  <li><a href="#maps-with-rnaturalearth" id="toc-maps-with-rnaturalearth" class="nav-link" data-scroll-target="#maps-with-rnaturalearth"><span class="header-section-number">3</span> Maps With <strong>rnaturalearth</strong></a></li>
-  <li><a href="#install-packages-and-set-things-up" id="toc-install-packages-and-set-things-up" class="nav-link" data-scroll-target="#install-packages-and-set-things-up"><span class="header-section-number">4</span> Install Packages and Set Things Up</a>
-  <ul class="collapse">
-  <li><a href="#define-a-working-extent" id="toc-define-a-working-extent" class="nav-link" data-scroll-target="#define-a-working-extent"><span class="header-section-number">4.1</span> Define a Working Extent</a></li>
-  </ul></li>
-  <li><a href="#create-and-inspect-an-sf-object" id="toc-create-and-inspect-an-sf-object" class="nav-link" data-scroll-target="#create-and-inspect-an-sf-object"><span class="header-section-number">5</span> Create and Inspect an <code>sf</code> Object</a>
-  <ul class="collapse">
-  <li><a href="#load-features-from-natural-earth" id="toc-load-features-from-natural-earth" class="nav-link" data-scroll-target="#load-features-from-natural-earth"><span class="header-section-number">5.1</span> Load Features from Natural Earth</a></li>
-  <li><a href="#inspect-the-geometry-and-crs" id="toc-inspect-the-geometry-and-crs" class="nav-link" data-scroll-target="#inspect-the-geometry-and-crs"><span class="header-section-number">5.2</span> Inspect the Geometry and Crs</a></li>
-  <li><a href="#plot-quickly-in-base-r" id="toc-plot-quickly-in-base-r" class="nav-link" data-scroll-target="#plot-quickly-in-base-r"><span class="header-section-number">5.3</span> Plot Quickly in Base R</a></li>
-  <li><a href="#dissolve-and-crop-features-geometry-changes" id="toc-dissolve-and-crop-features-geometry-changes" class="nav-link" data-scroll-target="#dissolve-and-crop-features-geometry-changes"><span class="header-section-number">5.4</span> Dissolve and Crop Features (geometry changes)</a></li>
-  <li><a href="#buffering-and-geometry-assumptions" id="toc-buffering-and-geometry-assumptions" class="nav-link" data-scroll-target="#buffering-and-geometry-assumptions"><span class="header-section-number">5.5</span> Buffering and Geometry Assumptions</a></li>
-  </ul></li>
-  <li><a href="#a-reusable-workflow" id="toc-a-reusable-workflow" class="nav-link" data-scroll-target="#a-reusable-workflow"><span class="header-section-number">6</span> A Reusable Workflow</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">7</span> Example</a></li>
+  <li><a href="#using-prepared-data" id="toc-using-prepared-data" class="nav-link active" data-scroll-target="#using-prepared-data"><span class="header-section-number">1</span> Using Prepared Data</a></li>
+  <li><a href="#a-new-concept" id="toc-a-new-concept" class="nav-link" data-scroll-target="#a-new-concept"><span class="header-section-number">2</span> A New Concept?</a></li>
+  <li><a href="#land-mask" id="toc-land-mask" class="nav-link" data-scroll-target="#land-mask"><span class="header-section-number">3</span> Land Mask</a></li>
+  <li><a href="#sec-borders" id="toc-sec-borders" class="nav-link" data-scroll-target="#sec-borders"><span class="header-section-number">4</span> Borders</a></li>
+  <li><a href="#sec-coordsequal" id="toc-sec-coordsequal" class="nav-link" data-scroll-target="#sec-coordsequal"><span class="header-section-number">5</span> Force lon/lat Extent</a></li>
+  <li><a href="#ocean-temperature" id="toc-ocean-temperature" class="nav-link" data-scroll-target="#ocean-temperature"><span class="header-section-number">6</span> Ocean Temperature</a></li>
+  <li><a href="#final-touches" id="toc-final-touches" class="nav-link" data-scroll-target="#final-touches"><span class="header-section-number">7</span> Final Touches</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/14-mapping_rnaturalearth.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/13-mapping.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/14-mapping_rnaturalearth.html">14. Mapping with Natural Earth</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/13-mapping.html">12. Mapping with <strong>ggplot2</strong></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">14. Mapping with Natural Earth</h1>
+<h1 class="title">12. Mapping with <strong>ggplot2</strong></h1>
 </div>
 
 
@@ -591,183 +581,223 @@ cookieconsent.run({
 <p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../images/thesaurus.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="A reminder that names and classifications matter."><img src="../images/thesaurus.jpg" class="img-fluid figure-img" style="width:75.0%" alt="A reminder that names and classifications matter."></a></p>
-<figcaption>A reminder that names and classifications matter.</figcaption>
+<p><a href="../images/CleanShot 2023-12-27 at 08.24.21.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Target map example for this chapter."><img src="../images/CleanShot 2023-12-27 at 08.24.21.png" class="img-fluid figure-img" style="width:75.0%" alt="Target map example for this chapter."></a></p>
+<figcaption>Target map example for this chapter.</figcaption>
 </figure>
 </div>
 <blockquote class="blockquote">
-<p>“<em>In the beginning there was nothing, which exploded.</em>”</p>
-<p>— Terry Pratchett</p>
+<p>“<em>Graphical excellence is that which gives the viewer the greatest number of ideas in the shortest time with the least ink in the smallest space.</em>”</p>
+<p>— Edward Tufte</p>
 </blockquote>
 <blockquote class="blockquote">
-<p>“<em>Biology is the study of complicated things that have the appearance of having been designed with a purpose.</em>”</p>
-<p>— Richard Dawkins</p>
+<p>“<em>Here be dragons.</em>”</p>
+<p>— Unknown</p>
 </blockquote>
-<section id="orientation-what-you-are-here-to-learn" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Orientation: What You Are Here to Learn</h1>
-<p>Up to now, your maps have likely been <em>drawn</em> rather than <em>reasoned about</em>. This chapter shifts you from decorative mapping to spatial reasoning with data structures that carry geometry, scale, and assumptions. The goal is to make them more defensible.</p>
-<section id="learning-goals" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="learning-goals"><span class="header-section-number">1.1</span> Learning Goals</h2>
-<p>By the end of this chapter you should be able to:</p>
-<ol type="1">
-<li>Explain what an <code>sf</code> object is (features, attributes, geometry column, CRS).</li>
-<li>Subset and transform spatial features without losing geometry.</li>
-<li>Produce layered maps in base R and <strong>ggplot2</strong> with explicit spatial choices.</li>
-</ol>
-</section>
-<section id="workflow-overview" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="workflow-overview"><span class="header-section-number">1.2</span> Workflow Overview</h2>
-<p>When you are working independently, aim for this repeatable sequence:</p>
-<ol type="1">
-<li>Load data and inspect the geometry and CRS.</li>
-<li>Subset features (rows) and attributes (columns) intentionally.</li>
-<li>Crop or transform geometry only when you mean to.</li>
-<li>Plot in base R or <strong>ggplot2</strong>, then refine.</li>
-</ol>
-</section>
-<section id="web-resources-for-spatial-work-in-r" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="web-resources-for-spatial-work-in-r"><span class="header-section-number">1.3</span> Web Resources for Spatial Work in R</h2>
-<p>These are reference texts, not required reading. Use them as technical back-up when you get stuck or want to go deeper.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Yesterday you learned how to create <strong>ggplot2</strong> figures, change their aesthetics, labels, colour palettes, and facet/arrange them. Now you are going to look at how to create maps. In maps, it helps to distinguish <strong>fill</strong> (area) from <strong>colour</strong> (line). Polygons and rasters are usually <strong>filled</strong>, while borders and paths are typically just <strong>coloured</strong> lines.</p>
+<p>Most of the work that you will perform as environmental/biological scientists involves going out to a location and sampling information there. Sometimes only once, and sometimes over a period of time. All of these different sampling methods lend themselves to different types of figures. One of those, collection of data at different points, is best shown with maps. As you will see over the course of Day 3, creating maps in <strong>ggplot2</strong> is very straight forward and is extensively supported. For that reason you are going to have plenty of time to also learn how to do some more advanced things. Your goal in this chapter is to produce the figure below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../images/map_complete.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Today’s goal."><img src="../images/map_complete.png" class="img-fluid figure-img" alt="Today’s goal."></a></p>
+<figcaption>Today’s goal.</figcaption>
+</figure>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Web Resources About Spatial Methods in R
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<table class="table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Author</th>
-<th style="text-align: left;">Title</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Spatial R</strong></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Edzer Pebesma</td>
-<td style="text-align: left;"><a href="https://r-spatial.github.io/sf/index.html">Simple Features for R</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Edzer Pebesma, Roger Bivand</td>
-<td style="text-align: left;"><a href="https://r-spatial.org/book/">Spatial Data Science with applications in R</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Robin Lovelace et al.</td>
-<td style="text-align: left;"><a href="https://geocompr.robinlovelace.net/index.html">Geocomputation with R</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Manuel Gimond</td>
-<td style="text-align: left;"><a href="https://mgimond.github.io/Spatial/index.html">Intro to GIS and Spatial Analysis</a></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Wasser et al.</td>
-<td style="text-align: left;"><a href="https://datacarpentry.org/r-raster-vector-geospatial/">Introduction to Geospatial Raster and Vector Data with R</a></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Taro Mieno</td>
-<td style="text-align: left;"><a href="https://tmieno2.github.io/R-as-GIS-for-Economists/">R as GIS for Economists</a></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="what-to-aspire-to" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="what-to-aspire-to"><span class="header-section-number">1.4</span> What to Aspire to</h2>
-<p>Please see the snooty maps at <a href="https://bedeffinianrowedavies.com/intermediatertutorials/makingmaps">Making Static Maps in R</a>. The skills you acquire in this module should eventually allow you to do similar maps.</p>
-</section>
-</section>
-<section id="the-sf-package" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> The <strong>sf</strong> Package</h1>
-<p>At this point you need data structures that carry geometry and behave sensibly under spatial operations. The <a href="https://r-spatial.github.io/sf/"><strong>sf</strong></a> package provides exactly that, and it has become the <em>de facto</em> tool for many mapping applications, replacing older packages such as <strong>sp</strong>. It provides classes for storing and manipulating simple feature geometries and functions for working with spatial data. <em>Simple features</em> refer to a standardised way of encoding vector data — points, lines, and polygons — used widely in GIS.</p>
-<p>The <strong>sf</strong> package was created to provide a fast and efficient way to work with vector data in R. It integrates with other <strong>tidyverse</strong> packages, such as <strong>dplyr</strong> and <strong>ggplot2</strong>, allowing for seamless processing and visualisation of spatial data. The package provides a variety of functions for data import, transformation, manipulation, and analysis, making it a valuable tool for working with spatial data in R.</p>
-<p>In addition to its core functionality, the <strong>sf</strong> package also provides a set of methods for converting between different data representations, such as data frames, matrices, and lists, making it a versatile tool for working with spatial data in a variety of formats.</p>
-<p>While <strong>sf</strong> works with vector data, raster data require the well-known but older <a href="https://rspatial.org/raster/pkg/index.html"><strong>raster</strong></a> package, or its modern replacements <a href="https://rspatial.org/pkg/index.html"><strong>terra</strong></a>, <a href="https://r-spatial.github.io/stars/"><strong>stars</strong></a>. I will not work with raster data in this chapter.</p>
-</section>
-<section id="maps-with-rnaturalearth" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Maps With <strong>rnaturalearth</strong></h1>
-<p><a href="https://www.naturalearthdata.com/">Natural Earth</a> is a public domain map dataset that provides high-quality, general-purpose base maps for the world at various scales. It is an ideal stepping stone when <code>map_data()</code> and hand-drawn polygons become too crude or too brittle for serious work. It was designed to be a visually pleasing alternative to other public domain datasets, and its creators aim to provide the data in a form that is useful for a wide range of applications, to make it easy to use and integrate with other data.</p>
-<p>The dataset includes a variety of geographic features, including coastlines, rivers, lakes, and political boundaries, as well as cultural features like cities, roads, and railways. The data are available in several formats, including vector and raster, and they can be used with a variety of software, including GIS and mapping applications. Within R we can access these map layers using the <a href="https://cran.r-project.org/web/packages/rnaturalearth/vignettes/rnaturalearth.html"><strong>rnaturalearth</strong></a> package.</p>
-<p>One of the key benefits of Natural Earth is its public domain status, which means that anyone can use, distribute the data without restrictions or licensing fees. This makes it an ideal choice for individuals who need high-quality base maps for their projects but may not have the resources or expertise to create them from scratch. I am not convinced that students actually read this. The first person to send me a WhatsApp mentioning the phrase “Know your maps” will get a Lindt chocolate.</p>
-<p>In addition to its public domain status, Natural Earth is regularly updated with new data to ensure that the maps remain accurate and up to date. This makes it a valuable resource for anyone who needs reliable geographic data.</p>
-</section>
-<section id="install-packages-and-set-things-up" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Install Packages and Set Things Up</h1>
+<section id="using-prepared-data" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Using Prepared Data</h1>
+<p>Before you begin let us go ahead and load the packages you will need, as well as several dataframes required to make the final product.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("rnaturalearth", "rnaturalearthdata", "sf")</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(rnaturalearth)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(rnaturalearthdata)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># for the buffer to work as I expect, switch off</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># the functions for spherical geometry:</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Load data</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"south_africa_coast.Rdata"</span>))</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"sa_provinces.RData"</span>))</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"rast_annual.Rdata"</span>))</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"MUR.Rdata"</span>))</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"MUR_low_res.RData"</span>))</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Choose which SST product you would like to use</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>sst <span class="ot">&lt;-</span> MUR_low_res</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># OR</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>sst <span class="ot">&lt;-</span> MUR</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># The colour palette we will use for ocean temperature</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>cols11 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#004dcd"</span>, <span class="st">"#0068db"</span>, <span class="st">"#007ddb"</span>, <span class="st">"#008dcf"</span>, <span class="st">"#009bbc"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19"></a>            <span class="st">"#00a7a9"</span>, <span class="st">"#1bb298"</span>, <span class="st">"#6cba8f"</span>, <span class="st">"#9ac290"</span>, <span class="st">"#bec99a"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout callout-style-simple callout-warning callout-titled">
+</section>
+<section id="a-new-concept" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> A New Concept?</h1>
+<p>The idea of creating a map in R may be daunting to some, but remember that a basic map is nothing more than a simple figure with an <em>x</em>, <em>y</em> axis. We tend to think of maps as different from other scientific figures, whereas in reality they are created the exact same way. The <em>epistemic</em> consequence of this is important: maps are built from the same grammar of graphics, but they carry extra assumptions about geography.</p>
+<p>Before we move on, keep this distinction in mind:</p>
+<ul>
+<li><strong>Data coordinates</strong> are just numbers. They only become geographic when we interpret them as longitude and latitude.</li>
+<li><strong>Geographic coordinates</strong> imply scale, distance, and distortion. The moment we treat <em>x</em> and <em>y</em> as lon/lat, we accept projection‑related assumptions.</li>
+</ul>
+<p>This is why <code>coord_equal()</code> becomes important (<a href="#sec-coordsequal" class="quarto-xref">Section&nbsp;5</a>). It preserves a 1:1 relationship between units on the axes so the geometry is not subtly stretched as in <a href="#fig-map-province" class="quarto-xref">Figure&nbsp;4</a>.</p>
+<p>Let us look at the difference between normal data as dots, and geographic data as dots.</p>
+<p><strong>Chicken dots:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ChickWeight, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-point-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-point-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-point-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;1: Dot plot of chicken weight data."><img src="13-mapping_files/figure-html/fig-map-point-1-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-point-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Dot plot of chicken weight data.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>South African coast dots:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-point-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-point-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-point-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;2: Dot plot off South African coast."><img src="13-mapping_files/figure-html/fig-map-point-2-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-point-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Dot plot off South African coast.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Does that look familiar? Notice how the <em>x</em> and <em>y</em> axis tick labels look the same as any map you would see in an atlas. This is because they are. But this is not a great way to create a map. Rather it is better to represent the land mass with a polygon. With <strong>ggplot2</strong> this is a simple task.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Geometry Assumptions and <code>sf_use_s2()</code>
+<span class="screen-reader-only">Note</span>Checkpoint
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <code>s2</code> engine treats the Earth as a sphere. Some operations — notably buffering — behave differently under spherical versus planar assumptions. Turning <code>s2</code> off can be useful for small regional maps, but it does <strong>not</strong> make distances in degrees suddenly meaningful. If you need accurate distances, use a projected CRS and keep <code>s2</code> on.</p>
+<p>Before scrolling, try swapping <code>lon</code> and <code>lat</code>. What happens to the coastline? This is a fast way to diagnose coordinate order mistakes.</p>
 </div>
 </div>
-<section id="define-a-working-extent" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="define-a-working-extent"><span class="header-section-number">4.1</span> Define a Working Extent</h2>
-<p>First, I define the extent of the map region:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># the full map extent:</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>xmin <span class="ot">&lt;-</span> <span class="dv">12</span>; ymin <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">36.5</span>; xmax <span class="ot">&lt;-</span> <span class="fl">40.5</span>; ymax <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>xlim <span class="ot">&lt;-</span> <span class="fu">c</span>(xmin, xmax); ylim <span class="ot">&lt;-</span> <span class="fu">c</span>(ymin, ymax)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># make a bounding box for cropping:</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>bbox <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> xmin, <span class="at">ymin =</span> ymin,</span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="at">xmax =</span> xmax, <span class="at">ymax =</span> ymax))</span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># might be useful for zooming into a smaller region (False Bay and </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># the Cape Peninsula):</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>xlim_zoom <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">17.8</span>, <span class="dv">19</span>); ylim_zoom <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.5</span>, <span class="sc">-</span><span class="fl">33.2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Choosing bounds is a cartographic decision. If you clip too tightly you can hide relevant context; if you clip too loosely you dilute the focus of the map. Cropping can also cut features that cross the boundary (and cuase complications, which are very difficult to rectify), so use it deliberately.</p>
 </section>
-</section>
-<section id="create-and-inspect-an-sf-object" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Create and Inspect an <code>sf</code> Object</h1>
-<p>Before we draw anything, we will load a spatial object, then <em>inspect</em> it. This is the point where your thinking should shift from “plots” to “features with geometry”.</p>
-<section id="load-features-from-natural-earth" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="load-features-from-natural-earth"><span class="header-section-number">5.1</span> Load Features from Natural Earth</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># load the countries:</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>safrica_countries <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">returnclass =</span> <span class="st">'sf'</span>,</span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="at">continent =</span> <span class="st">"Africa"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="at">country =</span> <span class="fu">c</span>(<span class="st">"South Africa"</span>, <span class="st">"Mozambique"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="st">"Namibia"</span>, <span class="st">"Zimbabwe"</span>, <span class="st">"Botswana"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6"></a>    <span class="st">"Lesotho"</span>, <span class="st">"Eswatini"</span>),</span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="at">scale =</span> <span class="st">"large"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="land-mask" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Land Mask</h1>
+<p>Now that you have seen that a map is nothing more than a bunch of dots and shapes on specific points along the <em>x</em> and <em>y</em> axes you are going to look at the steps you would take to build a more complex map. Do not worry if this seems daunting at first. You are going to take this step by step and ensure that each step is made clear along the way. The first step is to create a polygon.</p>
+<p>Why a polygon? Polygons encode <strong>adjacency, continuity, and enclosure</strong> — properties that points cannot represent. This matters because land is not a collection of disconnected points; it is a continuous surface with a boundary (but this boundary does not <em>have</em> to correspond to geographical borders, although they can and often do).</p>
+<p>Note that you create an aesthetic argument inside of <code>geom_polygon()</code> and not <code>ggplot()</code> because some of the steps you will take later on will not accept the <code>group</code> aesthetic. Remember, whatever aesthetic arguments we put inside of <code>ggplot()</code> will be inserted into all of our other <code>geom_...()</code> lines of code.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>The object now contains <em>features</em> (rows) with <em>attributes</em> (columns) plus a geometry column that stores the spatial shapes. That geometry persists unless you explicitly alter it.</p>
-</section>
-<section id="inspect-the-geometry-and-crs" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="inspect-the-geometry-and-crs"><span class="header-section-number">5.2</span> Inspect the Geometry and Crs</h2>
-<p>Pause here and check what makes this different from a normal tibble.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">class</span>(safrica_countries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; [1] "sf"         "data.frame"</code></pre>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why <code>group</code> Goes in <code>geom_polygon()</code>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># safrica_countries</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Try moving <code>aes(group = group)</code> into the main <code>ggplot()</code> call. Later layers (<em>e.g.</em>, <code>geom_raster()</code>) will inherit it and may produce warnings or odd behaviour. Keeping <code>group</code> local to <code>geom_polygon()</code> makes the intent explicit and prevents accidental inheritance.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_polygon</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="co"># The land mask</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-polygon" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-polygon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-polygon-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;3: Land mask of South Africa as a polygon."><img src="13-mapping_files/figure-html/fig-map-polygon-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-polygon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Land mask of South Africa as a polygon.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-borders" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Borders</h1>
+<p>The first thing you will add is the province borders as seen in Figure <a href="#fig-map-province" class="quarto-xref">Figure&nbsp;4</a>. Notice how you only add one more line of code to do this.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_polygon</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> sa_provinces, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="co"># The province borders</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-province" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-province-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-province-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;4: South Africa with province borders added."><img src="13-mapping_files/figure-html/fig-map-province-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-province-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: South Africa with province borders added.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-coordsequal" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Force lon/lat Extent</h1>
+<p>Unfortunately when you added our borders it increased the plotting area of our map past what you would like. To correct that you will need to explicitly state the borders you want. This is also where aspect ratio matters most: without <code>coord_equal()</code>, your coastline will be subtly stretched.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_polygon</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> sa_provinces, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">34</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">36</span>, <span class="sc">-</span><span class="dv">26</span>), <span class="at">expand =</span> <span class="dv">0</span>) <span class="co"># Force lon/lat extent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-expand" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-expand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-expand-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;5: The map, but with the extra bits snipped off."><img src="13-mapping_files/figure-html/fig-map-expand-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-expand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: The map, but with the extra bits snipped off.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ocean-temperature" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Ocean Temperature</h1>
+<p>This is starting to look pretty fancy, but it would be nicer if there was some colour involved. So let us add the ocean temperature. Again, this will only require one more line of code. Starting to see a pattern? But what is different this time, why? Here we are <strong>filling</strong> areas (ocean cells), not colouring borders, so we map to <code>fill</code> instead of <code>colour</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> sst, <span class="fu">aes</span>(<span class="at">fill =</span> bins)) <span class="sc">+</span> <span class="co"># The ocean temperatures</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_polygon</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> sa_provinces, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">34</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">36</span>, <span class="sc">-</span><span class="dv">26</span>), <span class="at">expand =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-mur" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-mur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-mur-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;6: Ocean temperature (°C) visualised as an ice cream spill."><img src="13-mapping_files/figure-html/fig-map-mur-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-mur-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Ocean temperature (°C) visualised as an ice cream spill.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>That looks… odd. Why do the colours look like someone melted a big bucket of ice cream in the ocean? This is because the colours you see in this figure are the default colours for discrete values in <strong>ggplot2</strong>. If you want to change them we may do so easily by adding yet one more line of code.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Diagnostic Heuristic
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If a continuous field looks blocky or cartoonish, check whether your variable has been discretised upstream. If it has, you will get a discrete palette and a stepped legend.</p>
+</div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -775,262 +805,154 @@ cookieconsent.run({
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>The <code>sf</code> Class
+<span class="screen-reader-only">Note</span>Palette Consistency Is Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>sf</code> indicates that the object is of class <em>simple features</em>. In <strong>sf</strong> language, what would be called columns (variables) in normal <strong>tidyverse</strong> speak becomes known as <em>attributes</em> — these are the properties of the map <em>features</em>. The geometry column stores the shapes; the CRS stores the spatial reference system.</p>
+<p><strong>ggplot2</strong> enforces a consistent palette across layers so that the same colour always means the same thing. This is a principle of perceptual coherence.</p>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Run this on your PC... the output is too voluminous for here</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">glimpse</span>(safrica_countries)</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">st_crs</span>(safrica_countries)</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">unique</span>(<span class="fu">st_geometry_type</span>(safrica_countries))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The CRS tells you how the coordinates should be interpreted. You do not need to manipulate CRS yet, but you do need to be aware that distance and area calculations depend on it.</p>
-<p>As you can see, it is a <code>data.frame</code> and <code>tbl</code> (tibble), amongst other classes, and so you can apply many of the <strong>tidyverse</strong> functions to it, including <code>select()</code>, <code>filter()</code>, <code>summarise()</code> and so on. These verbs act on <em>attributes</em> unless you explicitly change geometry with <strong>sf</strong> functions.</p>
-</section>
-<section id="plot-quickly-in-base-r" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="plot-quickly-in-base-r"><span class="header-section-number">5.3</span> Plot Quickly in Base R</h2>
-<p>Let us plot the entire <code>safrica_countries</code> object to see all the attributes of all of the features. This kind of figure is called a choropleth map:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">plot</span>(safrica_countries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> sst, <span class="fu">aes</span>(<span class="at">fill =</span> bins)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_polygon</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> sa_provinces, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Temp. (°C)"</span>, <span class="at">values =</span> cols11) <span class="sc">+</span> <span class="co"># Set the colour palette</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">34</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">36</span>, <span class="sc">-</span><span class="dv">26</span>), <span class="at">expand =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-plot-safrica-countries" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-map-colour" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-plot-safrica-countries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-plot-safrica-countries-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;1: Southern Africa countries shown as a base R choropleth."><img src="14-mapping_rnaturalearth_files/figure-html/fig-plot-safrica-countries-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<div aria-describedby="fig-map-colour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-colour-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;7: Ocean temperatures (°C) around South Africa."><img src="13-mapping_files/figure-html/fig-map-colour-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-safrica-countries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Southern Africa countries shown as a base R choropleth.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-colour-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Ocean temperatures (°C) around South Africa.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-tip callout-titled">
+<p>There is a colour palette that would make Jacques Cousteau swoon. When you set the <strong>fill</strong> palette for a figure in <strong>ggplot2</strong> you must use that fill palette for all other instances of those types of values, too. What this means is that any other discrete values that will be filled in, like the ocean cells above, must use the same fill palette (there are some technical exceptions to this rule that you will not cover in this course). You normally want <strong>ggplot2</strong> to use consistent palettes anyway, but it is important to note that this constraint exists. Let us see what I mean. Next you will add the coastal pixels to our figure with one more line of code. You will not change anything else. Note how <strong>ggplot2</strong> changes the fill of the coastal pixels to match the ocean fill automatically.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> sst, <span class="fu">aes</span>(<span class="at">fill =</span> bins)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_polygon</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> sa_provinces, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_tile</span>(<span class="at">data =</span> rast_annual, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">fill =</span> bins), </span>
+<span id="cb9-6"><a href="#cb9-6"></a>            <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> <span class="co"># The coastal temperature values</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Temp. (°C)"</span>, <span class="at">values =</span> cols11) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">34</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">36</span>, <span class="sc">-</span><span class="dv">26</span>), <span class="at">expand =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-raster" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-raster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-raster-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;8: Map of South Africa showing in situ temperatures (°C) as pixels along the coast."><img src="13-mapping_files/figure-html/fig-map-raster-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-raster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Map of South Africa showing <em>in situ</em> temperatures (°C) as pixels along the coast.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="final-touches" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Final Touches</h1>
+<p>You used <code>geom_tile()</code> instead of <code>geom_rast()</code> to add the coastal pixels above so that you could add those little white boxes around them.</p>
+<p>Why tiles? <code>geom_tile()</code> and <code>geom_raster()</code> are best for <strong>gridded data</strong> (continuous fields sampled on a grid). Points are best for <strong>discrete observations</strong>. Choosing the geometry tells the reader what kind of data you believe you have.</p>
+<p>This figure is looking pretty great now. And it only took a few rows of code to put it all together! The last step is to add several more lines of code that will control for all of the little things you want to change about the appearance of the figure. Each little thing that is changed below is annotated for your convenience.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Attributes vs Features (select vs filter)
+<span class="screen-reader-only">Note</span>Design Choices Are Not Defaults
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use <code>select()</code> to choose <em>attributes</em> (columns). Use <code>filter()</code> to choose <em>features</em> (rows). Neither operation recalculates geometry; the shapes persist unless you explicitly transform them.</p>
+<p>Adding borders, grids, or labels is a rhetorical decision. Ask yourself: does this layer help the scientific story, or just add clutter?</p>
 </div>
 </div>
-<p>You probably do not want to plot all of them. Let us select one:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">plot</span>(safrica_countries[<span class="st">"sovereignt"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-plot-safrica-countries-sovereignt" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-plot-safrica-countries-sovereignt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-plot-safrica-countries-sovereignt-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;2: Southern Africa countries shaded by sovereignty."><img src="14-mapping_rnaturalearth_files/figure-html/fig-plot-safrica-countries-sovereignt-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-safrica-countries-sovereignt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Southern Africa countries shaded by sovereignty.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>You might achieve the same in a more familiar way:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>safrica_countries <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">select</span>(sovereignt) <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-safrica-countries" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-safrica-countries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;3: Southern Africa countries shaded by sovereignty (select)."><img src="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-safrica-countries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Southern Africa countries shaded by sovereignty (select).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Or you may want to plot the estimate of the population size, which is contained in the attribute <code>pop_est</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>safrica_countries <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">select</span>(pop_est) <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-safrica-countries-2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-safrica-countries-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;4: Southern Africa countries shaded by population estimate."><img src="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-2-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-safrica-countries-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Southern Africa countries shaded by population estimate.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The names of the countries are in the rows of the <code>safrica_countries</code> object, and so they become accessible with <code>filter()</code>. Let us only plot some attribute for South Africa:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>safrica_countries <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(sovereignt <span class="sc">==</span> <span class="st">"South Africa"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">select</span>(sovereignt) <span class="sc">|&gt;</span> </span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-safrica-countries-3" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-safrica-countries-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;5: South Africa feature only (sovereignty filtered)."><img src="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-3-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-safrica-countries-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: South Africa feature only (sovereignty filtered).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="dissolve-and-crop-features-geometry-changes" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="dissolve-and-crop-features-geometry-changes"><span class="header-section-number">5.4</span> Dissolve and Crop Features (geometry changes)</h2>
-<p>The following sequence is dense, so here is the logic before the code:</p>
-<ol type="1">
-<li><code>group_by(continent)</code> groups features so that later operations can dissolve borders.</li>
-<li><code>summarise()</code> collapses grouped features into a single geometry per group.</li>
-<li><code>st_crop(bbox)</code> clips the geometry to your bounding box. This can <em>cut</em> features at the boundary.</li>
-<li><code>st_combine()</code> merges the pieces into a single multipart feature.</li>
-</ol>
-<p>Cropping is a geometric operation, but sometimes it may be used as a visual zoom. Features that fall partly inside the box will be clipped.</p>
-<p>You can continue to add additional operations to create a new map:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>safrica_countries_new <span class="ot">&lt;-</span> safrica_countries <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">summarise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">st_crop</span>(bbox) <span class="sc">|&gt;</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">st_combine</span>()</span>
-<span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="fu">plot</span>(safrica_countries_new)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-safrica-countries-new-safrica-countries" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-safrica-countries-new-safrica-countries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-new-safrica-countries-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;6: Dissolved and cropped Southern Africa geometry."><img src="14-mapping_rnaturalearth_files/figure-html/fig-safrica-countries-new-safrica-countries-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-safrica-countries-new-safrica-countries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Dissolved and cropped Southern Africa geometry.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>So far you have relied on the base R plot function made for simple features. You can also plot the map in <strong>ggplot2</strong> using <code>ggplot()</code>, which treats geometry as data rather than annotation. Here, <code>geom_sf()</code> draws the features and <code>coord_sf()</code> manages the spatial coordinates and aspect ratio. This is why <code>coord_sf()</code> is preferred to <code>coord_cartesian()</code> for maps.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> safrica_countries,</span>
-<span id="cb14-3"><a href="#cb14-3"></a>    <span class="at">colour =</span> <span class="st">"indianred"</span>, <span class="at">fill =</span> <span class="st">"beige"</span>) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> xlim,</span>
-<span id="cb14-5"><a href="#cb14-5"></a>           <span class="at">ylim =</span> ylim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-ggplot" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ggplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-ggplot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;7: Southern Africa map drawn with ggplot2 and geom_sf."><img src="14-mapping_rnaturalearth_files/figure-html/fig-ggplot-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ggplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Southern Africa map drawn with ggplot2 and geom_sf.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="buffering-and-geometry-assumptions" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="buffering-and-geometry-assumptions"><span class="header-section-number">5.5</span> Buffering and Geometry Assumptions</h2>
-<p>Now you can layer another feature. This is also where geometry assumptions matter: buffering in degrees is only a rough approximation for local maps.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>buffer <span class="ot">&lt;-</span> safrica_countries_new <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">st_buffer</span>(<span class="fl">0.4</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> buffer, <span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">col =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> safrica_countries, <span class="at">colour =</span> <span class="st">"indianred"</span>, <span class="at">fill =</span> <span class="st">"beige"</span>) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-buffer-safrica-countries-new" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-buffer-safrica-countries-new-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="14-mapping_rnaturalearth_files/figure-html/fig-buffer-safrica-countries-new-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;8: Buffered Southern Africa geometry overlaid on the original map."><img src="14-mapping_rnaturalearth_files/figure-html/fig-buffer-safrica-countries-new-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-buffer-safrica-countries-new-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Buffered Southern Africa geometry overlaid on the original map.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Distances Are Not Degrees
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If a buffer value “looks right” in degrees, that is an accident of scale. For accurate distances, project your data first and buffer in metres.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="a-reusable-workflow" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> A Reusable Workflow</h1>
-<p>When you start from scratch, use this quick recipe:</p>
-<ol type="1">
-<li>Load spatial data and check <code>st_crs()</code> and geometry types.</li>
-<li>Filter features (rows) and select attributes (columns) deliberately.</li>
-<li>Crop or transform geometry only when you intend to change shape.</li>
-<li>Plot with <code>plot()</code> or <strong>ggplot2</strong>; add layers and styling last.</li>
-</ol>
-<div class="callout callout-style-simple callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Common Pitfalls to Watch for
+<span class="screen-reader-only">Note</span>Failure Modes to Watch for
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Buffering or measuring in degrees instead of projected units.</li>
-<li>Cropping after styling, which hides clipped features or labels.</li>
-<li>Assuming <code>select()</code> or <code>summarise()</code> recalculates geometry.</li>
-<li>Using <code>coord_cartesian()</code> for maps and silently distorting aspect ratio.</li>
-<li>Treating Natural Earth borders as definitive boundaries when precision matters.</li>
+<li><strong>Swapped lon/lat</strong> → the map appears mirrored or rotated.</li>
+<li><strong>No <code>coord_equal()</code></strong> → coastlines look stretched.</li>
+<li><strong>Mismatched extents</strong> → rasters appear shifted or cropped.</li>
 </ul>
 </div>
 </div>
-</section>
-<section id="example" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Example</h1>
-<p>Here are examples that use the built-in <a href="../intro_r/15-mapping_quakes.html">Fiji earthquake data</a> or the <a href="../../pages/kaggle_earthquakes.qmd">Kaggle earthquake data</a>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Workflow Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Build the map in this order: data → geometry → scale → coordinate system → theme. Styling comes last.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>final_map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> south_africa_coast, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> sst, <span class="fu">aes</span>(<span class="at">fill =</span> bins)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_polygon</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> sa_provinces, <span class="fu">aes</span>(<span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">geom_tile</span>(<span class="at">data =</span> rast_annual, <span class="fu">aes</span>(<span class="at">x =</span> lon, <span class="at">y =</span> lat, <span class="at">fill =</span> bins), </span>
+<span id="cb10-6"><a href="#cb10-6"></a>            <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">"Temp. (°C)"</span>, <span class="at">values =</span> cols11) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">34</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">36</span>, <span class="sc">-</span><span class="dv">26</span>), <span class="at">expand =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">position =</span> <span class="st">"top"</span>) <span class="sc">+</span> <span class="co"># Put x axis labels on top of figure</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_blank</span>(), <span class="co"># Remove the axis labels</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>), <span class="co"># Change text size in legend</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>), <span class="co"># Change legend title text size</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>        <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>), <span class="co"># Change size of legend</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a>        <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">colour =</span> <span class="st">"white"</span>), <span class="co"># Add legend background</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>        <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="co"># Change position of legend</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.55</span>, <span class="fl">0.4</span>) <span class="co"># Fine tune position of legend</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a>        )</span>
+<span id="cb10-18"><a href="#cb10-18"></a>final_map</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-map-final" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="13-mapping_files/figure-html/fig-map-final-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;9: The cleaned up map of South Africa. Resplendent with coastal and ocean temperatures (°C)."><img src="13-mapping_files/figure-html/fig-map-final-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: The cleaned up map of South Africa. Resplendent with coastal and ocean temperatures (°C).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>That is a very clean looking map so go ahead and save it on your local disk.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> final_map, <span class="st">"figures/map_complete.pdf"</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">width =</span> <span class="dv">9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
   author = {A. J. , Smit},
-  title = {14. {Mapping} with {Natural} {Earth}},
+  title = {12. {Mapping} with **Ggplot2**},
   date = {2021-01-01},
-  url = {http://samos-r.netlify.app/intro_r/14-mapping_rnaturalearth.html},
+  url = {http://samos-r.netlify.app/intro_r/13-mapping.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2021" class="csl-entry quarto-appendix-citeas" role="listitem">
-A. J. S (2021) 14. Mapping with Natural Earth. <a href="http://samos-r.netlify.app/intro_r/14-mapping_rnaturalearth.html">http://samos-r.netlify.app/intro_r/14-mapping_rnaturalearth.html.
+A. J. S (2021) 12. Mapping with **ggplot2**. <a href="http://samos-r.netlify.app/intro_r/13-mapping.html">http://samos-r.netlify.app/intro_r/13-mapping.html.
 </a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1442,13 +1364,13 @@ A. J. S (2021) 14. Mapping with Natural Earth. <a href="http://samos-r.netlify.a
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro_r/13-mapping_style.html" class="pagination-link" aria-label="13. Mapping with Style">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">13. Mapping with Style</span>
+      <a href="../intro_r/12-brewing.html" class="pagination-link" aria-label="11. Brewing Colours">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">11. Brewing Colours</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro_r/15-mapping_quakes.html" class="pagination-link" aria-label="15. The Fiji Earthquake Data">
-        <span class="nav-page-text">15. The Fiji Earthquake Data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../intro_r/14-mapping_style.html" class="pagination-link" aria-label="13. Mapping with Style">
+        <span class="nav-page-text">13. Mapping with Style</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1460,7 +1382,7 @@ A. J. S (2021) 14. Mapping with Natural Earth. <a href="http://samos-r.netlify.a
 </div>   
     <div class="nav-footer-center">
 
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/14-mapping_rnaturalearth.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/13-mapping.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

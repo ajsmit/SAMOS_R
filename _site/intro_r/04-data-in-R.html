@@ -300,85 +300,91 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/06-tidy.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Tidy Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/07-tidier.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7. Tidier Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/08-tidiest.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. Tidiest Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/09-graphics.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9. Graphics with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/10-faceting.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">10. Faceting Figures</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/11-brewing.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">11. Brewing Colours</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/12-mapping.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">12. Mapping with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/13-mapping_style.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">13. Mapping with Style</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/14-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">14. Mapping with Natural Earth</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/15-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">15. The Fiji Earthquake Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">16. Synthesis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/18-functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">17. Functions by Chapter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/19-base_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">18. Base R Primer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/20-dates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">19. Dates</span></a>
   </div>
 </li>
@@ -845,11 +851,11 @@ window.Quarto = {
 <span id="cb19-2"><a href="#cb19-2"></a>temp_data <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="dv">3</span>), <span class="dv">2</span>)</span>
 <span id="cb19-3"><a href="#cb19-3"></a>temp_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;  [1] 12.76 18.92 21.48 12.85 17.66  8.94  9.82  9.63 15.12 16.34 17.17 18.64
-R&gt; [13] 16.66 11.05 19.41 12.25 15.06 15.93 16.76 15.34 20.24 17.63 19.07 16.77
-R&gt; [25] 13.75 18.85 16.11 10.72 14.24 17.49 20.07 12.88  8.69 14.80 17.70  8.24
-R&gt; [37] 11.14 16.28  8.54 16.43 16.26 13.52 13.79 13.33  9.19 16.19 16.41 16.85
-R&gt; [49] 15.05 13.57</code></pre>
+<pre><code>R&gt;  [1]  8.85 13.51 14.43  7.58 16.92 15.79 13.06  8.38 19.17 14.29 15.20 12.68
+R&gt; [13]  9.36 13.76 18.94 13.08 15.54 15.94 17.83 16.16 11.31 16.35 17.83 17.71
+R&gt; [25] 14.21 13.52 19.48 14.25 20.53 11.38 11.74 13.05 14.74 13.57 18.68 15.00
+R&gt; [37] 15.67 15.31 12.01 11.36 19.27 15.43 11.89 17.61 23.07 11.68 11.81 11.54
+R&gt; [49] 19.48 16.36</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">class</span>(temp_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -875,15 +881,15 @@ R&gt; [49] 15.05 13.57</code></pre>
 <span id="cb23-4"><a href="#cb23-4"></a><span class="co"># View the vegetation data</span></span>
 <span id="cb23-5"><a href="#cb23-5"></a>vegetation</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;  [1] "forest"    "forest"    "grassland" "wetland"   "wetland"   "grassland"
-R&gt;  [7] "forest"    "grassland" "forest"    "forest"    "forest"    "forest"   
-R&gt; [13] "grassland" "wetland"   "grassland" "forest"    "grassland" "grassland"
-R&gt; [19] "grassland" "forest"    "wetland"   "forest"    "forest"    "grassland"
-R&gt; [25] "forest"    "grassland" "grassland" "grassland" "grassland" "forest"   
-R&gt; [31] "grassland" "wetland"   "forest"    "wetland"   "forest"    "wetland"  
-R&gt; [37] "wetland"   "grassland" "grassland" "grassland" "grassland" "wetland"  
-R&gt; [43] "forest"    "grassland" "forest"    "grassland" "forest"    "forest"   
-R&gt; [49] "forest"    "wetland"</code></pre>
+<pre><code>R&gt;  [1] "forest"    "grassland" "grassland" "grassland" "forest"    "forest"   
+R&gt;  [7] "wetland"   "wetland"   "grassland" "wetland"   "grassland" "wetland"  
+R&gt; [13] "wetland"   "wetland"   "forest"    "forest"    "wetland"   "wetland"  
+R&gt; [19] "wetland"   "grassland" "wetland"   "forest"    "forest"    "forest"   
+R&gt; [25] "forest"    "wetland"   "wetland"   "forest"    "grassland" "forest"   
+R&gt; [31] "grassland" "grassland" "wetland"   "forest"    "forest"    "forest"   
+R&gt; [37] "wetland"   "forest"    "grassland" "grassland" "wetland"   "grassland"
+R&gt; [43] "grassland" "forest"    "forest"    "grassland" "wetland"   "forest"   
+R&gt; [49] "grassland" "grassland"</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">class</span>(vegetation)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -948,7 +954,7 @@ R&gt; 5 Levels: Early Pioneer &lt; Late Pioneer &lt; Young Forest &lt; ... &lt; 
 <span id="cb35-3"><a href="#cb35-3"></a>species_presence <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb35-4"><a href="#cb35-4"></a>species_presence</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;  [1] 0 1 0 0 1 1 0 0 0 0</code></pre>
+<pre><code>R&gt;  [1] 1 1 0 0 0 1 1 1 1 0</code></pre>
 </div>
 </div>
 <p>We can also make a formal logical class data:</p>
@@ -1040,23 +1046,23 @@ R&gt;  [6] "2022-01-06" "2022-01-07" "2022-01-08" "2022-01-09" "2022-01-10"</cod
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;   [1] -0.47767833  0.59250403 -1.97173680  0.25634627          NA  2.00106374
-R&gt;   [7]  0.37474775  1.30334950  0.50714222 -1.96192363  0.76933551  1.79548953
-R&gt;  [13]  0.73207252 -2.00639535  0.04197160  1.03114293 -1.11469484 -0.09658240
-R&gt;  [19]  1.03077406 -1.48465650  0.50221745 -0.40491774 -1.51827991 -0.18021183
-R&gt;  [25]  0.46390255  2.05990684  1.69296024  1.78133000  0.57405194  0.18926409
-R&gt;  [31] -1.07934157 -0.47484497  0.12572993  0.56188545  0.70927371  0.71310986
-R&gt;  [37]  0.64642520  1.91252161 -0.80686860  0.80260092  0.49099095  0.56510477
-R&gt;  [43]  0.76351165  1.00557585  0.29382685          NA -0.85274298 -0.29625706
-R&gt;  [49]  0.64582601 -1.28670599 -0.06014520  0.68737250  0.46117993 -1.41890634
-R&gt;  [55]  1.42909175          NA -0.07714652  1.24967870  1.26242309 -0.15339489
-R&gt;  [61]  0.52910288  0.24945850 -0.74653874  0.56951974  0.99184757  0.02543444
-R&gt;  [67]  0.20276725          NA -0.30464330 -0.61390765 -0.17672296  0.26045485
-R&gt;  [73]          NA -1.42447534 -2.44839666 -0.11412037 -0.48038546  0.02275696
-R&gt;  [79]  0.66218320 -0.15770451 -0.34161980 -0.91635100  1.03391406 -0.14870192
-R&gt;  [85] -0.48499275  0.16820035 -1.43315845  0.10981575  1.77840912 -0.68545360
-R&gt;  [91]  0.09885485 -2.17424534  1.38696987 -0.81022032  1.28906345  1.36307424
-R&gt;  [97] -1.77550131  0.91304580 -1.28692291  0.01135482</code></pre>
+<pre><code>R&gt;   [1] -0.08765167  1.27912624 -0.68654223 -0.59717044          NA  1.18069355
+R&gt;   [7]  0.20608659 -0.35152653 -1.65282960 -0.04931204 -0.28271172  1.07275445
+R&gt;  [13] -0.43031805  0.37487328          NA  1.42646167  2.26339721  0.22798680
+R&gt;  [19]  0.06095750 -0.62627715  0.19019324 -0.90919081  0.59758070  0.25992170
+R&gt;  [25] -0.75075274 -0.24184102  2.14513529  0.07404882 -0.13260069  0.80181918
+R&gt;  [31]  0.51143144 -0.88358547  0.04830711 -0.28554948  1.08182758  0.94560939
+R&gt;  [37] -0.76442620 -0.22922727  0.22876304  1.10167887  0.81552485  1.41623324
+R&gt;  [43]  1.58078430 -0.05944510 -1.56162444 -1.51886038          NA  0.99407243
+R&gt;  [49] -0.73665170 -1.34451994 -1.88962689 -1.22726542  0.86637279  0.03044186
+R&gt;  [55]  1.56134768 -1.78944905 -0.64057476  1.05173965 -1.31203637 -0.95406380
+R&gt;  [61]  1.31422131          NA -0.26453309 -1.46655715 -0.16674190 -2.06006995
+R&gt;  [67] -0.24944577  1.36132520  1.47512198 -0.46184895  0.76544663  1.26943650
+R&gt;  [73] -0.78926102 -0.48949563 -1.68690991 -0.14000378 -0.38018597  1.09549282
+R&gt;  [79] -0.69488595 -0.92981279 -0.12778773  0.66328369 -1.10231648  0.01157112
+R&gt;  [85]  1.17639085  1.30812942  1.31801393 -0.84082225 -0.43010529 -0.16237541
+R&gt;  [91] -0.60741037  0.20813101 -1.30931248  1.31097855  2.25755729 -0.06441902
+R&gt;  [97]  0.74592414 -1.12214232 -1.06611188          NA</code></pre>
 </div>
 </div>
 <p>To remove all <code>NA</code>s from the vector of data we can use <code>na.omit()</code>:</p>
@@ -1068,24 +1074,24 @@ R&gt;  [97] -1.77550131  0.91304580 -1.28692291  0.01135482</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>data_sans_na</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;  [1] -0.47767833  0.59250403 -1.97173680  0.25634627  2.00106374  0.37474775
-R&gt;  [7]  1.30334950  0.50714222 -1.96192363  0.76933551  1.79548953  0.73207252
-R&gt; [13] -2.00639535  0.04197160  1.03114293 -1.11469484 -0.09658240  1.03077406
-R&gt; [19] -1.48465650  0.50221745 -0.40491774 -1.51827991 -0.18021183  0.46390255
-R&gt; [25]  2.05990684  1.69296024  1.78133000  0.57405194  0.18926409 -1.07934157
-R&gt; [31] -0.47484497  0.12572993  0.56188545  0.70927371  0.71310986  0.64642520
-R&gt; [37]  1.91252161 -0.80686860  0.80260092  0.49099095  0.56510477  0.76351165
-R&gt; [43]  1.00557585  0.29382685 -0.85274298 -0.29625706  0.64582601 -1.28670599
-R&gt; [49] -0.06014520  0.68737250  0.46117993 -1.41890634  1.42909175 -0.07714652
-R&gt; [55]  1.24967870  1.26242309 -0.15339489  0.52910288  0.24945850 -0.74653874
-R&gt; [61]  0.56951974  0.99184757  0.02543444  0.20276725 -0.30464330 -0.61390765
-R&gt; [67] -0.17672296  0.26045485 -1.42447534 -2.44839666 -0.11412037 -0.48038546
-R&gt; [73]  0.02275696  0.66218320 -0.15770451 -0.34161980 -0.91635100  1.03391406
-R&gt; [79] -0.14870192 -0.48499275  0.16820035 -1.43315845  0.10981575  1.77840912
-R&gt; [85] -0.68545360  0.09885485 -2.17424534  1.38696987 -0.81022032  1.28906345
-R&gt; [91]  1.36307424 -1.77550131  0.91304580 -1.28692291  0.01135482
+<pre><code>R&gt;  [1] -0.08765167  1.27912624 -0.68654223 -0.59717044  1.18069355  0.20608659
+R&gt;  [7] -0.35152653 -1.65282960 -0.04931204 -0.28271172  1.07275445 -0.43031805
+R&gt; [13]  0.37487328  1.42646167  2.26339721  0.22798680  0.06095750 -0.62627715
+R&gt; [19]  0.19019324 -0.90919081  0.59758070  0.25992170 -0.75075274 -0.24184102
+R&gt; [25]  2.14513529  0.07404882 -0.13260069  0.80181918  0.51143144 -0.88358547
+R&gt; [31]  0.04830711 -0.28554948  1.08182758  0.94560939 -0.76442620 -0.22922727
+R&gt; [37]  0.22876304  1.10167887  0.81552485  1.41623324  1.58078430 -0.05944510
+R&gt; [43] -1.56162444 -1.51886038  0.99407243 -0.73665170 -1.34451994 -1.88962689
+R&gt; [49] -1.22726542  0.86637279  0.03044186  1.56134768 -1.78944905 -0.64057476
+R&gt; [55]  1.05173965 -1.31203637 -0.95406380  1.31422131 -0.26453309 -1.46655715
+R&gt; [61] -0.16674190 -2.06006995 -0.24944577  1.36132520  1.47512198 -0.46184895
+R&gt; [67]  0.76544663  1.26943650 -0.78926102 -0.48949563 -1.68690991 -0.14000378
+R&gt; [73] -0.38018597  1.09549282 -0.69488595 -0.92981279 -0.12778773  0.66328369
+R&gt; [79] -1.10231648  0.01157112  1.17639085  1.30812942  1.31801393 -0.84082225
+R&gt; [85] -0.43010529 -0.16237541 -0.60741037  0.20813101 -1.30931248  1.31097855
+R&gt; [91]  2.25755729 -0.06441902  0.74592414 -1.12214232 -1.06611188
 R&gt; attr(,"na.action")
-R&gt; [1]  5 46 56 68 73
+R&gt; [1]   5  15  47  62 100
 R&gt; attr(,"class")
 R&gt; [1] "omit"</code></pre>
 </div>
@@ -1255,29 +1261,29 @@ R&gt; [26] 26 27</code></pre>
 <pre><code>R&gt; , , 1
 R&gt; 
 R&gt;      [,1] [,2] [,3] [,4]
-R&gt; [1,] 12.5 11.0 12.8 10.7
-R&gt; [2,] 12.6 13.7 13.5 13.6
-R&gt; [3,]  9.8 14.3 10.2 14.2
-R&gt; [4,] 13.6 10.0 13.5 14.3
-R&gt; [5,]  9.9 10.8 14.2 13.9
+R&gt; [1,] 15.3 10.0 14.4 13.1
+R&gt; [2,] 10.7 13.7  9.8 14.9
+R&gt; [3,] 11.6  9.5 12.9 13.6
+R&gt; [4,] 12.6 11.8 13.9 11.5
+R&gt; [5,] 14.3  9.8 14.1  9.9
 R&gt; 
 R&gt; , , 2
 R&gt; 
 R&gt;      [,1] [,2] [,3] [,4]
-R&gt; [1,] 14.4 12.7 10.8  9.9
-R&gt; [2,] 15.6 14.1 16.5 12.3
-R&gt; [3,] 14.2 14.9 14.8 10.0
-R&gt; [4,] 12.1 11.0 14.3 12.9
-R&gt; [5,] 13.8 15.8 13.3 11.6
+R&gt; [1,] 15.3 16.2 10.4 12.9
+R&gt; [2,] 11.4 11.1 13.3 13.5
+R&gt; [3,] 14.0 13.1 17.3 14.1
+R&gt; [4,] 14.4 13.8 12.6 13.0
+R&gt; [5,] 14.3 12.3 14.9 13.8
 R&gt; 
 R&gt; , , 3
 R&gt; 
 R&gt;      [,1] [,2] [,3] [,4]
-R&gt; [1,] 10.8 16.3 15.2 14.4
-R&gt; [2,] 12.7 15.2 14.1 12.5
-R&gt; [3,] 12.3 11.7 14.1 15.7
-R&gt; [4,] 13.2 12.8 14.0 10.8
-R&gt; [5,] 11.9 11.8 10.9 10.3</code></pre>
+R&gt; [1,] 14.6 14.3 10.3 15.4
+R&gt; [2,] 14.5 11.2 13.3 11.5
+R&gt; [3,] 13.2 16.4 14.4 11.5
+R&gt; [4,] 10.4 11.4 12.7 16.6
+R&gt; [5,] 14.2 11.3 15.4 13.8</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="fu">dim</span>(my_array)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1294,10 +1300,10 @@ R&gt; [5,] 11.9 11.8 10.9 10.3</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a>my_array[<span class="dv">1</span>,,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;      [,1] [,2] [,3]
-R&gt; [1,] 12.5 14.4 10.8
-R&gt; [2,] 11.0 12.7 16.3
-R&gt; [3,] 12.8 10.8 15.2
-R&gt; [4,] 10.7  9.9 14.4</code></pre>
+R&gt; [1,] 15.3 15.3 14.6
+R&gt; [2,] 10.0 16.2 14.3
+R&gt; [3,] 14.4 10.4 10.3
+R&gt; [4,] 13.1 12.9 15.4</code></pre>
 </div>
 </div>
 <p>Here are some more examples of how to use square brackets notation with arrays in R:</p>
@@ -1305,21 +1311,21 @@ R&gt; [4,] 10.7  9.9 14.4</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a>my_array[<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>]  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt; [1] 13.5</code></pre>
+<pre><code>R&gt; [1] 9.8</code></pre>
 </div>
 </div>
 <p>To access a single row in the array, use the notation <code>[i, , ]</code>, where <code>i</code> is the index of the row. This will return the second rows and all of the columns of the first matrix:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1"></a>my_array[<span class="dv">2</span>,,<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt; [1] 12.6 13.7 13.5 13.6</code></pre>
+<pre><code>R&gt; [1] 10.7 13.7  9.8 14.9</code></pre>
 </div>
 </div>
 <p>To access a single column in the array, use the notation <code>[ , j, ]</code>, where <code>j</code> is the index of the column. Here we will return all the elements in the row of column two and matrix three:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a>my_array[ , <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt; [1] 16.3 15.2 11.7 12.8 11.8</code></pre>
+<pre><code>R&gt; [1] 14.3 11.2 16.4 11.4 11.3</code></pre>
 </div>
 </div>
 <p>To access a single matrix in the array, use the notation <code>[ , , k]</code>, where <code>k</code> is the index of the matrix:</p>
@@ -1327,11 +1333,11 @@ R&gt; [4,] 10.7  9.9 14.4</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1"></a>my_array[ , , <span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;      [,1] [,2] [,3] [,4]
-R&gt; [1,] 14.4 12.7 10.8  9.9
-R&gt; [2,] 15.6 14.1 16.5 12.3
-R&gt; [3,] 14.2 14.9 14.8 10.0
-R&gt; [4,] 12.1 11.0 14.3 12.9
-R&gt; [5,] 13.8 15.8 13.3 11.6</code></pre>
+R&gt; [1,] 15.3 16.2 10.4 12.9
+R&gt; [2,] 11.4 11.1 13.3 13.5
+R&gt; [3,] 14.0 13.1 17.3 14.1
+R&gt; [4,] 14.4 13.8 12.6 13.0
+R&gt; [5,] 14.3 12.3 14.9 13.8</code></pre>
 </div>
 </div>
 <p>To obtain a subset of the array, use the notation <code>[i, j, k]</code> with <code>i</code>, <code>j</code>, <code>k</code> omitted to obtain a lower-dimensional array:</p>
@@ -1339,39 +1345,39 @@ R&gt; [5,] 13.8 15.8 13.3 11.6</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1"></a>my_array[<span class="dv">1</span>, , ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;      [,1] [,2] [,3]
-R&gt; [1,] 12.5 14.4 10.8
-R&gt; [2,] 11.0 12.7 16.3
-R&gt; [3,] 12.8 10.8 15.2
-R&gt; [4,] 10.7  9.9 14.4</code></pre>
+R&gt; [1,] 15.3 15.3 14.6
+R&gt; [2,] 10.0 16.2 14.3
+R&gt; [3,] 14.4 10.4 10.3
+R&gt; [4,] 13.1 12.9 15.4</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1"></a>my_array[ , <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; , , 1
 R&gt; 
 R&gt;      [,1] [,2]
-R&gt; [1,] 11.0 12.8
-R&gt; [2,] 13.7 13.5
-R&gt; [3,] 14.3 10.2
-R&gt; [4,] 10.0 13.5
-R&gt; [5,] 10.8 14.2
+R&gt; [1,] 10.0 14.4
+R&gt; [2,] 13.7  9.8
+R&gt; [3,]  9.5 12.9
+R&gt; [4,] 11.8 13.9
+R&gt; [5,]  9.8 14.1
 R&gt; 
 R&gt; , , 2
 R&gt; 
 R&gt;      [,1] [,2]
-R&gt; [1,] 12.7 10.8
-R&gt; [2,] 14.1 16.5
-R&gt; [3,] 14.9 14.8
-R&gt; [4,] 11.0 14.3
-R&gt; [5,] 15.8 13.3
+R&gt; [1,] 16.2 10.4
+R&gt; [2,] 11.1 13.3
+R&gt; [3,] 13.1 17.3
+R&gt; [4,] 13.8 12.6
+R&gt; [5,] 12.3 14.9
 R&gt; 
 R&gt; , , 3
 R&gt; 
 R&gt;      [,1] [,2]
-R&gt; [1,] 16.3 15.2
-R&gt; [2,] 15.2 14.1
-R&gt; [3,] 11.7 14.1
-R&gt; [4,] 12.8 14.0
-R&gt; [5,] 11.8 10.9</code></pre>
+R&gt; [1,] 14.3 10.3
+R&gt; [2,] 11.2 13.3
+R&gt; [3,] 16.4 14.4
+R&gt; [4,] 11.4 12.7
+R&gt; [5,] 11.3 15.4</code></pre>
 </div>
 </div>
 </section>
@@ -1399,11 +1405,11 @@ R&gt; [5,] 11.8 10.9</code></pre>
 <span id="cb111-17"><a href="#cb111-17"></a>my_dataframe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;        dates numeric_data categorical_data
-R&gt; 1 2022-01-01    0.3001244                A
-R&gt; 2 2022-01-02    0.3682335                B
-R&gt; 3 2022-01-03   -1.4983013                C
-R&gt; 4 2022-01-04   -2.6096012                A
-R&gt; 5 2022-01-05   -2.2607069                B</code></pre>
+R&gt; 1 2022-01-01   -0.3300575                A
+R&gt; 2 2022-01-02   -1.0446296                B
+R&gt; 3 2022-01-03   -1.4009701                C
+R&gt; 4 2022-01-04   -0.3053907                A
+R&gt; 5 2022-01-05   -1.0686469                B</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1"></a><span class="fu">class</span>(my_dataframe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1413,18 +1419,18 @@ R&gt; 5 2022-01-05   -2.2607069                B</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; 'data.frame':    5 obs. of  3 variables:
 R&gt;  $ dates           : Date, format: "2022-01-01" "2022-01-02" ...
-R&gt;  $ numeric_data    : num  0.3 0.368 -1.498 -2.61 -2.261
+R&gt;  $ numeric_data    : num  -0.33 -1.045 -1.401 -0.305 -1.069
 R&gt;  $ categorical_data: chr  "A" "B" "C" "A" ...</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1"></a><span class="fu">summary</span>(my_dataframe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;      dates             numeric_data     categorical_data  
-R&gt;  Min.   :2022-01-01   Min.   :-2.6096   Length:5          
-R&gt;  1st Qu.:2022-01-02   1st Qu.:-2.2607   Class :character  
-R&gt;  Median :2022-01-03   Median :-1.4983   Mode  :character  
-R&gt;  Mean   :2022-01-03   Mean   :-1.1401                     
-R&gt;  3rd Qu.:2022-01-04   3rd Qu.: 0.3001                     
-R&gt;  Max.   :2022-01-05   Max.   : 0.3682</code></pre>
+R&gt;  Min.   :2022-01-01   Min.   :-1.4010   Length:5          
+R&gt;  1st Qu.:2022-01-02   1st Qu.:-1.0686   Class :character  
+R&gt;  Median :2022-01-03   Median :-1.0446   Mode  :character  
+R&gt;  Mean   :2022-01-03   Mean   :-0.8299                     
+R&gt;  3rd Qu.:2022-01-04   3rd Qu.:-0.3301                     
+R&gt;  Max.   :2022-01-05   Max.   :-0.3054</code></pre>
 </div>
 </div>
 <p>Dataframes may also have row names:</p>
@@ -1433,11 +1439,11 @@ R&gt;  Max.   :2022-01-05   Max.   : 0.3682</code></pre>
 <span id="cb119-2"><a href="#cb119-2"></a>my_dataframe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;            dates numeric_data categorical_data
-R&gt; row 1 2022-01-01    0.3001244                A
-R&gt; row 2 2022-01-02    0.3682335                B
-R&gt; row 3 2022-01-03   -1.4983013                C
-R&gt; row 4 2022-01-04   -2.6096012                A
-R&gt; row 5 2022-01-05   -2.2607069                B</code></pre>
+R&gt; row 1 2022-01-01   -0.3300575                A
+R&gt; row 2 2022-01-02   -1.0446296                B
+R&gt; row 3 2022-01-03   -1.4009701                C
+R&gt; row 4 2022-01-04   -0.3053907                A
+R&gt; row 5 2022-01-05   -1.0686469                B</code></pre>
 </div>
 </div>
 <p>Typically we will create a dataframe by reading in data from a <code>.csv</code> file, but it is useful to be able to construct one from scratch.</p>
@@ -1466,11 +1472,11 @@ R&gt; row 5 2022-01-05   -2.2607069                B</code></pre>
 <pre><code>R&gt; # A tibble: 5 × 3
 R&gt;   dates      numeric_data categorical_data
 R&gt;   &lt;date&gt;            &lt;dbl&gt; &lt;chr&gt;           
-R&gt; 1 2022-01-01        0.300 A               
-R&gt; 2 2022-01-02        0.368 B               
-R&gt; 3 2022-01-03       -1.50  C               
-R&gt; 4 2022-01-04       -2.61  A               
-R&gt; 5 2022-01-05       -2.26  B</code></pre>
+R&gt; 1 2022-01-01       -0.330 A               
+R&gt; 2 2022-01-02       -1.04  B               
+R&gt; 3 2022-01-03       -1.40  C               
+R&gt; 4 2022-01-04       -0.305 A               
+R&gt; 5 2022-01-05       -1.07  B</code></pre>
 </div>
 </div>
 <p>This very simple tibble looks identical to a dataframe, but as we start using more complex sets of data you will learn to appreciate the small convenience that tibbles offer.</p>
@@ -1501,19 +1507,19 @@ R&gt; 5 2022-01-05       -2.26  B</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; $A
 R&gt;            dates numeric_data categorical_data
-R&gt; row 1 2022-01-01    0.3001244                A
-R&gt; row 2 2022-01-02    0.3682335                B
-R&gt; row 3 2022-01-03   -1.4983013                C
-R&gt; row 4 2022-01-04   -2.6096012                A
-R&gt; row 5 2022-01-05   -2.2607069                B
+R&gt; row 1 2022-01-01   -0.3300575                A
+R&gt; row 2 2022-01-02   -1.0446296                B
+R&gt; row 3 2022-01-03   -1.4009701                C
+R&gt; row 4 2022-01-04   -0.3053907                A
+R&gt; row 5 2022-01-05   -1.0686469                B
 R&gt; 
 R&gt; $B
 R&gt;        dates numeric_data categorical_data
-R&gt; 1 2022-01-01    1.9076832                C
-R&gt; 2 2022-01-02   -0.3509978                D
-R&gt; 3 2022-01-03    2.3149743                D
-R&gt; 4 2022-01-04   -1.1557295                F
-R&gt; 5 2022-01-05    1.4257851                A</code></pre>
+R&gt; 1 2022-01-01    0.2040496                C
+R&gt; 2 2022-01-02    2.0868465                D
+R&gt; 3 2022-01-03    2.5291514                D
+R&gt; 4 2022-01-04    1.6187271                F
+R&gt; 5 2022-01-05    1.1682906                A</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb127"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1"></a><span class="fu">class</span>(my_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1524,11 +1530,11 @@ R&gt; 5 2022-01-05    1.4257851                A</code></pre>
 <pre><code>R&gt; List of 2
 R&gt;  $ A:'data.frame':   5 obs. of  3 variables:
 R&gt;   ..$ dates           : Date[1:5], format: "2022-01-01" "2022-01-02" ...
-R&gt;   ..$ numeric_data    : num [1:5] 0.3 0.368 -1.498 -2.61 -2.261
+R&gt;   ..$ numeric_data    : num [1:5] -0.33 -1.045 -1.401 -0.305 -1.069
 R&gt;   ..$ categorical_data: chr [1:5] "A" "B" "C" "A" ...
 R&gt;  $ B:'data.frame':   5 obs. of  3 variables:
 R&gt;   ..$ dates           : Date[1:5], format: "2022-01-01" "2022-01-02" ...
-R&gt;   ..$ numeric_data    : num [1:5] 1.908 -0.351 2.315 -1.156 1.426
+R&gt;   ..$ numeric_data    : num [1:5] 0.204 2.087 2.529 1.619 1.168
 R&gt;   ..$ categorical_data: chr [1:5] "C" "D" "D" "F" ...</code></pre>
 </div>
 </div>
@@ -1537,27 +1543,27 @@ R&gt;   ..$ categorical_data: chr [1:5] "C" "D" "D" "F" ...</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb131"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1"></a>my_list[[<span class="dv">2</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;        dates numeric_data categorical_data
-R&gt; 1 2022-01-01    1.9076832                C
-R&gt; 2 2022-01-02   -0.3509978                D
-R&gt; 3 2022-01-03    2.3149743                D
-R&gt; 4 2022-01-04   -1.1557295                F
-R&gt; 5 2022-01-05    1.4257851                A</code></pre>
+R&gt; 1 2022-01-01    0.2040496                C
+R&gt; 2 2022-01-02    2.0868465                D
+R&gt; 3 2022-01-03    2.5291514                D
+R&gt; 4 2022-01-04    1.6187271                F
+R&gt; 5 2022-01-05    1.1682906                A</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb133"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1"></a>my_list[[<span class="st">"A"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;            dates numeric_data categorical_data
-R&gt; row 1 2022-01-01    0.3001244                A
-R&gt; row 2 2022-01-02    0.3682335                B
-R&gt; row 3 2022-01-03   -1.4983013                C
-R&gt; row 4 2022-01-04   -2.6096012                A
-R&gt; row 5 2022-01-05   -2.2607069                B</code></pre>
+R&gt; row 1 2022-01-01   -0.3300575                A
+R&gt; row 2 2022-01-02   -1.0446296                B
+R&gt; row 3 2022-01-03   -1.4009701                C
+R&gt; row 4 2022-01-04   -0.3053907                A
+R&gt; row 5 2022-01-05   -1.0686469                B</code></pre>
 </div>
 </div>
 <p>To access a variable within one of the elements of the list we can do something like:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb135"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1"></a>my_list[[<span class="st">"B"</span>]]<span class="sc">$</span>numeric_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt; [1]  1.9076832 -0.3509978  2.3149743 -1.1557295  1.4257851</code></pre>
+<pre><code>R&gt; [1] 0.2040496 2.0868465 2.5291514 1.6187271 1.1682906</code></pre>
 </div>
 </div>
 </section>

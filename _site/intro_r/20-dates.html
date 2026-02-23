@@ -9,7 +9,7 @@
 <meta name="author" content="Smit, A. J.">
 <meta name="dcterms.date" content="2021-01-01">
 
-<title>13. Mapping with Style – SAMOS R</title>
+<title>19. Dates – SAMOS R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro_r/14-mapping_rnaturalearth.html" rel="next">
-<link href="../intro_r/12-mapping.html" rel="prev">
+<link href="../basic_stats/02-summarise-and-describe.html" rel="next">
+<link href="../intro_r/19-base_r.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -198,7 +198,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/13-mapping_style.html">13. Mapping with Style</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/20-dates.html">19. Dates</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -271,85 +271,91 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/06-tidy.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Tidy Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/07-tidier.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7. Tidier Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/08-tidiest.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. Tidiest Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/09-graphics.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9. Graphics with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/10-faceting.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">10. Faceting Figures</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/11-brewing.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">11. Brewing Colours</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/12-mapping.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">12. Mapping with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/13-mapping_style.html" class="sidebar-item-text sidebar-link active">
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">13. Mapping with Style</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/14-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">14. Mapping with Natural Earth</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/15-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">15. The Fiji Earthquake Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">16. Synthesis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/18-functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">17. Functions by Chapter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/19-base_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">18. Base R Primer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/20-dates.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">19. Dates</span></a>
   </div>
 </li>
@@ -519,20 +525,19 @@ cookieconsent.run({
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#default-maps" id="toc-default-maps" class="nav-link active" data-scroll-target="#default-maps"><span class="header-section-number">1</span> Default Maps</a></li>
-  <li><a href="#specific-labels" id="toc-specific-labels" class="nav-link" data-scroll-target="#specific-labels"><span class="header-section-number">2</span> Specific Labels</a></li>
-  <li><a href="#scale-bars" id="toc-scale-bars" class="nav-link" data-scroll-target="#scale-bars"><span class="header-section-number">3</span> Scale Bars</a></li>
-  <li><a href="#advanced-styling-insets-and-coordinate-labels" id="toc-advanced-styling-insets-and-coordinate-labels" class="nav-link" data-scroll-target="#advanced-styling-insets-and-coordinate-labels"><span class="header-section-number">4</span> Advanced Styling: Insets and Coordinate Labels</a></li>
+  <li><a href="#date-details" id="toc-date-details" class="nav-link active" data-scroll-target="#date-details"><span class="header-section-number">1</span> Date Details</a></li>
+  <li><a href="#creating-daily-dates" id="toc-creating-daily-dates" class="nav-link" data-scroll-target="#creating-daily-dates"><span class="header-section-number">2</span> Creating Daily Dates</a></li>
+  <li><a href="#creating-hourly-dates" id="toc-creating-hourly-dates" class="nav-link" data-scroll-target="#creating-hourly-dates"><span class="header-section-number">3</span> Creating Hourly Dates</a></li>
+  <li><a href="#importing-dates-in-one-step" id="toc-importing-dates-in-one-step" class="nav-link" data-scroll-target="#importing-dates-in-one-step"><span class="header-section-number">4</span> Importing Dates in One Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/13-mapping_style.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/20-dates.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/13-mapping_style.html">13. Mapping with Style</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/20-dates.html">19. Dates</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">13. Mapping with Style</h1>
-<p class="subtitle lead">Turning up the Style</p>
+<h1 class="title">19. Dates</h1>
 </div>
 
 
@@ -571,307 +576,151 @@ cookieconsent.run({
 
 
 <p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
+<p>This script covers some of the more common issues we may face while dealing with dates.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../images/internet_truth.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="A reminder that maps can mislead without context."><img src="../images/internet_truth.jpg" class="img-fluid figure-img" style="width:75.0%" alt="A reminder that maps can mislead without context."></a></p>
-<figcaption>A reminder that maps can mislead without context.</figcaption>
+<p><a href="../images/Dates.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Dates"><img src="../images/Dates.png" class="img-fluid figure-img" style="width:60.0%" alt="Dates"></a></p>
+<figcaption>Dates</figcaption>
 </figure>
 </div>
-<blockquote class="blockquote">
-<p>“<em>The world is complex, dynamic, multidimensional; the paper is static, flat. How are we to represent the rich visual world of experience and measurement on mere flatland?</em>”</p>
-<p>— Edward Tufte</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“<em>Science flies you to the moon. Religion flies you into buildings.</em>”</p>
-<p>— Victor Stenger</p>
-</blockquote>
-<p>Now that you have learned the basics of creating a beautiful map in <strong><code>ggplot2</code></strong> it is time to look at some of the more particular things you will need to make your maps extra stylish. There are also a few more things you need to learn how to do before your maps can be truly publication quality.</p>
-<p>At this point, it is important to remember that <strong>style is not decoration; it is constraint</strong>. Maps are arguments, not illustrations. Every stylistic choice should help the reader orient themselves, interpret the data honestly, and see the intended message without confusion.</p>
-<p>If we have not yet loaded the <strong><code>tidyverse</code></strong> let us do so.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggspatial)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(zoo)</span>
 <span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Load Africa map</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"africa_map.RData"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Load data</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>sad_dates <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"sad_dates.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="default-maps" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Default Maps</h1>
-<p>In order to access the default maps included with the <strong><code>tidyverse</code></strong> we will use the function <code>borders()</code>.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Borders vs Shapefiles
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>borders()</code> is convenient and quick, but it is coarse and imprecise. Use it for rough context or exploratory work. For publishable maps or analysis, load proper spatial data (<em>e.g.</em>, shapefiles or <strong>sf</strong> objects) with correct boundaries and metadata.</p>
-</div>
-</div>
+<section id="date-details" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Date Details</h1>
+<p>Look at strip time format for guidance</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">borders</span>(<span class="at">col =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"cornsilk"</span>, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># The global shape file</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">coord_equal</span>() <span class="co"># Equal sizing for lon/lat</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-maps-world" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-maps-world-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="13-mapping_style_files/figure-html/fig-maps-world-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;1: The built in global shape file."><img src="13-mapping_style_files/figure-html/fig-maps-world-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>?strptime</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-maps-world-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: The built in global shape file.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Jikes! It is as simple as that to load a map of the whole planet. Usually you are not going to want to make a map of the entire planet, so let us see how to focus on just the area around South Africa.</p>
-<div class="callout callout-style-simple callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Aspect Ratio Matters
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>coord_equal()</code> preserves a 1:1 relationship between x and y units. Without it, the map can look fine but be <strong>geometrically misleading</strong>.</p>
-</div>
-</div>
-<p>Here is the next iteration. What is different about the code that causes the map to look very different?</p>
+<p>Check the local time zone</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>sa_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">borders</span>(<span class="at">size =</span> <span class="fl">0.2</span>, <span class="at">fill =</span> <span class="st">"cornsilk"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">36</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">38</span>, <span class="sc">-</span><span class="dv">22</span>), <span class="at">expand =</span> <span class="dv">0</span>) <span class="co"># Force lon/lat extent</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>sa_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-maps-sa-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-maps-sa-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="13-mapping_style_files/figure-html/fig-maps-sa-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;2: A better way to get the map of South Africa."><img src="13-mapping_style_files/figure-html/fig-maps-sa-1-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-maps-sa-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: A better way to get the map of South Africa.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>That is a very tidy looking map of South(ern) Africa without needing to load any files. The extent values (<code>xlim</code>, <code>ylim</code>) are a design decision: too tight and you clip context; too loose and you lose focus. Use the scientific question to guide the bounds.</p>
-</section>
-<section id="specific-labels" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Specific Labels</h1>
-<p>A map is almost always going to need some labels and other visual cues. You saw in the previous section how to add site labels. The following code chunk shows how this differs if you want to add just one label at a time. This can be useful if each label needs to be different from all other labels for whatever reason. You may also see that the text labels we are creating have <code>\n</code> in them. When R sees these two characters together like this it reads this as an instruction to return down a line. Let us run the code to make sure you see what this means.</p>
-<p>Label placement is one of the hardest problems in cartography. A few rules you should break only deliberately:</p>
-<ul>
-<li>Avoid overlaps and do not obscure the data.</li>
-<li>Respect visual hierarchy: water bodies should not visually overpower land, and context labels should not dominate the data.</li>
-<li>Use style (size, colour, angle) <strong>only</strong> to encode meaning, not decoration.</li>
-</ul>
-<p>Also note the distinction between <strong>manual labels</strong> (a small number of contextual labels) and <strong>data-driven labels</strong> (labels generated from your data). Manual labels are appropriate for oceans, regions, and context; data-driven labels should be automated and consistent.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>sa_2 <span class="ot">&lt;-</span> sa_1 <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">annotate</span>(</span>
-<span id="cb4-3"><a href="#cb4-3"></a>    <span class="st">"text"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">label =</span> <span class="st">"Atlantic</span><span class="sc">\n</span><span class="st">Ocean"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">x =</span> <span class="fl">15.1</span>,</span>
-<span id="cb4-6"><a href="#cb4-6"></a>    <span class="at">y =</span> <span class="sc">-</span><span class="fl">32.0</span>,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>    <span class="at">size =</span> <span class="fl">5.0</span>,</span>
-<span id="cb4-8"><a href="#cb4-8"></a>    <span class="at">angle =</span> <span class="dv">30</span>,</span>
-<span id="cb4-9"><a href="#cb4-9"></a>    <span class="at">colour =</span> <span class="st">"navy"</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a>  ) <span class="sc">+</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a>  <span class="fu">annotate</span>(</span>
-<span id="cb4-12"><a href="#cb4-12"></a>    <span class="st">"text"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13"></a>    <span class="at">label =</span> <span class="st">"Indian</span><span class="sc">\n</span><span class="st">Ocean"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14"></a>    <span class="at">x =</span> <span class="fl">33.2</span>,</span>
-<span id="cb4-15"><a href="#cb4-15"></a>    <span class="at">y =</span> <span class="sc">-</span><span class="fl">34.2</span>,</span>
-<span id="cb4-16"><a href="#cb4-16"></a>    <span class="at">size =</span> <span class="fl">5.0</span>,</span>
-<span id="cb4-17"><a href="#cb4-17"></a>    <span class="at">angle =</span> <span class="dv">330</span>,</span>
-<span id="cb4-18"><a href="#cb4-18"></a>    <span class="at">colour =</span> <span class="st">"red4"</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a>  )</span>
-<span id="cb4-20"><a href="#cb4-20"></a>sa_2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-maps-labels" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-maps-labels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="13-mapping_style_files/figure-html/fig-maps-labels-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;3: Map of southern Africa with specific labels."><img src="13-mapping_style_files/figure-html/fig-maps-labels-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-maps-labels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Map of southern Africa with specific labels.
-</figcaption>
-</figure>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">Sys.timezone</span>(<span class="at">location =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; [1] "Africa/Johannesburg"</code></pre>
 </div>
 </div>
 </section>
-<section id="scale-bars" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Scale Bars</h1>
-<p>With your fancy labels added, let us insert a scale bar next. There is no default scale bar function in the <strong><code>tidyverse</code></strong>, which is why you have loaded <strong><code>ggspatial</code></strong>. This package is devoted to adding scale bars and North arrows to <strong><code>ggplot2</code></strong> figures. There are heaps of options so you will just focus on one of them for now. It is a bit finicky so to get it looking exactly how you want it requires some guessing and checking. Please feel free to play around with the coordinates below.</p>
-<p>Decision rules:</p>
-<ul>
-<li><strong>Include a scale bar</strong> when distances matter to interpretation.</li>
-<li><strong>Omit it</strong> on very small-scale maps or when it adds clutter without value.</li>
-<li><strong>Use a north arrow</strong> only if orientation is ambiguous or non-standard.</li>
-</ul>
+<section id="creating-daily-dates" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Creating Daily Dates</h1>
+<p>Create date columns out of the mangled date data we have loaded.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>sa_3 <span class="ot">&lt;-</span> sa_2 <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">annotation_scale</span>(</span>
-<span id="cb5-3"><a href="#cb5-3"></a>    <span class="at">location =</span> <span class="st">"bl"</span>, <span class="co"># bottom left; you can also specify "tl", "tr", etc.</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>    <span class="at">width_hint =</span> <span class="fl">0.2</span>, <span class="co"># relative width of the scale bar</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="at">height =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>), <span class="co"># scale bar height</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>    <span class="at">text_cex =</span> <span class="fl">0.8</span>, <span class="co"># text size</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a>    <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>), <span class="co"># horizontal offset</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>    <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>), <span class="co"># vertical offset</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>    <span class="at">bar_cols =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"white"</span>)</span>
-<span id="cb5-10"><a href="#cb5-10"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">annotation_north_arrow</span>(</span>
-<span id="cb5-12"><a href="#cb5-12"></a>    <span class="at">location =</span> <span class="st">"bl"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13"></a>    <span class="at">which_north =</span> <span class="st">"true"</span>, <span class="co"># true north, not grid north</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a>    <span class="at">pad_x =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="st">"cm"</span>), <span class="co"># adjust to approximate your original x.min/x.max</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a>    <span class="at">pad_y =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"cm"</span>), <span class="co"># adjust to approximate your original y.min/y.max</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a>    <span class="at">style =</span> north_arrow_fancy_orienteering</span>
-<span id="cb5-17"><a href="#cb5-17"></a>  )</span>
-<span id="cb5-18"><a href="#cb5-18"></a></span>
-<span id="cb5-19"><a href="#cb5-19"></a>sa_3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-maps-scale" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-maps-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="13-mapping_style_files/figure-html/fig-maps-scale-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;4: Map of southern Africa with labels and a scale bar."><img src="13-mapping_style_files/figure-html/fig-maps-scale-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Create good date column</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>new_dates <span class="ot">&lt;-</span> sad_dates <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">mutate</span>(<span class="at">new_good =</span> <span class="fu">as.Date</span>(good))</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co"># Correct bad date column</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>new_dates <span class="ot">&lt;-</span> new_dates <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">mutate</span>(<span class="at">new_bad =</span> <span class="fu">as.Date</span>(bad, <span class="at">format =</span> <span class="st">"%m/%d/%y"</span>))</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># Correct ugly date column</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>new_dates <span class="ot">&lt;-</span> new_dates <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">mutate</span>(<span class="at">new_ugly =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"1998-01-13"</span>), <span class="fu">as.Date</span>(<span class="st">"1998-01-21"</span>), <span class="at">by =</span> <span class="st">"day"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-maps-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Map of southern Africa with labels and a scale bar.
+</section>
+<section id="creating-hourly-dates" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Creating Hourly Dates</h1>
+<p>If we want to create date values out of data that have hourly values (or smaller), we must create ‘POSIXct’ values because ‘Date’ values may not have a finer temporal resolution than one day.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Correcting good time stamps with hours</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>new_dates <span class="ot">&lt;-</span> new_dates <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">mutate</span>(<span class="at">new_good_hours =</span> <span class="fu">as.POSIXct</span>(good_hours, <span class="at">tz =</span> <span class="st">"Africa/Mbabane"</span>))</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># Correcting bad time stamps with hours</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>new_dates <span class="ot">&lt;-</span> new_dates <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">mutate</span>(<span class="at">new_bad_hours =</span> <span class="fu">as.POSIXct</span>(bad_hours, <span class="at">format =</span> <span class="st">"%Y-%m-%d %I:%M:%S %p"</span>, <span class="at">tz =</span> <span class="st">"Africa/Mbabane"</span>))</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co"># Correcting bad time stamps with hours</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>new_dates <span class="ot">&lt;-</span> new_dates <span class="sc">%&gt;%</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="fu">mutate</span>(<span class="at">new_ugly_hours =</span> <span class="fu">seq</span>(<span class="fu">as.POSIXct</span>(<span class="st">"1998-01-13 09:00:00"</span>, <span class="at">tz =</span> <span class="st">"Africa/Mbabane"</span>),</span>
+<span id="cb6-12"><a href="#cb6-12"></a>                              <span class="fu">as.POSIXct</span>(<span class="st">"1998-01-13 17:00:00"</span>, <span class="at">tz =</span> <span class="st">"Africa/Mbabane"</span>), <span class="at">by =</span> <span class="st">"hour"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>But should not there be a function that loads dates correctly?</p>
+</section>
+<section id="importing-dates-in-one-step" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Importing Dates in One Step</h1>
+<p>Why yes, yes there is. <code>read_csv()</code> is the way to go.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>smart_dates <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"sad_dates.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>But why does it matter that we correct the values to dates? For starters, it affects the way our plots look/work. Let us create some random numbers for plotting, see how these compare against our date values when we create figures.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Generate random number</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>smart_dates<span class="sc">$</span>numbers <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Scatterplot with correct dates</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">ggplot</span>(smart_dates, <span class="fu">aes</span>(<span class="at">x =</span> good, <span class="at">y =</span> numbers)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F)</span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># Scatterplot with incorrect dates</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="fu">ggplot</span>(smart_dates, <span class="fu">aes</span>(<span class="at">x =</span> bad, <span class="at">y =</span> numbers)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F)</span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co"># OR</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="fu">ggplot</span>(smart_dates, <span class="fu">aes</span>(<span class="at">x =</span> ugly, <span class="at">y =</span> numbers)) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-dates-deeper-1-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dates-deeper-1-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="20-dates_files/figure-html/fig-dates-deeper-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;1: Dates deeper 1."><img src="20-dates_files/figure-html/fig-dates-deeper-1-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dates-deeper-1-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Dates deeper 1.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-dates-deeper-1-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dates-deeper-1-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="20-dates_files/figure-html/fig-dates-deeper-1-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;2: Dates deeper 1."><img src="20-dates_files/figure-html/fig-dates-deeper-1-2.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dates-deeper-1-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Dates deeper 1.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-dates-deeper-1-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dates-deeper-1-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="20-dates_files/figure-html/fig-dates-deeper-1-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;3: Dates deeper 1."><img src="20-dates_files/figure-html/fig-dates-deeper-1-3.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dates-deeper-1-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Dates deeper 1.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="advanced-styling-insets-and-coordinate-labels" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Advanced Styling: Insets and Coordinate Labels</h1>
-<p>Inset maps, coordinate labels, and export are not optional niceties — they are often what distinguishes a competent map from a careless one. If your main map needs geographic context, use an inset. Here we build a simple Africa inset using <code>borders()</code> so it stays lightweight and reliable.</p>
+<p>If the dates are formatted correctly it also allows us to do schnazy things with the data.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>africa_inset <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">borders</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"cornsilk"</span>, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">coord_equal</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">55</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">36</span>, <span class="dv">38</span>), <span class="at">expand =</span> <span class="dv">0</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>africa_inset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="13-mapping_style_files/figure-html/maps-mini-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Inset map of Africa (context)."><img src="13-mapping_style_files/figure-html/maps-mini-1.png" class="img-fluid figure-img" style="width:75.0%" alt="Inset map of Africa (context)."></a></p>
-<figcaption>Inset map of Africa (context).</figcaption>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>smart_dates<span class="sc">$</span>good[<span class="dv">4</span>]<span class="sc">+</span><span class="dv">32</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; [1] "1998-02-17"</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>smart_dates<span class="sc">$</span>good[<span class="dv">9</span>]<span class="sc">-</span>smart_dates<span class="sc">$</span>good[<span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Time difference of 6 days</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">as.Date</span>(smart_dates<span class="sc">$</span>good[<span class="dv">9</span>]<span class="sc">:</span>smart_dates<span class="sc">$</span>good[<span class="dv">3</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; [1] "1998-01-21" "1998-01-20" "1998-01-19" "1998-01-18" "1998-01-17"
+R&gt; [6] "1998-01-16" "1998-01-15"</code></pre>
 </div>
-<p>We can add the inset using a grob. This is a controlled way to place an entire plot inside another plot.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>africa_grob <span class="ot">&lt;-</span> <span class="fu">ggplotGrob</span>(africa_inset)</span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>sa_4 <span class="ot">&lt;-</span> sa_3 <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">annotation_custom</span>(</span>
-<span id="cb7-5"><a href="#cb7-5"></a>    <span class="at">grob =</span> africa_grob,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>    <span class="at">xmin =</span> <span class="fl">20.9</span>, <span class="at">xmax =</span> <span class="fl">26.9</span>,</span>
-<span id="cb7-7"><a href="#cb7-7"></a>    <span class="at">ymin =</span> <span class="sc">-</span><span class="dv">30</span>, <span class="at">ymax =</span> <span class="sc">-</span><span class="dv">24</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a>  )</span>
-<span id="cb7-9"><a href="#cb7-9"></a>sa_4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="13-mapping_style_files/figure-html/maps-inset-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Map of southern Africa with labels, scale bar, and an inset map of Africa."><img src="13-mapping_style_files/figure-html/maps-inset-1.png" class="img-fluid figure-img" style="width:75.0%" alt="Map of southern Africa with labels, scale bar, and an inset map of Africa."></a></p>
-<figcaption>Map of southern Africa with labels, scale bar, and an inset map of Africa.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Now tweak coordinate labels for cartographic conventions:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>sa_final <span class="ot">&lt;-</span> sa_4 <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb8-3"><a href="#cb8-3"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">16</span>, <span class="dv">32</span>, <span class="dv">4</span>),</span>
-<span id="cb8-4"><a href="#cb8-4"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"16°E"</span>, <span class="st">"20°E"</span>, <span class="st">"24°E"</span>, <span class="st">"28°E"</span>, <span class="st">"32°E"</span>),</span>
-<span id="cb8-5"><a href="#cb8-5"></a>    <span class="at">position =</span> <span class="st">"bottom"</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">36</span>, <span class="sc">-</span><span class="dv">24</span>, <span class="dv">4</span>),</span>
-<span id="cb8-9"><a href="#cb8-9"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"36.0°S"</span>, <span class="st">"32.0°S"</span>, <span class="st">"28.0°S"</span>, <span class="st">"24.0°S"</span>),</span>
-<span id="cb8-10"><a href="#cb8-10"></a>    <span class="at">position =</span> <span class="st">"right"</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
-<span id="cb8-13"><a href="#cb8-13"></a>sa_final</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="13-mapping_style_files/figure-html/maps-final-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="The final map with coordinate labels."><img src="13-mapping_style_files/figure-html/maps-final-1.png" class="img-fluid figure-img" style="width:75.0%" alt="The final map with coordinate labels."></a></p>
-<figcaption>The final map with coordinate labels.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Export with intention — size, aspect ratio, and resolution must match the medium.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggsave</span>(</span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="at">plot =</span> sa_final,</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="at">filename =</span> <span class="st">"figures/southern_africa_final.pdf"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="at">height =</span> <span class="dv">6</span>,</span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="at">width =</span> <span class="dv">8</span>,</span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Map Sanity Checklist
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Clear title and legend?</li>
-<li>Coordinate system and aspect ratio appropriate?</li>
-<li>Labels readable and not obscuring data?</li>
-<li>Scale bar or north arrow included only when needed?</li>
-<li>Export size and resolution appropriate for the audience?</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-simple callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Common Student Errors
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Over‑labelling and visual clutter</li>
-<li>Decorative colours that imply meaning</li>
-<li>Cropping boundaries in ways that mislead</li>
-<li>Using default borders when precision is required</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Analytic vs Illustrative Maps
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Analytic maps emphasise data integrity and scale; illustrative maps prioritise narrative and clarity. Decide which you are making before you style.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>smart_dates<span class="sc">$</span>good[<span class="dv">9</span>]<span class="sc">-</span><span class="dv">10247</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; [1] "1970-01-01"</code></pre>
 </div>
 </div>
 
@@ -880,13 +729,13 @@ Figure&nbsp;4: Map of southern Africa with labels and a scale bar.
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
   author = {A. J. , Smit},
-  title = {13. {Mapping} with {Style}},
+  title = {19. {Dates}},
   date = {2021-01-01},
-  url = {http://samos-r.netlify.app/intro_r/13-mapping_style.html},
+  url = {http://samos-r.netlify.app/intro_r/20-dates.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2021" class="csl-entry quarto-appendix-citeas" role="listitem">
-A. J. S (2021) 13. Mapping with Style. <a href="http://samos-r.netlify.app/intro_r/13-mapping_style.html">http://samos-r.netlify.app/intro_r/13-mapping_style.html.
+A. J. S (2021) 19. Dates. <a href="http://samos-r.netlify.app/intro_r/20-dates.html">http://samos-r.netlify.app/intro_r/20-dates.html.
 </a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1298,13 +1147,13 @@ A. J. S (2021) 13. Mapping with Style. <a href="http://samos-r.netlify.app/intro
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro_r/12-mapping.html" class="pagination-link" aria-label="12. Mapping with **ggplot2**">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">12. Mapping with <strong>ggplot2</strong></span>
+      <a href="../intro_r/19-base_r.html" class="pagination-link" aria-label="18. Base R Primer">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">18. Base R Primer</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro_r/14-mapping_rnaturalearth.html" class="pagination-link" aria-label="14. Mapping with Natural Earth">
-        <span class="nav-page-text">14. Mapping with Natural Earth</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../basic_stats/02-summarise-and-describe.html" class="pagination-link" aria-label="2. Data Summaries &amp; Descriptions">
+        <span class="nav-page-text">2. Data Summaries &amp; Descriptions</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1316,7 +1165,7 @@ A. J. S (2021) 13. Mapping with Style. <a href="http://samos-r.netlify.app/intro
 </div>   
     <div class="nav-footer-center">
 
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/13-mapping_style.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/20-dates.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -58,7 +58,7 @@ format:
     toc: true
     toc-depth: 3
     toc-location: right
-    toc-title: "On this page"    
+    toc-title: "On this page"
 
 website:
   title: "SAMOS R"
@@ -66,7 +66,7 @@ website:
   site-url: "http://samos-r.netlify.app"
   repo-url: "https://github.com/ajsmit/SAMOS_R"
   repo-actions: [edit, issue]
-  reader-mode: true  
+  reader-mode: true
   bread-crumbs: true
   cookie-consent:
     type: express
@@ -120,22 +120,23 @@ website:
           - intro_r/03-quarto.qmd
           - intro_r/04-data-in-R.qmd
           - intro_r/05-workflow.qmd
+          - intro_r/06-intro_graphics.qmd
           # --- Tidyverse data principles BEFORE ggplot2 ---
-          - intro_r/06-tidy.qmd
-          - intro_r/07-tidier.qmd
-          - intro_r/08-tidiest.qmd
+          - intro_r/07-tidy.qmd
+          - intro_r/08-tidier.qmd
+          - intro_r/09-tidiest.qmd
           # --- Graphics after students can wrangle ---
-          - intro_r/09-graphics.qmd
-          - intro_r/10-faceting.qmd
-          - intro_r/11-brewing.qmd
-          - intro_r/12-mapping.qmd
-          - intro_r/13-mapping_style.qmd
-          - intro_r/14-mapping_rnaturalearth.qmd
-          - intro_r/15-mapping_quakes.qmd
-          - intro_r/16-recap.qmd
-          - intro_r/17-functions.qmd
-          - intro_r/18-base_r.qmd
-          - intro_r/19-dates.qmd
+          - intro_r/10-graphics.qmd
+          - intro_r/11-faceting.qmd
+          - intro_r/12-brewing.qmd
+          - intro_r/13-mapping.qmd
+          - intro_r/14-mapping_style.qmd
+          - intro_r/15-mapping_rnaturalearth.qmd
+          - intro_r/16-mapping_quakes.qmd
+          - intro_r/17-recap.qmd
+          - intro_r/18-functions.qmd
+          - intro_r/19-base_r.qmd
+          - intro_r/20-dates.qmd
       - section: "Biostatistics"
         contents:
           - basic_stats/02-summarise-and-describe.qmd

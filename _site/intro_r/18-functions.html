@@ -9,7 +9,7 @@
 <meta name="author" content="Smit, A. J.">
 <meta name="dcterms.date" content="2021-01-01">
 
-<title>10. Faceting Figures – SAMOS R</title>
+<title>17. Functions by Chapter – SAMOS R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -66,8 +31,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../intro_r/11-brewing.html" rel="next">
-<link href="../intro_r/09-graphics.html" rel="prev">
+<link href="../intro_r/19-base_r.html" rel="next">
+<link href="../intro_r/17-recap.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -130,6 +95,35 @@ cookieconsent.run({
   
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -198,7 +192,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/10-faceting.html">10. Faceting Figures</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/18-functions.html">17. Functions by Chapter</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -271,85 +265,91 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/06-tidy.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Tidy Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/07-tidier.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7. Tidier Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/08-tidiest.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. Tidiest Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/09-graphics.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">9. Graphics with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/10-faceting.html" class="sidebar-item-text sidebar-link active">
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">10. Faceting Figures</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/11-brewing.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">11. Brewing Colours</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/12-mapping.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">12. Mapping with <strong>ggplot2</strong></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/13-mapping_style.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">13. Mapping with Style</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/14-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">14. Mapping with Natural Earth</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/15-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">15. The Fiji Earthquake Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/16-recap.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">16. Synthesis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/17-functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/18-functions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">17. Functions by Chapter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/18-base_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/19-base_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">18. Base R Primer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro_r/19-dates.html" class="sidebar-item-text sidebar-link">
+  <a href="../intro_r/20-dates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">19. Dates</span></a>
   </div>
 </li>
@@ -519,25 +519,20 @@ cookieconsent.run({
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-to-facet-overlay-or-grid" id="toc-when-to-facet-overlay-or-grid" class="nav-link active" data-scroll-target="#when-to-facet-overlay-or-grid"><span class="header-section-number">1</span> When to Facet, Overlay, or Grid</a></li>
-  <li><a href="#faceting-one-figure" id="toc-faceting-one-figure" class="nav-link" data-scroll-target="#faceting-one-figure"><span class="header-section-number">2</span> Faceting One Figure</a></li>
-  <li><a href="#new-figure-types" id="toc-new-figure-types" class="nav-link" data-scroll-target="#new-figure-types"><span class="header-section-number">3</span> New Figure Types</a>
+  <li><a href="#useful-information" id="toc-useful-information" class="nav-link active" data-scroll-target="#useful-information"><span class="header-section-number">1</span> Useful Information</a>
   <ul class="collapse">
-  <li><a href="#line-graph-a-latitudinal-transect-style-summary" id="toc-line-graph-a-latitudinal-transect-style-summary" class="nav-link" data-scroll-target="#line-graph-a-latitudinal-transect-style-summary"><span class="header-section-number">3.1</span> Line Graph (a latitudinal transect style summary)</a></li>
-  <li><a href="#smooth-model-loess" id="toc-smooth-model-loess" class="nav-link" data-scroll-target="#smooth-model-loess"><span class="header-section-number">3.2</span> Smooth Model (LOESS)</a></li>
-  <li><a href="#histogram-distribution-of-a-chemical-variable" id="toc-histogram-distribution-of-a-chemical-variable" class="nav-link" data-scroll-target="#histogram-distribution-of-a-chemical-variable"><span class="header-section-number">3.3</span> Histogram (distribution of a chemical variable)</a></li>
-  <li><a href="#boxplot-compare-depths" id="toc-boxplot-compare-depths" class="nav-link" data-scroll-target="#boxplot-compare-depths"><span class="header-section-number">3.4</span> Boxplot (compare depths)</a></li>
+  <li><a href="#operators" id="toc-operators" class="nav-link" data-scroll-target="#operators"><span class="header-section-number">1.1</span> Operators</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="header-section-number">1.2</span> Functions</a></li>
   </ul></li>
-  <li><a href="#gridding-figures" id="toc-gridding-figures" class="nav-link" data-scroll-target="#gridding-figures"><span class="header-section-number">4</span> Gridding Figures</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/10-faceting.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/18-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/10-faceting.html">10. Faceting Figures</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../intro_r/01-RStudio.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="../intro_r/18-functions.html">17. Functions by Chapter</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">10. Faceting Figures</h1>
+<h1 class="title">17. Functions by Chapter</h1>
 </div>
 
 
@@ -576,341 +571,31 @@ cookieconsent.run({
 
 
 <p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../images/IMG_7090.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="A visual reminder to compare patterns across panels."><img src="../images/IMG_7090.PNG" class="img-fluid figure-img" style="width:100.0%" alt="A visual reminder to compare patterns across panels."></a></p>
-<figcaption>A visual reminder to compare patterns across panels.</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p>“<em>If a graph is worth a thousand numbers, a good graph is worth a thousand bad tests.</em>”</p>
-<p>— Edward Tufte</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“<em>You miss 100% of the shots you do not take.</em>”</p>
-<p>— Wayne Gretzky</p>
-</blockquote>
-<p>So far we have only looked at single panel figures. But as you may have guessed by now, <strong>ggplot2</strong> is capable of creating any sort of data visualisation that a human mind could conceive. This may seem like a grandiose assertion, but we will see if we cannot convince you of it by the end of this course. For now however, let us just take our understanding of the usability of <strong>ggplot2</strong> two steps further by first learning how to facet a single figure, and then stitch different types of figures together into a grid. In order to aid us in this process we will make use of an additional package, <strong>ggpubr</strong>. The purpose of this package is to provide a bevy of additional tools that researchers commonly make use of in order to produce publication-quality figures. Note that <code>library(ggpubr)</code> will not work on your computer if you have not yet installed the package.</p>
-<section id="when-to-facet-overlay-or-grid" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> When to Facet, Overlay, or Grid</h1>
-<p>Before we write code, we need a simple decision rule:</p>
-<ul>
-<li><strong>Facet</strong> when you want to compare subgroups within the same coordinate system and scales (<em>e.g.</em>, 0 m vs 200 m, or temperature vs oxygen).</li>
-<li><strong>Overlay</strong> when the comparisons are most meaningful in a single panel (<em>e.g.</em>, two groups sharing one trend line).</li>
-<li><strong>Grid</strong> when you want to compare different summaries or perspectives side-by-side (<em>e.g.</em>, time series, histogram, and boxplot together).</li>
-</ul>
-<p>If you need shared scales and legends across panels, plan the composition early. It is easier to align meaning first and code second.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<section id="useful-information" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="useful-information"><span class="header-section-number">1</span> Useful Information</h2>
+<p>…incomplete…</p>
+<section id="operators" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="operators"><span class="header-section-number">1.1</span> Operators</h3>
+<p>There are several operators you can use to help build expressions as shown in Table <span class="math inline">\(\ref{tab:operators}\)</span>.</p>
 </section>
-<section id="faceting-one-figure" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Faceting One Figure</h1>
-<p>Faceting a single figure is built into <strong>ggplot2</strong> from the ground up and will work with virtually anything that could be passed to the <code>aes()</code> function. The key idea is that faceting <strong>splits the data into panels before any geometry or statistics are calculated</strong>. This means each panel gets its own model fit, summary, or smoothing line, based only on the subset of data in that panel.</p>
-<p>Here we see how to facet ocean climatology data by depth and variable using the <strong>WOA18 core dataset</strong>.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span><code>facet_wrap()</code> vs <code>facet_grid()</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Use <code>facet_wrap()</code> when you have one faceting variable (one-dimensional). Use <code>facet_grid()</code> when you want a two-dimensional layout across rows and columns (<em>e.g.</em>, <code>facet_grid(sex ~ diet)</code>).</p>
-</div>
-</div>
-<div class="callout callout-style-simple callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Shared Scales
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>By default, facets <strong>share scales</strong>. This is often desirable for comparison, but it can mislead if one group is much larger or smaller than the others. If needed, allow free scales with <code>scales = "free"</code> so each panel can use its own axis ranges.</p>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>About the dataset used in this chapter (World Ocean Atlas 2018)
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In this chapter we use a small, tidy extract of <strong>World Ocean Atlas 2018 (WOA18)</strong> climatologies for the broader Southern Africa region.</p>
-<p>Why WOA matters in ocean science:</p>
-<ul>
-<li><strong>Temperature</strong> and <strong>salinity</strong> are the fundamental state variables of seawater, and together shape density and stratification.</li>
-<li><strong>Dissolved oxygen</strong> is a key indicator of ventilation, productivity, and habitat suitability.</li>
-<li><strong>Nutrients</strong> (nitrate, phosphate, silicate) constrain primary production and structure ecosystems.</li>
-</ul>
-<p>These variables are not “just numbers”: they encode the physical and biogeochemical structure of the ocean.</p>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(here)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># Load the core teaching dataset (WOA18 climatology extract)</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>woa <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
-<span id="cb2-7"><a href="#cb2-7"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"processed"</span>, <span class="st">"woa18_sa_core_1deg_monthly.csv"</span>),</span>
-<span id="cb2-8"><a href="#cb2-8"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>)</span>
-<span id="cb2-10"><a href="#cb2-10"></a></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># Quick look</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">glimpse</span>(woa)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; Rows: 200,382
-R&gt; Columns: 8
-R&gt; $ lat      &lt;dbl&gt; -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5…
-R&gt; $ lon      &lt;dbl&gt; 6.5, 7.5, 9.5, 12.5, 14.5, 15.5, 19.5, 20.5, 22.5, 24.5, 26.5…
-R&gt; $ depth_m  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-R&gt; $ value    &lt;dbl&gt; NA, 295.308, 295.840, NA, 280.251, NA, 270.377, 270.764, 289.…
-R&gt; $ month    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-R&gt; $ variable &lt;chr&gt; "dissolved_oxygen", "dissolved_oxygen", "dissolved_oxygen", "…
-R&gt; $ unit     &lt;chr&gt; "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/kg", "umol/…
-R&gt; $ source   &lt;chr&gt; "WOA18 decav 1.00° CSV", "WOA18 decav 1.00° CSV", "WOA18 deca…</code></pre>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Data dictionary
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>See: <code>data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md</code></p>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>woa <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> depth_m, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-facet-woa-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-facet-woa-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-faceting_files/figure-html/fig-facet-woa-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;1: Faceting WOA18 climatology: temperature vs latitude by depth (February)."><img src="10-faceting_files/figure-html/fig-facet-woa-1-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-woa-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Faceting WOA18 climatology: temperature vs latitude by depth (February).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="new-figure-types" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> New Figure Types</h1>
-<p>This section takes the current ideas forward:</p>
-<ol type="1">
-<li><strong>Designing individual plots as reusable objects</strong> so they can be combined later.</li>
-<li><strong>Choosing plot types that match specific questions</strong>, which sometimes requires filtering or reshaping the data.</li>
-</ol>
-<p>Before we can create a gridded figure of several smaller figures, we need to learn how to create a few new types of figures first. The code for these different types is shown below. Notice that we <strong>assign each plot to an object</strong> (<em>e.g.</em>, <code>line_1</code>, <code>histogram_1</code>). This is the standard workflow for composing multi-panel figures.</p>
-<p>Some plot types are best suited to specific questions. For example, if you want to compare <strong>final weights by diet</strong>, it makes sense to filter to the final day. That is why we create a filtered dataset for the histogram and boxplot.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># We'll reuse a few simple slices of the WOA dataset</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>woa_feb_surf <span class="ot">&lt;-</span> woa <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>woa_feb_temp_depths <span class="ot">&lt;-</span> woa <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, variable <span class="sc">==</span> <span class="st">"temperature"</span>, depth_m <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="line-graph-a-latitudinal-transect-style-summary" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="line-graph-a-latitudinal-transect-style-summary"><span class="header-section-number">3.1</span> Line Graph (a latitudinal transect style summary)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>line_1 <span class="ot">&lt;-</span> woa_feb_temp_depths <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">group_by</span>(depth_m, lat) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value, <span class="at">colour =</span> <span class="fu">factor</span>(depth_m))) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">colour =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb6-8"><a href="#cb6-8"></a>line_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-facet-line" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-facet-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-faceting_files/figure-html/fig-facet-line-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;2: Mean February temperature by latitude, shown separately for several depths."><img src="10-faceting_files/figure-html/fig-facet-line-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Mean February temperature by latitude, shown separately for several depths.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="smooth-model-loess" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="smooth-model-loess"><span class="header-section-number">3.2</span> Smooth Model (LOESS)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sm_1 <span class="ot">&lt;-</span> woa_feb_temp_depths <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lat, <span class="at">y =</span> value, <span class="at">colour =</span> <span class="fu">factor</span>(depth_m))) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Latitude (°N)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">colour =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb7-7"><a href="#cb7-7"></a>sm_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-facet-lm" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-facet-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-faceting_files/figure-html/fig-facet-lm-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;3: Same idea, but using a smooth to emphasise broad structure (demonstration)."><img src="10-faceting_files/figure-html/fig-facet-lm-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Same idea, but using a smooth to emphasise broad structure (demonstration).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="histogram-distribution-of-a-chemical-variable" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="histogram-distribution-of-a-chemical-variable"><span class="header-section-number">3.3</span> Histogram (distribution of a chemical variable)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>histogram_1 <span class="ot">&lt;-</span> woa_feb_surf <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"nitrate"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">"grey60"</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nitrate (µmol/kg)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb8-7"><a href="#cb8-7"></a>histogram_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-facet-hist" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-facet-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-faceting_files/figure-html/fig-facet-hist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;4: Surface February nitrate distribution (WOA18 climatology)."><img src="10-faceting_files/figure-html/fig-facet-hist-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Surface February nitrate distribution (WOA18 climatology).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="boxplot-compare-depths" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="boxplot-compare-depths"><span class="header-section-number">3.4</span> Boxplot (compare depths)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>box_1 <span class="ot">&lt;-</span> woa_feb_temp_depths <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(depth_m), <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"cornsilk"</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Depth (m)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb9-6"><a href="#cb9-6"></a>box_1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-facet-box" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-facet-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-faceting_files/figure-html/fig-facet-box-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;5: Temperature distributions by depth (February climatology)."><img src="10-faceting_files/figure-html/fig-facet-box-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Temperature distributions by depth (February climatology).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="gridding-figures" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Gridding Figures</h1>
-<p>With these four different figures created we may now combine them. They show different views of the same ocean structure:</p>
-<ul>
-<li>broad latitudinal gradients (line + smooth)</li>
-<li>distribution of a nutrient at the surface (histogram)</li>
-<li>how temperature distributions shift with depth (boxplot)</li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggarrange</span>(line_1, sm_1, histogram_1, box_1,</span>
-<span id="cb10-2"><a href="#cb10-2"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb10-3"><a href="#cb10-3"></a>          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-facet-grid" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-facet-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="10-faceting_files/figure-html/fig-facet-grid-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;6: Four complementary summaries of the WOA18 February climatology."><img src="10-faceting_files/figure-html/fig-facet-grid-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Four complementary summaries of the WOA18 February climatology.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Why no common legend here?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A shared legend only makes sense when panels map the <strong>same aesthetic</strong> to the <strong>same variable</strong>. Here only the first two panels use a depth legend; the histogram and boxplot do not.</p>
-<p>If you <em>want</em> a common legend, design the four plots so they share mappings (for example all plots map <code>colour = factor(depth_m)</code>).</p>
-</div>
-</div>
-<p>The figure can be saved using <code>ggsave()</code>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># First we must assign the code to an object name</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>grid_1 <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(line_1, sm_1, histogram_1, box_1,</span>
-<span id="cb11-3"><a href="#cb11-3"></a>                    <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb11-4"><a href="#cb11-4"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>))</span>
-<span id="cb11-5"><a href="#cb11-5"></a></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># Then we save the object we created</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># (make sure the folder exists)</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="fu">dir.create</span>(<span class="st">"figures"</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb11-9"><a href="#cb11-9"></a></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> grid_1, <span class="at">filename =</span> <span class="st">"figures/woa_feb_summary_grid.pdf"</span>,</span>
-<span id="cb11-11"><a href="#cb11-11"></a>       <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Do This Now
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Create four new graphical data summaries that we have not seen before and create a faceted layout with the <code>ggarrange()</code> function as we have seen in the example provided in this chapter.</p>
-<p>Make sure the above assignment is included within a Quarto file rendered to .html. Include some textual information to inform the reader of the intent of the plots and what patterns are visible.</p>
-</div>
-</div>
+<section id="functions" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="functions"><span class="header-section-number">1.2</span> Functions</h3>
+<p>Some example functions covered so far are presented in Table <span class="math inline">\(\ref{tab:functions}\)</span>.</p>
+<p>Some summary functions are presented in Table <span class="math inline">\(\ref{tab:summaries}\)</span>.</p>
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
   author = {A. J. , Smit},
-  title = {10. {Faceting} {Figures}},
+  title = {17. {Functions} by {Chapter}},
   date = {2021-01-01},
-  url = {http://samos-r.netlify.app/intro_r/10-faceting.html},
+  url = {http://samos-r.netlify.app/intro_r/18-functions.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2021" class="csl-entry quarto-appendix-citeas" role="listitem">
-A. J. S (2021) 10. Faceting Figures. <a href="http://samos-r.netlify.app/intro_r/10-faceting.html">http://samos-r.netlify.app/intro_r/10-faceting.html.
+A. J. S (2021) 17. Functions by Chapter. <a href="http://samos-r.netlify.app/intro_r/18-functions.html">http://samos-r.netlify.app/intro_r/18-functions.html.
 </a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1322,13 +1007,13 @@ A. J. S (2021) 10. Faceting Figures. <a href="http://samos-r.netlify.app/intro_r
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../intro_r/09-graphics.html" class="pagination-link" aria-label="9. Graphics with **ggplot2**">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">9. Graphics with <strong>ggplot2</strong></span>
+      <a href="../intro_r/17-recap.html" class="pagination-link" aria-label="16. Synthesis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">16. Synthesis</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../intro_r/11-brewing.html" class="pagination-link" aria-label="11. Brewing Colours">
-        <span class="nav-page-text">11. Brewing Colours</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../intro_r/19-base_r.html" class="pagination-link" aria-label="18. Base R Primer">
+        <span class="nav-page-text">18. Base R Primer</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1340,7 +1025,7 @@ A. J. S (2021) 10. Faceting Figures. <a href="http://samos-r.netlify.app/intro_r
 </div>   
     <div class="nav-footer-center">
 
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/10-faceting.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/intro_r/18-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
