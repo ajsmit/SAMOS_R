@@ -134,9 +134,9 @@ website:
           - intro_r/15-mapping_rnaturalearth.qmd
           - intro_r/16-mapping_quakes.qmd
           - intro_r/17-recap.qmd
-          - intro_r/18-functions.qmd
-          - intro_r/19-base_r.qmd
-          - intro_r/20-dates.qmd
+          # - intro_r/18-functions.qmd
+          # - intro_r/19-base_r.qmd
+          # - intro_r/20-dates.qmd
       - section: "Biostatistics"
         contents:
           - basic_stats/02-summarise-and-describe.qmd
