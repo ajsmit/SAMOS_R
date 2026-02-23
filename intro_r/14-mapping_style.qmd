@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "13. Mapping with Style"
+title: "14. Mapping with Style"
 subtitle: "Turning up the Style"
 ---
 

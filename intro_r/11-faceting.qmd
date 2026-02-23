@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "10. Faceting Figures"
+title: "11. Faceting Figures"
 ---
 
 

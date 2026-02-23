@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "9. Graphics with **ggplot2**"
+title: "10. Graphics with **ggplot2**"
 ---
 
 
@@ -33,25 +33,6 @@ ggplot2::theme_set(
 > "*If I cannot picture it, I cannot understand it.*"
 >
 > --- Albert Einstein
-
-
-# Introduction
-
-Though it may have started as statistical software, R has moved far beyond its origins. The language is now capable of a wide range of applications, some of which you have already seen, and some others you will see over the rest of this course. For the second half of Day 2 we are going to jump straight into data visualisation.
-
-R has a diverse library of graphics packages and functions, which allows for creation of various types of plots and graphs for visualising data in meaningful ways. Some of the interesting features of R graphics include:
-
--   **Customisability** Plots can be highly customised, from axis labels and titles to colours, markers, and themes.
-
--   **Wide range of plot types** R offers a variety of plot types, including scatter plots, line plots, bar plots, histograms, density plots, box plots, and more.
-
--   **Integration with data analysis** R graphics integrates well with the data analysis functions in R, making it easy to plot the results of statistical models and analyses.
-
--   **Interactivity** R graphics can be made interactive, allowing users to zoom, pan, and hover over data points to reveal more information.
-
--   **Publication-quality** R graphics can be generated in a high-resolution format suitable for printing or publishing, making it a popular choice for academic and scientific publications.
-
-R comes with its own built-in graphics capabilities, and it is capable of creating an astounding array of figure types. In this course, however, I will use the increasingly popular [**ggplot2**](https://ggplot2.tidyverse.org/) package developed by Hadley Wickham.
 
 # Example Figures
 

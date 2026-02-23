@@ -1,6 +1,6 @@
 ---
 date: "2021-01-01"
-title: "14. Mapping with Natural Earth"
+title: "15. Mapping with Natural Earth"
 ---
 
 

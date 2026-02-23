@@ -56,22 +56,22 @@ The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and 
     -   [[**Module data (Google Drive)**](https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing)]{.my-highlight}
 
 | Wk   | Lecture | Topic                                                                                          | Class Date | Tasks/Assess.                              | Task/Assess. due |
-| :--- | :------ | :--------------------------------------------------------------------------------------------- | :--------- | :------------------------------------------ | :--------------- |
+| :--- | :------ | :--------------------------------------------------------------------------------------------- | :--------- | :----------------------------------------- | :--------------- |
 |      |         | **INTRODUCTION TO R**                                                                          |            |                                            |                  |
 | Wk8  | L1 (PM) | About the Module                                                                               | 23 Feb 26  | [Task A](tasks/BCB744_Task_A.html)         | 25 Feb 26        |
 |      |         | [1. R and RStudio](intro_r/01-RStudio.qmd)                                                     |            |                                            |                  |
 |      |         | [2. Working With Data and Code](intro_r/02-working-with-data.qmd)                              |            |                                            |                  |
 |      |         | [3. R Markdown and Quarto](intro_r/03-quarto.qmd)                                              |            |                                            |                  |
-|      | L2 (AM) | [4. Data Classes and Structures in R](intro_r/04-data-in-R.qmd)                                | 24 Feb 26  | [Task A](tasks/BCB744_Task_A.qmd)         | 25 Feb 26        |
+|      | L2 (AM) | [4. Data Classes and Structures in R](intro_r/04-data-in-R.qmd)                                | 24 Feb 26  | [Task A](tasks/BCB744_Task_A.qmd)          | 25 Feb 26        |
 |      |         | [5. R Workflows](intro_r/05-workflow.qmd)                                                      |            |                                            |                  |
 |      | L3      | [6. Introduction to Graphics](intro_r/06-intro_graphics.qmd)                                   | 25 Feb 26  |                                            |                  |
-|      |         | [7. Tidy Data](intro_r/07-tidy.qmd)                                                            |            | [Task D](tasks/BCB744_Task_D.qmd)         | 26 Feb 26        |
+|      |         | [7. Tidy Data](intro_r/07-tidy.qmd)                                                            |            | [Task D](tasks/BCB744_Task_D.qmd)          | 26 Feb 26        |
 |      |         | [8. Tidier Data](intro_r/08-tidier.qmd)                                                        |            |                                            |                  |
 |      |         | [9. Tidiest Data](intro_r/09-tidiest.qmd)                                                      |            |                                            |                  |
-|      | L4      | [10. Graphics With **ggplot2**](intro_r/10-graphics.qmd)                                       | 26 Feb 26  | [Task B](tasks/BCB744_Task_B.qmd)         | 27 Feb 26        |
+|      | L4      | [10. Graphics With **ggplot2**](intro_r/10-graphics.qmd)                                       | 26 Feb 26  | [Task B](tasks/BCB744_Task_B.qmd)          | 27 Feb 26        |
 |      |         | [11. Faceting Figures](intro_r/11-faceting.qmd)                                                |            |                                            |                  |
 |      |         | [12. Brewing Colours](intro_r/12-brewing.qmd)                                                  |            |                                            |                  |
-|      | L5      | [13. Mapping With **ggplot2**](intro_r/13-mapping.qmd)                                         | 27 Feb 26  | [Task C](tasks/BCB744_Task_C.qmd)         | 02 Mar 26        |
+|      | L5      | [13. Mapping With **ggplot2**](intro_r/13-mapping.qmd)                                         | 27 Feb 26  | [Task C](tasks/BCB744_Task_C.qmd)          | 02 Mar 26        |
 |      |         | [14. Mapping With Style](intro_r/14-mapping_style.qmd)                                         |            |                                            |                  |
 |      |         | [15. Mapping With Natural Earth and the **sf** Package](intro_r/15-mapping_rnaturalearth.qmd)  |            |                                            |                  |
 |      | Self    | [16. The Fiji Earthquake Data](intro_r/16-mapping_quakes.qmd)                                  |            | [Bonus Task](tasks/BCB744_Task_Bonus.html) | 02 Mar 26        |
