@@ -7,7 +7,7 @@ format:
     fig-dpi: 300
     number-sections: false
 params: 
-  hide_answers: false
+  hide_answers: true
 execute:
   fig-format: png
   dev: ragg_png
