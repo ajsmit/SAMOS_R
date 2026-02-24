@@ -54,11 +54,11 @@ library(tidyverse)
 library(ggpubr)
 
 # Load data
-load(here::here("data", "BCB744", "south_africa_coast.Rdata"))
-load(here::here("data", "BCB744", "sa_provinces.RData"))
-load(here::here("data", "BCB744", "rast_annual.Rdata"))
-load(here::here("data", "BCB744", "MUR.Rdata"))
-load(here::here("data", "BCB744", "MUR_low_res.RData"))
+load(here::here("data", "SAMOS", "other_data", "south_africa_coast.Rdata"))
+load(here::here("data", "SAMOS", "other_data", "sa_provinces.RData"))
+load(here::here("data", "SAMOS", "other_data", "rast_annual.Rdata"))
+load(here::here("data", "SAMOS", "other_data", "MUR.Rdata"))
+load(here::here("data", "SAMOS", "other_data", "MUR_low_res.RData"))
 
 # Choose which SST product you would like to use
 sst <- MUR_low_res

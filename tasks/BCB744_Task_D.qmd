@@ -61,7 +61,7 @@ Using the untidy data (`SACTN2`) and the tidy data (`SACTN2_tidy`), create line 
 library(tidyverse)
 library(here)
 
-load(here::here("data", "BCB744", "SACTN_mangled.RData"))
+load(here::here("data", "SAMOS", "other_data", "SACTN_mangled.RData"))
 
 SACTN2_tidy <- pivot_longer(
   SACTN2,

@@ -392,19 +392,19 @@ No naming convention is inherently superior. What matters is choosing one that s
 **Part A --- Create a Project folder with known locations**
 
 1. In RStudio, create a new project: **File → New Project → New Directory → New Project**.
-   Name it `bcb744_file_formats_exercise` and create it in a location you can find again (*e.g.*, Documents).
+   Name it `SAMOS_file_formats_exercise` and create it in a location you can find again (*e.g.*, Documents).
 
 2. In the Files pane in RStudio (bottom right), confirm you can see the project folder and that it contains an `.Rproj` file.
 
 3. Inside the project folder, create these subfolders:
 
-   * `data-raw/`
-   * `data/BCB744/`
+   * `data/other/`
+   * `data/SAMOS/`
    * `scripts/`
 
    (You can do this in the Files pane: **New Folder**.)
 
-4. Decide on a file naming pattern you will follow for exports in this exercise (later, not now). Use this pattern exactly:
+4. Decide on a file naming pattern you will follow (later; see below) for exports in this exercise. Use this pattern exactly:
 
    * `survey_demo_YYYYMMDD_v01.csv`
    * `survey_demo_YYYYMMDD_v01.tsv`
@@ -412,7 +412,7 @@ No naming convention is inherently superior. What matters is choosing one that s
 
    Replace `YYYYMMDD` with today’s date. Keep `v01` as written.
 
-   *Note:* `.scsv` here is just a human-visible label meaning “semicolon CSV”; it is still a plain text file.
+   *Note:* `.scsv` here is just a human-visible label meaning “semicolon CSV”; it is still a plain text file, like a CSV file.
 
 **Part B --- Create a small dataset in Excel**
 
@@ -432,7 +432,7 @@ No naming convention is inherently superior. What matters is choosing one that s
    * at least one `notes` cell that contains a comma (*e.g.*, `juvenile, small`)
    * at least one `notes` cell that contains a semicolon (*e.g.*, `recheck; uncertain`)
 
-8. Save the Excel workbook into your project folder under `data-raw/` with this name:
+8. Save the Excel workbook into your project folder under `data/other/` with this name:
 
    * `survey_demo_YYYYMMDD_source.xlsx`
 
@@ -440,18 +440,18 @@ No naming convention is inherently superior. What matters is choosing one that s
 
 Your target location for *all exports* is:
 
-* `bcb744_file_formats_exercise/data/`
+* `data/SAMOS/`
 
-9. Export to **CSV (comma delimited)** using the naming scheme defined above:
+1. Export to **CSV (comma delimited)** using the naming scheme defined above:
 
    * Use **File → Save As** (or **Save a Copy**) and choose **CSV (Comma delimited)**.
-   * Save into the project’s `data/BCB744/` folder as:
+   * Save into the project’s `data/SAMOS/` folder as:
      `survey_demo_YYYYMMDD_v01.csv`
 
-10. Export to **TSV (tab delimited)**:
+2.  Export to **TSV (tab delimited)**:
 
 * Use **Save As** and choose **Text (Tab delimited)** (or equivalent).
-* Save into the project’s `data/BCB744/` folder as:
+* Save into the project’s `data/SAMOS/` folder as:
   `survey_demo_YYYYMMDD_v01.tsv`
 
 11. Export to **semicolon-delimited** (“semi-colon derived derivative”):
@@ -461,11 +461,11 @@ Your target location for *all exports* is:
 * If it does *not* offer that option, do this instead:
 
   1. Open the saved CSV file (`survey_demo_YYYYMMDD_v01.csv`) in a plain text editor (Notepad / TextEdit / VS Code).
-  2. Save a new copy into the same `data/BCB744/` folder named `survey_demo_YYYYMMDD_v01.scsv`.
+  2. Save a new copy into the same `data/SAMOS/` folder named `survey_demo_YYYYMMDD_v01.scsv`.
   3. In that `.scsv` copy, replace field separators **commas that function as delimiters** with semicolons.
      Do not alter commas inside quoted text fields (your `notes` column will reveal why this matters).
 
-12. In your file explorer (Windows Explorer / Finder), navigate to the project’s `data/BCB744/` folder and confirm that these three files exist there:
+12. In your file explorer (Windows Explorer / Finder), navigate to the project’s `data/SAMOS/` folder and confirm that these three files exist there:
 
 * `survey_demo_YYYYMMDD_v01.csv`
 * `survey_demo_YYYYMMDD_v01.tsv`
@@ -489,9 +489,9 @@ getwd()
 list.files("data")
 
 # 3) Choose ONE file to read first (edit the filename to match your date)
-file_csv  <- "data/BCB744/survey_demo_YYYYMMDD_v01.csv"
-file_tsv  <- "data/BCB744/survey_demo_YYYYMMDD_v01.tsv"
-file_scsv <- "data/BCB744/survey_demo_YYYYMMDD_v01.scsv"
+file_csv  <- "data/SAMOS/survey_demo_YYYYMMDD_v01.csv"
+file_tsv  <- "data/SAMOS/survey_demo_YYYYMMDD_v01.tsv"
+file_scsv <- "data/SAMOS/survey_demo_YYYYMMDD_v01.scsv"
 
 # 4) Read one of them (start with TSV to avoid comma ambiguity in notes)
 dat <- read.delim(file_tsv, sep = "\t", header = TRUE, stringsAsFactors = FALSE)

@@ -52,7 +52,7 @@ library(scales)
 library(ggspatial)
 
 # Load Africa map
-load(here::here("data", "BCB744", "africa_map.RData"))
+load(here::here("data", "SAMOS", "other_data", "africa_map.RData"))
 ```
 
 # Default Maps

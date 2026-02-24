@@ -922,23 +922,23 @@ cookieconsent.run({
 <p><strong>Goal:</strong> You will (i) create a small dataset in Excel, (ii) export it to three delimited text formats (CSV, TSV, and semicolon-delimited), (iii) save them into a known location inside an R Project folder using disciplined file naming, and (iv) read <em>one</em> of the exported files from a new R script in RStudio.</p>
 <p><strong>Part A — Create a Project folder with known locations</strong></p>
 <ol type="1">
-<li><p>In RStudio, create a new project: <strong>File → New Project → New Directory → New Project</strong>. Name it <code>bcb744_file_formats_exercise</code> and create it in a location you can find again (<em>e.g.</em>, Documents).</p></li>
+<li><p>In RStudio, create a new project: <strong>File → New Project → New Directory → New Project</strong>. Name it <code>SAMOS_file_formats_exercise</code> and create it in a location you can find again (<em>e.g.</em>, Documents).</p></li>
 <li><p>In the Files pane in RStudio (bottom right), confirm you can see the project folder and that it contains an <code>.Rproj</code> file.</p></li>
 <li><p>Inside the project folder, create these subfolders:</p>
 <ul>
-<li><code>data-raw/</code></li>
-<li><code>data/BCB744/</code></li>
+<li><code>data/other/</code></li>
+<li><code>data/SAMOS/</code></li>
 <li><code>scripts/</code></li>
 </ul>
 <p>(You can do this in the Files pane: <strong>New Folder</strong>.)</p></li>
-<li><p>Decide on a file naming pattern you will follow for exports in this exercise (later, not now). Use this pattern exactly:</p>
+<li><p>Decide on a file naming pattern you will follow (later; see below) for exports in this exercise. Use this pattern exactly:</p>
 <ul>
 <li><code>survey_demo_YYYYMMDD_v01.csv</code></li>
 <li><code>survey_demo_YYYYMMDD_v01.tsv</code></li>
 <li><code>survey_demo_YYYYMMDD_v01.scsv</code></li>
 </ul>
 <p>Replace <code>YYYYMMDD</code> with today’s date. Keep <code>v01</code> as written.</p>
-<p><em>Note:</em> <code>.scsv</code> here is just a human-visible label meaning “semicolon CSV”; it is still a plain text file.</p></li>
+<p><em>Note:</em> <code>.scsv</code> here is just a human-visible label meaning “semicolon CSV”; it is still a plain text file, like a CSV file.</p></li>
 </ol>
 <p><strong>Part B — Create a small dataset in Excel</strong></p>
 <ol start="5" type="1">
@@ -957,7 +957,7 @@ cookieconsent.run({
 <li>at least one <code>notes</code> cell that contains a comma (<em>e.g.</em>, <code>juvenile, small</code>)</li>
 <li>at least one <code>notes</code> cell that contains a semicolon (<em>e.g.</em>, <code>recheck; uncertain</code>)</li>
 </ul></li>
-<li><p>Save the Excel workbook into your project folder under <code>data-raw/</code> with this name:</p>
+<li><p>Save the Excel workbook into your project folder under <code>data/other/</code> with this name:</p>
 <ul>
 <li><code>survey_demo_YYYYMMDD_source.xlsx</code></li>
 </ul></li>
@@ -965,19 +965,19 @@ cookieconsent.run({
 <p><strong>Part C — Export three delimited text files into the project</strong></p>
 <p>Your target location for <em>all exports</em> is:</p>
 <ul>
-<li><code>bcb744_file_formats_exercise/data/</code></li>
+<li><code>data/SAMOS/</code></li>
 </ul>
-<ol start="9" type="1">
+<ol type="1">
 <li><p>Export to <strong>CSV (comma delimited)</strong> using the naming scheme defined above:</p>
 <ul>
 <li>Use <strong>File → Save As</strong> (or <strong>Save a Copy</strong>) and choose <strong>CSV (Comma delimited)</strong>.</li>
-<li>Save into the project’s <code>data/BCB744/</code> folder as: <code>survey_demo_YYYYMMDD_v01.csv</code></li>
+<li>Save into the project’s <code>data/SAMOS/</code> folder as: <code>survey_demo_YYYYMMDD_v01.csv</code></li>
 </ul></li>
 <li><p>Export to <strong>TSV (tab delimited)</strong>:</p></li>
 </ol>
 <ul>
 <li>Use <strong>Save As</strong> and choose <strong>Text (Tab delimited)</strong> (or equivalent).</li>
-<li>Save into the project’s <code>data/BCB744/</code> folder as: <code>survey_demo_YYYYMMDD_v01.tsv</code></li>
+<li>Save into the project’s <code>data/SAMOS/</code> folder as: <code>survey_demo_YYYYMMDD_v01.tsv</code></li>
 </ul>
 <ol start="11" type="1">
 <li>Export to <strong>semicolon-delimited</strong> (“semi-colon derived derivative”):</li>
@@ -987,12 +987,12 @@ cookieconsent.run({
 <li><p>If it does <em>not</em> offer that option, do this instead:</p>
 <ol type="1">
 <li>Open the saved CSV file (<code>survey_demo_YYYYMMDD_v01.csv</code>) in a plain text editor (Notepad / TextEdit / VS Code).</li>
-<li>Save a new copy into the same <code>data/BCB744/</code> folder named <code>survey_demo_YYYYMMDD_v01.scsv</code>.</li>
+<li>Save a new copy into the same <code>data/SAMOS/</code> folder named <code>survey_demo_YYYYMMDD_v01.scsv</code>.</li>
 <li>In that <code>.scsv</code> copy, replace field separators <strong>commas that function as delimiters</strong> with semicolons. Do not alter commas inside quoted text fields (your <code>notes</code> column will reveal why this matters).</li>
 </ol></li>
 </ul>
 <ol start="12" type="1">
-<li>In your file explorer (Windows Explorer / Finder), navigate to the project’s <code>data/BCB744/</code> folder and confirm that these three files exist there:</li>
+<li>In your file explorer (Windows Explorer / Finder), navigate to the project’s <code>data/SAMOS/</code> folder and confirm that these three files exist there:</li>
 </ol>
 <ul>
 <li><code>survey_demo_YYYYMMDD_v01.csv</code></li>
@@ -1018,9 +1018,9 @@ cookieconsent.run({
 <span id="cb1-5"><a href="#cb1-5"></a><span class="fu">list.files</span>(<span class="st">"data"</span>)</span>
 <span id="cb1-6"><a href="#cb1-6"></a></span>
 <span id="cb1-7"><a href="#cb1-7"></a><span class="co"># 3) Choose ONE file to read first (edit the filename to match your date)</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>file_csv  <span class="ot">&lt;-</span> <span class="st">"data/BCB744/survey_demo_YYYYMMDD_v01.csv"</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>file_tsv  <span class="ot">&lt;-</span> <span class="st">"data/BCB744/survey_demo_YYYYMMDD_v01.tsv"</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>file_scsv <span class="ot">&lt;-</span> <span class="st">"data/BCB744/survey_demo_YYYYMMDD_v01.scsv"</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>file_csv  <span class="ot">&lt;-</span> <span class="st">"data/SAMOS/survey_demo_YYYYMMDD_v01.csv"</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>file_tsv  <span class="ot">&lt;-</span> <span class="st">"data/SAMOS/survey_demo_YYYYMMDD_v01.tsv"</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>file_scsv <span class="ot">&lt;-</span> <span class="st">"data/SAMOS/survey_demo_YYYYMMDD_v01.scsv"</span></span>
 <span id="cb1-11"><a href="#cb1-11"></a></span>
 <span id="cb1-12"><a href="#cb1-12"></a><span class="co"># 4) Read one of them (start with TSV to avoid comma ambiguity in notes)</span></span>
 <span id="cb1-13"><a href="#cb1-13"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(file_tsv, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>

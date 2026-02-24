@@ -370,24 +370,6 @@ window.Quarto = {
  <span class="menu-text">17. Synthesis</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/18-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">18. Functions by Chapter</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/19-base_r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">19. Base R Primer</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/20-dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">20. Dates</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -657,7 +639,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This exercise requires that you analyse the data provided in <code>data/BCB744/SACTN_SAWS.csv</code> within <code>&lt;that which shall not be named&gt;</code>.</p>
+<p>This exercise requires that you analyse the data provided in <code>data/SAMOS/other_data/SACTN_SAWS.csv</code> within <code>&lt;that which shall not be named&gt;</code>.</p>
 <p>This dataset contains monthly seawater temperature time series for a selection of sites around the coast of South Africa.</p>
 <ol type="1">
 <li>How many sites are there?</li>
@@ -800,9 +782,9 @@ window.Quarto = {
 <p>Depending on the version of Excel you are using, or perhaps the settings within it, the <code>laminaria.csv</code> file you created may be corrupted in different ways. Generally Excel likes to replace the <code>,</code> between columns in our .csv files with <code>;</code>. This may seem like a triviality but sadly it is not. Lucky for use, the <strong>tidyverse</strong> knows about this problem, they have made a plan. Please open your<code>laminaria.csv</code> file and look at which character is being used to separate columns. If it is <code>,</code> then you will load the data with <code>read_csv()</code>. If the columns are separated with <code>;</code> you will use <code>read_csv2()</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Run this if 'laminaria.csv` has columns separated by ','</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"laminaria.csv"</span>))</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co"># Run this if 'laminaria.csv` has columns separated by ';'</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -815,10 +797,10 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <p><code>here::here()</code> builds a file path from the <strong>project root</strong>, so you do not have to set or guess the working directory. It exists to make your code portable: the same script works on different computers as long as the project folder stays intact.</p>
-<p>The default way is to give a plain path string, for example <code>"data/BCB744/laminaria.csv"</code>. <code>here::here()</code> just constructs that path for you. So:</p>
+<p>The default way is to give a plain path string, for example <code>"data/SAMOS/other_data/laminaria.csv"</code>. <code>here::here()</code> just constructs that path for you. So:</p>
 <ul>
-<li><code>here::here("data", "BCB744", "laminaria.csv")</code></li>
-<li>is equivalent to <code>"data/BCB744/laminaria.csv"</code></li>
+<li><code>here::here("data", "SAMOS", "other_data", "laminaria.csv")</code></li>
+<li>is equivalent to <code>"data/SAMOS/other_data/laminaria.csv"</code></li>
 </ul>
 <p>If you prefer the default style, you can replace any <code>here::here(...)</code> call with the plain path string it would build.</p>
 </div>
@@ -837,7 +819,7 @@ window.Quarto = {
 </div>
 <p>This will of course delete our variable, so you will import it in again using whichever of the following two lines of code matched our Excel situation. The workflow has now lost access to its primary data object. Any subsequent analysis thus depends on recreating it by important the data again.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1193,7 +1175,7 @@ R&gt;  [9] "stipe_diameter"  "digits"          "thallus_mass"    "total_length"<
 <span id="cb24-17"><a href="#cb24-17"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb24-18"><a href="#cb24-18"></a></span>
 <span id="cb24-19"><a href="#cb24-19"></a><span class="co"># Load the data</span></span>
-<span id="cb24-20"><a href="#cb24-20"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span>
+<span id="cb24-20"><a href="#cb24-20"></a>laminaria <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"laminaria.csv"</span>))</span>
 <span id="cb24-21"><a href="#cb24-21"></a></span>
 <span id="cb24-22"><a href="#cb24-22"></a><span class="co"># Examine the data</span></span>
 <span id="cb24-23"><a href="#cb24-23"></a><span class="fu">head</span>(laminaria, <span class="dv">5</span>) <span class="co"># First five lines</span></span>
@@ -1331,7 +1313,7 @@ R&gt;  [9] "stipe_diameter"  "digits"          "thallus_mass"    "total_length"<
 <p>A data format is suitable for reproducible workflows only if its contents can be inspected without invoking the software that created it.</p>
 <p>A major advantage of R over many other statistics packages is that you can generate exactly the same answers time and time again by simply re-running saved code. However, there are times when you will want to output data to a file that can be read by a spreadsheet program such as Excel (but try not to… please). The simplest general format is <code>.csv</code> (comma-separated values). This format is easily read by Excel, and also by many other software programs. To output a <code>.csv</code> type in your script:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">write_csv</span>(site_by_region, <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"kelp_summary.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">write_csv</span>(site_by_region, <span class="at">path =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"kelp_summary.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The first argument is simply the name of an object in R, in this case our table (a data object of class <em>table</em>) of counts by region, site (other sorts of data are available and so play around to see what can be done). The second argument is the name of the file you want to write to. This file will always be written to your working directory, unless otherwise specified by including a different path in the file name. Remember that file names need to be within quotation marks. The resultant file can sadly be opened in Excel.</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -1415,7 +1397,7 @@ Figure&nbsp;1: Scatterplot of stipe mass vs.&nbsp;stipe length for Laminaria.
 <h2 data-number="9.3" class="anchored" data-anchor-id="how-projects-affect-file-paths"><span class="header-section-number">9.3</span> How Projects Affect File Paths</h2>
 <p>When a project is active, all relative file paths are interpreted with respect to the project root. This means that code such as</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"laminaria.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>will work reliably as long as the file exists inside the project directory, regardless of where the project is stored on your computer or whose computer it is run on.</p>
 <p>Avoid manually changing the working directory with <code>setwd()</code> inside scripts. Doing so introduces hidden state and makes scripts dependent on local file paths. Projects remove the need for this entirely.</p>
