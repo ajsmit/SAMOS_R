@@ -341,24 +341,6 @@ cookieconsent.run({
  <span class="menu-text">17. Synthesis</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/18-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">18. Functions by Chapter</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/19-base_r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">19. Base R Primer</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../intro_r/20-dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">20. Dates</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -633,20 +615,20 @@ cookieconsent.run({
 <p>An <strong>absolute path</strong> specifies a file’s location starting from the root of the file system. Because it begins at the root, it uniquely identifies the file regardless of the current working context.</p>
 <p><strong>Examples:</strong></p>
 <p>Windows:</p>
-<p><code>C:\Users\Student\Documents\BCB744\data\BCB744\kelp.csv</code></p>
+<p><code>C:\Users\Student\Documents\SAMOS_R\data\SAMOS\processed\woa18_sa_core_1deg_monthly.csv</code></p>
 <p>macOS / Linux:</p>
-<p><code>/home/student/BCB744/data/BCB744/kelp.csv</code></p>
+<p><code>/home/student/SAMOS_R/data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv</code></p>
 <p>Notice that Windows uses backslashes <code>\</code> and maxOS and Linux use forward slashes <code>/</code>. This is a very important distinction between Windows and Unix-like operating systems.</p>
 <p>Absolute paths are unambiguous, but they are not very helpful when moving R (or other) scripts between different users. This is because they encode machine-specific details (usernames, drive letters) that differ between those users’ computers.</p>
 <p>A <strong>relative path</strong> specifies a file’s location <em>relative to the current working directory</em>. It does not begin at the root, but instead assumes a starting point. Relative paths are shorter, portable, and central to reproducible workflows.</p>
 <p>Assume the current working directory is:</p>
 <ul>
-<li><code>BCB744/</code></li>
+<li><code>SAMOS_R/</code></li>
 </ul>
 <p>Then:</p>
 <ul>
-<li><code>data/kelp.csv</code> refers to a file called <code>kelp.csv</code> inside the <code>data/BCB744</code> sub-directory.</li>
-<li><code>scripts/analysis.R</code> refers to an R file named <code>analysis.R</code> inside the <code>scripts</code> sub-directory.</li>
+<li><code>data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv</code> refers to the processed monthly oceanographic dataset inside the <code>data/SAMOS/processed</code> sub-directory.</li>
+<li><code>data/SAMOS/raw/woa18/temperature/woa18_decav_t01mn01.csv.gz</code> refers to a raw WOA18 temperature file inside <code>data/SAMOS/raw/woa18/temperature/</code>.</li>
 </ul>
 <p>Two special symbols appear frequently in relative paths:</p>
 <ul>
@@ -655,8 +637,8 @@ cookieconsent.run({
 </ul>
 <p>Examples:</p>
 <ul>
-<li><code>../data/kelp.csv</code> means “go up one directory, then into <code>data/BCB744</code>”.</li>
-<li><code>../../raw/sst.nc</code> means “go up two levels, then into <code>raw</code>”.</li>
+<li><code>../raw/woa18/temperature/woa18_decav_t01mn01.csv.gz</code> — if written from inside <code>data/SAMOS/processed/</code>, this goes up one level to <code>data/SAMOS/</code> and then down into <code>raw/woa18/temperature/</code>.</li>
+<li><code>../../processed/woa18_sa_core_1deg_monthly.csv</code> — if written from inside <code>data/SAMOS/raw/woa18/</code>, this goes up two levels to <code>data/SAMOS/</code> and then down into <code>processed/</code>.</li>
 </ul>
 <section id="the-working-directory" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="the-working-directory"><span class="header-section-number">2.1</span> The Working Directory</h2>
@@ -686,30 +668,26 @@ cookieconsent.run({
 </ol>
 <p>A typical project structure might look like this:</p>
 <ul>
-<li><code>BCB744_project/</code></li>
+<li><code>SAMOS_R/</code></li>
 </ul>
 <p>With sub-folders specific to the different purposes:</p>
 <ul>
-<li><code>data/</code></li>
-<li><code>scripts/</code></li>
-<li><code>figures/</code></li>
-<li><code>reports/</code></li>
+<li><code>data/SAMOS/raw/</code> … (raw WOA18 source files, organised by variable: <code>temperature/</code>, <code>salinity/</code>, <code>oxygen/</code>, etc.)</li>
+<li><code>data/SAMOS/processed/</code> … (cleaned, integrated datasets ready for analysis)</li>
 </ul>
-<p>If this directory is an RStudio Project, then a script inside <code>scripts/</code> can read data using:</p>
+<p>If this directory is an RStudio Project, then all code can read data using short relative paths:</p>
 <ul>
-<li><code>data/kelp.csv</code></li>
+<li><code>data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv</code></li>
 </ul>
 <p>without calling <code>setwd()</code>, and without caring where the project lives on the machine.</p>
 <p>This is why projects are treated as non-negotiable infrastructure in this course. They make file paths explicit, stable, and inspectable.</p>
 <p>Software such as R interprets all file paths relative to its <strong>working directory</strong> — the directory it currently considers as “here”. Confusion about file paths is therefore almost always confusion about the working directory. When files cannot be found, the problem is rarely the file itself; it is the path used to describe it.</p>
 <p>For this reason, analyses should be organised as <strong>projects</strong>, with a clear internal structure. A minimal example might look like this:</p>
 <ul>
-<li><p><code>BCB744/</code></p>
+<li><p><code>SAMOS_R/</code></p>
 <ul>
-<li><code>data/</code> … (raw or cleaned data)</li>
-<li><code>scripts/</code> … (R scripts)</li>
-<li><code>figures/</code> … (output plots)</li>
-<li><code>reports/</code> … (Quarto or R Markdown documents)</li>
+<li><code>data/SAMOS/raw/</code> … (raw source files, organised by variable)</li>
+<li><code>data/SAMOS/processed/</code> … (cleaned datasets ready for analysis)</li>
 </ul></li>
 </ul>
 <p>When code is run from the project root, all file access can use relative paths, avoiding hard-coded references to specific machines.</p>
@@ -724,11 +702,11 @@ cookieconsent.run({
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>On your computer, create a directory called <code>filesystem_practice</code>. Inside it, create three sub-directories: <code>data</code>, <code>scripts</code>, and <code>output</code>. Place a small text file inside <code>data</code>.</p></li>
-<li><p>Place a small text or CSV file inside <code>data</code>. From the R Console, run <code>getwd()</code> and confirm that it points to the project root.</p></li>
-<li><p>From a script inside <code>scripts</code>, write the relative path needed to read the file in <code>data</code>. Then write the absolute path to the same file. Which one would still work on another computer?</p></li>
-<li><p>Deliberately break a path by misspelling a directory name. Observe the error message produced by the software. Correct the path and rerun the command.</p></li>
-<li><p>(Deliberately bad practice) Use <code>setwd()</code> to point R directly at the data directory. Now try running the script again from a different location. Explain why this approach fails as a general strategy.</p></li>
+<li><p>Open the <code>SAMOS_R</code> project in RStudio. From the R Console, run <code>getwd()</code> and confirm that it returns the path to the <code>SAMOS_R</code> project root.</p></li>
+<li><p>From the Console, use a relative path to read the processed dataset: <code>read.csv("data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv")</code>. Then construct its absolute path on your machine. Which one would still work on another computer?</p></li>
+<li><p>From the Console, try reading one of the raw files: <code>read.csv("data/SAMOS/raw/woa18/temperature/woa18_decav_t01mn01.csv.gz")</code>. Confirm the file loads successfully.</p></li>
+<li><p>Deliberately break a path by misspelling a directory name (e.g., <code>data/SAMOS/procesed/woa18_sa_core_1deg_monthly.csv</code>). Observe the error message. Correct the spelling and rerun.</p></li>
+<li><p>(Deliberately bad practice) Use <code>setwd("data/SAMOS/processed")</code> to point R directly at the processed data directory. Now try reading <code>woa18_sa_core_1deg_monthly.csv</code> without a path prefix, then try reading a raw file from <code>data/SAMOS/raw/</code>. Explain why this approach fails as a general strategy.</p></li>
 </ol>
 <p>These exercises should help you to develop a form of spatial reasoning that underlies all your analyses 9and working with your computer in general — good housekeeping stems from this! If you cannot reliably locate files you also cannot reason clearly about data provenance, reproducibility, or control over your analysis.</p>
 </div>

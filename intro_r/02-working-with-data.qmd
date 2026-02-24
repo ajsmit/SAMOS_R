@@ -76,11 +76,11 @@ An **absolute path** specifies a file’s location starting from the root of the
 
 Windows:
 
-`C:\Users\Student\Documents\BCB744\data\BCB744\kelp.csv`
+`C:\Users\Student\Documents\SAMOS_R\data\SAMOS\processed\woa18_sa_core_1deg_monthly.csv`
 
 macOS / Linux:
 
-`/home/student/BCB744/data/BCB744/kelp.csv`
+`/home/student/SAMOS_R/data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv`
 
 Notice that Windows uses backslashes `\` and maxOS and Linux use forward slashes `/`. This is a very important distinction between Windows and Unix-like operating systems.
 
@@ -90,12 +90,12 @@ A **relative path** specifies a file’s location *relative to the current worki
 
 Assume the current working directory is:
 
-* `BCB744/`
+* `SAMOS_R/`
 
 Then:
 
-* `data/kelp.csv` refers to a file called `kelp.csv` inside the `data/BCB744` sub-directory.
-* `scripts/analysis.R` refers to an R file named `analysis.R` inside the `scripts` sub-directory.
+* `data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv` refers to the processed monthly oceanographic dataset inside the `data/SAMOS/processed` sub-directory.
+* `data/SAMOS/raw/woa18/temperature/woa18_decav_t01mn01.csv.gz` refers to a raw WOA18 temperature file inside `data/SAMOS/raw/woa18/temperature/`.
 
 Two special symbols appear frequently in relative paths:
 
@@ -104,8 +104,8 @@ Two special symbols appear frequently in relative paths:
 
 Examples:
 
-* `../data/kelp.csv` means “go up one directory, then into `data/BCB744`”.
-* `../../raw/sst.nc` means “go up two levels, then into `raw`”.
+* `../raw/woa18/temperature/woa18_decav_t01mn01.csv.gz` — if written from inside `data/SAMOS/processed/`, this goes up one level to `data/SAMOS/` and then down into `raw/woa18/temperature/`.
+* `../../processed/woa18_sa_core_1deg_monthly.csv` — if written from inside `data/SAMOS/raw/woa18/`, this goes up two levels to `data/SAMOS/` and then down into `processed/`.
 
 ## The Working Directory
 The **working directory** is the directory that R treats as its current location. All relative paths are interpreted with respect to this directory.
@@ -135,19 +135,17 @@ An **RStudio Project** defines a directory as the root of an analysis and sets i
 3. Code runs the same way on different computers.
 
 A typical project structure might look like this:
-  
-* `BCB744_project/`
+
+* `SAMOS_R/`
 
 With sub-folders specific to the different purposes:
 
-* `data/`
-* `scripts/`
-* `figures/`
-* `reports/`
+* `data/SAMOS/raw/` ... (raw WOA18 source files, organised by variable: `temperature/`, `salinity/`, `oxygen/`, etc.)
+* `data/SAMOS/processed/` ... (cleaned, integrated datasets ready for analysis)
 
-If this directory is an RStudio Project, then a script inside `scripts/` can read data using:
-  
-* `data/kelp.csv`
+If this directory is an RStudio Project, then all code can read data using short relative paths:
+
+* `data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv`
 
 without calling `setwd()`, and without caring where the project lives on the machine.
 
@@ -157,26 +155,24 @@ Software such as R interprets all file paths relative to its **working directory
 
 For this reason, analyses should be organised as **projects**, with a clear internal structure. A minimal example might look like this:
 
-* `BCB744/`
+* `SAMOS_R/`
 
-  * `data/` ... (raw or cleaned data)
-  * `scripts/` ... (R scripts)
-  * `figures/` ... (output plots)
-  * `reports/` ... (Quarto or R Markdown documents)
+  * `data/SAMOS/raw/` ... (raw source files, organised by variable)
+  * `data/SAMOS/processed/` ... (cleaned datasets ready for analysis)
 
 When code is run from the project root, all file access can use relative paths, avoiding hard-coded references to specific machines.
 
 ::: callout-important
 ## Do This Now
-1. On your computer, create a directory called `filesystem_practice`. Inside it, create three sub-directories: `data`, `scripts`, and `output`. Place a small text file inside `data`.
+1. Open the `SAMOS_R` project in RStudio. From the R Console, run `getwd()` and confirm that it returns the path to the `SAMOS_R` project root.
 
-2. Place a small text or CSV file inside `data`. From the R Console, run `getwd()` and confirm that it points to the project root.
+2. From the Console, use a relative path to read the processed dataset: `read.csv("data/SAMOS/processed/woa18_sa_core_1deg_monthly.csv")`. Then construct its absolute path on your machine. Which one would still work on another computer?
 
-3. From a script inside `scripts`, write the relative path needed to read the file in `data`. Then write the absolute path to the same file. Which one would still work on another computer?
+3. From the Console, try reading one of the raw files: `read.csv("data/SAMOS/raw/woa18/temperature/woa18_decav_t01mn01.csv.gz")`. Confirm the file loads successfully.
 
-4. Deliberately break a path by misspelling a directory name. Observe the error message produced by the software. Correct the path and rerun the command.
+4. Deliberately break a path by misspelling a directory name (e.g., `data/SAMOS/procesed/woa18_sa_core_1deg_monthly.csv`). Observe the error message. Correct the spelling and rerun.
 
-5. (Deliberately bad practice) Use `setwd()` to point R directly at the data directory. Now try running the script again from a different location. Explain why this approach fails as a general strategy.
+5. (Deliberately bad practice) Use `setwd("data/SAMOS/processed")` to point R directly at the processed data directory. Now try reading `woa18_sa_core_1deg_monthly.csv` without a path prefix, then try reading a raw file from `data/SAMOS/raw/`. Explain why this approach fails as a general strategy.
 
 These exercises should help you to develop a form of spatial reasoning that underlies all your analyses 9and working with your computer in general --- good housekeeping stems from this! If you cannot reliably locate files you also cannot reason clearly about data provenance, reproducibility, or control over your analysis.
 :::
