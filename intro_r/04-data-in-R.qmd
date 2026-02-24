@@ -63,7 +63,7 @@ Let us delve into how biologists classify data and the distinct terminology they
 
 So, in this chapter, we move from phenomena in the world, to variables that describe them, to the computer representations that make analysis possible. 
 
-# Types of Variables Common in Biology and Ecology
+# Types of Variables Common in Ocean Sciences
 
 Here we cover the first step that translates observations to data. This is where and how empirical phenomena are represented as variables, before any consideration of how the R software may later store or manipulate them.
 
