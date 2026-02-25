@@ -163,6 +163,9 @@ With these four different figures created we may now combine them. They show dif
 ```{r fig-facet-grid}
 #| warning: false
 #| message: false
+#| fig.width: 8
+#| fig.height: 6
+#| out.width: "100%"
 #| fig.cap: "Four complementary summaries of the WOA18 February climatology."
 ggarrange(line_1, sm_1, histogram_1, box_1,
           ncol = 2, nrow = 2,

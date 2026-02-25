@@ -456,13 +456,13 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task C</span></a>
+ <span class="menu-text">BCB744 Task D</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task D</span></a>
+ <span class="menu-text">BCB744 Task C</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1012,16 +1012,23 @@ Figure&nbsp;6: Temperature vs dissolved oxygen, with explicit labels and legend 
 <span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"dissolved_oxygen"</span>, <span class="st">"nitrate"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">group_by</span>(variable, unit, depth_m) <span class="sc">%&gt;%</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> depth_m, <span class="at">colour =</span> variable)) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">geom_path</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value (see legend)"</span>, <span class="at">y =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="at">facet_label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb12-7"><a href="#cb12-7"></a>      <span class="fu">str_to_title</span>(<span class="fu">str_replace_all</span>(variable, <span class="st">"_"</span>, <span class="st">" "</span>)),</span>
+<span id="cb12-8"><a href="#cb12-8"></a>      <span class="st">" ("</span>, unit, <span class="st">")"</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>    )</span>
+<span id="cb12-10"><a href="#cb12-10"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> depth_m)) <span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a>  <span class="fu">geom_path</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> facet_label, <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Depth (m)"</span>) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="10-graphics_files/figure-html/woa-core-example-profile-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Mean vertical profiles (annual climatology, region-average)."><img src="10-graphics_files/figure-html/woa-core-example-profile-1.png" class="img-fluid figure-img" style="width:75.0%" alt="Mean vertical profiles (annual climatology, region-average)."></a></p>
+<p><a href="10-graphics_files/figure-html/woa-core-example-profile-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Mean vertical profiles (annual climatology, region-average)."><img src="10-graphics_files/figure-html/woa-core-example-profile-1.png" class="img-fluid figure-img" style="width:100.0%" alt="Mean vertical profiles (annual climatology, region-average)."></a></p>
 <figcaption>Mean vertical profiles (annual climatology, region-average).</figcaption>
 </figure>
 </div>

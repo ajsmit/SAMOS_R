@@ -36,16 +36,26 @@ woa_surf_feb %>%
   theme_minimal()
 ```
 
-```{r woa-core-example-profile, fig.width=5.5, fig.asp=0.7, out.width="75%"}
+```{r woa-core-example-profile, fig.width=9, fig.asp=0.5, out.width="100%"}
+#| fig.width: 8
+#| fig.height: 6
+#| out.width: "100%"
 #| fig-cap: "Mean vertical profiles (annual climatology, region-average)."
 woa %>%
   filter(month == 0, variable %in% c("temperature", "dissolved_oxygen", "nitrate")) %>%
   group_by(variable, unit, depth_m) %>%
   summarise(value = mean(value, na.rm = TRUE), .groups = "drop") %>%
-  ggplot(aes(x = value, y = depth_m, colour = variable)) +
+  mutate(
+    facet_label = paste0(
+      str_to_title(str_replace_all(variable, "_", " ")),
+      " (", unit, ")"
+    )
+  ) %>%
+  ggplot(aes(x = value, y = depth_m)) +
   geom_path(linewidth = 0.8) +
   scale_y_reverse() +
-  labs(x = "Value (see legend)", y = "Depth (m)") +
-  theme_minimal() +
-  theme(legend.position = "bottom")
+  facet_wrap(~ facet_label, scales = "free_x", nrow = 1) +
+  labs(x = NULL, y = "Depth (m)") +
+  theme_bw() +
+  theme(strip.text = element_text(size = 11))
 ```
