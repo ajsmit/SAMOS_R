@@ -3055,25 +3055,25 @@
   {
     "objectID": "tasks/BCB744_Task_D.html#question-1",
     "href": "tasks/BCB744_Task_D.html#question-1",
-    "title": "BCB744 Task D",
-    "section": "Question 1",
-    "text": "Question 1\nCreate a scatterplot of salinity against temperature (a classic T–S view) for the surface (0 m) climatology in February. Label axes with units. (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa_feb_surf %&gt;%\n  filter(variable %in% c(\"temperature\", \"salinity\")) %&gt;%\n  select(lon, lat, variable, value) %&gt;%\n  pivot_wider(names_from = variable, values_from = value) %&gt;%\n  ggplot(aes(x = salinity, y = temperature)) +\n  geom_point(alpha = 0.35, size = 0.8) +\n  labs(x = \"Salinity (PSU)\", y = \"Temperature (°C)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 1: WOA18 February surface climatology: temperature vs salinity (T–S view).\n\n\n\n\n\nInterpretation (example): the scatter is not a time series; it is the spatial range of surface conditions across the region. Expect warmer, saltier points toward the subtropics and cooler/fresher points toward higher latitudes and near river-influenced shelves.",
+    "title": "BCB744 Task C",
+    "section": "1.1 Question 1",
+    "text": "1.1 Question 1\n\n\n\n\n\n\n\n\nFigure 1: Styled Southern Africa map with annotations and scale.\n\n\n\n\n\nAesthetically improve the map you created in this lecture (above example) and add a title and subtitle. Also adjust it to show appropriately labelled axes. (/15)",
     "crumbs": [
       "Home",
       "Tasks",
-      "BCB744 Task D"
+      "BCB744 Task C"
     ]
   },
   {
     "objectID": "tasks/BCB744_Task_D.html#question-2",
     "href": "tasks/BCB744_Task_D.html#question-2",
-    "title": "BCB744 Task D",
-    "section": "Question 2",
-    "text": "Question 2\nCreate three histograms of surface nitrate (February), one for each depth bin below (treat depth as a filter, not a facet):\n\n0 m\n50 m\n200 m\n\nSave each histogram as an R object. Then combine them into one figure using ggarrange() (1 column × 3 rows). (/25)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nn0 &lt;- woa %&gt;%\n  filter(month == 2, variable == \"nitrate\", depth_m == 0) %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 40, fill = \"grey70\", colour = \"white\") +\n  labs(title = \"0 m\", x = \"Nitrate (µmol/kg)\", y = \"Count\") +\n  theme_minimal()\n\nn50 &lt;- woa %&gt;%\n  filter(month == 2, variable == \"nitrate\", depth_m == 50) %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 40, fill = \"grey70\", colour = \"white\") +\n  labs(title = \"50 m\", x = \"Nitrate (µmol/kg)\", y = \"Count\") +\n  theme_minimal()\n\nn200 &lt;- woa %&gt;%\n  filter(month == 2, variable == \"nitrate\", depth_m == 200) %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 40, fill = \"grey70\", colour = \"white\") +\n  labs(title = \"200 m\", x = \"Nitrate (µmol/kg)\", y = \"Count\") +\n  theme_minimal()\n\nggarrange(n0, n50, n200, ncol = 1, nrow = 3)\n\n\n\n\n\n\n\nFigure 2: Nitrate distributions at three depths (February climatology).\n\n\n\n\n\nInterpretation (example): nitrate is typically low at the surface (consumed by biology) and increases with depth as remineralised nutrients accumulate.",
+    "title": "BCB744 Task C",
+    "section": "1.2 Question 2",
+    "text": "1.2 Question 2\nAdd a the capital city/town of each province to the map using geom_point() and ensure the place name is correctly associated with its point. (/5)",
     "crumbs": [
       "Home",
       "Tasks",
-      "BCB744 Task D"
+      "BCB744 Task C"
     ]
   },
   {
@@ -3268,49 +3268,49 @@
   {
     "objectID": "tasks/BCB744_Task_D.html#question-3",
     "href": "tasks/BCB744_Task_D.html#question-3",
-    "title": "BCB744 Task D",
-    "section": "Question 3",
-    "text": "Question 3\nCreate a scatter plot of temperature against latitude for February, and use facet_wrap() to create separate panels for each depth (0, 50, 100, 200, 500 m). Add a smooth line to each panel. (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(month == 2, variable == \"temperature\", depth_m %in% c(0, 50, 100, 200, 500)) %&gt;%\n  ggplot(aes(x = lat, y = value)) +\n  geom_point(alpha = 0.15, size = 0.6) +\n  geom_smooth(se = FALSE, method = \"loess\") +\n  facet_wrap(~ depth_m, ncol = 3) +\n  labs(x = \"Latitude (°N)\", y = \"Temperature (°C)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 3: Temperature vs latitude by depth (February climatology).\n\n\n\n\n\nInterpretation (example): the surface panel usually shows the strongest meridional gradient; deeper panels show reduced seasonal/latitudinal contrast.",
+    "title": "BCB744 Task C",
+    "section": "2.1 Question 3",
+    "text": "2.1 Question 3\nWhy does the map region extend so far south of the southern tip of Africa when we requested only the countries South Africa, Mozambique, Namibia, Zimbabwe, Botswana, Lesotho, and Eswatini? (/1)",
     "crumbs": [
       "Home",
       "Tasks",
-      "BCB744 Task D"
+      "BCB744 Task C"
     ]
   },
   {
     "objectID": "tasks/BCB744_Task_D.html#question-4",
     "href": "tasks/BCB744_Task_D.html#question-4",
-    "title": "BCB744 Task D",
-    "section": "Question 4",
-    "text": "Question 4\nCreate a scatter plot of dissolved oxygen against temperature at the surface (0 m), using all months (1–12). Use facet_wrap() to create one panel per month, and map a continuous colour scale to oxygen using a custom gradient (not the default). (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(depth_m == 0, month %in% 1:12, variable %in% c(\"temperature\", \"dissolved_oxygen\")) %&gt;%\n  select(lon, lat, month, variable, value) %&gt;%\n  pivot_wider(names_from = variable, values_from = value) %&gt;%\n  ggplot(aes(x = temperature, y = dissolved_oxygen, colour = dissolved_oxygen)) +\n  geom_point(alpha = 0.5, size = 0.7) +\n  facet_wrap(~ month, ncol = 4) +\n  scale_colour_gradientn(\n    colours = c(\"#2c7bb6\", \"#abd9e9\", \"#ffffbf\", \"#fdae61\", \"#d7191c\"),\n    name = \"Oxygen (µmol/kg)\"\n  ) +\n  labs(x = \"Temperature (°C)\", y = \"Dissolved oxygen (µmol/kg)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 4: Surface oxygen vs temperature by month (custom continuous palette).\n\n\n\n\n\nInterpretation (example): oxygen tends to be higher in cooler waters, but the relationship can vary by month and location because circulation and biology matter.",
+    "title": "BCB744 Task C",
+    "section": "2.2 Question 4",
+    "text": "2.2 Question 4\nHow do we fix this to plot a more sensible map of the region? (/1)",
     "crumbs": [
       "Home",
       "Tasks",
-      "BCB744 Task D"
+      "BCB744 Task C"
     ]
   },
   {
     "objectID": "tasks/BCB744_Task_D.html#question-5",
     "href": "tasks/BCB744_Task_D.html#question-5",
-    "title": "BCB744 Task D",
-    "section": "Question 5",
-    "text": "Question 5\nUsing the figure created in Question 4, also show the effect of depth by adding shapes for depth (0 vs 50 m). Fit a single best‑fit straight line (ignoring depth) to each monthly panel. Explain what the line represents. (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(depth_m %in% c(0, 50), month %in% 1:12, variable %in% c(\"temperature\", \"dissolved_oxygen\")) %&gt;%\n  select(lon, lat, month, depth_m, variable, value) %&gt;%\n  pivot_wider(names_from = variable, values_from = value) %&gt;%\n  ggplot(aes(x = temperature, y = dissolved_oxygen)) +\n  geom_point(aes(colour = dissolved_oxygen, shape = factor(depth_m)), alpha = 0.55, size = 0.8) +\n  geom_smooth(method = \"lm\", se = TRUE, colour = \"black\") +\n  facet_wrap(~ month, ncol = 4) +\n  scale_colour_viridis_c(name = \"Oxygen (µmol/kg)\") +\n  labs(\n    x = \"Temperature (°C)\",\n    y = \"Dissolved oxygen (µmol/kg)\",\n    shape = \"Depth (m)\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 5: Oxygen vs temperature by month, showing depth via point shape.\n\n\n\n\n\nInterpretation (example): the line is a within-panel linear summary of the oxygen–temperature association across all grid cells shown in that month. It is not causal, and it ignores spatial structure and depth effects.",
+    "title": "BCB744 Task C",
+    "section": "2.3 Question 5",
+    "text": "2.3 Question 5\nWhat does st_buffer(0.4) do? (/1)",
     "crumbs": [
       "Home",
       "Tasks",
-      "BCB744 Task D"
+      "BCB744 Task C"
     ]
   },
   {
     "objectID": "tasks/BCB744_Task_D.html#question-6",
     "href": "tasks/BCB744_Task_D.html#question-6",
-    "title": "BCB744 Task D",
-    "section": "Question 6",
-    "text": "Question 6\nWhat are the benefits of using faceting in data visualisation? (/3)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nFaceting lets you compare the same relationship across groups (months, depths, variables) using a consistent visual grammar.\nIt reduces overplotting and legend complexity by separating groups into panels.\nIt supports pattern recognition (seasonal structure, depth structure) without changing the underlying plotting code.",
+    "title": "BCB744 Task C",
+    "section": "2.4 Question 6",
+    "text": "2.4 Question 6\nWith the map that we created in the lecture with Natural Earth and sf (i.e., you can start with the script in the lecture), zoom into False Bay, the Cape Peninsula. Add the location of the Cape Town city centre to the map usinggeom_point(). Ensure the point is correctly associated with the city name. Ensure the map is correctly labelled and has a title, and is as close to publication quality as you can make it. Pay close attention to the axes (breaks, limits) and the map extent. Some marks are allocated to a pleasing and sensible aesthetic appearance. (/20)",
     "crumbs": [
       "Home",
       "Tasks",
-      "BCB744 Task D"
+      "BCB744 Task C"
     ]
   },
   {

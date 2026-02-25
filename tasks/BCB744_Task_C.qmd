@@ -40,14 +40,11 @@ ggplot2::theme_set(
 ```
 
 ```{r code-knitr-opts-chunk-set, echo=FALSE}
-
 library(tidyverse)
 library(ggpubr)
 library(ggthemes)
 library(here)
 ```
-
-# [The Self-Assessment Sheet is on iKamva]{.my-highlight} {#sec-assessment}
 
 # 10–12. Graphics With ggplot2, Faceting Figures, and Brewing Colours (WOA edition)
 
