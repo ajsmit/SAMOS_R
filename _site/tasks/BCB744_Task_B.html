@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -455,12 +420,15 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task C</span></a>
+ <span class="menu-text">BCB744 Task D</span></a>
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">tasks/BCB744_Task_D.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BCB744 Task C</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/BCB744_Task_E.html" class="sidebar-item-text sidebar-link">
@@ -518,8 +486,6 @@ cookieconsent.run({
   <li><a href="#question-11-complex" id="toc-question-11-complex" class="nav-link" data-scroll-target="#question-11-complex">Question 11 (complex)</a></li>
   <li><a href="#question-12-complex" id="toc-question-12-complex" class="nav-link" data-scroll-target="#question-12-complex">Question 12 (complex)</a></li>
   <li><a href="#question-13-complex" id="toc-question-13-complex" class="nav-link" data-scroll-target="#question-13-complex">Question 13 (complex)</a></li>
-  <li><a href="#question-14" id="toc-question-14" class="nav-link" data-scroll-target="#question-14">Question 14</a></li>
-  <li><a href="#question-15" id="toc-question-15" class="nav-link" data-scroll-target="#question-15">Question 15</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/tasks/BCB744_Task_B.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -669,105 +635,6 @@ cookieconsent.run({
 <li>include a short written interpretation (2–4 sentences)</li>
 </ul>
 <p><strong>(/30)</strong></p>
-</section>
-<section id="question-14" class="level2">
-<h2 class="anchored" data-anchor-id="question-14">Question 14</h2>
-<p>What are the key principles of tidy data? <strong>(/3)</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ul>
-<li>✓ Each variable forms a column.</li>
-<li>✓ Each observation forms a row.</li>
-<li>✓ Each type of observational unit forms a table.</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="question-15" class="level2">
-<h2 class="anchored" data-anchor-id="question-15">Question 15</h2>
-<p>Using the untidy data (<code>SACTN2</code>) and the tidy data (<code>SACTN2_tidy</code>), create line graphs, one for each of DEA, SAWS, and KZNSB, showing a time series of temperature. Ensure you have a column of three figures (ncol = 1). Use the fewest number of lines of code possible. You should end up with two graphs, each with three panels. <strong>(/13)</strong></p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"SACTN_mangled.RData"</span>))</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>SACTN2_tidy <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
-<span id="cb1-7"><a href="#cb1-7"></a>  SACTN2,</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"DEA"</span>, <span class="st">"KZNSB"</span>, <span class="st">"SAWS"</span>),</span>
-<span id="cb1-9"><a href="#cb1-9"></a>  <span class="at">names_to =</span> <span class="st">"src"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10"></a>  <span class="at">values_to =</span> <span class="st">"temp"</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>)</span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Starting with SACTN2 (untidy): tidy it on the fly, then plot</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>SACTN2 <span class="sc">|&gt;</span> </span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"DEA"</span>, <span class="st">"KZNSB"</span>, <span class="st">"SAWS"</span>),</span>
-<span id="cb1-17"><a href="#cb1-17"></a>    <span class="at">names_to =</span> <span class="st">"src"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18"></a>    <span class="at">values_to =</span> <span class="st">"temp"</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb1-20"><a href="#cb1-20"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">col =</span> site, <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> src, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Untidy (tidied in pipeline)"</span>, <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24"></a></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="co"># Starting with the already-tidy data</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a></span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="fu">ggplot</span>(<span class="at">data =</span> SACTN2_tidy, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">col =</span> site, <span class="at">linetype =</span> type)) <span class="sc">+</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> src, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Already tidy"</span>, <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-library-tidyverse-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-library-tidyverse-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="BCB744_Task_B_files/figure-html/fig-library-tidyverse-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;1: SACTN2 temperature time series faceted by source."><img src="BCB744_Task_B_files/figure-html/fig-library-tidyverse-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-library-tidyverse-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: SACTN2 temperature time series faceted by source.
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-library-tidyverse-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-library-tidyverse-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="BCB744_Task_B_files/figure-html/fig-library-tidyverse-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;2: SACTN2 temperature time series faceted by source."><img src="BCB744_Task_B_files/figure-html/fig-library-tidyverse-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-library-tidyverse-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: SACTN2 temperature time series faceted by source.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 
 </section>
@@ -1197,8 +1064,8 @@ A. J. S BCB744 Task B. <a href="http://samos-r.netlify.app/tasks/BCB744_Task_B.h
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../tasks/BCB744_Task_C.html" class="pagination-link" aria-label="BCB744 Task C">
-        <span class="nav-page-text">BCB744 Task C</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../tasks/BCB744_Task_C.html" class="pagination-link" aria-label="BCB744 Task D">
+        <span class="nav-page-text">BCB744 Task D</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
