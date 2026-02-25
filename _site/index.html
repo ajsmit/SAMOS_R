@@ -80,9 +80,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-a72d73f98a4a7f3df5cb9b4599317c55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -455,13 +452,13 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task C</span></a>
+ <span class="menu-text">BCB744 Task D</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task D</span></a>
+ <span class="menu-text">BCB744 Task C</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -585,7 +582,16 @@ cookieconsent.run({
 </header>
 
 
-<p><a href="./images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="./images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
+<table style="width:100%; border-collapse:collapse; border:none; margin-bottom:1rem;">
+<tbody><tr>
+<td style="width:50%; text-align:left; border:none; padding:0; vertical-align:top;">
+<img src="./images/SAMOS-logo-transparent.png" style="width:70%;" alt="SAMOS logo">
+</td>
+<td style="width:50%; text-align:right; border:none; padding:0; vertical-align:top;">
+<img src="./images/EU_logo.svg" style="width:35%;" alt="EU logo">
+</td>
+</tr>
+</tbody></table>
 <section id="about-samos" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> About SAMOS</h1>
 <p>The <strong>South African Master of Ocean Sciences (SAMOS / AOS‑SAMOS)</strong> is a joint Master’s programme organised by multiple South African and European partner universities, supported by the EU <strong>ERASMUS+ Capacity Building in Higher Education (CBHE)</strong> programme. The programme builds on the strengths of the University of Cape Town’s <strong>Applied Ocean Sciences (AOS)</strong> Master’s, and aims to train multidisciplinary ocean professionals for the evolving needs of the blue bio‑economy and for research supporting the sustainable use and conservation of marine ecosystems.</p>
@@ -695,7 +701,7 @@ cookieconsent.run({
 <td style="text-align: left;">L3</td>
 <td style="text-align: left;"><a href="./intro_r/07-tidy.html">7. Tidy Data</a></td>
 <td style="text-align: left;">25 Feb 26</td>
-<td style="text-align: left;"><a href="./tasks/BCB744_Task_D.html">Task D</a></td>
+<td style="text-align: left;"><a href="./tasks/BCB744_Task_B.html">Task B</a></td>
 <td style="text-align: left;">26 Feb 26</td>
 </tr>
 <tr class="even">
@@ -719,7 +725,7 @@ cookieconsent.run({
 <td style="text-align: left;">L4</td>
 <td style="text-align: left;"><a href="./intro_r/10-graphics.html">10. Graphics With <strong>ggplot2</strong></a></td>
 <td style="text-align: left;">26 Feb 26</td>
-<td style="text-align: left;"><a href="./tasks/BCB744_Task_B.html">Task B</a></td>
+<td style="text-align: left;"><a href="./tasks/BCB744_Task_C.html">Task C</a></td>
 <td style="text-align: left;">27 Feb 26</td>
 </tr>
 <tr class="odd">
@@ -743,7 +749,7 @@ cookieconsent.run({
 <td style="text-align: left;">L5</td>
 <td style="text-align: left;"><a href="./intro_r/13-mapping.html">13. Mapping With <strong>ggplot2</strong></a></td>
 <td style="text-align: left;">27 Feb 26</td>
-<td style="text-align: left;"><a href="./tasks/BCB744_Task_C.html">Task C</a></td>
+<td style="text-align: left;"><a href="./tasks/BCB744_Task_D.html">Task D</a></td>
 <td style="text-align: left;">02 Mar 26</td>
 </tr>
 <tr class="even">
@@ -1517,38 +1523,6 @@ A. J. S (2026) SAMOS Core Module 3.2 &amp; 3.4. <a href="http://samos-r.netlify.
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

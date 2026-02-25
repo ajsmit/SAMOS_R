@@ -14,11 +14,11 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_C.html</loc>
-    <lastmod>2026-02-24T06:39:49.731Z</lastmod>
+    <lastmod>2026-02-25T05:09:35.956Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_B.html</loc>
-    <lastmod>2026-02-23T13:47:08.439Z</lastmod>
+    <lastmod>2026-02-25T05:03:57.687Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/pages/kaggle_earthquakes.html</loc>
@@ -134,7 +134,7 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/index.html</loc>
-    <lastmod>2026-02-23T07:44:25.848Z</lastmod>
+    <lastmod>2026-02-25T05:32:04.473Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/intro_r/02-working-with-data.html</loc>
@@ -194,7 +194,7 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_D.html</loc>
-    <lastmod>2026-02-24T06:39:49.738Z</lastmod>
+    <lastmod>2026-02-25T05:05:18.539Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_F.html</loc>
@@ -203,5 +203,13 @@
   <url>
     <loc>http://samos-r.netlify.app/tasks/BCB744_Task_H.html</loc>
     <lastmod>2026-02-07T08:49:49.794Z</lastmod>
+  </url>
+  <url>
+    <loc>http://samos-r.netlify.app/reports/Day_2_lectures.html</loc>
+    <lastmod>2026-02-25T04:57:00.316Z</lastmod>
+  </url>
+  <url>
+    <loc>http://samos-r.netlify.app/reports/SAMOS_Task_A.html</loc>
+    <lastmod>2026-02-25T04:57:02.670Z</lastmod>
   </url>
 </urlset>

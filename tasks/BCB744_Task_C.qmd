@@ -1,10 +1,11 @@
 ---
-title: "BCB744 Task C"
+title: "BCB744 Task D"
 format: 
   html:
     fig-format: svg
     fig_retina: 2
-    fig-dpi: 400
+    fig-dpi: 300
+    number-sections: false
 params: 
   hide_answers: true
 execute:
@@ -12,17 +13,19 @@ execute:
   dev: ragg_png
 ---
 
-
 ![](/images/SAMOS-logo-transparent.png){width="35%"}
 
 ```{r code-brewing-opts, echo=FALSE}
 knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = TRUE,
   comment = "R>", 
   warning = FALSE, 
   message = FALSE,
   fig.width = 4.5,
   fig.height = 2.625,
   out.width = "75%",
+    fig.align = "center",
   fig.asp = NULL, # control via width/height
   dpi = 300
 )
@@ -30,385 +33,342 @@ knitr::opts_chunk$set(
 ggplot2::theme_set(
   ggplot2::theme_minimal(base_size = 8)
 )
+
 ggplot2::theme_set(
   ggplot2::theme_bw(base_size = 8)
 )
 ```
 
 ```{r code-knitr-opts-chunk-set, echo=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  eval = TRUE,
-  warning = FALSE,
-  message = FALSE,
-  fig.width = 6,
-  fig.asp = 0.65,
-  out.width = "100%",
-  fig.align = "center"
-)
+
 library(tidyverse)
 library(ggpubr)
 library(ggthemes)
+library(here)
 ```
 
-# [[Assessment Sheet](BCB744_Task_C_Surname.xlsx)]{.my-highlight} {#sec-assessment}
+# [The Self-Assessment Sheet is on iKamva]{.my-highlight} {#sec-assessment}
 
-# 12–14. Mapping (with style + Natural Earth)
+# 10–12. Graphics With ggplot2, Faceting Figures, and Brewing Colours (WOA edition)
 
-## Question 1
-```{r fig-library-scales, fig.width=5, fig.asp=0.65, out.width="60%", fig.align='center', echo=FALSE, warning=FALSE, message=FALSE}
-#| fig-cap: "Styled Southern Africa map with annotations and scale."
-# Load libraries
-library(scales) # ✓
-library(ggspatial) # replace this with ggspatial ✓
-library(grid)
+In this task set you will generate several figures using a tidy extract of the **World Ocean Atlas 2018 (WOA18)** climatology.
 
-# Load Africa map
-load(here::here("data", "SAMOS", "other_data", "africa_map.RData")) # ✓
+::: {.callout-note appearance="simple"}
+## Dataset significance (WOA18)
+WOA18 provides globally gridded climatological means for core ocean variables:
 
-my_map <- ggplot() +
-  borders(size = 0.2, fill = "cornsilk", colour = "black") +
-  coord_equal(xlim = c(12, 37), ylim = c(-38, -22.1), expand = 0) +
-  annotate(
-    "text",
-    label = "Atlantic\nOcean",
-    x = 15.1,
-    y = -32.0,
-    size = 5.0,
-    angle = 30,
-    colour = "navy"
-  ) +
-  annotate(
-    "text",
-    label = "Indian\nOcean",
-    x = 33.2,
-    y = -34.2,
-    size = 5.0,
-    angle = 330,
-    colour = "red4"
-  ) +
-  # ---- ggspatial replacements ----
-  # Scale bar originally x ∈ [22, 26], y ≈ [-36, -35] near bottom.
-  # Width fraction = (26-22)/(37-12) = 4/25 = 0.16.
-  # Horizontal pad from left = (22-12)/(37-12) = 10/25 = 0.40 npc.
-  # Vertical pad from bottom ≈ (-36 - -38)/( -22.1 - -38 ) ≈ 2/15.9 ≈ 0.126 npc.
-  annotation_scale(
-    location = "bl",
-    width_hint = 0.16,
-    pad_x = unit(0.40, "npc"),
-    pad_y = unit(0.13, "npc"),
-    height = unit(0.3, "cm"),
-    text_cex = 1.0, # ≈ st.size = 4
-    line_width = 0.2,
-    bar_cols = c("black", "white")
-  ) +
-  # North arrow originally around x ∈ [22.5, 25.5], y ∈ [-33, -31].
-  # Midpoint x ≈ 24  → pad_x = (24-12)/25 = 0.48 npc from left.
-  # Midpoint y ≈ -32 → pad_y = (-32 - -38)/15.9 ≈ 6/15.9 ≈ 0.38 npc from bottom.
-  annotation_north_arrow(
-    location = "bl",
-    which_north = "true",
-    pad_x = unit(0.48, "npc"),
-    pad_y = unit(0.38, "npc"),
-    height = unit(1.2, "cm"), # ≈ scale = 1.2
-    width = unit(1.2, "cm"),
-    style = north_arrow_fancy_orienteering
-  )
+- **Temperature** and **salinity** describe the physical state of the ocean.
+- **Dissolved oxygen** reflects ventilation and biogeochemical conditions.
+- **Nutrients** (nitrate, phosphate, silicate) constrain biological productivity.
 
-my_map
-```
+In this task we use a regional extract (Southern Africa + adjacent ocean) at a 1° grid and a small set of depths.
+:::
 
-
-
-Aesthetically improve the map you created in this lecture (above example) and add a title and subtitle. Also adjust it to show appropriately labelled axes. **(/15)**
-
-`r if (params$hide_answers) "::: {.content-hidden}"`
-
-**Answer**
-
-```{r fig-library-tidyverse, fig.width=5, fig.asp=0.65, out.width="60%", fig.align='center', echo=TRUE, warning=FALSE, message=FALSE}
-#| fig-cap: "Styled Southern Africa map with title, subtitle, and labelled axes."
-# Load libraries
-library(tidyverse) # ✓
-library(scales) # ✓
-library(ggspatial) # replace this with ggspatial ✓
-library(grid)
-
-# Load Africa map
-load(here::here("data", "SAMOS", "other_data", "africa_map.RData")) # ✓
-
-my_map <- ggplot() +
-  borders(size = 0.2, fill = "cornsilk", colour = "black") +
-  coord_equal(xlim = c(12, 37), ylim = c(-38, -22.1), expand = 0) +
-  annotate(
-    "text",
-    label = "Atlantic\nOcean",
-    x = 15.1,
-    y = -32.0,
-    size = 5.0,
-    angle = 30,
-    colour = "navy"
-  ) +
-  annotate(
-    "text",
-    label = "Indian\nOcean",
-    x = 33.2,
-    y = -34.2,
-    size = 5.0,
-    angle = 330,
-    colour = "red4"
-  ) +
-  # ≈ Scale bar originally spanning x ≈ 15–26 near the bottom:
-  # width_hint ≈ (26-15) / (37-12) = 11/25 = 0.44
-  annotation_scale(
-    location = "bl",
-    width_hint = 0.44,
-    height = unit(0.3, "cm"),
-    text_cex = 1.0, # ≈ st.size = 4
-    pad_x = unit(2.0, "cm"), # horizontal offset from left edge
-    pad_y = unit(0.5, "cm"), # vertical offset from bottom edge
-    bar_cols = c("black", "white"),
-    line_width = 0.2
-  ) +
-  # ≈ North arrow originally around x ≈ 12.5–15.5, y ≈ -37 to -35 (bottom-left):
-  annotation_north_arrow(
-    location = "bl",
-    which_north = "true",
-    pad_x = unit(0.5, "cm"),
-    pad_y = unit(1.2, "cm"),
-    style = north_arrow_fancy_orienteering
-  ) +
-  theme_minimal() +
-  labs(
-    title = "Southern Africa",
-    subtitle = "An interesting subtitle",
-    x = "Lon (°E)",
-    y = "Lat (°S)"
-  )
-
-my_map
-```
-
-
-`r if (params$hide_answers) ":::"`
-
-## Question 2
-Add a the capital city/town of each province to the map using `geom_point()` and ensure the place name is correctly associated with its point. **(/5)**
-
-`r if (params$hide_answers) "::: {.content-hidden}"`
-
-**Answer**
-
-```{r code-caps-read-csv-here, fig.width=5, fig.asp=0.65, out.width="60%", fig.align='center', echo=TRUE, warning=FALSE, message=FALSE}
-# Load the data
-caps <- read.csv(here::here("data", "SAMOS", "other_data", "south_africa_capitals.csv")) # ✓
-
-my_map +
-  geom_point(
-    data = caps,
-    aes(x = Longitude, y = Latitude),
-    size = 2,
-    colour = "red"
-  ) + # ✓
-  geom_text(
-    data = caps,
-    aes(x = Longitude, y = Latitude, label = City), # ✓
-    nudge_x = 1,
-    nudge_y = 0.5,
-    size = 2.4
-  )
-```
-
-Note: The positioning of the city names is not optimal, but I will not apply penalties to that.
-
-Note: Use ChatGPT to generate the CSV file with city names and coordinates. This prompt worked for me:
-
-> Please create a CSV file with three columns: column 1 has the name of each of South Africa's provincial capital cities; column 2 has its longitude; column 3 has the latitude. Coordinates in WGS84, please.
-
-`r if (params$hide_answers) ":::"`
-
-# 14. Mapping with Natural Earth and the **sf** Package
-
-```{r code-library-tidyverse, echo=FALSE, message=FALSE}
-# install.packages("rnaturalearth", "rnaturalearthdata", "sf")
-library(tidyverse)
-library(sf)
-library(rnaturalearth)
-library(rnaturalearthdata)
-
-# for the buffer to work as I expect, switch off
-# the functions for spherical geometry:
-sf_use_s2(FALSE)
-
-# the full map extent:
-xmin <- 12
-ymin <- -36.5
-xmax <- 40.5
-ymax <- -10
-xlim <- c(xmin, xmax)
-ylim <- c(ymin, ymax)
-
-# make a bounding box for cropping:
-bbox <- st_bbox(c(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax))
-
-# might be useful for zooming into a smaller region (False Bay and
-# the Cape Peninsula):
-xlim_zoom <- c(17.8, 19)
-ylim_zoom <- c(-34.5, -33.2)
-
-# load the countries:
-safrica_countries <- ne_countries(
-  returnclass = 'sf',
-  continent = "Africa",
-  country = c(
-    "South Africa",
-    "Mozambique",
-    "Namibia",
-    "Zimbabwe",
-    "Botswana",
-    "Lesotho",
-    "Eswatini"
-  ),
-  scale = "large"
+```{r code-load-woa}
+woa <- readr::read_csv(
+  here::here("data", "SAMOS", "processed", "woa18_sa_core_1deg_monthly.csv"),
+  show_col_types = FALSE
 )
 
-safrica_countries_new <- safrica_countries |>
-  group_by(continent) |>
-  summarise() |>
-  st_crop(bbox) |>
-  st_combine()
+# convenience slices used repeatedly below
+woa_feb_surf <- woa %>%
+  filter(month == 2, depth_m == 0)
+
+woa_temp_depths <- woa %>%
+  filter(variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500))
 ```
 
-```{r fig-buffer-safrica-countries-new, fig.width=5, fig.asp=0.65, out.width="60%", fig.align='center', echo=FALSE, warning=FALSE, message=FALSE}
-#| fig-cap: "Buffered Southern Africa geometry overlaid on the original map."
-buffer <- safrica_countries_new %>%
-  st_buffer(0.4)
+::: {.callout-tip appearance="simple"}
+## Data dictionary
+See: `data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md`
+:::
 
-ggplot() +
-  geom_sf(data = buffer, fill = "lightblue", col = "transparent") +
-  geom_sf(data = safrica_countries, colour = "indianred", fill = "beige") +
+---
+
+## Question 1
+Create a scatterplot of **salinity** against **temperature** (a classic T–S view) for the **surface (0 m)** climatology in **February**. Label axes with units. **(/10)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q1, fig.width=5.5, fig.asp=0.65, out.width="70%"}
+#| fig-cap: "WOA18 February surface climatology: temperature vs salinity (T–S view)."
+woa_feb_surf %>%
+  filter(variable %in% c("temperature", "salinity")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = salinity, y = temperature)) +
+  geom_point(alpha = 0.35, size = 0.8) +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)") +
   theme_minimal()
 ```
 
-Questions 3--6 refer to the map above.
+Interpretation (example): the scatter is not a time series; it is the spatial range of surface conditions across the region. Expect warmer, saltier points toward the subtropics and cooler/fresher points toward higher latitudes and near river-influenced shelves.
+:::
 
-## Question 3
-Why does the map region extend so far south of the southern tip of Africa when we requested only the countries South Africa, Mozambique, Namibia, Zimbabwe, Botswana, Lesotho, and Eswatini? **(/1)**
+## Question 2
+Create **three histograms** of surface **nitrate** (February), one for each **depth bin** below (treat depth as a *filter*, not a facet):
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+- 0 m
+- 50 m
+- 200 m
 
-**Answer**
+Save each histogram as an R object. Then combine them into one figure using `ggarrange()` (1 column × 3 rows). **(/25)**
 
-- ✓ The map extends so far south because included in the map domain for which we downloaded the data is Prince Edward Island, a territory of South Africa located in the Southern Ocean.
+::: {.callout-tip collapse="true"}
+## Answer
 
-`r if (params$hide_answers) ":::"`
+```{r fig-woa-q2, fig.width=7, fig.asp=1.1, out.width="75%"}
+#| fig-cap: "Nitrate distributions at three depths (February climatology)."
 
-## Question 4
-How do we fix this to plot a more sensible map of the region? **(/1)**
+n0 <- woa %>%
+  filter(month == 2, variable == "nitrate", depth_m == 0) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 40, fill = "grey70", colour = "white") +
+  labs(title = "0 m", x = "Nitrate (µmol/kg)", y = "Count") +
+  theme_minimal()
 
-`r if (params$hide_answers) "::: {.content-hidden}"`
+n50 <- woa %>%
+  filter(month == 2, variable == "nitrate", depth_m == 50) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 40, fill = "grey70", colour = "white") +
+  labs(title = "50 m", x = "Nitrate (µmol/kg)", y = "Count") +
+  theme_minimal()
 
-**Answer**
+n200 <- woa %>%
+  filter(month == 2, variable == "nitrate", depth_m == 200) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 40, fill = "grey70", colour = "white") +
+  labs(title = "200 m", x = "Nitrate (µmol/kg)", y = "Count") +
+  theme_minimal()
 
-- ✓ To exclude this island, we need to crop the map to the region of interest.
-
-`r if (params$hide_answers) ":::"`
-
-## Question 5
-What does `st_buffer(0.4)` do? **(/1)**
-
-`r if (params$hide_answers) "::: {.content-hidden}"`
-
-**Answer**
-
-- ✓ The `st_buffer(0.4)` function creates a buffer around the countries in the map. The buffer is 0.4 units wide.
-
-`r if (params$hide_answers) ":::"`
-
-## Question 6
-With the map that we created in the lecture with Natural Earth and **sf** (*i.e.*, you can start with the script in the lecture), zoom into False Bay, the Cape Peninsula. Add the location of the Cape Town city centre to the map using`geom_point()`. Ensure the point is correctly associated with the city name. Ensure the map is correctly labelled and has a title, and is as close to publication quality as you can make it. Pay close attention to the axes (breaks, limits) and the map extent. Some marks are allocated to a pleasing and sensible aesthetic appearance. **(/20)**
-
-`r if (params$hide_answers) "::: {.content-hidden}"`
-
-**Answer**
-
-```{r fig-library-tidyverse-2, fig.width=5, fig.asp=0.65, out.width="60%", fig.align='center', echo=TRUE, warning=FALSE, message=FALSE}
-#| fig-cap: "False Bay map with Cape Town city centre marked."
-# Load the packages
-library(tidyverse)
-library(sf)
-library(rnaturalearth)
-library(rnaturalearthdata)
-
-# for the buffer to work as I expect, switch off
-# the functions for spherical geometry:
-sf_use_s2(FALSE)
-
-# the full map extent:
-xmin <- 12
-ymin <- -36.5
-xmax <- 40.5
-ymax <- -10 # ✓
-xlim <- c(xmin, xmax)
-ylim <- c(ymin, ymax)
-
-# make a bounding box for cropping:
-bbox <- st_bbox(c(
-  xmin = xmin,
-  ymin = ymin, # ✓
-  xmax = xmax,
-  ymax = ymax
-))
-
-
-# load the countries:
-safrica_countries <- ne_countries(
-  returnclass = 'sf', # ✓
-  continent = "Africa",
-  country = c(
-    "South Africa",
-    "Mozambique",
-    "Namibia",
-    "Zimbabwe",
-    "Botswana",
-    "Lesotho",
-    "Eswatini"
-  ),
-  scale = "large"
-)
-
-safrica_countries_new <- safrica_countries |> # ✓
-  group_by(continent) |>
-  summarise() |>
-  st_crop(bbox) |>
-  st_combine()
-
-# For zooming into a smaller region (False Bay and
-# the Cape Peninsula):
-xlim_zoom <- c(17.8, 19)
-ylim_zoom <- c(-34.5, -33.2) # ✓
-
-# Cape Town lon and lat
-ctown <- c(18.4241, -33.9249) # ✓
-
-ggplot() +
-  geom_sf(data = safrica_countries, colour = "indianred", fill = "beige") + # ✓
-  geom_point(aes(x = ctown[1], y = ctown[2]), size = 3, colour = "blue") + # ✓
-  geom_text(
-    aes(x = ctown[1], y = ctown[2], label = "Cape Town"), # ✓
-    nudge_x = 0.1,
-    nudge_y = 0.08,
-    size = 3
-  ) +
-  coord_sf(xlim = xlim_zoom, ylim = ylim_zoom, expand = 0) + # ✓
-  labs(
-    title = "Cape Town", # ✓
-    x = "Lon (°E)",
-    y = "Lat (°S)"
-  ) +
-  scale_x_continuous(breaks = c(18, 19)) + # ✓
-  scale_y_continuous(breaks = c(-34.2, -33.4)) # ✓
+ggarrange(n0, n50, n200, ncol = 1, nrow = 3)
 ```
 
+Interpretation (example): nitrate is typically low at the surface (consumed by biology) and increases with depth as remineralised nutrients accumulate.
+:::
 
-`r if (params$hide_answers) ":::"`
+## Question 3
+Create a scatter plot of **temperature** against **latitude** for February, and use `facet_wrap()` to create separate panels for each depth (0, 50, 100, 200, 500 m). Add a smooth line to each panel. **(/10)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q3, fig.width=7, fig.asp=0.9, out.width="85%"}
+#| fig-cap: "Temperature vs latitude by depth (February climatology)."
+woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  ggplot(aes(x = lat, y = value)) +
+  geom_point(alpha = 0.15, size = 0.6) +
+  geom_smooth(se = FALSE, method = "loess") +
+  facet_wrap(~ depth_m, ncol = 3) +
+  labs(x = "Latitude (°N)", y = "Temperature (°C)") +
+  theme_minimal()
+```
+
+Interpretation (example): the surface panel usually shows the strongest meridional gradient; deeper panels show reduced seasonal/latitudinal contrast.
+:::
+
+## Question 4
+Create a scatter plot of **dissolved oxygen** against **temperature** at the surface (0 m), using all months (1–12). Use `facet_wrap()` to create one panel per month, and map a **continuous colour scale** to oxygen using a custom gradient (not the default). **(/10)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q4, fig.width=7, fig.asp=0.9, out.width="85%"}
+#| fig-cap: "Surface oxygen vs temperature by month (custom continuous palette)."
+woa %>%
+  filter(depth_m == 0, month %in% 1:12, variable %in% c("temperature", "dissolved_oxygen")) %>%
+  select(lon, lat, month, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = temperature, y = dissolved_oxygen, colour = dissolved_oxygen)) +
+  geom_point(alpha = 0.5, size = 0.7) +
+  facet_wrap(~ month, ncol = 4) +
+  scale_colour_gradientn(
+    colours = c("#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c"),
+    name = "Oxygen (µmol/kg)"
+  ) +
+  labs(x = "Temperature (°C)", y = "Dissolved oxygen (µmol/kg)") +
+  theme_minimal()
+```
+
+Interpretation (example): oxygen tends to be higher in cooler waters, but the relationship can vary by month and location because circulation and biology matter.
+:::
+
+## Question 5
+Using the figure created in Question 4, also show the effect of **depth** by adding shapes for depth (0 vs 50 m). Fit a single best‑fit straight line (ignoring depth) to each monthly panel. Explain what the line represents. **(/10)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q5, fig.width=7, fig.asp=0.9, out.width="85%"}
+#| fig-cap: "Oxygen vs temperature by month, showing depth via point shape."
+woa %>%
+  filter(depth_m %in% c(0, 50), month %in% 1:12, variable %in% c("temperature", "dissolved_oxygen")) %>%
+  select(lon, lat, month, depth_m, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = temperature, y = dissolved_oxygen)) +
+  geom_point(aes(colour = dissolved_oxygen, shape = factor(depth_m)), alpha = 0.55, size = 0.8) +
+  geom_smooth(method = "lm", se = TRUE, colour = "black") +
+  facet_wrap(~ month, ncol = 4) +
+  scale_colour_viridis_c(name = "Oxygen (µmol/kg)") +
+  labs(
+    x = "Temperature (°C)",
+    y = "Dissolved oxygen (µmol/kg)",
+    shape = "Depth (m)"
+  ) +
+  theme_minimal()
+```
+
+Interpretation (example): the line is a *within-panel* linear summary of the oxygen–temperature association across all grid cells shown in that month. It is not causal, and it ignores spatial structure and depth effects.
+:::
+
+## Question 6
+What are the benefits of using faceting in data visualisation? **(/3)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+- Faceting lets you compare the same relationship across groups (months, depths, variables) using a consistent visual grammar.
+- It reduces overplotting and legend complexity by separating groups into panels.
+- It supports pattern recognition (seasonal structure, depth structure) without changing the underlying plotting code.
+:::
+
+## Question 7
+Create a scatter plot of **phosphate** against **nitrate** at 200 m for the **annual climatology** (`month == 0`), coloured by **silicate** (continuous palette). **(/10)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q7, fig.width=6, fig.asp=0.7, out.width="80%"}
+#| fig-cap: "Nitrate vs phosphate at 200 m, coloured by silicate."
+woa %>%
+  filter(depth_m == 200, month == 0, variable %in% c("nitrate", "phosphate", "silicate")) %>%
+  select(lon, lat, variable, value) %>%
+  pivot_wider(names_from = variable, values_from = value) %>%
+  ggplot(aes(x = nitrate, y = phosphate)) +
+  geom_point(aes(colour = silicate), alpha = 0.6, size = 0.8) +
+  scale_colour_viridis_c(name = "Silicate (µmol/kg)") +
+  labs(x = "Nitrate (µmol/kg)", y = "Phosphate (µmol/kg)") +
+  theme_minimal()
+```
+
+Interpretation (example): nutrients often covary because they are regenerated together at depth, but the ratios can change with region and water mass history.
+:::
+
+## Question 8
+Create histograms of **temperature** for each month (surface, 0 m) using `facet_wrap()`. **(/6)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q8, fig.width=7, fig.asp=0.8, out.width="85%"}
+#| fig-cap: "Surface temperature distributions by month."
+woa %>%
+  filter(depth_m == 0, month %in% 1:12, variable == "temperature") %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 35, fill = "grey70", colour = "white") +
+  facet_wrap(~ month, ncol = 4) +
+  labs(x = "Temperature (°C)", y = "Count") +
+  theme_minimal()
+```
+:::
+
+## Question 9
+Create boxplots of **dissolved oxygen** by month and facet by depth (0, 50, 200 m). **(/8)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q9, fig.width=7, fig.asp=0.8, out.width="85%"}
+#| fig-cap: "Oxygen by month, separated by depth."
+woa %>%
+  filter(depth_m %in% c(0, 50, 200), month %in% 1:12, variable == "dissolved_oxygen") %>%
+  ggplot(aes(x = factor(month), y = value)) +
+  geom_boxplot(fill = "cornsilk", outlier.alpha = 0.2) +
+  facet_wrap(~ depth_m, ncol = 3) +
+  labs(x = "Month", y = "Dissolved oxygen (µmol/kg)") +
+  theme_minimal()
+```
+:::
+
+## Question 10
+Calculate the mean ± SD of **temperature** at each depth (0, 50, 100, 200, 500 m) for February, then plot the means with error bars. **(/10)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q10, fig.width=6, fig.asp=0.7, out.width="80%"}
+#| fig-cap: "Mean ± SD temperature by depth (February climatology)."
+summary_temp <- woa %>%
+  filter(month == 2, variable == "temperature", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  group_by(depth_m) %>%
+  summarise(
+    mean_temp = mean(value, na.rm = TRUE),
+    sd_temp   = sd(value, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+summary_temp %>%
+  ggplot(aes(x = factor(depth_m), y = mean_temp, group = 1)) +
+  geom_point(size = 2) +
+  geom_line() +
+  geom_errorbar(aes(ymin = mean_temp - sd_temp, ymax = mean_temp + sd_temp), width = 0.15) +
+  labs(x = "Depth (m)", y = "Mean temperature (°C)") +
+  theme_minimal()
+```
+
+Interpretation (example): mean temperature declines with depth; SD reflects spatial variability across the study region at each depth.
+:::
+
+## Question 11
+Create a violin plot of **nitrate** by depth (0, 50, 100, 200, 500 m), filled by month group: define `season` as JFM (1–3), AMJ (4–6), JAS (7–9), OND (10–12). **(/8)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r fig-woa-q11, fig.width=7, fig.asp=0.75, out.width="85%"}
+#| fig-cap: "Nitrate distributions by depth and season (violin plots)."
+woa %>%
+  filter(month %in% 1:12, variable == "nitrate", depth_m %in% c(0, 50, 100, 200, 500)) %>%
+  mutate(
+    season = case_when(
+      month %in% 1:3   ~ "JFM",
+      month %in% 4:6   ~ "AMJ",
+      month %in% 7:9   ~ "JAS",
+      month %in% 10:12 ~ "OND"
+    ),
+    season = factor(season, levels = c("JFM", "AMJ", "JAS", "OND"))
+  ) %>%
+  ggplot(aes(x = factor(depth_m), y = value, fill = season)) +
+  geom_violin(trim = TRUE, alpha = 0.8) +
+  labs(x = "Depth (m)", y = "Nitrate (µmol/kg)", fill = "Season") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+:::
+
+## Question 12
+Create a small summary table showing the number of observations for each combination of `variable` and `depth_m` (all months combined). **(/6)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+```{r code-woa-q12}
+woa %>%
+  count(variable, depth_m) %>%
+  arrange(variable, depth_m)
+```
+:::
+
+## Question 13
+Briefly describe two patterns you observe in any of the figures above. **(/4)**
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+Example patterns:
+
+1. **Temperature decreases with depth**, and the surface layer shows the strongest latitudinal/seasonal structure.
+2. **Nutrients generally increase with depth** (and are typically lowest at the surface), reflecting biological uptake near the surface and regeneration at depth.
+:::

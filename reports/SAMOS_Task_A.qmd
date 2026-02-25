@@ -1,0 +1,32 @@
+---
+title: "Task A"
+author: "AJ Smit"
+editor: visual
+---
+
+# 1. R and RStudio
+
+## Question 1
+
+```{r}
+
+```
+
+Write some explanation here.
+
+## Question 2
+
+```{r}
+# write some code
+```
+
+Write some explanation.
+
+## Question 3
+
+## Additional exercises
+
+### Demonstrate file paths
+
+### The last additional exercise
+

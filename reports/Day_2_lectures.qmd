@@ -1,0 +1,463 @@
+---
+title: "Day 2 Lectures"
+author: "AJ Smit"
+format:
+  html: default
+  typst: default
+  docx: default
+---
+
+# This is a heading
+
+This is the same comment that I hash out inside the code block: load the tidyverse library
+
+```{r}
+# load the tidyverse library
+library(tidyverse)
+```
+
+```{r}
+mean(1, 2, 3)
+```
+
+## Numeric data
+
+```{r}
+# Create a vector of the number of pets owned by each household
+num_rats <- c(0, 1, 2, 2, 3, 1, 4, 0, 2, 1, 2, 2, 0, 3, 2, 1, 1, 4, 2, 0)
+num_rats
+```
+
+```{r}
+class(num_rats)
+```
+
+```{r}
+num_rats_int <- as.integer(num_rats) # coercion
+num_rats_int
+```
+
+```{r}
+class(num_rats_int)
+```
+
+```{r}
+pies <- pi * seq(1:5)
+pies
+```
+
+```{r}
+class(pies)
+```
+
+```{r}
+as.integer(pies)
+```
+
+```{r}
+round(pies, 2)
+```
+
+The `as.integer()` function does not care about rouning, for example:
+
+```{r}
+as.integer(round(pies, 2))
+```
+
+```{r}
+set.seed(13)
+# Generate a vector of 50 normally distributed temperature values
+temp_data <- round(rnorm(n = 50, mean = 15, sd = 3), 2)
+# temp_data <- rnorm(n = 50, mean = 15, sd = 3)
+temp_data
+```
+
+```{r}
+length(temp_data)
+```
+
+```{r}
+mean(temp_data)
+```
+
+```{r}
+sd(temp_data)
+```
+
+```{r}
+class(temp_data)
+```
+
+```{r}
+names <- c("Fluffy", "Jesse")
+names <- c('Fluffy', 'Jesse')
+class(names)
+```
+
+## Factor data
+
+```{r}
+# Generate a vector of vegetation types
+
+vegetation <- sample(c("grassland", "forest", "wetland"), size = 50, replace = TRUE)
+
+# View the vegetation data
+vegetation
+```
+
+```{r}
+class(vegetation)
+```
+
+```{r}
+veg_fact <- as.factor(vegetation)
+class(veg_fact)
+```
+
+## Ordered factors
+
+```{r}
+# Vector of ordinal data representing the successional stage of a forest
+coffee <- c("Small", "Tall", "Venti", "Grande", "Ginormous")
+class(coffee)
+```
+
+```{r}
+# Convert to ordered factor
+coffee <- factor(coffee, ordered = TRUE,
+                 levels = c("Small", "Tall", "Venti",
+                            "Grande", "Ginormous"))
+coffee
+```
+
+```{r}
+class(coffee)
+```
+
+## Logical data
+
+```{r}
+# Generate a vector of 1s and 0s to represent the presence
+# or absence of a species in different ecological sites
+species_presence <- sample(c(0, 1), 10,
+                           replace = TRUE)
+class(species_presence)
+```
+
+```{r}
+species_presence_logi <- as.logical(species_presence)
+class(species_presence_logi)
+```
+
+## Dates
+
+
+```{r}
+my_time <- as.POSIXct("2022-03-10 12:34:56")
+class(my_time)
+```
+
+## Missing values
+
+```{r}
+# Set the length of the sequence
+n <- 100
+
+# Generate a sequence of random normal numbers with
+# mean 0 and standard deviation 1
+data <- rnorm(n, mean = 0, sd = 1)
+
+# Randomly assign 5% of the values as missing
+missing_indices <- sample(1:n, size = round(0.05*n))
+data[missing_indices] <- NA
+length(data)
+```
+
+```{r}
+mean(data, na.rm = TRUE)
+```
+
+```{r}
+length(data)
+data_sans_na <- na.omit(data)
+length(data_sans_na)
+```
+
+## Matrices (plural) and a matric (singular)
+
+```{r}
+# create a numeric matrix
+my_matrix_1 <- matrix(1:6, nrow = 2, ncol = 3,
+                    byrow = FALSE)
+
+my_matrix_2 <- matrix(1:6, nrow = 2, ncol = 3,
+                    byrow = TRUE)
+```
+
+```{r}
+# print the matrix
+my_matrix_1
+my_matrix_2
+```
+
+```{r}
+dim(my_matrix_1)
+```
+
+```{r}
+mat <- matrix(rnorm(n = 15, mean = 0, sd = 1),
+              nrow = 5, ncol = 3)
+mat <- round(mat, 2)
+dim(mat)
+ncol(mat)
+nrow(mat)
+```
+
+```{r}
+# coerce the matrixto a vector
+# 2D to 1D
+vect <- as.vector(mat)
+vect
+length(vect)
+```
+
+```{r}
+mat
+```
+
+```{r}
+mat[2, ]
+mat[5, c(1, 3)]
+```
+
+## Arrays
+
+```{r}
+# create a 2-dimensional array
+my_array <- array(1:27, dim = c(3, 3, 3))
+
+# print the array
+my_array
+```
+
+```{r}
+dim(my_array)
+```
+
+```{r}
+my_array[2, 2, 2]
+
+# square bracket notation:
+# [row, column, depth]
+my_array[2, 3, 3]
+```
+
+```{r}
+as.vector(my_array)
+```
+
+## Making a data.frame
+
+```{r}
+# Create a vector of dates
+dates <- as.Date(c("2022-01-01", "2022-01-02", "2022-01-03",
+                   "2022-01-04", "2022-01-05"))
+
+# Create a vector of numeric data
+numeric_data <- rnorm(n = 5, mean = 0, sd = 1)
+
+# Create a vector of categorical data
+categorical_data <- c("A", "B", "C", "A", "B")
+
+# Combine the vectors into a data.frame
+my_dataframe <- data.frame(day = dates,
+                           number = numeric_data,
+                           category = categorical_data)
+
+# Print the dataframe
+my_dataframe
+```
+
+```{r}
+class(my_dataframe)
+colnames(my_dataframe)
+rownames(my_dataframe)
+dim(my_dataframe)
+str(my_dataframe)
+mean(my_dataframe$number)
+range(my_dataframe$day)
+summary(my_dataframe)
+glimpse(my_dataframe)
+```
+
+```{r}
+my_tibble <- as_tibble(my_dataframe)
+class(my_tibble)
+my_tibble
+```
+
+## Exercise in frustration
+
+```{r}
+read_csv("../data/SAMOS/other_data/SACTN_SAWS.csv") |> 
+  mutate(month = as.integer(month(date, label = FALSE))) |> 
+  group_by(site) |> 
+  mutate(temp_y = mean(temp, na.rm = TRUE)) |> 
+  group_by(site, month) |> 
+  summarise(temp_m = mean(temp, na.rm = TRUE),
+            temp_y = mean(temp_y)) |> 
+  ggplot(aes(x = month)) +
+    geom_line(aes(y = temp_y), colour = "red") +
+    geom_line(aes(y = temp_m)) +
+    scale_x_continuous(breaks = c(3, 6, 9, 12)) +
+    facet_wrap(~site)
+
+
+```
+
+## Reading in data into R
+
+For this exercise, we will use the `laminaria.csv` file. It is located in the `data/SAMOS/other_data` folder.
+
+```{r}
+laminaria <- read_csv("../data/SAMOS/other_data/laminaria.csv")
+```
+
+```{r}
+laminaria
+head(laminaria, 7)
+tail(laminaria, 2)
+summary(laminaria)
+glimpse(laminaria)
+names(laminaria)
+```
+
+```{r}
+library(skimr)
+skim(laminaria) # using built-in `iris` data
+```
+
+## Tidyverse sneak peak
+
+```{r}
+# Note: output NOT assigned to an object (no `<-`):
+laminaria %>% # Tell R which dataframe you are using ("%>%" == "|>" )
+  select(site, total_length) # Select only specific columns
+```
+
+```{r}
+laminaria %>% 
+  select(site, total_length) %>% # Select specific columns first
+  slice(56:78)
+# what does the '56:78' do? Change some numbers and run the code again. What happens?
+```
+
+```{r}
+laminaria %>%
+  filter(site == "Kommetjie")
+```
+
+```{r}
+laminaria |> 
+  filter(blade_weight >= 1.5)
+```
+
+```{r}
+lam_kom <- laminaria %>%
+  filter(site == "Kommetjie")
+```
+
+```{r}
+laminaria %>% # Tell R which dataset to use
+  filter(site == "Kommetjie") %>% # Filter out only records from Kommetjie
+  nrow() # Count the number of remaining rows
+```
+
+```{r}
+laminaria %>% # Tell R which dataset to use
+  filter(total_length == max(total_length)) # Select row with max total length
+```
+
+## Some new functions: summarise, mutate, and group_by
+
+```{r}
+laminaria %>% # Chose the dataframe
+  summarise(avg_bld_len = mean(blade_length)) # Calculate mean blade length
+```
+
+```{r}
+laminaria %>%
+  summarise(avg_stp_ln = round(mean(total_length), 1),
+            sd_stp_ln = round(sd(total_length), 1))
+```
+
+```{r}
+laminaria %>% 
+  summarise(avg_stp_ms = mean(stipe_mass, na.rm = TRUE))
+```
+
+```{r}
+res <- laminaria %>%
+  group_by(site) %>%
+  summarise(var_bl = var(blade_length),
+            n_bl = n(),
+            sd_bl = sd(blade_length)) %>%
+  mutate(se_bl = var_bl / sqrt(n_bl))
+```
+
+```{r}
+res
+```
+
+```{r}
+write.csv(res, "../data/SAMOS/other_data/laminaria_results.csv")
+```
+
+## Graphics with R
+
+```{r}
+data()
+```
+
+```{r}
+# Load data
+ChickWeight <- datasets::ChickWeight
+
+# Create a basic figure
+ggplot(data = ChickWeight, aes(x = Time, y = weight)) +
+  geom_line(aes(group = Chick)) +
+  geom_point(colour = "red")
+```
+
+```{r}
+ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
+  geom_point() +
+  geom_line(aes(group = Chick))
+```
+
+```{r}
+ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
+  geom_point() +
+  geom_smooth(method = "gam")
+```
+
+```{r}
+ggplot(data = ChickWeight, aes(x = Time, y = weight)) +
+  geom_point(colour = "blue") +
+  geom_line(aes(group = Chick), colour = "blue")
+```
+
+```{r}
+ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
+  geom_point(aes(size = weight)) +
+  geom_smooth(method = "lm", linewidth = 2.0)
+```
+
+```{r}
+ggplot(data = ChickWeight, aes(x = Time, y = weight, colour = Diet)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Days", y = "Mass (g)", colour = "diet type") + # Change the labels
+  theme(legend.position = "bottom") # Change the legend position
+```
+
