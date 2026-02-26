@@ -1,8 +1,8 @@
 ---
-title: "BCB744 Task G"
+title: "Statistics Task G"
 format: 
   html:
-    fig-format: svg
+    fig-format: svg{}
     fig_retina: 2
     fig-dpi: 400
 params: 

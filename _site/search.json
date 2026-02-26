@@ -9,397 +9,397 @@
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-1",
     "href": "tasks/SAMOS_R_Task_C.html#question-1",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 1",
     "text": "Question 1\nCreate a scatterplot of salinity against temperature (a classic T–S view) for the surface (0 m) climatology in February. Label axes with units. (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa_feb_surf %&gt;%\n  filter(variable %in% c(\"temperature\", \"salinity\")) %&gt;%\n  select(lon, lat, variable, value) %&gt;%\n  pivot_wider(names_from = variable, values_from = value) %&gt;%\n  ggplot(aes(x = salinity, y = temperature)) +\n  geom_point(alpha = 0.35, size = 0.8) +\n  labs(x = \"Salinity (PSU)\", y = \"Temperature (°C)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 1: WOA18 February surface climatology: temperature vs salinity (T–S view).\n\n\n\n\n\nInterpretation (example): the scatter is not a time series; it is the spatial range of surface conditions across the region. Expect warmer, saltier points toward the subtropics and cooler/fresher points toward higher latitudes and near river-influenced shelves.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-2",
     "href": "tasks/SAMOS_R_Task_C.html#question-2",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 2",
     "text": "Question 2\nCreate three histograms of surface nitrate (February), one for each depth bin below (treat depth as a filter, not a facet):\n\n0 m\n50 m\n200 m\n\nSave each histogram as an R object. Then combine them into one figure using ggarrange() (1 column × 3 rows). (/25)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nn0 &lt;- woa %&gt;%\n  filter(month == 2, variable == \"nitrate\", depth_m == 0) %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 40, fill = \"grey70\", colour = \"white\") +\n  labs(title = \"0 m\", x = \"Nitrate (µmol/kg)\", y = \"Count\") +\n  theme_minimal()\n\nn50 &lt;- woa %&gt;%\n  filter(month == 2, variable == \"nitrate\", depth_m == 50) %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 40, fill = \"grey70\", colour = \"white\") +\n  labs(title = \"50 m\", x = \"Nitrate (µmol/kg)\", y = \"Count\") +\n  theme_minimal()\n\nn200 &lt;- woa %&gt;%\n  filter(month == 2, variable == \"nitrate\", depth_m == 200) %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 40, fill = \"grey70\", colour = \"white\") +\n  labs(title = \"200 m\", x = \"Nitrate (µmol/kg)\", y = \"Count\") +\n  theme_minimal()\n\nggarrange(n0, n50, n200, ncol = 1, nrow = 3)\n\n\n\n\n\n\n\nFigure 2: Nitrate distributions at three depths (February climatology).\n\n\n\n\n\nInterpretation (example): nitrate is typically low at the surface (consumed by biology) and increases with depth as remineralised nutrients accumulate.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-3",
     "href": "tasks/SAMOS_R_Task_C.html#question-3",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 3",
     "text": "Question 3\nCreate a scatter plot of temperature against latitude for February, and use facet_wrap() to create separate panels for each depth (0, 50, 100, 200, 500 m). Add a smooth line to each panel. (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(month == 2, variable == \"temperature\", depth_m %in% c(0, 50, 100, 200, 500)) %&gt;%\n  ggplot(aes(x = lat, y = value)) +\n  geom_point(alpha = 0.15, size = 0.6) +\n  geom_smooth(se = FALSE, method = \"loess\") +\n  facet_wrap(~ depth_m, ncol = 3) +\n  labs(x = \"Latitude (°N)\", y = \"Temperature (°C)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 3: Temperature vs latitude by depth (February climatology).\n\n\n\n\n\nInterpretation (example): the surface panel usually shows the strongest meridional gradient; deeper panels show reduced seasonal/latitudinal contrast.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-4",
     "href": "tasks/SAMOS_R_Task_C.html#question-4",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 4",
     "text": "Question 4\nCreate a scatter plot of dissolved oxygen against temperature at the surface (0 m), using all months (1–12). Use facet_wrap() to create one panel per month, and map a continuous colour scale to oxygen using a custom gradient (not the default). (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(depth_m == 0, month %in% 1:12, variable %in% c(\"temperature\", \"dissolved_oxygen\")) %&gt;%\n  select(lon, lat, month, variable, value) %&gt;%\n  pivot_wider(names_from = variable, values_from = value) %&gt;%\n  ggplot(aes(x = temperature, y = dissolved_oxygen, colour = dissolved_oxygen)) +\n  geom_point(alpha = 0.5, size = 0.7) +\n  facet_wrap(~ month, ncol = 4) +\n  scale_colour_gradientn(\n    colours = c(\"#2c7bb6\", \"#abd9e9\", \"#ffffbf\", \"#fdae61\", \"#d7191c\"),\n    name = \"Oxygen (µmol/kg)\"\n  ) +\n  labs(x = \"Temperature (°C)\", y = \"Dissolved oxygen (µmol/kg)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 4: Surface oxygen vs temperature by month (custom continuous palette).\n\n\n\n\n\nInterpretation (example): oxygen tends to be higher in cooler waters, but the relationship can vary by month and location because circulation and biology matter.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-5",
     "href": "tasks/SAMOS_R_Task_C.html#question-5",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 5",
     "text": "Question 5\nUsing the figure created in Question 4, also show the effect of depth by adding shapes for depth (0 vs 50 m). Fit a single best‑fit straight line (ignoring depth) to each monthly panel. Explain what the line represents. (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(depth_m %in% c(0, 50), month %in% 1:12, variable %in% c(\"temperature\", \"dissolved_oxygen\")) %&gt;%\n  select(lon, lat, month, depth_m, variable, value) %&gt;%\n  pivot_wider(names_from = variable, values_from = value) %&gt;%\n  ggplot(aes(x = temperature, y = dissolved_oxygen)) +\n  geom_point(aes(colour = dissolved_oxygen, shape = factor(depth_m)), alpha = 0.55, size = 0.8) +\n  geom_smooth(method = \"lm\", se = TRUE, colour = \"black\") +\n  facet_wrap(~ month, ncol = 4) +\n  scale_colour_viridis_c(name = \"Oxygen (µmol/kg)\") +\n  labs(\n    x = \"Temperature (°C)\",\n    y = \"Dissolved oxygen (µmol/kg)\",\n    shape = \"Depth (m)\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 5: Oxygen vs temperature by month, showing depth via point shape.\n\n\n\n\n\nInterpretation (example): the line is a within-panel linear summary of the oxygen–temperature association across all grid cells shown in that month. It is not causal, and it ignores spatial structure and depth effects.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-6",
     "href": "tasks/SAMOS_R_Task_C.html#question-6",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 6",
     "text": "Question 6\nWhat are the benefits of using faceting in data visualisation? (/3)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nFaceting lets you compare the same relationship across groups (months, depths, variables) using a consistent visual grammar.\nIt reduces overplotting and legend complexity by separating groups into panels.\nIt supports pattern recognition (seasonal structure, depth structure) without changing the underlying plotting code.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-7",
     "href": "tasks/SAMOS_R_Task_C.html#question-7",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 7",
     "text": "Question 7\nCreate a scatter plot of phosphate against nitrate at 200 m for the annual climatology (month == 0), coloured by silicate (continuous palette). (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(depth_m == 200, month == 0, variable %in% c(\"nitrate\", \"phosphate\", \"silicate\")) %&gt;%\n  select(lon, lat, variable, value) %&gt;%\n  pivot_wider(names_from = variable, values_from = value) %&gt;%\n  ggplot(aes(x = nitrate, y = phosphate)) +\n  geom_point(aes(colour = silicate), alpha = 0.6, size = 0.8) +\n  scale_colour_viridis_c(name = \"Silicate (µmol/kg)\") +\n  labs(x = \"Nitrate (µmol/kg)\", y = \"Phosphate (µmol/kg)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 6: Nitrate vs phosphate at 200 m, coloured by silicate.\n\n\n\n\n\nInterpretation (example): nutrients often covary because they are regenerated together at depth, but the ratios can change with region and water mass history.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-8",
     "href": "tasks/SAMOS_R_Task_C.html#question-8",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 8",
     "text": "Question 8\nCreate histograms of temperature for each month (surface, 0 m) using facet_wrap(). (/6)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(depth_m == 0, month %in% 1:12, variable == \"temperature\") %&gt;%\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 35, fill = \"grey70\", colour = \"white\") +\n  facet_wrap(~ month, ncol = 4) +\n  labs(x = \"Temperature (°C)\", y = \"Count\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 7: Surface temperature distributions by month.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-9",
     "href": "tasks/SAMOS_R_Task_C.html#question-9",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 9",
     "text": "Question 9\nCreate boxplots of dissolved oxygen by month and facet by depth (0, 50, 200 m). (/8)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(depth_m %in% c(0, 50, 200), month %in% 1:12, variable == \"dissolved_oxygen\") %&gt;%\n  ggplot(aes(x = factor(month), y = value)) +\n  geom_boxplot(fill = \"cornsilk\", outlier.alpha = 0.2) +\n  facet_wrap(~ depth_m, ncol = 3) +\n  labs(x = \"Month\", y = \"Dissolved oxygen (µmol/kg)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 8: Oxygen by month, separated by depth.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-10",
     "href": "tasks/SAMOS_R_Task_C.html#question-10",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 10",
     "text": "Question 10\nCalculate the mean ± SD of temperature at each depth (0, 50, 100, 200, 500 m) for February, then plot the means with error bars. (/10)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nsummary_temp &lt;- woa %&gt;%\n  filter(month == 2, variable == \"temperature\", depth_m %in% c(0, 50, 100, 200, 500)) %&gt;%\n  group_by(depth_m) %&gt;%\n  summarise(\n    mean_temp = mean(value, na.rm = TRUE),\n    sd_temp   = sd(value, na.rm = TRUE),\n    .groups = \"drop\"\n  )\n\nsummary_temp %&gt;%\n  ggplot(aes(x = factor(depth_m), y = mean_temp, group = 1)) +\n  geom_point(size = 2) +\n  geom_line() +\n  geom_errorbar(aes(ymin = mean_temp - sd_temp, ymax = mean_temp + sd_temp), width = 0.15) +\n  labs(x = \"Depth (m)\", y = \"Mean temperature (°C)\") +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 9: Mean ± SD temperature by depth (February climatology).\n\n\n\n\n\nInterpretation (example): mean temperature declines with depth; SD reflects spatial variability across the study region at each depth.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-11",
     "href": "tasks/SAMOS_R_Task_C.html#question-11",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 11",
     "text": "Question 11\nCreate a violin plot of nitrate by depth (0, 50, 100, 200, 500 m), filled by month group: define season as JFM (1–3), AMJ (4–6), JAS (7–9), OND (10–12). (/8)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  filter(month %in% 1:12, variable == \"nitrate\", depth_m %in% c(0, 50, 100, 200, 500)) %&gt;%\n  mutate(\n    season = case_when(\n      month %in% 1:3   ~ \"JFM\",\n      month %in% 4:6   ~ \"AMJ\",\n      month %in% 7:9   ~ \"JAS\",\n      month %in% 10:12 ~ \"OND\"\n    ),\n    season = factor(season, levels = c(\"JFM\", \"AMJ\", \"JAS\", \"OND\"))\n  ) %&gt;%\n  ggplot(aes(x = factor(depth_m), y = value, fill = season)) +\n  geom_violin(trim = TRUE, alpha = 0.8) +\n  labs(x = \"Depth (m)\", y = \"Nitrate (µmol/kg)\", fill = \"Season\") +\n  theme_minimal() +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\nFigure 10: Nitrate distributions by depth and season (violin plots).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-12",
     "href": "tasks/SAMOS_R_Task_C.html#question-12",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 12",
     "text": "Question 12\nCreate a small summary table showing the number of observations for each combination of variable and depth_m (all months combined). (/6)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\n\nwoa %&gt;%\n  count(variable, depth_m) %&gt;%\n  arrange(variable, depth_m)\n\nR&gt; # A tibble: 36 × 3\nR&gt;    variable         depth_m     n\nR&gt;    &lt;chr&gt;              &lt;dbl&gt; &lt;int&gt;\nR&gt;  1 dissolved_oxygen       0  3868\nR&gt;  2 dissolved_oxygen      50  3868\nR&gt;  3 dissolved_oxygen     100  3868\nR&gt;  4 dissolved_oxygen     200  3868\nR&gt;  5 dissolved_oxygen     500  3868\nR&gt;  6 dissolved_oxygen    1000  3868\nR&gt;  7 nitrate                0  1806\nR&gt;  8 nitrate               50  1806\nR&gt;  9 nitrate              100  1806\nR&gt; 10 nitrate              200  1806\nR&gt; # ℹ 26 more rows",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-13",
     "href": "tasks/SAMOS_R_Task_C.html#question-13",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 13",
     "text": "Question 13\nBriefly describe two patterns you observe in any of the figures above. (/4)\n\n\n\n\n\n\nTipAnswer\n\n\n\n\n\nExample patterns:\n\nTemperature decreases with depth, and the surface layer shows the strongest latitudinal/seasonal structure.\nNutrients generally increase with depth (and are typically lowest at the surface), reflecting biological uptake near the surface and regeneration at depth.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_C.html#question-14",
     "href": "tasks/SAMOS_R_Task_C.html#question-14",
-    "title": "SAMOS Intro R Task C",
+    "title": "Intro R Task C",
     "section": "Question 14",
     "text": "Question 14\nPlease start with this figure and improve and expand on the analysis as shown below the figure:\n\n\n\n\n\n\nNoteAbout the dataset used in this chapter (World Ocean Atlas 2018)\n\n\n\nIn this chapter we use a small, tidy extract of World Ocean Atlas 2018 (WOA18) climatologies for the broader Southern Africa region.\nWhy WOA matters in ocean science:\n\nTemperature and salinity are the fundamental state variables of seawater, and together shape density and stratification.\nDissolved oxygen is a key indicator of ventilation, productivity, and habitat suitability.\nNutrients (nitrate, phosphate, silicate) constrain primary production and structure ecosystems.\n\nThese variables are not “just numbers”: they encode the physical and biogeochemical structure of the ocean.\n\n\n\n# Load libraries\nlibrary(tidyverse)\nlibrary(here)\n\n# Load the core teaching dataset (WOA18 climatology extract)\nwoa &lt;- readr::read_csv(\n  here::here(\"data\", \"SAMOS\", \"processed\", \"woa18_sa_core_1deg_monthly.csv\"),\n  show_col_types = FALSE\n)\n\n# Quick look\nglimpse(woa)\n\nR&gt; Rows: 200,382\nR&gt; Columns: 8\nR&gt; $ lat      &lt;dbl&gt; -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5, -44.5…\nR&gt; $ lon      &lt;dbl&gt; 6.5, 7.5, 9.5, 12.5, 14.5, 15.5, 19.5, 20.5, 22.5, 24.5, 26.5…\nR&gt; $ depth_m  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\nR&gt; $ value    &lt;dbl&gt; NA, 295.308, 295.840, NA, 280.251, NA, 270.377, 270.764, 289.…\nR&gt; $ month    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\nR&gt; $ variable &lt;chr&gt; \"dissolved_oxygen\", \"dissolved_oxygen\", \"dissolved_oxygen\", \"…\nR&gt; $ unit     &lt;chr&gt; \"umol/kg\", \"umol/kg\", \"umol/kg\", \"umol/kg\", \"umol/kg\", \"umol/…\nR&gt; $ source   &lt;chr&gt; \"WOA18 decav 1.00° CSV\", \"WOA18 decav 1.00° CSV\", \"WOA18 deca…\n\n\n\n\n\n\n\n\nTipData dictionary\n\n\n\nSee: data/SAMOS/processed/woa18_sa_core_1deg_monthly_DICTIONARY.md",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task C"
+      "Intro R Task C"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-1",
     "href": "tasks/SAMOS_R_Task_A.html#question-1",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 1",
     "text": "Question 1\nWhy will I get annoyed when you say in your Methods section of your paper that you used RStudio for your analysis? (/1)\nAnswer\n\n✓ I will get annoyed because RStudio is not a statistical computing software — it is an integrated development environment (IDE) for R. Stating in a Methods section that an analysis was conducted in “RStudio” conflates the software used for computation (R) with the interface used to interact with it (RStudio).\nFurther, reporting the actual software, package versions used is important for reproducibility. Stating “RStudio” obscures the fact that R (the statistical language) is what executes the computations and RStudio is just a tool that provides a user-friendly interface with features such as script editing, debugging, and visualisation conveniences.\nA proper citation in the Methods section should explicitly reference R (with its version number) and any relevant packages that were integral to the analysis. For example:\n\n\n“All analyses were conducted in R (v4.3.1; R Core Team, 2023) using the packages brms, ggplot2, and tidyverse.”\n\n\nYou can find the version number of R with the command citation(). Similarly, the citation for, say, ggplot2 can be found with citation(\"ggplot2).\nMentioning RStudio may be acceptable in passing if there is a specific reason, such as explaining how code was executed (e.g., using RMarkdown, Quarto within RStudio). However, in general, RStudio itself does not perform any computations, making its inclusion misleading and to someone who cares about precision in computational reporting, annoying.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-2",
     "href": "tasks/SAMOS_R_Task_A.html#question-2",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 2",
     "text": "Question 2\nWhy is it best practice to include all packages you use in your R program explicitly? (/3)\nAnswer\n✓ Explicitly specifying R packages in your scripts ensures reproducibility, transparency, debugging efficiency, and dependency management. Consequently, you make your code robust (less prone to failure), interpretable (easy for others to read, understand) and easily executable across different environments (different people’s computers, or different kinds of operating systems).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-3",
     "href": "tasks/SAMOS_R_Task_A.html#question-3",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 3",
     "text": "Question 3\nWhat are the values after each hashed statement in the following? (/3)\n\nmass &lt;- 48 \nmass &lt;- mass * 2.0 # mass? \nage &lt;- 42\nage &lt;- age - 17 # age?\nmass_index &lt;- mass / age # mass_index?\n\nAnswer\n\nmass &lt;- 48 \nmass &lt;- mass * 2.0 # mass? \nmass # ✓\n\nR&gt; [1] 96\n\nage &lt;- 42\nage &lt;- age - 17 # age?\nage # ✓\n\nR&gt; [1] 25\n\nmass_index &lt;- mass / age # mass_index?\nmass_index # ✓\n\nR&gt; [1] 3.84",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-4",
     "href": "tasks/SAMOS_R_Task_A.html#question-4",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 4",
     "text": "Question 4\nUse R to calculate some simple mathematical expressions. Assign the value of 40 to x and assign the value of 23 to y. Make z the value of x - y Display z in the console. (/3)\nAnswer\n\nx &lt;- 40\ny &lt;- 23\nz &lt;- x - y\nz  # ✓ x 3\n\nR&gt; [1] 17",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-5",
     "href": "tasks/SAMOS_R_Task_A.html#question-5",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 5",
     "text": "Question 5\nExplain what this code does (below). What have you learned about writing code, and how would you apply what you have learned in the future? When would one want to use the round() function? Name a few example use cases. (/4)\n\nround(sd(apples), 2)\n\nAnswer\n\n✓ The round() function in R is used to round a numeric value to a specified number of decimal places. In this code snippet, the round() function is applied to the standard deviation of a numeric vector called apples. The second argument to round() is 2, which specifies that the standard deviation should be rounded to two decimal places.\n✓ This function highlights the importance of precision in numerical computations. Functions like round() are useful for data presentation, statistical reporting, and computational accuracy because they allow one to control the level of numerical detail in outputs, which is important in exploratory analysis, final reporting.\n✓ Using functions with clear, well-defined arguments (like specifying digits) improves code readability, reproducibility.\n✓ We also learned that we can nest function within one-another. Here, sd() is nested within round() to round the standard deviation to two decimal places.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-6",
     "href": "tasks/SAMOS_R_Task_A.html#question-6",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 6",
     "text": "Question 6\nWhat is the difference between an Excel file and a CSV file? (/2)\nAnswer\n\n✓ Excel File: An Excel file is a proprietary file format used by Microsoft Excel to store data in a structured manner. It can contain multiple sheets, formulas, figures, and other features. Excel files are typically saved with the extension .xlsx (for newer versions).xls (for older versions). They are not plain text files and require specific software (like Excel) to open and edit.\n✓ CSV File: A CSV (Comma-Separated Values) file is a plain text file that stores tabular data in a simple format. Each line in a CSV file represents a row in the table, and columns are separated by commas (or sometime semi-colons). CSV files are human-readable, can be opened with any text editor or spreadsheet software. They are commonly used for data exchange between different programs and systems.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-7",
     "href": "tasks/SAMOS_R_Task_A.html#question-7",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 7",
     "text": "Question 7\nWhat is the difference between a CSV and TSV file? (/2)\nAnswer\n\n✓ CSV File: A CSV (Comma-Separated Values) file is a plain text file that stores tabular data in a simple format. Each line in a CSV file represents a row in the table, and columns are separated by commas. CSV files are human-readable, can be opened with any text editor or spreadsheet software.\n✓ TSV File: A TSV (Tab-Separated Values) file is similar to a CSV file, but instead of using commas to separate columns, it uses tabs. Each line in a TSV file represents a row in the table, and columns are separated by tabs. TSV files are also human-readable, can be opened with any text editor or spreadsheet software.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-8",
     "href": "tasks/SAMOS_R_Task_A.html#question-8",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 8",
     "text": "Question 8\nWhy is it important to see the file extension when working with data files? (/2)\nAnswer\n\n✓ File extensions are important because they provide information about the type of file and the software that can be used to open it. For example, .csv indicates a CSV file that can be opened with spreadsheet software or text editors, while .xlsx indicates an Excel file that requires Microsoft Excel to open.\n✓ Knowing the file extension helps in selecting the appropriate software to open the file, avoiding compatibility issues, and ensuring that the file is opened correctly. It also helps in identifying the file type quickly, especially when dealing with multiple files, file formats.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-9",
     "href": "tasks/SAMOS_R_Task_A.html#question-9",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 9",
     "text": "Question 9\nUsing examples (new data), explain how the as.vector() function works when applied to matrices and arrays. How does it decide in what order to string the elements of the matrices and arrays together? (/6)\nAnswer\n\n✓ The as.vector() function in R is used to coerce an object to a vector. When applied to matrices and arrays, it flattens the object into a one-dimensional vector by concatenating the columns of the matrix, the elements of the array in a column-major order.\n✓ For matrices, the elements are concatenated column-wise, meaning that the first column is followed by the second column, and so on. For arrays, the elements are concatenated along the last dimension first, then the second-to-last dimension, and so on, until the first dimension.\n✓ The order in which the elements are strung together is determined by the storage mode of the object. In R, matrices, arrays are stored in column-major order and meaning that the elements are stored column-wise in memory. When as.vector() is applied, it follows this order to concatenate the elements into a vector.\n\n\n# Example with a matrix ✓ x 3\n\n# Create a matrix\nmat &lt;- matrix(1:6, nrow = 2)\n\n# Convert the matrix to a vector\nvec &lt;- as.vector(mat)\n\n# Display the matrix and vector\nmat\n\nR&gt;      [,1] [,2] [,3]\nR&gt; [1,]    1    3    5\nR&gt; [2,]    2    4    6\n\nvec\n\nR&gt; [1] 1 2 3 4 5 6\n\n# Example with an array\n\n# Create an array\narr &lt;- array(1:8, dim = c(2, 2, 2))\n\n# Convert the array to a vector\nvec_arr &lt;- as.vector(arr)\n\n# Display the array and vector\narr\n\nR&gt; , , 1\nR&gt; \nR&gt;      [,1] [,2]\nR&gt; [1,]    1    3\nR&gt; [2,]    2    4\nR&gt; \nR&gt; , , 2\nR&gt; \nR&gt;      [,1] [,2]\nR&gt; [1,]    5    7\nR&gt; [2,]    6    8\n\nvec_arr\n\nR&gt; [1] 1 2 3 4 5 6 7 8",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-10",
     "href": "tasks/SAMOS_R_Task_A.html#question-10",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 10",
     "text": "Question 10\nUse the result produced by as.vector() (your own data) and assemble three new arrays with a different combinations of dimensions. Show the dimensions and lengths of the new arrays. (/14)\nAnswer\n\n# ✓ Create a vector\nvec &lt;- 1:12\n\n# ✓ Display the vector\nvec\n\nR&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12\n\n# ✓ Convert the vector to an array with different dimensions\nnew_arr1 &lt;- array(vec, dim = c(2, 3, 2))\n\n# ✓ Display the new array\nnew_arr1\n\nR&gt; , , 1\nR&gt; \nR&gt;      [,1] [,2] [,3]\nR&gt; [1,]    1    3    5\nR&gt; [2,]    2    4    6\nR&gt; \nR&gt; , , 2\nR&gt; \nR&gt;      [,1] [,2] [,3]\nR&gt; [1,]    7    9   11\nR&gt; [2,]    8   10   12\n\n# ✓ Check the dimensions of the new array\ndim(new_arr1)\n\nR&gt; [1] 2 3 2\n\n# Check the class of the new array\nclass(new_arr1)\n\nR&gt; [1] \"array\"\n\n# Check the structure of the new array\nstr(new_arr1)\n\nR&gt;  int [1:2, 1:3, 1:2] 1 2 3 4 5 6 7 8 9 10 ...\n\n# ✓ Check the length (number of elements) of the new array\nlength(new_arr1)\n\nR&gt; [1] 12\n\n# Check the number of dimensions of the new array\nlength(dim(new_arr1))\n\nR&gt; [1] 3\n\n# ✓ A variation of `vec` with different dimensions\nnew_arr2 &lt;- array(vec, dim = c(3, 2, 2))\n\n# ✓ Display the new array\nnew_arr2\n\nR&gt; , , 1\nR&gt; \nR&gt;      [,1] [,2]\nR&gt; [1,]    1    4\nR&gt; [2,]    2    5\nR&gt; [3,]    3    6\nR&gt; \nR&gt; , , 2\nR&gt; \nR&gt;      [,1] [,2]\nR&gt; [1,]    7   10\nR&gt; [2,]    8   11\nR&gt; [3,]    9   12\n\n# ✓ Check the dimensions of the new array\ndim(new_arr2)\n\nR&gt; [1] 3 2 2\n\n# ✓ Check the length (number of elements) of the new array\nlength(new_arr2)\n\nR&gt; [1] 12\n\n# ✓ ✓ ✓ ✓ A third variation of `vec` with different dimensions\nnew_arr3 &lt;- array(vec, dim = c(2, 2, 3))\nnew_arr3\n\nR&gt; , , 1\nR&gt; \nR&gt;      [,1] [,2]\nR&gt; [1,]    1    3\nR&gt; [2,]    2    4\nR&gt; \nR&gt; , , 2\nR&gt; \nR&gt;      [,1] [,2]\nR&gt; [1,]    5    7\nR&gt; [2,]    6    8\nR&gt; \nR&gt; , , 3\nR&gt; \nR&gt;      [,1] [,2]\nR&gt; [1,]    9   11\nR&gt; [2,]   10   12\n\nlength(new_arr3)\n\nR&gt; [1] 12\n\ndim(new_arr3)\n\nR&gt; [1] 2 2 3",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-11",
     "href": "tasks/SAMOS_R_Task_A.html#question-11",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 11",
     "text": "Question 11\nWhat is the purpose of commenting code? Name at least three reasons why you should comment your code. (/3)\nAnswer\n\n✓ Commenting code makes your code more readable, understandable, and maintainable. Comments provide context, explanations, and documentation about the code, helping you (and your future self), others understand the purpose of the code and the logic behind it, and how it works.\n✓ Comments can also serve as reminders, placeholders, or to-do lists for future work. They help in debugging, troubleshooting, and modifying code by providing insights into the code structure, functionality.\n✓ Commenting code is a good practice in programming and data analysis because it promotes collaboration, knowledge sharing, and code quality. It is essential for effective communication, ensuring that the codebase remains comprehensible and usable over time.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-12",
     "href": "tasks/SAMOS_R_Task_A.html#question-12",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 12",
     "text": "Question 12\nWhy am I pedantic about using commas and periods correctly in my code? Name some use cases of commas and periods. (/3)\nAnswer\n\n✓ The SI system of units uses commas and periods in a specific way: periods are used for decimal points, while commas are used to separate thousands.\n✓ Using commas and periods correctly in your code is important for readability, clarity, and consistency. Commas are used to separate elements in a vector, list or arguments in a function call.\n✓ Incorrect usage of commas and periods can lead to syntax errors, logical errors, or unexpected behaviour in your code. It can make the code difficult to understand, debug, and maintain, especially for others who read, work with the code.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-13",
     "href": "tasks/SAMOS_R_Task_A.html#question-13",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 13",
     "text": "Question 13\nCreate a script to read in the file crops.xlsx (via a CSV file that you prepare beforehand) and assign its content to the object crops. Display the content of the dataframe. (/3)\nAnswer\n\n✓ First convert the Excel file to a CSV file using Excel or an online converter such as ChatGPT.\n\n\n# Read the CSV file into R \ncrops &lt;- read.csv(\"crops.csv\") # ✓ \nhead(crops) # ✓",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-14",
     "href": "tasks/SAMOS_R_Task_A.html#question-14",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 14",
     "text": "Question 14\nSave the newly-created object to a CSV file called crops2.csv within your workspace. (/1)\nAnswer\n\n# Save the object to a CSV file\nwrite.csv(crops, \"crops2.csv\", row.names = FALSE) # ✓",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-15",
     "href": "tasks/SAMOS_R_Task_A.html#question-15",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 15",
     "text": "Question 15\nWhat purpose can the naming of a newly-created dataframe serve? Name at least five reasons. (/5)\nAnswer\n\nNaming a newly-created dataframe serves several purposes:\n\n✓ Clarity: A descriptive name can help you and others understand the content or purpose of the dataframe.\n✓ Readability: A well-chosen name makes the code more readable and easier to follow.\n✓ Documentation: The name can serve as a form of documentation, providing context, information about the dataframe.\n✓ Organisation: Naming conventions can help organise and manage dataframes in a project or analysis.\n✓ Consistency: Consistent naming practices across dataframes improve code consistency and maintainability.\n✓ Debugging: A meaningful name can aid in debugging and troubleshooting code.\n✓ Reusability: A good name can make the dataframe more reusable in different parts of the code or in other projects.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-16",
     "href": "tasks/SAMOS_R_Task_A.html#question-16",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 16",
     "text": "Question 16\nUsing annotated R code, demonstrate your understanding of the various ways to look inside of the crops object. Show at least five different ways to inspect the dataframe. (/5)\nAnswer\n\n# ✓ Display the structure of the dataframe\nstr(crops)\n\nR&gt; tibble [96 × 4] (S3: tbl_df/tbl/data.frame)\nR&gt;  $ density   : num [1:96] 1 2 1 2 1 2 1 2 1 2 ...\nR&gt;  $ block     : chr [1:96] \"north\" \"east\" \"south\" \"west\" ...\nR&gt;  $ fertilizer: chr [1:96] \"A\" \"A\" \"A\" \"A\" ...\nR&gt;  $ mass      : num [1:96] 4823 4832 4801 4836 4821 ...\n\n# ✓ Display the first few rows of the dataframe\nhead(crops)\n\nR&gt; # A tibble: 6 × 4\nR&gt;   density block fertilizer  mass\nR&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;\nR&gt; 1       1 north A          4823.\nR&gt; 2       2 east  A          4832.\nR&gt; 3       1 south A          4801.\nR&gt; 4       2 west  A          4836.\nR&gt; 5       1 north A          4821.\nR&gt; 6       2 east  A          4811.\n\n# ✓ Display the last few rows of the dataframe\ntail(crops)\n\nR&gt; # A tibble: 6 × 4\nR&gt;   density block fertilizer  mass\nR&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;\nR&gt; 1       1 south C          4822.\nR&gt; 2       2 west  C          4828.\nR&gt; 3       1 north C          4848.\nR&gt; 4       2 east  C          4836.\nR&gt; 5       1 south C          4836.\nR&gt; 6       2 west  C          4820.\n\n# ✓ Display the summary statistics of the dataframe\nsummary(crops)\n\nR&gt;     density       block            fertilizer             mass     \nR&gt;  Min.   :1.0   Length:96          Length:96          Min.   :4773  \nR&gt;  1st Qu.:1.0   Class :character   Class :character   1st Qu.:4803  \nR&gt;  Median :1.5   Mode  :character   Mode  :character   Median :4819  \nR&gt;  Mean   :1.5                                         Mean   :4818  \nR&gt;  3rd Qu.:2.0                                         3rd Qu.:4828  \nR&gt;  Max.   :2.0                                         Max.   :4873\n\n# ✓ Display the dimensions of the dataframe\ndim(crops)\n\nR&gt; [1] 96  4\n\n# ✓ Display the column names of the dataframe\ncolnames(crops)\n\nR&gt; [1] \"density\"    \"block\"      \"fertilizer\" \"mass\"\n\n# ✓ Glimpse into the dataframe\nglimpse(crops)\n\nR&gt; Rows: 96\nR&gt; Columns: 4\nR&gt; $ density    &lt;dbl&gt; 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,…\nR&gt; $ block      &lt;chr&gt; \"north\", \"east\", \"south\", \"west\", \"north\", \"east\", \"south\",…\nR&gt; $ fertilizer &lt;chr&gt; \"A\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\",…\nR&gt; $ mass       &lt;dbl&gt; 4823.367, 4832.113, 4801.044, 4836.293, 4820.559, 4811.111,…\n\n# ✓ Look at the names\nnames(crops)\n\nR&gt; [1] \"density\"    \"block\"      \"fertilizer\" \"mass\"\n\n# ✓ Use the skimr package to get a summary of the dataframe\nskimr::skim(crops)\n\n\n\n\n\nName\ncrops\n\n\nNumber of rows\n96\n\n\nNumber of columns\n4\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n2\n\n\nnumeric\n2\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nData summaryVariable type: character\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nblock\n0\n1\n4\n5\n0\n4\n0\n\n\nfertilizer\n0\n1\n1\n1\n0\n3\n0\n\n\n\nVariable type: numeric\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\ndensity\n0\n1\n1.50\n0.50\n1.00\n1.00\n1.50\n2.00\n2.00\n▇▁▁▁▇\n\n\nmass\n0\n1\n4817.56\n18.09\n4772.53\n4802.68\n4818.72\n4827.99\n4873.23\n▂▅▇▃▁\n\n\n\n\n# ✓ Display the data types of the columns\nsapply(crops, class)\n\nR&gt;     density       block  fertilizer        mass \nR&gt;   \"numeric\" \"character\" \"character\"   \"numeric\"",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-17",
     "href": "tasks/SAMOS_R_Task_A.html#question-17",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 17",
     "text": "Question 17\nExplain what you see inside the file. What are the columns? What are the rows? What are the data types? (/5)\nAnswer\n\n✓ The crops dataframe contains the columns density, block, fertiliser, mass. The rows represent individual observations or measurements of crop mass under different conditions.\n✓ The density column likely represents the density of the crop, block represents the experimental block, fertiliser represents the type of fertiliser used, mass represents the mass of the crop.\n✓ The data types of the columns can be inferred from the output of str(crops) and sapply(crops, class). For example, density and mass are numeric or integer, while block and fertiliser are characters or factors.\n✓ The density ranges from a minimum of 1 to a maximum of 2. The fertiliser is a factor with levels A, B, C, the block is a character vector with levels north, south, east, west. The mass ranges from a minimum of 4773 to a maximum of 4873.\n✓ There are 96 rows in the dataframe, representing 96 observations, measurements.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-18",
     "href": "tasks/SAMOS_R_Task_A.html#question-18",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 18",
     "text": "Question 18\nExplain in words what the pipe operator %&gt;% does in R. How does it make your code more readable? (/3)\nAnswer\n\n✓ The pipe operator %&gt;% (or |&gt;) in R is used to chain together multiple functions or operations in a sequence. It takes the output of one function and passes it as the first argument to the next function, allowing you to create a pipeline of operations.\n✓ The pipe operator makes your code more readable by breaking down complex operations into a series of simpler steps. It helps in avoiding nested function calls, improves code clarity, and reduces the need for intermediate variables.\n✓ In this way you can write code in a more linear and intuitive way, following the flow of data transformations from one step to the next. This makes it easier to understand the logic of the code, the sequence of operations being performed.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_A.html#question-19",
     "href": "tasks/SAMOS_R_Task_A.html#question-19",
-    "title": "SAMOS Intro R Task A",
+    "title": "Intro R Task A",
     "section": "Question 19",
     "text": "Question 19\nUsing the various tidyverse functions, calculate the mean ± SD for the crop mass within each combination of block and fertiliser of the crops dataset. (/5)\nAnswer\n\n# Load the tidyverse package\nlibrary(tidyverse)\n\n# Calculate the mean ± SD for crop mass within each combination of block and fertiliser\ncrops %&gt;%\n  group_by(block, fertilizer) %&gt;%\n  summarise(mean_mass = mean(mass), sd_mass = sd(mass))\n\nR&gt; # A tibble: 12 × 4\nR&gt; # Groups:   block [4]\nR&gt;    block fertilizer mean_mass sd_mass\nR&gt;    &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;\nR&gt;  1 east  A              4826.    16.6\nR&gt;  2 east  B              4817.    19.9\nR&gt;  3 east  C              4834.    13.8\nR&gt;  4 north A              4803.    19.4\nR&gt;  5 north B              4813.    12.1\nR&gt;  6 north C              4823.    14.6\nR&gt;  7 south A              4800.    12.7\nR&gt;  8 south B              4809.    17.6\nR&gt;  9 south C              4819.    13.7\nR&gt; 10 west  A              4812.    16.4\nR&gt; 11 west  B              4822.    11.4\nR&gt; 12 west  C              4832.    20.2",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task A"
+      "Intro R Task A"
     ]
   },
   {
@@ -3219,169 +3219,481 @@
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-1",
     "href": "tasks/SAMOS_R_Task_B.html#question-1",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 1",
     "text": "Question 1\nWhat are the key principles of tidy data? (/3)\nAnswer\n\n✓ Each variable forms a column.\n✓ Each observation forms a row.\n✓ Each type of observational unit forms a table.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-2",
     "href": "tasks/SAMOS_R_Task_B.html#question-2",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 2",
-    "text": "Question 2\nUsing the untidy data (SACTN2) and the tidy data (SACTN2_tidy), create line graphs, one for each of DEA, SAWS, and KZNSB, showing a time series of temperature. Ensure you have a column of three figures (ncol = 1). Use the fewest number of lines of code possible. You should end up with two graphs, each with three panels. (/13)\nAnswer\n\nlibrary(tidyverse)\n\nload(here::here(\"data\", \"BCB744\", \"SACTN_mangled.RData\"))\n\nSACTN2_tidy &lt;- pivot_longer(\n  SACTN2,\n  cols = c(\"DEA\", \"KZNSB\", \"SAWS\"),\n  names_to = \"src\",\n  values_to = \"temp\"\n)\n\n# Plot starting from the wide (untidy) data\np1 &lt;- SACTN2 |&gt;\n  pivot_longer(cols = c(\"DEA\", \"KZNSB\", \"SAWS\"), names_to = \"src\", values_to = \"temp\") |&gt;\n  ggplot(aes(x = date, y = temp)) +\n  geom_line(aes(colour = site, linetype = type)) +\n  facet_wrap(~ src, ncol = 1) +\n  labs(title = \"Untidy (wide) → pivot_longer()\", x = \"Date\", y = \"Temperature (°C)\")\n\n# Plot starting from the tidy data\np2 &lt;- ggplot(SACTN2_tidy, aes(x = date, y = temp)) +\n  geom_line(aes(colour = site, linetype = type)) +\n  facet_wrap(~ src, ncol = 1) +\n  labs(title = \"Tidy (long)\", x = \"Date\", y = \"Temperature (°C)\")\n\np1\np2\n\n\n\n\n\n\n\nFigure 1: SACTN2 temperature time series faceted by source (wide → long).\n\n\n\n\n\n\n\n\n\n\n\nFigure 2: SACTN2 temperature time series faceted by source (wide → long).",
+    "text": "Question 2\nUsing the untidy data (SACTN2) and the tidy data (SACTN2_tidy), create line graphs, one for each of DEA, SAWS, and KZNSB, showing a time series of temperature. Ensure you have a column of three figures (ncol = 1). Use the fewest number of lines of code possible. You should end up with two graphs, each with three panels. (/13)\nAnswer\n\nlibrary(tidyverse)\n\nload(here::here(\"data\", \"SAMOS\", \"other_data\", \"SACTN_mangled.RData\"))\n\nSACTN2_tidy &lt;- pivot_longer(\n  SACTN2,\n  cols = c(\"DEA\", \"KZNSB\", \"SAWS\"),\n  names_to = \"src\",\n  values_to = \"temp\"\n)\n\n# Plot starting from the wide (untidy) data\np1 &lt;- SACTN2 |&gt;\n  pivot_longer(cols = c(\"DEA\", \"KZNSB\", \"SAWS\"), names_to = \"src\", values_to = \"temp\") |&gt;\n  ggplot(aes(x = date, y = temp)) +\n  geom_line(aes(colour = site, linetype = type)) +\n  facet_wrap(~ src, ncol = 1) +\n  labs(title = \"Untidy (wide) → pivot_longer()\", x = \"Date\", y = \"Temperature (°C)\")\n\n# Plot starting from the tidy data\np2 &lt;- ggplot(SACTN2_tidy, aes(x = date, y = temp)) +\n  geom_line(aes(colour = site, linetype = type)) +\n  facet_wrap(~ src, ncol = 1) +\n  labs(title = \"Tidy (long)\", x = \"Date\", y = \"Temperature (°C)\")\n\np1\np2\n\n\n\n\n\n\n\nFigure 1: SACTN2 temperature time series faceted by source (wide → long).\n\n\n\n\n\n\n\n\n\n\n\nFigure 2: SACTN2 temperature time series faceted by source (wide → long).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-3",
     "href": "tasks/SAMOS_R_Task_B.html#question-3",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 3",
-    "text": "Question 3\nLoad the laminaria.csv data (used in Chapter 13). Convert it to long format so that:\n\nmeasurement names are in a column called measurement\nthe numeric values are in a column called value\n\nThen make a boxplot of value by measurement and flip the axes (so measurements are on the y-axis). (/10)\nAnswer\n\nkelp &lt;- read_csv(here::here(\"data\", \"BCB744\", \"laminaria.csv\"))\n\nkelp_long &lt;- kelp |&gt;\n  pivot_longer(\n    cols = blade_weight:total_length,\n    names_to = \"measurement\",\n    values_to = \"value\"\n  )\n\nggplot(kelp_long, aes(x = measurement, y = value)) +\n  geom_boxplot(outlier.alpha = 0.3) +\n  coord_flip() +\n  labs(x = NULL, y = NULL)\n\n\n\n\n\n\n\nFigure 3: Laminaria measurements in long format (boxplots).",
+    "text": "Question 3\nLoad the laminaria.csv data (used in Chapter 13). Convert it to long format so that:\n\nmeasurement names are in a column called measurement\nthe numeric values are in a column called value\n\nThen make a boxplot of value by measurement and flip the axes (so measurements are on the y-axis). (/10)\nAnswer\n\nkelp &lt;- read_csv(here::here(\"data\", \"SAMOS\", \"other_data\", \"laminaria.csv\"))\n\nkelp_long &lt;- kelp |&gt;\n  pivot_longer(\n    cols = blade_weight:total_length,\n    names_to = \"measurement\",\n    values_to = \"value\"\n  )\n\nggplot(kelp_long, aes(x = measurement, y = value)) +\n  geom_boxplot(outlier.alpha = 0.3) +\n  coord_flip() +\n  labs(x = NULL, y = NULL)\n\n\n\n\n\n\n\nFigure 3: Laminaria measurements in long format (boxplots).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-4",
     "href": "tasks/SAMOS_R_Task_B.html#question-4",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 4",
     "text": "Question 4\nUsing ggplot2::diamonds, create a new factor called price_bin with three levels:\n\ncheap : price &lt; 1000\nmid : 1000 ≤ price &lt; 5000\nexpensive: price ≥ 5000\n\nThen make a faceted bar plot (faceted by cut) showing counts of diamonds by price_bin, filled by cut. (/10)\nAnswer\n\ndiamonds2 &lt;- ggplot2::diamonds |&gt;\n  mutate(\n    price_bin = case_when(\n      price &lt; 1000 ~ \"cheap\",\n      price &lt; 5000 ~ \"mid\",\n      TRUE ~ \"expensive\"\n    ),\n    price_bin = factor(price_bin, levels = c(\"cheap\", \"mid\", \"expensive\"))\n  )\n\nggplot(diamonds2, aes(x = price_bin, fill = cut)) +\n  geom_bar() +\n  facet_wrap(~cut) +\n  labs(x = \"Price bin (US$)\", y = \"Count\")\n\n\n\n\n\n\n\nFigure 4: Counts by price bin, filled by cut (diamonds).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-5",
     "href": "tasks/SAMOS_R_Task_B.html#question-5",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 5",
     "text": "Question 5\nUsing dplyr::storms, find the top 5 storms (by name) with the highest maximum wind. Return a tibble with columns name, year, and max_wind, arranged from highest to lowest. (/10)\nFor bonus marks, use the gt R package, create a beautiful table with the same information. Ensure it is of publication quality, for instance to suit the style of the journal Marine Biology. (/5)\nAnswer\n\n# Top 5 storms by maximum wind speed\nstorms_top5 &lt;- dplyr::storms |&gt;\n  group_by(name, year) |&gt;\n  summarise(max_wind = max(wind, na.rm = TRUE), .groups = \"drop\") |&gt;\n  arrange(desc(max_wind)) |&gt;\n  slice_head(n = 5)\n\nstorms_top5\n\nR&gt; # A tibble: 5 × 3\nR&gt;   name     year max_wind\nR&gt;   &lt;chr&gt;   &lt;dbl&gt;    &lt;int&gt;\nR&gt; 1 Allen    1980      165\nR&gt; 2 Dorian   2019      160\nR&gt; 3 Gilbert  1988      160\nR&gt; 4 Wilma    2005      160\nR&gt; 5 Irma     2017      155\n\n\nBonus: publication-quality table (gt)\n\n# If gt isn't installed on your machine yet:\n# install.packages(\"gt\")\n\nlibrary(gt)\n\nstorms_top5 |&gt;\n  gt() |&gt;\n  tab_header(\n    title = md(\"**Top 5 storms by maximum wind speed**\"),\n    subtitle = md(\"From `dplyr::storms`\")\n  ) |&gt;\n  cols_label(\n    name = \"Storm\",\n    year = \"Year\",\n    max_wind = md(\"Max wind (kt)\")\n  ) |&gt;\n  fmt_number(columns = max_wind, decimals = 0) |&gt;\n  cols_align(align = \"left\", columns = name) |&gt;\n  cols_align(align = \"center\", columns = year) |&gt;\n  cols_align(align = \"right\", columns = max_wind) |&gt;\n  tab_options(\n    table.font.names = c(\"Times New Roman\", \"Times\", \"serif\"),\n    table.font.size = px(12),\n    heading.title.font.size = px(14),\n    heading.subtitle.font.size = px(12),\n    table.width = pct(80),\n    column_labels.font.weight = \"bold\",\n    data_row.padding = px(3),\n    table.border.top.style = \"solid\",\n    table.border.top.width = px(1),\n    table.border.bottom.style = \"solid\",\n    table.border.bottom.width = px(1),\n    table_body.hlines.style = \"none\"\n  ) |&gt;\n  tab_style(\n    style = cell_text(style = \"italic\"),\n    locations = cells_body(columns = name)\n  )\n\n\n\n\n\n\n\n\n\n\nTop 5 storms by maximum wind speed\n\n\nFrom dplyr::storms\n\n\nStorm\nYear\nMax wind (kt)\n\n\n\n\nAllen\n1980\n165\n\n\nDorian\n2019\n160\n\n\nGilbert\n1988\n160\n\n\nWilma\n2005\n160\n\n\nIrma\n2017\n155\n\n\n\n\n\n\n\n\nTable 1",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-6",
     "href": "tasks/SAMOS_R_Task_B.html#question-6",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 6",
     "text": "Question 6\nThe dataset msleep (in ggplot2) contains life-history and sleep traits for mammals.\n\nCreate a cleaned dataset that keeps only rows with a known vore (diet category) and non-missing sleep_total.\nFor each vore, calculate:\n\nn (number of species)\nmean_sleep (mean of sleep_total)\nsd_sleep (SD of sleep_total)\n\nMake a publication-quality figure showing mean_sleep by vore with error bars (±1 SD).\n\nOrder the vore categories from highest to lowest mean sleep. (/12)\nAnswer\n\ndata(msleep, package = \"ggplot2\")\n\nmsleep_clean &lt;- msleep |&gt;\n  filter(!is.na(vore), !is.na(sleep_total))\n\nsleep_vore &lt;- msleep_clean |&gt;\n  group_by(vore) |&gt;\n  summarise(\n    n = n(),\n    mean_sleep = mean(sleep_total),\n    sd_sleep = sd(sleep_total),\n    .groups = \"drop\"\n  ) |&gt;\n  arrange(desc(mean_sleep)) |&gt;\n  mutate(vore = fct_inorder(vore))\n\nsleep_vore\n\nR&gt; # A tibble: 4 × 4\nR&gt;   vore        n mean_sleep sd_sleep\nR&gt;   &lt;fct&gt;   &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;\nR&gt; 1 insecti     5      14.9      5.92\nR&gt; 2 omni       20      10.9      2.95\nR&gt; 3 carni      19      10.4      4.67\nR&gt; 4 herbi      32       9.51     4.88\n\nggplot(sleep_vore, aes(x = vore, y = mean_sleep)) +\n  geom_col(width = 0.7, fill = \"grey70\", colour = \"grey20\") +\n  geom_errorbar(\n    aes(ymin = mean_sleep - sd_sleep, ymax = mean_sleep + sd_sleep),\n    width = 0.15\n  ) +\n  coord_flip() +\n  labs(\n    x = \"Diet category (vore)\",\n    y = \"Mean total sleep (hours/day)\"\n  )\n\n\n\n\n\n\n\nFigure 5: Mean total sleep time by diet category (msleep), with ±1 SD.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-7",
     "href": "tasks/SAMOS_R_Task_B.html#question-7",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 7",
-    "text": "Question 7\nUsing SACTN, create a column called month (as an ordered factor: Jan → Dec) and a column called season (DJF, MAM, JJA, SON).\nThen calculate the mean temperature by season and depth and plot it as lines (x = depth, y = mean temp) with one line per season. (/15)\nAnswer\n\n# Ensure SACTN is loaded (from Question 6); if not, load again.\nif (!exists(\"SACTN\")) {\n  load(here::here(\"data\", \"BCB744\", \"SACTNmonthly_v4.0.RData\"))\n  SACTN &lt;- SACTNmonthly_v4.0\n  rm(SACTNmonthly_v4.0)\n}\n\nSACTN2 &lt;- SACTN |&gt;\n  mutate(\n    month = factor(month(date, label = TRUE, abbr = TRUE),\n                   levels = month.abb, ordered = TRUE),\n    season = case_when(\n      month %in% c(\"Dec\", \"Jan\", \"Feb\") ~ \"DJF\",\n      month %in% c(\"Mar\", \"Apr\", \"May\") ~ \"MAM\",\n      month %in% c(\"Jun\", \"Jul\", \"Aug\") ~ \"JJA\",\n      TRUE ~ \"SON\"\n    ),\n    season = factor(season, levels = c(\"DJF\", \"MAM\", \"JJA\", \"SON\"))\n  )\n\nseason_depth &lt;- SACTN2 |&gt;\n  group_by(season, depth) |&gt;\n  summarise(mean_temp = mean(temp, na.rm = TRUE), .groups = \"drop\")\n\nggplot(season_depth, aes(x = depth, y = mean_temp, colour = season)) +\n  geom_line() +\n  geom_point() +\n  labs(x = \"Depth\", y = \"Mean temperature (°C)\")\n\n\n\n\n\n\n\nFigure 6: Seasonal mean temperature by depth.",
+    "text": "Question 7\nUsing SACTN, create a column called month (as an ordered factor: Jan → Dec) and a column called season (DJF, MAM, JJA, SON).\nThen calculate the mean temperature by season and depth and plot it as lines (x = depth, y = mean temp) with one line per season. (/15)\nAnswer\n\n# Ensure SACTN is loaded (from Question 6); if not, load again.\nif (!exists(\"SACTN\")) {\n  load(here::here(\"data\", \"SAMOS\", \"other_data\", \"SACTNmonthly_v4.0.RData\"))\n  SACTN &lt;- SACTNmonthly_v4.0\n  rm(SACTNmonthly_v4.0)\n}\n\nSACTN2 &lt;- SACTN |&gt;\n  mutate(\n    month = factor(month(date, label = TRUE, abbr = TRUE),\n                   levels = month.abb, ordered = TRUE),\n    season = case_when(\n      month %in% c(\"Dec\", \"Jan\", \"Feb\") ~ \"DJF\",\n      month %in% c(\"Mar\", \"Apr\", \"May\") ~ \"MAM\",\n      month %in% c(\"Jun\", \"Jul\", \"Aug\") ~ \"JJA\",\n      TRUE ~ \"SON\"\n    ),\n    season = factor(season, levels = c(\"DJF\", \"MAM\", \"JJA\", \"SON\"))\n  )\n\nseason_depth &lt;- SACTN2 |&gt;\n  group_by(season, depth) |&gt;\n  summarise(mean_temp = mean(temp, na.rm = TRUE), .groups = \"drop\")\n\nggplot(season_depth, aes(x = depth, y = mean_temp, colour = season)) +\n  geom_line() +\n  geom_point() +\n  labs(x = \"Depth\", y = \"Mean temperature (°C)\")\n\n\n\n\n\n\n\nFigure 6: Seasonal mean temperature by depth.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-8",
     "href": "tasks/SAMOS_R_Task_B.html#question-8",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 8",
     "text": "Question 8\nUsing SACTN, filter to one site of your choice and create a time series plot of temperature (x = date, y = temp).\n\nAdd a geom_smooth() (no SE ribbon)\nFacet by depth\nEnsure the x-axis tick labels are readable (rotate if needed)\n\n(/12)\nAnswer\n\nsite_choice &lt;- \"Amanzimtoti\"  # choose any valid site name present in your data\n\nSACTN |&gt;\n  filter(site == site_choice) |&gt;\n  ggplot(aes(x = date, y = temp)) +\n  geom_line(alpha = 0.6) +\n  geom_smooth(se = FALSE, linewidth = 0.6) +\n  facet_wrap(~ depth, ncol = 1, scales = \"free_y\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +\n  labs(title = paste(\"SACTN temperature:\", site_choice), x = \"Date\", y = \"Temperature (°C)\")\n\n\n\n\n\n\n\nFigure 7: Time series at one site, faceted by depth.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-9",
     "href": "tasks/SAMOS_R_Task_B.html#question-9",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 9",
-    "text": "Question 9\nThe object SACTN4a and SACTN4b (from SACTN_mangled.RData) store the same observations split across two tables.\n\nJoin them into a single tidy table.\nThen create a faceted plot (one facet per src) showing temp through time.\n\n(/15)\nAnswer\n\nload(here::here(\"data\", \"BCB744\", \"SACTN_mangled.RData\"))\n\n# SACTN4a stores date + temp, but site/src are embedded in an `index` string.\nSACTN4a2 &lt;- SACTN4a |&gt;\n  mutate(date = as.Date(date)) |&gt;\n  tidyr::separate(index, into = c(\"site\", \"src\"), sep = \"/ \", remove = TRUE)\n\n# SACTN4b stores the identifiers as columns; rebuild `date`.\nSACTN4b2 &lt;- SACTN4b |&gt;\n  mutate(date = lubridate::make_date(year = year, month = as.integer(month), day = as.integer(day)))\n\n# Join to get one tidy table\nSACTN4 &lt;- SACTN4b2 |&gt;\n  left_join(SACTN4a2, by = c(\"site\", \"src\", \"date\"))\n\n# Plot\nSACTN4 |&gt;\n  ggplot(aes(x = date, y = temp, colour = site)) +\n  geom_line(alpha = 0.6) +\n  facet_wrap(~ src, ncol = 1) +\n  labs(x = \"Date\", y = \"Temperature (°C)\")\n\n\n\n\n\n\n\nFigure 8: SACTN4a + SACTN4b joined and plotted through time (faceted by src).",
+    "text": "Question 9\nThe object SACTN4a and SACTN4b (from SACTN_mangled.RData) store the same observations split across two tables.\n\nJoin them into a single tidy table.\nThen create a faceted plot (one facet per src) showing temp through time.\n\n(/15)\nAnswer\n\nload(here::here(\"data\", \"SAMOS\", \"other_data\", \"SACTN_mangled.RData\"))\n\n# SACTN4a stores date + temp, but site/src are embedded in an `index` string.\nSACTN4a2 &lt;- SACTN4a |&gt;\n  mutate(date = as.Date(date)) |&gt;\n  tidyr::separate(index, into = c(\"site\", \"src\"), sep = \"/ \", remove = TRUE)\n\n# SACTN4b stores the identifiers as columns; rebuild `date`.\nSACTN4b2 &lt;- SACTN4b |&gt;\n  mutate(date = lubridate::make_date(year = year, month = as.integer(month), day = as.integer(day)))\n\n# Join to get one tidy table\nSACTN4 &lt;- SACTN4b2 |&gt;\n  left_join(SACTN4a2, by = c(\"site\", \"src\", \"date\"))\n\n# Plot\nSACTN4 |&gt;\n  ggplot(aes(x = date, y = temp, colour = site)) +\n  geom_line(alpha = 0.6) +\n  facet_wrap(~ src, ncol = 1) +\n  labs(x = \"Date\", y = \"Temperature (°C)\")\n\n\n\n\n\n\n\nFigure 8: SACTN4a + SACTN4b joined and plotted through time (faceted by src).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-10",
     "href": "tasks/SAMOS_R_Task_B.html#question-10",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 10",
     "text": "Question 10\nUsing SACTN, compute a temperature anomaly per site as the deviation of each monthly temperature from that site’s long-term mean (temp − mean(temp, na.rm = TRUE) within each site). Then create a histogram of anomalies and facet by src. (/15)\nAnswer\n\nSACTN_anom &lt;- SACTN |&gt;\n  group_by(site) |&gt;\n  mutate(anom = temp - mean(temp, na.rm = TRUE)) |&gt;\n  ungroup()\n\nggplot(SACTN_anom, aes(x = anom)) +\n  geom_histogram(bins = 40, colour = \"white\") +\n  facet_wrap(~ src, ncol = 1) +\n  labs(x = \"Temperature anomaly (°C)\", y = \"Count\")\n\n\n\n\n\n\n\nFigure 9: Temperature anomalies by source (faceted).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-11-complex",
     "href": "tasks/SAMOS_R_Task_B.html#question-11-complex",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 11 (complex)",
     "text": "Question 11 (complex)\nUsing SACTN, identify (for each site) the warmest calendar month (based on mean temperature across all years).\nReturn a table with site, warmest_month, and mean_temp, arranged from warmest to coolest mean temperature.\nThen visualise the result as a dot plot of mean_temp by site, coloured by warmest_month. (/20)\nAnswer\n\nwarmest_tbl &lt;- SACTN |&gt;\n  mutate(month = month(date, label = TRUE, abbr = TRUE)) |&gt;\n  group_by(site, month) |&gt;\n  summarise(mean_temp = mean(temp, na.rm = TRUE), .groups = \"drop\") |&gt;\n  group_by(site) |&gt;\n  slice_max(order_by = mean_temp, n = 1, with_ties = FALSE) |&gt;\n  ungroup() |&gt;\n  rename(warmest_month = month) |&gt;\n  arrange(desc(mean_temp))\n\nwarmest_tbl\n\nR&gt; # A tibble: 106 × 3\nR&gt;    site           warmest_month mean_temp\nR&gt;    &lt;fct&gt;          &lt;ord&gt;             &lt;dbl&gt;\nR&gt;  1 Saxon          Feb                27.2\nR&gt;  2 Sodwana        Mar                26.9\nR&gt;  3 Leadsmanshoal  Feb                26.7\nR&gt;  4 Durban         Feb                24.6\nR&gt;  5 Scottburgh     Feb                24.5\nR&gt;  6 Park Rynie     Feb                24.5\nR&gt;  7 Brighton Beach Feb                24.5\nR&gt;  8 Salt Rock      Feb                24.4\nR&gt;  9 Umgababa       Feb                24.4\nR&gt; 10 Antsey's Beach Feb                24.4\nR&gt; # ℹ 96 more rows\n\nwarmest_tbl |&gt;\n  mutate(site = fct_reorder(site, mean_temp)) |&gt;\n  ggplot(aes(x = mean_temp, y = site, colour = warmest_month)) +\n  geom_point(size = 2.4) +\n  labs(x = \"Mean temperature in warmest month (°C)\", y = NULL, colour = \"Warmest month\")\n\n\n\n\n\n\n\nFigure 10: Warmest month per site (dot plot).",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-12-complex",
     "href": "tasks/SAMOS_R_Task_B.html#question-12-complex",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 12 (complex)",
     "text": "Question 12 (complex)\nUsing SACTN, compute the annual mean temperature per site (one value per site-year). Then:\n\nFit a simple linear trend (temperature ~ year) per site.\nExtract the slope (°C per year) for each site.\nPlot the slopes as a horizontal bar chart, ordered from the most negative to the most positive slope.\n\n(/25)\nAnswer\n\nannual &lt;- SACTN |&gt;\n  mutate(year = year(date)) |&gt;\n  group_by(site, year) |&gt;\n  summarise(mean_temp = mean(temp, na.rm = TRUE), .groups = \"drop\")\n\nslopes &lt;- annual |&gt;\n  group_by(site) |&gt;\n  summarise(\n    slope = coef(lm(mean_temp ~ year))[\"year\"],\n    .groups = \"drop\"\n  )\n\nslopes\n\nR&gt; # A tibble: 106 × 2\nR&gt;    site             slope\nR&gt;    &lt;fct&gt;            &lt;dbl&gt;\nR&gt;  1 Port Nolloth   0.0195 \nR&gt;  2 Hondeklipbaai  0.0574 \nR&gt;  3 Doringbaai     0.0496 \nR&gt;  4 Lamberts Bay   0.0143 \nR&gt;  5 Elands Bay     0.0938 \nR&gt;  6 St Helena Bay -0.0210 \nR&gt;  7 Paternoster    0.00530\nR&gt;  8 Saldanha Bay   0.0111 \nR&gt;  9 Dassen Island  0.0251 \nR&gt; 10 Yzerfontein    0.0255 \nR&gt; # ℹ 96 more rows\n\nslopes |&gt;\n  mutate(site = fct_reorder(site, slope)) |&gt;\n  ggplot(aes(x = slope, y = site)) +\n  geom_col() +\n  geom_vline(xintercept = 0, linetype = 2) +\n  labs(x = \"Slope (°C per year)\", y = NULL)\n\n\n\n\n\n\n\nFigure 11: Linear temperature trend (slope) per site.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_B.html#question-13-complex",
     "href": "tasks/SAMOS_R_Task_B.html#question-13-complex",
-    "title": "SAMOS Intro R Task B",
+    "title": "Intro R Task B",
     "section": "Question 13 (complex)",
     "text": "Question 13 (complex)\nUsing SACTN, create a figure that answers this question:\n\n“Do deeper temperatures vary less through time than shallow temperatures?”\n\nYour workflow must:\n\nsummarise variability (e.g., SD or IQR) in a tidy way\ncompare variability across depths (at least 3 depth levels)\nuse an informative plot (not a table)\ninclude a short written interpretation (2–4 sentences)\n\n(/30)\nAnswer\n\nvar_depth &lt;- SACTN |&gt;\n  group_by(site, depth) |&gt;\n  summarise(sd_temp = sd(temp, na.rm = TRUE), n = sum(!is.na(temp)), .groups = \"drop\")\n\nvar_depth |&gt;\n  ggplot(aes(x = depth, y = sd_temp)) +\n  geom_boxplot(outlier.alpha = 0.3) +\n  geom_jitter(width = 0.1, alpha = 0.4) +\n  labs(x = \"Depth\", y = \"SD of monthly temperature (°C)\")\n\n\n\n\n\n\n\nFigure 12: Variability of temperature through time by depth.\n\n\n\n\n\nThe deeper temperatures tend to show a smaller spread (lower SD) than shallow temperatures, consistent with stronger thermal buffering at depth. There is, however, clear site-to-site variability in SD at each depth, suggesting that local oceanography and exposure also influence stability through time. Using IQR instead of SD would be a robust alternative if outliers are a concern.",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task B"
+      "Intro R Task B"
     ]
   },
   {
     "objectID": "tasks/SAMOS_R_Task_D.html#question-1",
     "href": "tasks/SAMOS_R_Task_D.html#question-1",
-    "title": "SAMOS Intro R Task D",
+    "title": "Intro R Task D",
     "section": "Question 1",
     "text": "Question 1\nFigure 7 (WOA18 surface temperature (°C) climatology for February (Southern Africa region)) in Chapter 10 (Graphics with ggplot2) shows the WOA18 February surface temperature climatology as a plain raster. In this exercise you will substantially develop that figure and add an oceanographic analysis layer.\nPart A — Improved SST map\nReplot the February surface SST field from WOA18, this time overlaying it on a Natural Earth coastline (using the rnaturalearth and sf packages, as demonstrated in the lecture). Annotate the map with two rectangular bounding boxes that identify the following water masses:\n\nAgulhas Current core — the western boundary current carrying warm, saline Indian Ocean water southwestward along the east coast of South Africa. Use the bounding box: 30–35°E, 37–29°S.\nBenguela Upwelling System — the eastern boundary upwelling system on the west coast of southern Africa; restrict the box to roughly 100 km offshore (i.e., a narrow coastal strip). Use the bounding box: 14–18°E, 33–24°S.\n\nLabel each box clearly on the map. Ensure axes are correctly labelled and apply Quarto’s figure-label feature (#| label: fig-...) so the figure can be cross-referenced.\nPart B — Seasonal T–S diagrams\nFor each of the two regions defined in Part A:\n\nFilter the full WOA18 dataset (all depths) to the months of DJF (December–January–February, austral summer) and JJA (June–July–August, austral winter) separately.\nPlot all individual (unaggregated) grid-cell T–S pairs within each box as small semi-transparent grey background points to show the full spread of the data.\nOverlay the spatially and temporally averaged T–S profile (mean temperature and mean salinity at each standard depth level, averaged across all grid cells and months within the season) as a coloured path with depth encoded on a continuous colour scale.\nArrange the four panels in a 2 × 2 faceted figure (seasons as rows, regions as columns) and apply Quarto labelling.\n\nBelow each figure, write a short paragraph that cross-references it with @fig-... and interprets the oceanographic patterns visible.\n(/30)",
     "crumbs": [
       "Home",
       "Tasks",
-      "SAMOS Intro R Task D"
+      "Intro R Task D"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_H.html#question-1",
+    "href": "tasks/SAMOS_Stats_Task_H.html#question-1",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.1 Question 1",
+    "text": "2.1 Question 1\n\nExamine the content of the regression model object sparrows.lm produced in the linear regression chapter. Explain the meaning of the components within, and tell us how they relate to the model summary produced by summary(sparrows.lm). (/5)\nUsing the values inside of the model object, write some R code to show how you can reconstruct the observed values for the dependent variable from the residuals, the fitted values. (/5)\nFit a linear regression through the model residuals (use sparrows.lm). Explain your findings. (/5)\nSimilarly, fit a linear regression through the fitted values. Explain. (/5)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_H.html#question-2",
+    "href": "tasks/SAMOS_Stats_Task_H.html#question-2",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.2 Question 2",
+    "text": "2.2 Question 2\nFind your own two datasets and do a full regression analysis on it. Briefly describe the data and the reason for their existence. Start with setting the appropriate hypotheses. Follow with an EDA, make some exploratory figures, fit the linear model, make a figure with the fitted linear model, provide diagnostic plots to test assumptions, and present the output in a Results section suitable for publication. (/20)\n\n2.2.1 Rubric\nCriterion | Excellent (Full Marks) | Partial Credit | Absent / Poor | Marks |\n— — — — — | — — — — — — — — — –| — — — — — — — | — — — — — — –| — — — –|\n1. Dataset Choice and Justification (/2) | Two datasets are clearly described, relevant, and non-trivial; rationale for use is coherent, shows critical thought. | Datasets are described but may be simplistic or rationale is weakly justified. | Datasets are vague and trivial, or arbitrarily chosen; little to no justification. | /2 |\n2. Hypothesis Framing (/2) | Null and alternative hypotheses are clearly stated in statistical terms and contextualised to the data. | Hypotheses are present but somewhat vague or generic. | Hypotheses are missing, poorly framed, or irrelevant. | /2 |\n3. Exploratory Data Analysis (/3) | EDA is systematic and insightful, summarising variable distributions, identifying patterns, and flagging potential issues (e.g., collinearity, missingness). | Some descriptive statistics, plots are provided but interpretation is limited or scattered. | Minimal or no EDA; data analysed without exploration. | /3 |\n4. Exploratory Figures (/2) | Visuals (e.g., scatterplots, histograms) are well-chosen, clearly labelled, and aid interpretation. | Plots are included but may be unclear, redundant, or poorly formatted. | Plots are missing, irrelevant. | /2 |\n5. Model Specification and Fitting (/3) | Linear model is appropriate for the data and research question; code and output are clearly reported. | Model is mostly appropriate but poorly justified or inconsistently executed. | Model is ill-suited, poorly fitted, or lacks documentation. | /3 |\n6. Visualisation of Fitted Model (/2) | Plot with fitted regression line is clear, with aesthetic attention to axis labels, units, and legends; enhances interpretation. | A fitted model is plotted but poorly presented, not fully interpretable. | No fitted model plot or plot is meaningless. | /2 |\n7. Diagnostic Checks (/3) | At least two appropriate diagnostic plots (e.g., residuals vs fitted, QQ-plot) are shown, interpreted in light of linear model assumptions (normality and etc.). | Diagnostics shown but with weak interpretation or partially inappropriate diagnostics. | Diagnostics missing, or plots are included without explanation. | /3 |\n8. Written Results Section (/3) | Results are reported in a concise, publication-ready format with appropriate terminology (e.g., coefficient estimates, p-values, R²), clear narrative flow. | Results are understandable but lack polish and completeness, or clarity; some technical terms used inaccurately. | Results are disorganised, incorrectly interpreted, or copied without synthesis. | /3 |\nTotal: /20",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_H.html#question-3",
+    "href": "tasks/SAMOS_Stats_Task_H.html#question-3",
+    "title": "SAMOS Statistics Task G",
+    "section": "3.1 Question 3",
+    "text": "3.1 Question 3\nFind your own two datasets and do a full correlation analysis on it. Briefly describe the data and the reason for their existence. Start with setting the appropriate hypotheses. Follow with an EDA, make some exploratory figures, fit the correlation, make figures with the fitted correlation line, provide diagnostic plots to test assumptions, and present the output in a Results section suitable for publication. (/20)\n\n3.1.1 Rubric\nCriterion | Excellent (Full Marks) | Partial Credit | Absent / Poor | Marks |\n— — — — — | — — — — — — — — — –| — — — — — — — | — — — — — — –| — — — –|\n1. Dataset Choice and Justification (/2) | Two variables (from one or more datasets) are clearly described and justified as candidates for correlation analysis; rationale is thoughtful and contextually informed. | Variables are chosen and described but rationale is vague or unconvincing. | Variable selection appears arbitrary or trivial; little or no justification given. | /2 |\n2. Hypothesis Framing (/2) | Null and alternative hypotheses are explicitly stated and aligned with the correlation analysis (e.g., H₀: ρ = 0). Contextual meaning is clearly explained. | Hypotheses are present but poorly articulated, lacking in contextual relevance. | Hypotheses are missing or incorrect, or misaligned with the analysis. | /2 |\n3. Exploratory Data Analysis (/3) | EDA includes summary statistics, variable distribution inspection, and consideration of linearity, monotonicity. Potential issues (e.g. or outliers) are noted. | EDA is attempted but lacks depth or overlooks important features such as skewness or linearity. | No meaningful EDA is performed before conducting correlation. | /3 |\n4. Exploratory Figures (/2) | Appropriate visualisation (e.g., scatterplot with smoothing line, marginal histograms) is clear or labelled, and supports interpretation. | Plot is included but unclear, poorly formatted, or not well interpreted. | No plot provided, or plot is irrelevant, uninformative. | /2 |\n5. Correlation Method and Calculation (/3) | Correlation method is appropriate to data characteristics (Pearson/Spearman chosen with justification). Code and output are correct and clearly reported. | Method is used correctly but without justification or with some reporting issues. | Correlation is applied blindly or incorrectly; code or output is missing. | /3 |\n6. Significance and Effect Size (/2) | p-value and correlation coefficient (r or ρ) are reported with interpretation of both statistical and practical significance. | Results are reported but not clearly interpreted or contextualised. | Misinterpretation of p-value or correlation coefficient; missing output. | /2 |\n7. Assumption Checking and Discussion (/3) | Addresses assumptions of correlation method (e.g., normality, linearity, absence of outliers), supported by appropriate plots, discussion. | Some assumptions discussed or partially checked; reasoning may be unclear. | No discussion or evidence of assumption checking. | /3 |\n8. Written Results Section (/3) | Results are presented in a clear, concise, publication-ready format, with technical correctness, logical flow from EDA to conclusion. | Results are readable but disorganised or use imprecise language; conclusions may not follow cleanly from evidence. | Results are unclear and incorrect, or unstructured; poor communication of findings. | /3 |\nTotal: /20",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#questions-1",
+    "href": "tasks/SAMOS_Stats_Task_G.html#questions-1",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.1 Questions 1",
+    "text": "2.1 Questions 1\nWhy should we not just apply t-tests once per each of the pairs of comparisons we want to make? (/3)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-2",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-2",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.2 Question 2",
+    "text": "2.2 Question 2\n\nWhat does the outcome say about the chicken masses? Which ones are different from each other? (/2)\nDevise a graphical display of this outcome. (/4)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-3",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-3",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.3 Question 3",
+    "text": "2.3 Question 3\nLook at the help file for the TukeyHSD() function to better understand what the output means.\n\nHow does one interpret the results? What does this tell us about the effect that that different diets has on the chicken weights at Day 21? (/3)\nFigure out a way to plot the Tukey HSD outcomes in ggplot. (/10)\nWhy does the ANOVA return a significant result, but the Tukey test shows that not all of the groups are significantly different from one another? (/3)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-4",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-4",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.4 Question 4",
+    "text": "2.4 Question 4\n\nHow is time having an effect? (/3)\nWhat hypotheses can we construct around time? (/2)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-5",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-5",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.5 Question 5",
+    "text": "2.5 Question 5\n\nWhat do you conclude from the above series of ANOVAs? (/3)\nWhat problem is associated with running multiple tests in the way that we have done here? (/2)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-6",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-6",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.6 Question 6",
+    "text": "2.6 Question 6\n\nWrite out the hypotheses for this ANOVA. (/2)\nWhat do you conclude from the above ANOVA? (/3)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-7",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-7",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.7 Question 7",
+    "text": "2.7 Question 7\n\nWhat question are we asking with the above line of code? (/3)\nWhat is the answer? (/2)\nWhy did we wrap Time in as.factor()? (/2)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-8",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-8",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.8 Question 8",
+    "text": "2.8 Question 8\nHow do these results differ from the previous set? (/3)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_G.html#question-9",
+    "href": "tasks/SAMOS_Stats_Task_G.html#question-9",
+    "title": "SAMOS Statistics Task G",
+    "section": "2.9 Question 9",
+    "text": "2.9 Question 9\nYikes! That is a massive amount of results. What does all of this mean, and why is it so verbose? (/5)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task G"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-1",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-1",
+    "title": "SAMOS Statistics Task E",
+    "section": "2.1 Question 1",
+    "text": "2.1 Question 1\n\nExplain the output of dimnames() when applied to the penguins dataset. (/2)\nExplain the output of str() when applied to the penguins dataset. (/3)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-2",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-2",
+    "title": "SAMOS Statistics Task E",
+    "section": "2.2 Question 2",
+    "text": "2.2 Question 2\nHow would you manually calculate the mean value for the normal_data we generated in the lecture? (/3)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-3",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-3",
+    "title": "SAMOS Statistics Task E",
+    "section": "2.3 Question 3",
+    "text": "2.3 Question 3\nFind the faithful dataset and describe both variables in terms of their measures of central tendency. Include graphs in support of your answers (use ggplot()), and conclude with a brief statement about the data distribution. (/10)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-4",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-4",
+    "title": "SAMOS Statistics Task E",
+    "section": "2.4 Question 4",
+    "text": "2.4 Question 4\nManually calculate the variance and SD for the normal_data we generated in the lecture. Make sure your answer is the same as those reported there. (/5)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-5",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-5",
+    "title": "SAMOS Statistics Task E",
+    "section": "2.5 Question 5",
+    "text": "2.5 Question 5\nWrite a few lines of code to demonstrate that the \\((0-0.25]\\), \\((0.25-0.5]\\), \\((0.5-0.75]\\),\\((0.75-1]\\) quantiles of the normal_data we generated in the lecture indeed conform to the formal definition for what quantiles are. I.e., show manually how you can determine that 25% of the observations indeed fall below -0.66 for the normal_data. Explain the rationale to your approach. (/10)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-6",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-6",
+    "title": "SAMOS Statistics Task E",
+    "section": "2.6 Question 6",
+    "text": "2.6 Question 6\nWhy is it important to consider the grouping structures that might be present within our datasets? (/2)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-7",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-7",
+    "title": "SAMOS Statistics Task E",
+    "section": "2.7 Question 7",
+    "text": "2.7 Question 7\nExplain the output of summary() when applied to the penguins dataset. (/3)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_E.html#question-8",
+    "href": "tasks/SAMOS_Stats_Task_E.html#question-8",
+    "title": "SAMOS Statistics Task E",
+    "section": "3.1 Question 8",
+    "text": "3.1 Question 8\n\nUsing a tidy workflow, assemble a summary table of the palmerpenguins dataset that has a similar appearance as that produced by psych::describe(penguins). (/5)\n\nFor bonus marks (which will not count anything) of up to 10% added to Task E, apply a beautiful, creative styling to the table using the kable package. Try and make it as publication ready as possible. Refer to a few journal articles to see how to professionally typeset tables.\n\nStill using the palmerpenguins dataset, perform an exploratory data analysis to investigate the relationship between penguin species, their morphological traits (bill length and bill depth, flipper length, and body mass). Employ the tidyverse approaches learned earlier in the module to explore the data, account for the grouping structures present within the dataset. (/10)\nProvide visualisations (use Figure 4 as inspiration) and summary statistics to support your findings and elaborate on any observed patterns or trends. (/10)\nEnsure your presentation is professional and adhere to the standards required by scientific publications. State the major aims of your analysis and the patterns you seek. Using the combined findings from the EDA and the figures produced here, discuss the findings in a formal Results section. (/5)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task E"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_Bonus.html#question-1",
+    "href": "tasks/SAMOS_Stats_Task_Bonus.html#question-1",
+    "title": "Statistics Bonus Task",
+    "section": "2.1 Question 1",
+    "text": "2.1 Question 1\nPlease recreate the figure, above. You are welcome to reuse the code found on the website. Using this figure as starting point, do the following:\nWhen plotting the earthquakes, include only the earthquake data for earthquakes of magnitude greater than the 75th percentile. Add a point for five of your favourite South Pacific island nations. Ensure the point is correctly associated with the island name, that the map is correctly labelled and has a title, and it is as close to publication quality as you can make it. Your script needs to show all the steps (thoroughly annotated) leading to the final figure.\nMarks will also be assigned for the overall aethetic appearance of the map. Feel free to be creative, but ensure the final product remains publication quality. (\\30)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "Statistics Bonus Task"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_Bonus.html#question-2",
+    "href": "tasks/SAMOS_Stats_Task_Bonus.html#question-2",
+    "title": "Statistics Bonus Task",
+    "section": "2.2 Question 2",
+    "text": "2.2 Question 2\nSuccessfully completing on of the options available in this task will earn you a bonus of up to 8 or 10% onto your CA mark.\nYou have until 31 March 2025 to complete it.\n\nA map that is worthy of display will become a large format poster to display in the BCB Department. Your name displayed next to it will immortalise you for continued fame and glory amongst future BCB students.\nThe winner of each category of map (hypometric and non-hypsometric) will also get a box of Lindt chocolate.\n\nOption 1 [up to 10% bonus]: Create a hypsometric map based on these examples\n \nThe maps show the locations of linefish catches along the SA coast as per a DFFE dataset. I do not expect that you add these data points as you do not have access to this dataset. However, the location of the 58 coastal sections indicated by circles can be plotted using the data provided here. You are also welcome to create a map of any topographically-interesting region on Earth, but be sure to include a few data points of some kind to draw our attention to some interesting features, statistics. Be creative!\nSince I think a few of you might actually accomplish this, best add a few improvements to it to make your map even better than mine, stand out from that of your peers. There can be only one winner in each category and the best one wins (although everyone can benefit from the bonus marks).\nWarning: You will need a fairly beefy computer to accomplish this task.\nOption 2 [up to 8% bonus]: Create an artistic map of your choice\nAlternatively, if you cannot access a powerful computer, for a bonus of up to 8% onto your CAM, create any (non-hypsometric) map of your choice of any region on Earth. Make something that you would be proud to display as a large format poster. The map may draw attention to an interesting regional geophysical, ecological, or socio-ecological (etc.) phenomena, or it may simply showcase your unique (but tasteful!) artistic ability. Show me some examples of what you wish to create before you start to avoid wasting your time on something too simple, entirely tasteless. There are many examples of beautiful maps on the internet that you may use as source of inspiration.\nWhichever option you choose, please also submit your code together with the final product in a well-described Quarto .html document. Explain each step of the way, describe the rationale for the approach you take.\nGood luck!",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "Statistics Bonus Task"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_F.html#question-1",
+    "href": "tasks/SAMOS_Stats_Task_F.html#question-1",
+    "title": "SAMOS Statistics Task F",
+    "section": "2.1 Question 1",
+    "text": "2.1 Question 1\nPlease report back on Task F.1 presented in the lecture. Write up formal Methods and Results sections. (/15)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task F"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_F.html#question-2",
+    "href": "tasks/SAMOS_Stats_Task_F.html#question-2",
+    "title": "SAMOS Statistics Task F",
+    "section": "2.2 Question 2",
+    "text": "2.2 Question 2\nPlease refer to the two-sided two-sample t-test in the lecture. It is recreated here:\n\n# random normal data\nset.seed(666)\nr_two &lt;- data.frame(dat = c(rnorm(n = 20, mean = 4, sd = 1),\n                            rnorm(n = 20, mean = 5, sd = 1)),\n                    sample = c(rep(\"A\", 20), rep(\"B\", 20)))\n\n# perform t-test\n# note how we set the `var.equal` argument to TRUE because we know \n# our data has the same SD (they are simulated as such!)\nt.test(dat ~ sample, data = r_two, var.equal = TRUE)\n\nR&gt; \nR&gt;  Two Sample t-test\nR&gt; \nR&gt; data:  dat by sample\nR&gt; t = -1.9544, df = 38, p-value = 0.05805\nR&gt; alternative hypothesis: true difference in means between group A and group B is not equal to 0\nR&gt; 95 percent confidence interval:\nR&gt;  -1.51699175  0.02670136\nR&gt; sample estimates:\nR&gt; mean in group A mean in group B \nR&gt;        4.001438        4.746584\n\n\n\nRepeat this analyses using the Welch’s t.test(). (/5)\nRepeat your analysis, above, using the even more old-fashioned Equation 4 in the lecture. Show the code, talk us through the step you followed to read the p-values off the table of t-statistics. (/10)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task F"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_F.html#question-3",
+    "href": "tasks/SAMOS_Stats_Task_F.html#question-3",
+    "title": "SAMOS Statistics Task F",
+    "section": "2.3 Question 3",
+    "text": "2.3 Question 3\nPlease report back on Task F.3 presented in the lecture. Write up formal Methods and Results sections. (/15)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task F"
+    ]
+  },
+  {
+    "objectID": "tasks/SAMOS_Stats_Task_F.html#question-4",
+    "href": "tasks/SAMOS_Stats_Task_F.html#question-4",
+    "title": "SAMOS Statistics Task F",
+    "section": "2.4 Question 4",
+    "text": "2.4 Question 4\nPlease report back the analysis and results for Task F.4. in the lecture. Write up formal Methods and Results sections. (/15)",
+    "crumbs": [
+      "Home",
+      "Tasks",
+      "SAMOS Statistics Task F"
     ]
   }
 ]

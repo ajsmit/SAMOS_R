@@ -1,10 +1,10 @@
 ---
-title: "SAMOS Intro R Task B"
+title: "Intro R Task B"
 format: 
   html:
     fig-format: png
-    fig_retina: 2
     fig-dpi: 400
+    fig_retina: 2
     number-sections: false
 execute:
   dev: ragg_png

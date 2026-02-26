@@ -1,5 +1,5 @@
 ---
-title: "BCB744 Task E"
+title: "Statistics Task E"
 format: 
   html:
     fig-format: png

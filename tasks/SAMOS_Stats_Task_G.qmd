@@ -1,5 +1,5 @@
 ---
-title: "BCB744 Task G"
+title: "Statistics Task G"
 format: 
   html:
     fig-format: png

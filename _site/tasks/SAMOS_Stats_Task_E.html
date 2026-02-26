@@ -8,7 +8,7 @@
 
 <meta name="author" content="Smit, A. J.">
 
-<title>Intro R Task D – SAMOS R</title>
+<title>SAMOS Statistics Task E – SAMOS R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../tasks/SAMOS_Stats_Task_E.html" rel="next">
-<link href="../tasks/SAMOS_R_Task_C.html" rel="prev">
+<link href="../tasks/SAMOS_Stats_Task_F.html" rel="next">
+<link href="../tasks/SAMOS_R_Task_D.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -93,7 +93,38 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -162,7 +193,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_D.html">Intro R Task D</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_Stats_Task_E.html">SAMOS Statistics Task E</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -408,55 +439,55 @@ cookieconsent.run({
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro R Task A</span></a>
+ <span class="menu-text">SAMOS Intro R Task A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro R Task B</span></a>
+ <span class="menu-text">SAMOS Intro R Task B</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro R Task C</span></a>
+ <span class="menu-text">SAMOS Intro R Task C</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Intro R Task D</span></a>
+  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Intro R Task D</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistics Task E</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">SAMOS Statistics Task E</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_Stats_Task_F.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistics Task F</span></a>
+ <span class="menu-text">SAMOS Statistics Task F</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_Stats_Task_G.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistics Task G</span></a>
+ <span class="menu-text">SAMOS Statistics Task G</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_Stats_Task_H.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistics Task G</span></a>
+ <span class="menu-text">SAMOS Statistics Task G</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_Stats_Task_Bonus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistics Bonus Task</span></a>
+ <span class="menu-text">SAMOS Statistics Bonus Task</span></a>
   </div>
 </li>
       </ul>
@@ -471,20 +502,30 @@ cookieconsent.run({
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#mapping-with-style-natural-earth" id="toc-mapping-with-style-natural-earth" class="nav-link active" data-scroll-target="#mapping-with-style-natural-earth">12–14. Mapping (with style + Natural Earth)</a></li>
-  <li><a href="#water-mass-structure-woa18-on-a-natural-earth-map" id="toc-water-mass-structure-woa18-on-a-natural-earth-map" class="nav-link" data-scroll-target="#water-mass-structure-woa18-on-a-natural-earth-map">Water-Mass Structure: WOA18 on a Natural Earth Map</a>
+  <li><a href="#sec-assessment" id="toc-sec-assessment" class="nav-link active" data-scroll-target="#sec-assessment"><span class="header-section-number">1</span> <span class="my-highlight">Assessment Sheet</span></a></li>
+  <li><a href="#exploring-with-summaris-and-descriptions" id="toc-exploring-with-summaris-and-descriptions" class="nav-link" data-scroll-target="#exploring-with-summaris-and-descriptions"><span class="header-section-number">2</span> 2. Exploring with Summaris and Descriptions</a>
   <ul class="collapse">
-  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1"><span class="header-section-number">2.1</span> Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2"><span class="header-section-number">2.2</span> Question 2</a></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3"><span class="header-section-number">2.3</span> Question 3</a></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4"><span class="header-section-number">2.4</span> Question 4</a></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5"><span class="header-section-number">2.5</span> Question 5</a></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6"><span class="header-section-number">2.6</span> Question 6</a></li>
+  <li><a href="#question-7" id="toc-question-7" class="nav-link" data-scroll-target="#question-7"><span class="header-section-number">2.7</span> Question 7</a></li>
+  </ul></li>
+  <li><a href="#exploring-with-figures" id="toc-exploring-with-figures" class="nav-link" data-scroll-target="#exploring-with-figures"><span class="header-section-number">3</span> 3. Exploring with Figures</a>
+  <ul class="collapse">
+  <li><a href="#question-8" id="toc-question-8" class="nav-link" data-scroll-target="#question-8"><span class="header-section-number">3.1</span> Question 8</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/tasks/SAMOS_R_Task_D.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/tasks/SAMOS_Stats_Task_E.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_D.html">Intro R Task D</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_Stats_Task_E.html">SAMOS Statistics Task E</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Intro R Task D</h1>
+<h1 class="title">SAMOS Statistics Task E</h1>
 </div>
 
 
@@ -517,312 +558,56 @@ cookieconsent.run({
 
 
 <p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
-<section id="mapping-with-style-natural-earth" class="level1">
-<h1>12–14. Mapping (with style + Natural Earth)</h1>
-<!-- ## Question 1
-
-::: {.cell layout-align="center"}
-::: {.cell-output-display}
-![Styled Southern Africa map with annotations and scale.](SAMOS_R_Task_D_files/figure-html/fig-library-scales-1.svg){#fig-library-scales fig-align='center' width=60%}
-:::
-:::
-
-
-
-
-Aesthetically improve the map you created in this lecture (above example) and add a title and subtitle. Also adjust it to show appropriately labelled axes. **(/15)**
-
-::: {.content-hidden}
-
-**Answer**
-
-
-::: {.cell layout-align="center"}
-
-```{.r .cell-code}
-# Load libraries
-library(tidyverse) # ✓
-library(scales) # ✓
-library(ggspatial) # replace this with ggspatial ✓
-library(grid)
-
-# Load Africa map
-load(here::here("data", "SAMOS", "other_data", "africa_map.RData")) # ✓
-
-my_map <- ggplot() +
-  borders(size = 0.2, fill = "cornsilk", colour = "black") +
-  coord_equal(xlim = c(12, 37), ylim = c(-38, -22.1), expand = 0) +
-  annotate(
-    "text",
-    label = "Atlantic\nOcean",
-    x = 15.1,
-    y = -32.0,
-    size = 5.0,
-    angle = 30,
-    colour = "navy"
-  ) +
-  annotate(
-    "text",
-    label = "Indian\nOcean",
-    x = 33.2,
-    y = -34.2,
-    size = 5.0,
-    angle = 330,
-    colour = "red4"
-  ) +
-  # ≈ Scale bar originally spanning x ≈ 15–26 near the bottom:
-  # width_hint ≈ (26-15) / (37-12) = 11/25 = 0.44
-  annotation_scale(
-    location = "bl",
-    width_hint = 0.44,
-    height = unit(0.3, "cm"),
-    text_cex = 1.0, # ≈ st.size = 4
-    pad_x = unit(2.0, "cm"), # horizontal offset from left edge
-    pad_y = unit(0.5, "cm"), # vertical offset from bottom edge
-    bar_cols = c("black", "white"),
-    line_width = 0.2
-  ) +
-  # ≈ North arrow originally around x ≈ 12.5–15.5, y ≈ -37 to -35 (bottom-left):
-  annotation_north_arrow(
-    location = "bl",
-    which_north = "true",
-    pad_x = unit(0.5, "cm"),
-    pad_y = unit(1.2, "cm"),
-    style = north_arrow_fancy_orienteering
-  ) +
-  theme_minimal() +
-  labs(
-    title = "Southern Africa",
-    subtitle = "An interesting subtitle",
-    x = "Lon (°E)",
-    y = "Lat (°S)"
-  )
-
-my_map
-```
-
-::: {.cell-output-display}
-![Styled Southern Africa map with title, subtitle, and labelled axes.](SAMOS_R_Task_D_files/figure-html/fig-library-tidyverse-1.svg){#fig-library-tidyverse fig-align='center' width=60%}
-:::
-:::
-
-
-
-:::
-
-## Question 2
-Add a the capital city/town of each province to the map using `geom_point()` and ensure the place name is correctly associated with its point. **(/5)**
-
-::: {.content-hidden}
-
-**Answer**
-
-
-::: {.cell layout-align="center"}
-
-```{.r .cell-code}
-# Load the data
-caps <- read.csv(here::here("data", "SAMOS", "other_data", "south_africa_capitals.csv")) # ✓
-
-my_map +
-  geom_point(
-    data = caps,
-    aes(x = Longitude, y = Latitude),
-    size = 2,
-    colour = "red"
-  ) + # ✓
-  geom_text(
-    data = caps,
-    aes(x = Longitude, y = Latitude, label = City), # ✓
-    nudge_x = 1,
-    nudge_y = 0.5,
-    size = 2.4
-  )
-```
-
-::: {.cell-output-display}
-![](SAMOS_R_Task_D_files/figure-html/code-caps-read-csv-here-1.svg){fig-align='center' width=60%}
-:::
-:::
-
-
-Note: The positioning of the city names is not optimal, but I will not apply penalties to that.
-
-Note: Use ChatGPT to generate the CSV file with city names and coordinates. This prompt worked for me:
-
-> Please create a CSV file with three columns: column 1 has the name of each of South Africa's provincial capital cities; column 2 has its longitude; column 3 has the latitude. Coordinates in WGS84, please.
-
-:::
-
-# 14. Mapping with Natural Earth and the **sf** Package
-
-
-::: {.cell}
-
-:::
-
-
-
-::: {.cell layout-align="center"}
-::: {.cell-output-display}
-![Buffered Southern Africa geometry overlaid on the original map.](SAMOS_R_Task_D_files/figure-html/fig-buffer-safrica-countries-new-1.svg){#fig-buffer-safrica-countries-new fig-align='center' width=60%}
-:::
-:::
-
-
-Questions 3--6 refer to the map above.
-
-## Question 3
-Why does the map region extend so far south of the southern tip of Africa when we requested only the countries South Africa, Mozambique, Namibia, Zimbabwe, Botswana, Lesotho, and Eswatini? **(/1)**
-
-::: {.content-hidden}
-
-**Answer**
-
-- ✓ The map extends so far south because included in the map domain for which we downloaded the data is Prince Edward Island, a territory of South Africa located in the Southern Ocean.
-
-:::
-
-## Question 4
-How do we fix this to plot a more sensible map of the region? **(/1)**
-
-::: {.content-hidden}
-
-**Answer**
-
-- ✓ To exclude this island, we need to crop the map to the region of interest.
-
-:::
-
-## Question 5
-What does `st_buffer(0.4)` do? **(/1)**
-
-::: {.content-hidden}
-
-**Answer**
-
-- ✓ The `st_buffer(0.4)` function creates a buffer around the countries in the map. The buffer is 0.4 units wide.
-
-:::
-
-## Question 6
-With the map that we created in the lecture with Natural Earth and **sf** (*i.e.*, you can start with the script in the lecture), zoom into False Bay, the Cape Peninsula. Add the location of the Cape Town city centre to the map using`geom_point()`. Ensure the point is correctly associated with the city name. Ensure the map is correctly labelled and has a title, and is as close to publication quality as you can make it. Pay close attention to the axes (breaks, limits) and the map extent. Some marks are allocated to a pleasing and sensible aesthetic appearance. **(/20)**
-
-::: {.content-hidden}
-
-**Answer**
-
-
-::: {.cell layout-align="center"}
-
-```{.r .cell-code}
-# Load the packages
-library(tidyverse)
-library(sf)
-library(rnaturalearth)
-library(rnaturalearthdata)
-
-# for the buffer to work as I expect, switch off
-# the functions for spherical geometry:
-sf_use_s2(FALSE)
-
-# the full map extent:
-xmin <- 12
-ymin <- -36.5
-xmax <- 40.5
-ymax <- -10 # ✓
-xlim <- c(xmin, xmax)
-ylim <- c(ymin, ymax)
-
-# make a bounding box for cropping:
-bbox <- st_bbox(c(
-  xmin = xmin,
-  ymin = ymin, # ✓
-  xmax = xmax,
-  ymax = ymax
-))
-
-
-# load the countries:
-safrica_countries <- ne_countries(
-  returnclass = 'sf', # ✓
-  continent = "Africa",
-  country = c(
-    "South Africa",
-    "Mozambique",
-    "Namibia",
-    "Zimbabwe",
-    "Botswana",
-    "Lesotho",
-    "Eswatini"
-  ),
-  scale = "large"
-)
-
-safrica_countries_new <- safrica_countries |> # ✓
-  group_by(continent) |>
-  summarise() |>
-  st_crop(bbox) |>
-  st_combine()
-
-# For zooming into a smaller region (False Bay and
-# the Cape Peninsula):
-xlim_zoom <- c(17.8, 19)
-ylim_zoom <- c(-34.5, -33.2) # ✓
-
-# Cape Town lon and lat
-ctown <- c(18.4241, -33.9249) # ✓
-
-ggplot() +
-  geom_sf(data = safrica_countries, colour = "indianred", fill = "beige") + # ✓
-  geom_point(aes(x = ctown[1], y = ctown[2]), size = 3, colour = "blue") + # ✓
-  geom_text(
-    aes(x = ctown[1], y = ctown[2], label = "Cape Town"), # ✓
-    nudge_x = 0.1,
-    nudge_y = 0.08,
-    size = 3
-  ) +
-  coord_sf(xlim = xlim_zoom, ylim = ylim_zoom, expand = 0) + # ✓
-  labs(
-    title = "Cape Town", # ✓
-    x = "Lon (°E)",
-    y = "Lat (°S)"
-  ) +
-  scale_x_continuous(breaks = c(18, 19)) + # ✓
-  scale_y_continuous(breaks = c(-34.2, -33.4)) # ✓
-```
-
-::: {.cell-output-display}
-![False Bay map with Cape Town city centre marked.](SAMOS_R_Task_D_files/figure-html/fig-library-tidyverse-2-1.svg){#fig-library-tidyverse-2 fig-align='center' width=60%}
-:::
-:::
-
-
-
-::: -->
+<section id="sec-assessment" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> <span class="my-highlight"><a href="BCB744_Task_E_Surname.xlsx">Assessment Sheet</a></span></h1>
 </section>
-<section id="water-mass-structure-woa18-on-a-natural-earth-map" class="level1">
-<h1>Water-Mass Structure: WOA18 on a Natural Earth Map</h1>
-<section id="question-1" class="level2">
-<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
-<p>Figure 7 (<em>WOA18 surface temperature (°C) climatology for February (Southern Africa region)</em>) in Chapter 10 (<em>Graphics with <strong>ggplot2</strong></em>) shows the WOA18 February surface temperature climatology as a plain raster. In this exercise you will substantially develop that figure and add an oceanographic analysis layer.</p>
-<p><strong>Part A — Improved SST map</strong></p>
-<p>Replot the February surface SST field from WOA18, this time overlaying it on a Natural Earth coastline (using the <strong>rnaturalearth</strong> and <strong>sf</strong> packages, as demonstrated in the lecture). Annotate the map with two rectangular bounding boxes that identify the following water masses:</p>
-<ul>
-<li><strong>Agulhas Current core</strong> — the western boundary current carrying warm, saline Indian Ocean water southwestward along the east coast of South Africa. Use the bounding box: 30–35°E, 37–29°S.</li>
-<li><strong>Benguela Upwelling System</strong> — the eastern boundary upwelling system on the west coast of southern Africa; restrict the box to roughly 100 km offshore (i.e., a narrow coastal strip). Use the bounding box: 14–18°E, 33–24°S.</li>
-</ul>
-<p>Label each box clearly on the map. Ensure axes are correctly labelled and apply Quarto’s figure-label feature (<code>#| label: fig-...</code>) so the figure can be cross-referenced.</p>
-<p><strong>Part B — Seasonal T–S diagrams</strong></p>
-<p>For each of the two regions defined in Part A:</p>
-<ol type="1">
-<li>Filter the full WOA18 dataset (all depths) to the months of <strong>DJF</strong> (December–January–February, austral summer) and <strong>JJA</strong> (June–July–August, austral winter) separately.</li>
-<li>Plot <strong>all individual (unaggregated) grid-cell T–S pairs</strong> within each box as small semi-transparent grey background points to show the full spread of the data.</li>
-<li>Overlay the <strong>spatially and temporally averaged T–S profile</strong> (mean temperature and mean salinity at each standard depth level, averaged across all grid cells and months within the season) as a coloured path with depth encoded on a continuous colour scale.</li>
-<li>Arrange the four panels in a 2 × 2 faceted figure (seasons as rows, regions as columns) and apply Quarto labelling.</li>
+<section id="exploring-with-summaris-and-descriptions" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 2. Exploring with Summaris and Descriptions</h1>
+<section id="question-1" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="question-1"><span class="header-section-number">2.1</span> Question 1</h2>
+<ol type="a">
+<li>Explain the output of <code>dimnames()</code> when applied to the <code>penguins</code> dataset. <strong>(/2)</strong></li>
+<li>Explain the output of <code>str()</code> when applied to the <code>penguins</code> dataset. <strong>(/3)</strong></li>
 </ol>
-<p>Below each figure, write a short paragraph that cross-references it with <code>@fig-...</code> and interprets the oceanographic patterns visible.</p>
-<p><strong>(/30)</strong></p>
+</section>
+<section id="question-2" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="question-2"><span class="header-section-number">2.2</span> Question 2</h2>
+<p>How would you manually calculate the mean value for the <code>normal_data</code> we generated in the lecture? <strong>(/3)</strong></p>
+</section>
+<section id="question-3" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="question-3"><span class="header-section-number">2.3</span> Question 3</h2>
+<p>Find the <code>faithful</code> dataset and describe both variables in terms of their measures of central tendency. Include graphs in support of your answers (use <code>ggplot()</code>), and conclude with a brief statement about the data distribution. <strong>(/10)</strong></p>
+</section>
+<section id="question-4" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="question-4"><span class="header-section-number">2.4</span> Question 4</h2>
+<p>Manually calculate the variance and SD for the <code>normal_data</code> we generated in the lecture. Make sure your answer is the same as those reported there. <strong>(/5)</strong></p>
+</section>
+<section id="question-5" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="question-5"><span class="header-section-number">2.5</span> Question 5</h2>
+<p>Write a few lines of code to demonstrate that the <span class="math inline">\((0-0.25]\)</span>, <span class="math inline">\((0.25-0.5]\)</span>, <span class="math inline">\((0.5-0.75]\)</span>,<span class="math inline">\((0.75-1]\)</span> quantiles of the <code>normal_data</code> we generated in the lecture indeed conform to the formal definition for what quantiles are. I.e., show manually how you can determine that 25% of the observations indeed fall below -0.66 for the <code>normal_data</code>. Explain the rationale to your approach. <strong>(/10)</strong></p>
+</section>
+<section id="question-6" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="question-6"><span class="header-section-number">2.6</span> Question 6</h2>
+<p>Why is it important to consider the grouping structures that might be present within our datasets? <strong>(/2)</strong></p>
+</section>
+<section id="question-7" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="question-7"><span class="header-section-number">2.7</span> Question 7</h2>
+<p>Explain the output of <code>summary()</code> when applied to the <code>penguins</code> dataset. <strong>(/3)</strong></p>
+</section>
+</section>
+<section id="exploring-with-figures" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 3. Exploring with Figures</h1>
+<section id="question-8" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="question-8"><span class="header-section-number">3.1</span> Question 8</h2>
+<ol type="a">
+<li><p>Using a tidy workflow, assemble a summary table of the <strong>palmerpenguins</strong> dataset that has a similar appearance as that produced by <code>psych::describe(penguins)</code>. <strong>(/5)</strong></p>
+<ul>
+<li>For bonus marks (which will not count anything) of up to 10% added to Task E, apply a beautiful, creative styling to the table using the <a href="https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html"><strong>kable</strong></a> package. Try and make it as publication ready as possible. Refer to a few journal articles to see how to professionally typeset tables.</li>
+</ul></li>
+<li><p>Still using the <strong>palmerpenguins</strong> dataset, perform an exploratory data analysis to investigate the relationship between penguin species, their morphological traits (bill length and bill depth, flipper length, and body mass). Employ the tidyverse approaches learned earlier in the module to explore the data, account for the grouping structures present within the dataset. <strong>(/10)</strong></p></li>
+<li><p>Provide visualisations (use Figure 4 as inspiration) and summary statistics to support your findings and elaborate on any observed patterns or trends. <strong>(/10)</strong></p></li>
+<li><p>Ensure your presentation is professional and adhere to the standards required by scientific publications. State the major aims of your analysis and the patterns you seek. Using the combined findings from the EDA and the figures produced here, discuss the findings in a formal Results section. <strong>(/5)</strong></p></li>
+</ol>
 
 
 </section>
@@ -830,12 +615,12 @@ ggplot() +
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.,
   author = {A. J. , Smit},
-  title = {Intro {R} {Task} {D}},
-  url = {http://samos-r.netlify.app/tasks/SAMOS_R_Task_D.html},
+  title = {SAMOS {Statistics} {Task} {E}},
+  url = {http://samos-r.netlify.app/tasks/SAMOS_Stats_Task_E.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j." class="csl-entry quarto-appendix-citeas" role="listitem">
-A. J. S Intro R Task D. <a href="http://samos-r.netlify.app/tasks/SAMOS_R_Task_D.html">http://samos-r.netlify.app/tasks/SAMOS_R_Task_D.html.
+A. J. S SAMOS Statistics Task E. <a href="http://samos-r.netlify.app/tasks/SAMOS_Stats_Task_E.html">http://samos-r.netlify.app/tasks/SAMOS_Stats_Task_E.html.
 </a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1247,13 +1032,13 @@ A. J. S Intro R Task D. <a href="http://samos-r.netlify.app/tasks/SAMOS_R_Task_D
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../tasks/SAMOS_R_Task_C.html" class="pagination-link" aria-label="Intro R Task C">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Intro R Task C</span>
+      <a href="../tasks/SAMOS_R_Task_D.html" class="pagination-link" aria-label="SAMOS Intro R Task D">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">SAMOS Intro R Task D</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../tasks/SAMOS_Stats_Task_E.html" class="pagination-link" aria-label="Statistics Task E">
-        <span class="nav-page-text">Statistics Task E</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../tasks/SAMOS_Stats_Task_F.html" class="pagination-link" aria-label="SAMOS Statistics Task F">
+        <span class="nav-page-text">SAMOS Statistics Task F</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1265,7 +1050,7 @@ A. J. S Intro R Task D. <a href="http://samos-r.netlify.app/tasks/SAMOS_R_Task_D
 </div>   
     <div class="nav-footer-center">
 
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/tasks/SAMOS_R_Task_D.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/tasks/SAMOS_Stats_Task_E.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

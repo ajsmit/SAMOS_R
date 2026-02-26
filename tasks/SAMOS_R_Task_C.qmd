@@ -1,5 +1,5 @@
 ---
-title: "SAMOS Intro R Task C"
+title: "Intro R Task C"
 format: 
   html:
     fig-format: svg

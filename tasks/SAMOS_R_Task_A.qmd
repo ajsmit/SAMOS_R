@@ -1,5 +1,5 @@
 ---
-title: "SAMOS Intro R Task A"
+title: "Intro R Task A"
 format:
   html:
     number-sections: false

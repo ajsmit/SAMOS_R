@@ -83,19 +83,19 @@ The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and 
 |      | L5      | [13. Mapping With **ggplot2**](intro_r/13-mapping.qmd)                                         | 27 Feb 26  | [Task D](tasks/SAMOS_R_Task_D.qmd)          | 02 Mar 26        |
 |      |         | [14. Mapping With Style](intro_r/14-mapping_style.qmd)                                         |            |                                            |                  |
 |      |         | [15. Mapping With Natural Earth and the **sf** Package](intro_r/15-mapping_rnaturalearth.qmd)  |            |                                            |                  |
-|      | Self    | [16. The Fiji Earthquake Data](intro_r/16-mapping_quakes.qmd)                                  |            | [Bonus Task](tasks/BCB744_Task_Bonus.html) | 02 Mar 26        |
+|      | Self    | [16. The Fiji Earthquake Data](intro_r/16-mapping_quakes.qmd)                                  |            | [Bonus Task](tasks/SAMOS_Stats_Task_Bonus.html) | 02 Mar 26        |
 |      | L6      | [17. Synthesis](intro_r/17-recap.qmd)                                                          | 27 Feb 26  |                                            |                  |
 |      |         | **STATISTICS FOR OCEAN SCIENCES**                                                              |            |                                            |                  |
 | Wk16 | L1      | 1. Introduction to Statistics                                                                  | 20 Apr 26  |                                            |                  |
-|      |         | [2. Exploring With Summaries and Descriptions](basic_stats/02-summarise-and-describe.qmd)      |            | [Task E](tasks/BCB744_Task_E.html)         | 21 Apr 26        |
-|      |         | [3. Exploring With Figures](basic_stats/03-visualise.qmd)                                      |            | [Task E](tasks/BCB744_Task_E.html)         | 21 Apr 26        |
+|      |         | [2. Exploring With Summaries and Descriptions](basic_stats/02-summarise-and-describe.qmd)      |            | [Task E](tasks/SAMOS_Stats_Task_E.html)         | 21 Apr 26        |
+|      |         | [3. Exploring With Figures](basic_stats/03-visualise.qmd)                                      |            | [Task E](tasks/SAMOS_Stats_Task_E.html)         | 21 Apr 26        |
 |      | L2      | [4. Data Distributions](basic_stats/04-distributions.qmd)                                      | 21 Apr 26  |                                            |                  |
 |      |         | [5. Statistical Inference and Hypothesis Testing](basic_stats/05-inference.qmd)                |            |                                            |                  |
 |      |         | [6. Assumptions](basic_stats/06-assumptions.qmd)                                               |            |                                            |                  |
-|      |         | [7. Inferences About One or Two Populations](basic_stats/07-t_tests.qmd)                       |            | [Task F](tasks/BCB744_Task_F.html)         | 22 Apr 26        |
-|      | L3      | [8. Analysis of Variance (ANOVA)](basic_stats/08-anova.qmd)                                    | 22 Apr 26  | [Task G](tasks/BCB744_Task_G.html)         | 23 Apr 26        |
-|      |         | [9. Simple Linear Regressions](basic_stats/09-regressions.qmd)                                 |            | [Task H](tasks/BCB744_Task_H.html)         | 24 Apr 26        |
-|      |         | [10. Correlations](basic_stats/10-correlations.qmd)                                            |            | [Task H](tasks/BCB744_Task_H.html)         | 24 Apr 26        |
+|      |         | [7. Inferences About One or Two Populations](basic_stats/07-t_tests.qmd)                       |            | [Task F](tasks/SAMOS_Stats_Task_F.html)         | 22 Apr 26        |
+|      | L3      | [8. Analysis of Variance (ANOVA)](basic_stats/08-anova.qmd)                                    | 22 Apr 26  | [Task G](tasks/SAMOS_Stats_Task_G.html)         | 23 Apr 26        |
+|      |         | [9. Simple Linear Regressions](basic_stats/09-regressions.qmd)                                 |            | [Task H](tasks/SAMOS_Stats_Task_H.html)         | 24 Apr 26        |
+|      |         | [10. Correlations](basic_stats/10-correlations.qmd)                                            |            | [Task H](tasks/SAMOS_Stats_Task_H.html)         | 24 Apr 26        |
 |      | L4      | [11. A Guide to Selecting the Right Parametric Test](basic_stats/11-decision_guide.qmd)        | 23 Apr 26  |                                            |                  |
 |      |         | [12. Non-Parametric Statistics](basic_stats/12-glance.qmd)                                     |            |                                            |                  |
 |      |         | [13. Confidence Intervals](basic_stats/13-confidence.qmd)                                      |            |                                            |                  |

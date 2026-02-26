@@ -158,8 +158,8 @@ website:
           - tasks/SAMOS_R_Task_B.qmd
           - tasks/SAMOS_R_Task_C.qmd
           - tasks/SAMOS_R_Task_D.qmd
-          - tasks/BCB744_Task_E.qmd
-          - tasks/BCB744_Task_F.qmd
-          - tasks/BCB744_Task_G.qmd
-          - tasks/BCB744_Task_H.qmd
-          - tasks/BCB744_Task_Bonus.qmd
+          - tasks/SAMOS_Stats_Task_E.qmd
+          - tasks/SAMOS_Stats_Task_F.qmd
+          - tasks/SAMOS_Stats_Task_G.qmd
+          - tasks/SAMOS_Stats_Task_H.qmd
+          - tasks/SAMOS_Stats_Task_Bonus.qmd

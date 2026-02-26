@@ -1,5 +1,5 @@
 ---
-title: "BCB744 Bonus Task"
+title: "Statistics Bonus Task"
 format: 
   html:
     fig-format: svg
