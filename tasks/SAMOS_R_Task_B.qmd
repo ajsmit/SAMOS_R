@@ -400,7 +400,7 @@ SACTN4 |>
 
 ## Question 10
 
-Using `SACTN`, compute a **temperature anomaly** per site as. Then create a histogram of anomalies and facet by `src`. **(/15)**
+Using `SACTN`, compute a **temperature anomaly** per site as the deviation of each monthly temperature from that site's long-term mean (`temp − mean(temp, na.rm = TRUE)` within each `site`). Then create a histogram of anomalies and facet by `src`. **(/15)**
 
 `r if (params$hide_answers) "::: {.content-hidden}"`
 

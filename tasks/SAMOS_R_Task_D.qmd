@@ -1,5 +1,5 @@
 ---
-title: "BCB744 Task D"
+title: "SAMOS Intro R Task D"
 format: 
   html:
     fig-format: svg

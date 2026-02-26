@@ -136,14 +136,16 @@ woa %>%
   ggplot(aes(x = salinity, y = temperature)) +
   geom_point(alpha = 0.35, size = 0.8) +
   labs(x = "Salinity (PSU)", y = "Temperature (°C)")
+```
 
+```{r eval=FALSE, echo=FALSE}
 woa_1 <- woa |> 
   na.omit() |> 
   select(-source, -unit) |> 
   filter(variable %in% c("temperature", "salinity"), month == 2, depth_m == 0) |> 
-  pivot_wider(names_from = variable, values_from = value) |> 
-  # group_by(lat, lon) |> 
-  # summarise(salinity = mean(salinity), temperature = mean(temperature)) |> 
+  pivot_wider(names_from = variable, values_from = value)
+  # group_by(lat, lon) |>
+  # summarise(salinity = mean(salinity), temperature = mean(temperature)) |>
   # ungroup()
 ```
 

@@ -37,9 +37,6 @@ woa_surf_feb %>%
 ```
 
 ```{r fig-woa-core-profile, fig.width=9, fig.asp=0.5, out.width="100%"}
-#| fig.width: 8
-#| fig.height: 6
-#| out.width: "100%"
 #| fig-cap: "Mean vertical profiles (annual climatology, region-average)."
 woa %>%
   filter(month == 0, variable %in% c("temperature", "dissolved_oxygen", "nitrate")) %>%
