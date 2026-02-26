@@ -64,7 +64,7 @@ The module coordinator and lecturer is Prof AJ Smit (UWC, BCB, Room 4.103), and 
 -   **Important links:**
     -   [[**Module data (Google Drive)**](https://drive.google.com/drive/folders/1h77GFshqdzb80AkaNVlRR_NMg5Ar4dmQ?usp=sharing)]{.my-highlight}
 
-| Wk   | Lecture | Topic                                                                                          | Class Date | Tasks/Assess.                              | Task/Assess. due |
+| Wk   | Lecture | Topic                                                                                          | Class Date | Self Assessments                              | Task/Assess. due |
 | :--- | :------ | :--------------------------------------------------------------------------------------------- | :--------- | :----------------------------------------- | :--------------- |
 |      |         | **INTRODUCTION TO R**                                                                          |            |                                            |                  |
 | Wk8  | L1      | About the Module                                                                               | 23 Feb 26  | [Task A](tasks/SAMOS_R_Task_A.html)         | 25 Feb 26        |

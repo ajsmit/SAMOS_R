@@ -434,7 +434,10 @@ Then visualise the result as a dot plot of `mean_temp` by `site`, coloured by `w
 
 **Answer**
 
-```{r fig-taskD-q11, echo=TRUE, eval=TRUE, fig.width=7, fig.height=4.0}
+```{r fig-taskD-q11, echo=TRUE, eval=TRUE}
+#| fig-height: 12
+#| fig-width: 9
+#| out-width: "100%"
 #| fig-cap: "Warmest month per site (dot plot)."
 
 warmest_tbl <- SACTN |>

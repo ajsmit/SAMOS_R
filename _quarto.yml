@@ -152,7 +152,7 @@ website:
           - basic_stats/12-glance.qmd
           - basic_stats/13-confidence.qmd
           - basic_stats/14-transformations.qmd
-      - section: "Tasks"
+      - section: "Self Assessments"
         contents:
           - tasks/SAMOS_R_Task_A.qmd
           - tasks/SAMOS_R_Task_B.qmd
