@@ -48,7 +48,7 @@ format:
     link-external-icon: true
     link-external-newwindow: true
     out-width: "75%"
-    theme: [lumen, styles/styles.scss]
+    theme: [flatly]
     page-layout: article
     reference-location: document
     self-contained: false
