@@ -24,7 +24,7 @@ SAMOS_R.code-workspace
 Thumbs.db
 
 # Hidden from view
-/_private/*
+/_private/
 /resources/
 /_freeze/
 /_defunct/

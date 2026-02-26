@@ -65,7 +65,7 @@ Using the untidy data (`SACTN2`) and the tidy data (`SACTN2_tidy`), create line 
 
 library(tidyverse)
 
-load(here::here("data", "BCB744", "SACTN_mangled.RData"))
+load(here::here("data", "SAMOS", "other_data", "SACTN_mangled.RData"))
 
 SACTN2_tidy <- pivot_longer(
   SACTN2,
@@ -110,7 +110,7 @@ Then make a boxplot of `value` by `measurement` and **flip** the axes (so measur
 ```{r fig-taskD-q3, echo=TRUE, eval=TRUE}
 #| fig-cap: "Laminaria measurements in long format (boxplots)."
 
-kelp <- read_csv(here::here("data", "BCB744", "laminaria.csv"))
+kelp <- read_csv(here::here("data", "SAMOS", "other_data", "laminaria.csv"))
 
 kelp_long <- kelp |>
   pivot_longer(
@@ -296,7 +296,7 @@ Then calculate the mean temperature by `season` and `depth` and plot it as lines
 
 # Ensure SACTN is loaded (from Question 6); if not, load again.
 if (!exists("SACTN")) {
-  load(here::here("data", "BCB744", "SACTNmonthly_v4.0.RData"))
+  load(here::here("data", "SAMOS", "other_data", "SACTNmonthly_v4.0.RData"))
   SACTN <- SACTNmonthly_v4.0
   rm(SACTNmonthly_v4.0)
 }
@@ -373,7 +373,7 @@ The object `SACTN4a` and `SACTN4b` (from `SACTN_mangled.RData`) store the *same 
 ```{r fig-taskD-q9, echo=TRUE, eval=TRUE, fig.width=6, fig.height=4.2}
 #| fig-cap: "SACTN4a + SACTN4b joined and plotted through time (faceted by src)."
 
-load(here::here("data", "BCB744", "SACTN_mangled.RData"))
+load(here::here("data", "SAMOS", "other_data", "SACTN_mangled.RData"))
 
 # SACTN4a stores date + temp, but site/src are embedded in an `index` string.
 SACTN4a2 <- SACTN4a |>
