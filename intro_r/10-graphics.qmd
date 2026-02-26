@@ -136,12 +136,21 @@ woa %>%
   ggplot(aes(x = salinity, y = temperature)) +
   geom_point(alpha = 0.35, size = 0.8) +
   labs(x = "Salinity (PSU)", y = "Temperature (°C)")
+
+woa_1 <- woa |> 
+  na.omit() |> 
+  select(-source, -unit) |> 
+  filter(variable %in% c("temperature", "salinity"), month == 2, depth_m == 0) |> 
+  pivot_wider(names_from = variable, values_from = value) |> 
+  # group_by(lat, lon) |> 
+  # summarise(salinity = mean(salinity), temperature = mean(temperature)) |> 
+  # ungroup()
 ```
 
 ## How to Read This Code
 Read the plot like a sentence with grammar: **subject → verb → modifiers**. The subject is the data (here: a filtered slice of `woa`), the verb is the geometric action (`geom_point()`), and the modifiers are the aesthetic mappings (`aes(...)`) that tell ggplot *how* to draw. The `ggplot(...)` line sets the stage (data + core mappings), and each `geom_*()` line adds a new clause. The `+` sign means “and then add another clause.”
 
-So what is that code doing? We may see from the figure that it is creating a dot for every grid cell, placing **salinity** on the x‑axis and **temperature** on the y‑axis (a very common oceanography view). 
+So what is that code doing? We may see from @fig-woa-ts-basic that it is creating a dot for every grid cell, placing **salinity** on the x‑axis and **temperature** on the y‑axis (a very common oceanography view). 
 
 As a workflow, it is perfectly normal to build plots incrementally: start with a minimal plot, confirm the axes are correct, then add layers one at a time. Partial plots are not failures; they are thinking tools.
 
@@ -151,7 +160,7 @@ The second line of code then takes all of that information and makes points (dot
 
 In many cases (especially time series) you will add a `geom_line()` layer. With the WOA climatology we typically do not connect points with lines because they are not ordered in time within each location.
 
-However, we *can* add an extra aesthetic mapping to include a third variable. Below we colour points by **dissolved oxygen** (surface, February). This is an example of mapping a continuous variable to a continuous colour scale.
+However, we *can* add an extra aesthetic mapping to include a third variable. In @fig-woa-ts-oxygen we colour points by **dissolved oxygen** (surface, February). This is an example of mapping a continuous variable to a continuous colour scale.
 
 ```{r fig-woa-ts-oxygen}
 #| fig-cap: "Surface February climatology: T–S scatter coloured by dissolved oxygen."
@@ -165,9 +174,9 @@ woa %>%
   labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
-Do any patterns appear to emerge? Typically oxygen is higher in cooler surface waters (and lower in warmer waters), but the relationship is not purely linear because circulation and biology both matter.
+Do any patterns appear to emerge in @fig-woa-ts-oxygen? Typically oxygen is higher in cooler surface waters (and lower in warmer waters), but the relationship is not purely linear because circulation and biology both matter.
 
-We can still add a simple best‑fit line through the points to demonstrate `geom_smooth()`:
+We can still add a simple best‑fit line through the points to demonstrate `geom_smooth()` (@fig-woa-ts-oxygen-lm):
 
 ```{r fig-woa-ts-oxygen-lm}
 #| fig-cap: "Same plot with a simple linear trend (for demonstration)."
@@ -200,7 +209,7 @@ woa %>%
   labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
-Why did no legend appear? Because the colour was set *outside* `aes()`, so ggplot treats it as a fixed setting, not a mapping. If you put a constant inside `aes()` (for example, `aes(colour = "steelblue")`), ggplot thinks you are mapping a category called “steelblue” and will create a legend.
+Why did no legend appear in @fig-woa-constant-colour? Because the colour was set *outside* `aes()`, so ggplot treats it as a fixed setting, not a mapping. If you put a constant inside `aes()` (for example, `aes(colour = "steelblue")`), ggplot thinks you are mapping a category called “steelblue” and will create a legend.
 
 Next we set the **size** of points as a mapped variable (nitrate), while keeping other aesthetics constant.
 
@@ -223,7 +232,7 @@ woa %>%
   labs(x = "Salinity (PSU)", y = "Temperature (°C)")
 ```
 
-Notice that we mapped point size inside `aes(size = nitrate)`. That creates a size scale and legend. Any size you set *outside* `aes()` would be constant for all points.
+Notice that in @fig-woa-size-mapped we mapped point size inside `aes(size = nitrate)`. That creates a size scale and legend. Any size you set *outside* `aes()` would be constant for all points.
 
 # Changing Labels
 
@@ -252,11 +261,11 @@ woa %>%
   theme(legend.position = "bottom")
 ```
 
-Notice that when we place the legend at the bottom of the figure ggplot automatically makes it horizontal for us. Why do we use 'colour' inside of `labs()` to change the legend title?
+Notice that in @fig-woa-labels-legend, when we place the legend at the bottom of the figure ggplot automatically makes it horizontal for us. Why do we use 'colour' inside of `labs()` to change the legend title?
 
 # Reusable WOA examples (for other chapters)
 
-The following small set of plots is deliberately designed to be copy‑pasted and adapted in later chapters.
+The following small set of plots is deliberately designed to be copy‑pasted and adapted in later chapters: a spatial temperature map (@fig-woa-core-map-temp), a T–S scatter (@fig-woa-core-ts), and mean vertical profiles (@fig-woa-core-profile).
 
 {{< include includes/woa_core_example_plots.qmd >}}
 

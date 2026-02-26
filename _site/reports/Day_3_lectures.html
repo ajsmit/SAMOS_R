@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Smit, A. J.">
+<meta name="author" content="AJ Smit">
 
-<title>BCB744 Task C – SAMOS R</title>
+<title>SAMOS Day 3 – SAMOS R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../tasks/BCB744_Task_E.html" rel="next">
-<link href="../tasks/BCB744_Task_C.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -128,7 +161,7 @@ cookieconsent.run({
 <span class="menu-text">Biostatistics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tasks/BCB744_Task_A.html"> 
+    <a class="nav-link" href="../tasks/SAMOS_R_Task_A.html"> 
 <span class="menu-text">Tasks</span></a>
   </li>  
 </ul>
@@ -162,7 +195,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/BCB744_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/BCB744_Task_D.html">BCB744 Task C</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">SAMOS Day 3</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -398,35 +431,35 @@ cookieconsent.run({
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Tasks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task A</span></a>
+  <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Intro R Task A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task B</span></a>
+  <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Intro R Task B</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Intro R Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BCB744 Task D</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">BCB744 Task C</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -471,49 +504,29 @@ cookieconsent.run({
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#mapping-with-style-natural-earth" id="toc-mapping-with-style-natural-earth" class="nav-link active" data-scroll-target="#mapping-with-style-natural-earth"><span class="header-section-number">1</span> 12–14. Mapping (with style + Natural Earth)</a>
-  <ul class="collapse">
-  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1"><span class="header-section-number">1.1</span> Question 1</a></li>
-  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2"><span class="header-section-number">1.2</span> Question 2</a></li>
-  </ul></li>
-  <li><a href="#mapping-with-natural-earth-and-the-sf-package" id="toc-mapping-with-natural-earth-and-the-sf-package" class="nav-link" data-scroll-target="#mapping-with-natural-earth-and-the-sf-package"><span class="header-section-number">2</span> 14. Mapping with Natural Earth and the <strong>sf</strong> Package</a>
-  <ul class="collapse">
-  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3"><span class="header-section-number">2.1</span> Question 3</a></li>
-  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4"><span class="header-section-number">2.2</span> Question 4</a></li>
-  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5"><span class="header-section-number">2.3</span> Question 5</a></li>
-  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6"><span class="header-section-number">2.4</span> Question 6</a></li>
-  </ul></li>
+  <li><a href="#start-day-3-lectures" id="toc-start-day-3-lectures" class="nav-link active" data-scroll-target="#start-day-3-lectures"><span class="header-section-number">1</span> Start Day 3 lectures</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/tasks/BCB744_Task_D.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/reports/Day_3_lectures.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/BCB744_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/BCB744_Task_D.html">BCB744 Task C</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">BCB744 Task C</h1>
+<h1 class="title">SAMOS Day 3</h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://samos-r.netlify.app">Smit, A. J.</a> <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            <a href="https://uwc.ac.za">
-            University of the Western Cape
-            </a>
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>AJ Smit </p>
+          </div>
+  </div>
+    
   
     
   </div>
@@ -523,77 +536,90 @@ cookieconsent.run({
 </header>
 
 
-<p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
-<section id="mapping-with-style-natural-earth" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> 12–14. Mapping (with style + Natural Earth)</h1>
-<section id="question-1" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="question-1"><span class="header-section-number">1.1</span> Question 1</h2>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-library-scales" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-library-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="BCB744_Task_D_files/figure-html/fig-library-scales-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;1: Styled Southern Africa map with annotations and scale."><img src="BCB744_Task_D_files/figure-html/fig-library-scales-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a>
+<section id="start-day-3-lectures" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="start-day-3-lectures"><span class="header-section-number">1</span> Start Day 3 lectures</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-library-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Styled Southern Africa map with annotations and scale.
-</figcaption>
+<p>Read in the mangled data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"../data/SAMOS/other_data/SACTN_mangled.RData"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">load</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(SACTN2, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> SACTN1, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> temp)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">colour =</span> site, <span class="at">group =</span> <span class="fu">paste</span>(site, <span class="st">"-"</span>, src))) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>, <span class="at">colour =</span> <span class="st">"Site"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="Day_3_lectures_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="Day_3_lectures_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Aesthetically improve the map you created in this lecture (above example) and add a title and subtitle. Also adjust it to show appropriately labelled axes. <strong>(/15)</strong></p>
-</section>
-<section id="question-2" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="question-2"><span class="header-section-number">1.2</span> Question 2</h2>
-<p>Add a the capital city/town of each province to the map using <code>geom_point()</code> and ensure the place name is correctly associated with its point. <strong>(/5)</strong></p>
-</section>
-</section>
-<section id="mapping-with-natural-earth-and-the-sf-package" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 14. Mapping with Natural Earth and the <strong>sf</strong> Package</h1>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-buffer-safrica-countries-new" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-buffer-safrica-countries-new-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="BCB744_Task_D_files/figure-html/fig-buffer-safrica-countries-new-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;2: Buffered Southern Africa geometry overlaid on the original map."><img src="BCB744_Task_D_files/figure-html/fig-buffer-safrica-countries-new-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-buffer-safrica-countries-new-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Buffered Southern Africa geometry overlaid on the original map.
-</figcaption>
-</figure>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">paste</span>(SACTN1<span class="sc">$</span>site, <span class="st">"-"</span>, SACTN1<span class="sc">$</span>src)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Port Nolloth - DEA" "Port Nolloth - DEA"</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>SACTN2_tidy <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(SACTN2, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"DEA"</span>, <span class="st">"KZNSB"</span>, <span class="st">"SAWS"</span>),</span>
+<span id="cb7-2"><a href="#cb7-2"></a>                            <span class="at">names_to =</span> <span class="st">"src"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                            <span class="at">values_to =</span> <span class="st">"temp"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">head</span>(SACTN2_tidy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  site         date                depth type   src    temp
+  &lt;fct&gt;        &lt;dttm&gt;              &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+1 Port Nolloth 1998-01-01 00:00:00     0 thermo DEA    NA  
+2 Port Nolloth 1998-01-01 00:00:00     0 thermo KZNSB  NA  
+3 Port Nolloth 1998-01-01 00:00:00     0 thermo SAWS   12.7
+4 Port Nolloth 1998-01-01 00:00:00     5 UTR    DEA    11.8
+5 Port Nolloth 1998-01-01 00:00:00     5 UTR    KZNSB  NA  
+6 Port Nolloth 1998-01-01 00:00:00     5 UTR    SAWS   NA  </code></pre>
 </div>
-<p>Questions 3–6 refer to the map above.</p>
-<section id="question-3" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="question-3"><span class="header-section-number">2.1</span> Question 3</h2>
-<p>Why does the map region extend so far south of the southern tip of Africa when we requested only the countries South Africa, Mozambique, Namibia, Zimbabwe, Botswana, Lesotho, and Eswatini? <strong>(/1)</strong></p>
-</section>
-<section id="question-4" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="question-4"><span class="header-section-number">2.2</span> Question 4</h2>
-<p>How do we fix this to plot a more sensible map of the region? <strong>(/1)</strong></p>
-</section>
-<section id="question-5" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="question-5"><span class="header-section-number">2.3</span> Question 5</h2>
-<p>What does <code>st_buffer(0.4)</code> do? <strong>(/1)</strong></p>
-</section>
-<section id="question-6" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="question-6"><span class="header-section-number">2.4</span> Question 6</h2>
-<p>With the map that we created in the lecture with Natural Earth and <strong>sf</strong> (<em>i.e.</em>, you can start with the script in the lecture), zoom into False Bay, the Cape Peninsula. Add the location of the Cape Town city centre to the map using<code>geom_point()</code>. Ensure the point is correctly associated with the city name. Ensure the map is correctly labelled and has a title, and is as close to publication quality as you can make it. Pay close attention to the axes (breaks, limits) and the map extent. Some marks are allocated to a pleasing and sensible aesthetic appearance. <strong>(/20)</strong></p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>SACTN3_tidy1 <span class="ot">&lt;-</span> SACTN3 <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"var"</span>, <span class="at">values_from =</span> <span class="st">"val"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># unique(SACTN3$var)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>SACTN4a_tidy <span class="ot">&lt;-</span> SACTN4a <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">separate_wider_delim</span>(index, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"site"</span>, <span class="st">"src"</span>), <span class="at">delim =</span> <span class="st">"/ "</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>SACTN_tidy2 <span class="ot">&lt;-</span> SACTN4a <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">separate_wider_delim</span>(index, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"site"</span>, <span class="st">"src"</span>), <span class="at">delim =</span> <span class="st">"/ "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>SACTN4b_tidy <span class="ot">&lt;-</span> SACTN4b <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">unite</span>(<span class="at">col =</span> <span class="st">"date"</span>, year, month, day, <span class="at">sep =</span> <span class="st">"-"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">select</span>(site, src, date, depth, type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>SACTN4_tidy <span class="ot">&lt;-</span> <span class="fu">left_join</span>(SACTN4a_tidy, SACTN4b_tidy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.,
-  author = {A. J. , Smit},
-  title = {BCB744 {Task} {C}},
-  url = {http://samos-r.netlify.app/tasks/BCB744_Task_D.html},
+  author = {A. J. , Smit and Smit, AJ},
+  title = {SAMOS {Day} 3},
+  url = {http://samos-r.netlify.app/reports/Day_3_lectures.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j." class="csl-entry quarto-appendix-citeas" role="listitem">
-A. J. S BCB744 Task C. <a href="http://samos-r.netlify.app/tasks/BCB744_Task_D.html">http://samos-r.netlify.app/tasks/BCB744_Task_D.html.
+A. J. S, Smit A SAMOS Day 3. <a href="http://samos-r.netlify.app/reports/Day_3_lectures.html">http://samos-r.netlify.app/reports/Day_3_lectures.html.
 </a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1003,18 +1029,6 @@ A. J. S BCB744 Task C. <a href="http://samos-r.netlify.app/tasks/BCB744_Task_D.h
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../tasks/BCB744_Task_C.html" class="pagination-link" aria-label="BCB744 Task D">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">BCB744 Task D</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../tasks/BCB744_Task_E.html" class="pagination-link" aria-label="BCB744 Task E">
-        <span class="nav-page-text">BCB744 Task E</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1023,7 +1037,7 @@ A. J. S BCB744 Task C. <a href="http://samos-r.netlify.app/tasks/BCB744_Task_D.h
 </div>   
     <div class="nav-footer-center">
 
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/tasks/BCB744_Task_D.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/reports/Day_3_lectures.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

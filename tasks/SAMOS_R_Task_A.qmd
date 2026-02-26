@@ -1,5 +1,5 @@
 ---
-title: "BCB744 Task A"
+title: "SAMOS Intro R Task A"
 format:
   html:
     number-sections: false

@@ -162,7 +162,7 @@ Currently uses `SACTN` temperature time series (already ocean‑adjacent). Stren
 
 ## C. Tasks A–D: new oceanography‑targeted questions + worked examples
 
-### C1) Task A (`tasks/BCB744_Task_A.qmd`): R/RStudio + basics + file handling
+### C1) Task A (`tasks/SAMOS_R_Task_A.qmd`): R/RStudio + basics + file handling
 Currently heavily generic/biostats phrasing.
 
 **Replace/extend with ocean context (itemised):**
@@ -178,7 +178,7 @@ Currently heavily generic/biostats phrasing.
 **New worked example suggestion (short):**
 - Read a small `woa_surface_sa.csv`, compute monthly mean SST by region.
 
-### C2) Task B (`tasks/BCB744_Task_B.qmd`): ggplot + faceting + palettes
+### C2) Task B (`tasks/SAMOS_R_Task_B.qmd`): ggplot + faceting + palettes
 Currently uses `palmerpenguins` and `ToothGrowth`.
 
 **Recommendation:** replace datasets with ocean equivalents:
@@ -201,7 +201,7 @@ Currently uses `palmerpenguins` and `ToothGrowth`.
 - Q3: “Plot `oxygen_umolkg` vs `temp_C`, facet by region, shape by platform (CTD/Argo), colour by depth.”
 - Q7 replacement: “Use built‑in dataset X” → instead provide `samos_ts_demo` in `data/` so it’s deterministic.
 
-### C3) Task C (`tasks/BCB744_Task_C.qmd`): mapping style
+### C3) Task C (`tasks/SAMOS_R_Task_C.qmd`): mapping style
 This is already mostly geographic/cartographic. Add ocean data layers.
 
 **Recommendations:**
@@ -215,7 +215,7 @@ This is already mostly geographic/cartographic. Add ocean data layers.
    - Argo float locations with labels for float id, or
    - stations from a cruise transect.
 
-### C4) Task D (`tasks/BCB744_Task_D.qmd`): tidy data
+### C4) Task D (`tasks/SAMOS_R_Task_D.qmd`): tidy data
 Not reviewed in detail here (but the theme is clear).
 
 **Recommendations:**

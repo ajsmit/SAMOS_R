@@ -12,7 +12,7 @@ woa_surf_feb <- woa %>%
   filter(month == 2, depth_m == 0)
 ```
 
-```{r woa-core-example-map-temp, fig.width=6, fig.asp=0.7, out.width="85%"}
+```{r fig-woa-core-map-temp, fig.width=6, fig.asp=0.7, out.width="85%"}
 #| fig-cap: "WOA18 surface temperature (°C) climatology for February (Southern Africa region)."
 woa_surf_feb %>%
   filter(variable == "temperature") %>%
@@ -24,7 +24,7 @@ woa_surf_feb %>%
   theme_minimal()
 ```
 
-```{r woa-core-example-ts, fig.width=5.5, fig.asp=0.7, out.width="75%"}
+```{r fig-woa-core-ts, fig.width=5.5, fig.asp=0.7, out.width="75%"}
 #| fig-cap: "A classic T–S view (surface, February) using WOA18 climatology."
 woa_surf_feb %>%
   filter(variable %in% c("temperature", "salinity")) %>%
@@ -36,7 +36,7 @@ woa_surf_feb %>%
   theme_minimal()
 ```
 
-```{r woa-core-example-profile, fig.width=9, fig.asp=0.5, out.width="100%"}
+```{r fig-woa-core-profile, fig.width=9, fig.asp=0.5, out.width="100%"}
 #| fig.width: 8
 #| fig.height: 6
 #| out.width: "100%"

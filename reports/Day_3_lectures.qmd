@@ -1,0 +1,71 @@
+---
+title: "SAMOS Day 3"
+author: "AJ Smit"
+editor: source
+format: html
+---
+
+## Start Day 3 lectures
+
+```{r}
+library(tidyverse)
+```
+
+
+Read in the mangled data:
+
+```{r}
+data_path <- "../data/SAMOS/other_data/SACTN_mangled.RData"
+load(data_path)
+```
+
+```{r eval = FALSE}
+ggplot(SACTN2, aes(x = date, y = temp)) +
+  geom_line()
+```
+
+```{r}
+ggplot(data = SACTN1, aes(x = date, y = temp)) +
+  geom_line(aes(colour = site, group = paste(site, "-", src))) +
+  labs(x = "Date", y = "Temperature (°C)", colour = "Site")
+```
+
+```{r}
+paste(SACTN1$site, "-", SACTN1$src)[1:2]
+```
+
+```{r}
+SACTN2_tidy <- pivot_longer(SACTN2, cols = c("DEA", "KZNSB", "SAWS"),
+                            names_to = "src",
+                            values_to = "temp")
+head(SACTN2_tidy)
+```
+
+```{r}
+SACTN3_tidy1 <- SACTN3 %>% 
+  pivot_wider(names_from = "var", values_from = "val")
+
+# unique(SACTN3$var)
+```
+
+```{r}
+SACTN4a_tidy <- SACTN4a |> 
+  separate_wider_delim(index, names = c("site", "src"), delim = "/ ")
+```
+
+```{r}
+SACTN_tidy2 <- SACTN4a %>% 
+  separate_wider_delim(index, names = c("site", "src"), delim = "/ ") %>% 
+  mutate(year = lubridate::year(date))
+```
+
+```{r}
+SACTN4b_tidy <- SACTN4b |> 
+  unite(col = "date", year, month, day, sep = "-") |> 
+  select(site, src, date, depth, type)
+```
+
+```{r}
+SACTN4_tidy <- left_join(SACTN4a_tidy, SACTN4b_tidy)
+```
+

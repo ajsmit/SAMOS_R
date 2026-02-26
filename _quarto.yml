@@ -91,7 +91,7 @@ website:
       - text: "Biostatistics"
         href: basic_stats/02-summarise-and-describe.qmd
       - text: "Tasks"
-        href: tasks/BCB744_Task_A.qmd
+        href: tasks/SAMOS_R_Task_A.qmd
     right:
     - icon: github
       menu:
@@ -154,10 +154,10 @@ website:
           - basic_stats/14-transformations.qmd
       - section: "Tasks"
         contents:
-          - tasks/BCB744_Task_A.qmd
-          - tasks/BCB744_Task_B.qmd
-          - tasks/BCB744_Task_C.qmd
-          - tasks/BCB744_Task_D.qmd
+          - tasks/SAMOS_R_Task_A.qmd
+          - tasks/SAMOS_R_Task_B.qmd
+          - tasks/SAMOS_R_Task_C.qmd
+          - tasks/SAMOS_R_Task_D.qmd
           - tasks/BCB744_Task_E.qmd
           - tasks/BCB744_Task_F.qmd
           - tasks/BCB744_Task_G.qmd

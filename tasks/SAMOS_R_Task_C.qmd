@@ -1,5 +1,5 @@
 ---
-title: "BCB744 Task D"
+title: "SAMOS Intro R Task C"
 format: 
   html:
     fig-format: svg
@@ -7,7 +7,7 @@ format:
     fig-dpi: 300
     number-sections: false
 params: 
-  hide_answers: true
+  hide_answers: false
 execute:
   fig-format: png
   dev: ragg_png
@@ -369,3 +369,13 @@ Example patterns:
 1. **Temperature decreases with depth**, and the surface layer shows the strongest latitudinal/seasonal structure.
 2. **Nutrients generally increase with depth** (and are typically lowest at the surface), reflecting biological uptake near the surface and regeneration at depth.
 :::
+
+## Question 14
+
+Please start with this figure and improve and expand on the analysis as shown below the figure:
+
+{{< include ../intro_r/includes/woa_core_load.qmd >}}
+
+```{r}
+
+```

@@ -164,7 +164,7 @@ cookieconsent.run({
 <span class="menu-text">Biostatistics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tasks/BCB744_Task_A.html"> 
+    <a class="nav-link" href="../tasks/SAMOS_R_Task_A.html"> 
 <span class="menu-text">Tasks</span></a>
   </li>  
 </ul>
@@ -443,26 +443,26 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_A.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task A</span></a>
+  <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Intro R Task A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task B</span></a>
+  <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Intro R Task B</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_C.html" class="sidebar-item-text sidebar-link">
+  <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Intro R Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BCB744 Task D</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task C</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -797,12 +797,12 @@ Figure&nbsp;1: WOA18 surface (0 m) February climatology: temperature vs salinity
 <section id="how-to-read-this-code" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="how-to-read-this-code"><span class="header-section-number">3.2</span> How to Read This Code</h2>
 <p>Read the plot like a sentence with grammar: <strong>subject → verb → modifiers</strong>. The subject is the data (here: a filtered slice of <code>woa</code>), the verb is the geometric action (<code>geom_point()</code>), and the modifiers are the aesthetic mappings (<code>aes(...)</code>) that tell ggplot <em>how</em> to draw. The <code>ggplot(...)</code> line sets the stage (data + core mappings), and each <code>geom_*()</code> line adds a new clause. The <code>+</code> sign means “and then add another clause.”</p>
-<p>So what is that code doing? We may see from the figure that it is creating a dot for every grid cell, placing <strong>salinity</strong> on the x‑axis and <strong>temperature</strong> on the y‑axis (a very common oceanography view).</p>
+<p>So what is that code doing? We may see from <a href="#fig-woa-ts-basic" class="quarto-xref">Figure&nbsp;1</a> that it is creating a dot for every grid cell, placing <strong>salinity</strong> on the x‑axis and <strong>temperature</strong> on the y‑axis (a very common oceanography view).</p>
 <p>As a workflow, it is perfectly normal to build plots incrementally: start with a minimal plot, confirm the axes are correct, then add layers one at a time. Partial plots are not failures; they are thinking tools.</p>
 <p>The first line of code is telling R that we want to create a ggplot figure. We know this because we are using the <code>ggplot()</code> function. Inside of that function we are telling R which dataframe (or tibble) we want to create a figure from. Lastly, with the <code>aes()</code> function we tell R what the necessary parts of the figure will be. This is also known as ‘mapping’ (variables map to the visual appearance and arrangement of figure elements).</p>
 <p>The second line of code then takes all of that information and makes points (dots) out of it, added as a layer on the set of axes created by the <code>aes()</code> argument provided within <code>ggplot(...)</code> — in other words, we add a ‘geometry’ layer, and hence the name of the kind of ‘shape’ we want to plot the data as is prefixed by <code>geom_</code>.</p>
 <p>In many cases (especially time series) you will add a <code>geom_line()</code> layer. With the WOA climatology we typically do not connect points with lines because they are not ordered in time within each location.</p>
-<p>However, we <em>can</em> add an extra aesthetic mapping to include a third variable. Below we colour points by <strong>dissolved oxygen</strong> (surface, February). This is an example of mapping a continuous variable to a continuous colour scale.</p>
+<p>However, we <em>can</em> add an extra aesthetic mapping to include a third variable. In <a href="#fig-woa-ts-oxygen" class="quarto-xref">Figure&nbsp;2</a> we colour points by <strong>dissolved oxygen</strong> (surface, February). This is an example of mapping a continuous variable to a continuous colour scale.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>woa <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
@@ -825,8 +825,8 @@ Figure&nbsp;2: Surface February climatology: T–S scatter coloured by dissolved
 </div>
 </div>
 </div>
-<p>Do any patterns appear to emerge? Typically oxygen is higher in cooler surface waters (and lower in warmer waters), but the relationship is not purely linear because circulation and biology both matter.</p>
-<p>We can still add a simple best‑fit line through the points to demonstrate <code>geom_smooth()</code>:</p>
+<p>Do any patterns appear to emerge in <a href="#fig-woa-ts-oxygen" class="quarto-xref">Figure&nbsp;2</a>? Typically oxygen is higher in cooler surface waters (and lower in warmer waters), but the relationship is not purely linear because circulation and biology both matter.</p>
+<p>We can still add a simple best‑fit line through the points to demonstrate <code>geom_smooth()</code> (<a href="#fig-woa-ts-oxygen-lm" class="quarto-xref">Figure&nbsp;3</a>):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>woa <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">2</span>, depth_m <span class="sc">==</span> <span class="dv">0</span>, variable <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"temperature"</span>, <span class="st">"salinity"</span>, <span class="st">"dissolved_oxygen"</span>)) <span class="sc">%&gt;%</span></span>
@@ -877,7 +877,7 @@ Figure&nbsp;4: Constant colour set outside aes (no legend is created).
 </div>
 </div>
 </div>
-<p>Why did no legend appear? Because the colour was set <em>outside</em> <code>aes()</code>, so ggplot treats it as a fixed setting, not a mapping. If you put a constant inside <code>aes()</code> (for example, <code>aes(colour = "steelblue")</code>), ggplot thinks you are mapping a category called “steelblue” and will create a legend.</p>
+<p>Why did no legend appear in <a href="#fig-woa-constant-colour" class="quarto-xref">Figure&nbsp;4</a>? Because the colour was set <em>outside</em> <code>aes()</code>, so ggplot treats it as a fixed setting, not a mapping. If you put a constant inside <code>aes()</code> (for example, <code>aes(colour = "steelblue")</code>), ggplot thinks you are mapping a category called “steelblue” and will create a legend.</p>
 <p>Next we set the <strong>size</strong> of points as a mapped variable (nitrate), while keeping other aesthetics constant.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -918,7 +918,7 @@ Figure&nbsp;5: Point size mapped to nitrate concentration (surface, February).
 </div>
 </div>
 </div>
-<p>Notice that we mapped point size inside <code>aes(size = nitrate)</code>. That creates a size scale and legend. Any size you set <em>outside</em> <code>aes()</code> would be constant for all points.</p>
+<p>Notice that in <a href="#fig-woa-size-mapped" class="quarto-xref">Figure&nbsp;5</a> we mapped point size inside <code>aes(size = nitrate)</code>. That creates a size scale and legend. Any size you set <em>outside</em> <code>aes()</code> would be constant for all points.</p>
 </section>
 <section id="changing-labels" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Changing Labels</h1>
@@ -953,11 +953,11 @@ Figure&nbsp;6: Temperature vs dissolved oxygen, with explicit labels and legend 
 </div>
 </div>
 </div>
-<p>Notice that when we place the legend at the bottom of the figure ggplot automatically makes it horizontal for us. Why do we use ‘colour’ inside of <code>labs()</code> to change the legend title?</p>
+<p>Notice that in <a href="#fig-woa-labels-legend" class="quarto-xref">Figure&nbsp;6</a>, when we place the legend at the bottom of the figure ggplot automatically makes it horizontal for us. Why do we use ‘colour’ inside of <code>labs()</code> to change the legend title?</p>
 </section>
 <section id="reusable-woa-examples-for-other-chapters" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Reusable WOA examples (for other chapters)</h1>
-<p>The following small set of plots is deliberately designed to be copy‑pasted and adapted in later chapters.</p>
+<p>The following small set of plots is deliberately designed to be copy‑pasted and adapted in later chapters: a spatial temperature map (<a href="#fig-woa-core-map-temp" class="quarto-xref">Figure&nbsp;7</a>), a T–S scatter (<a href="#fig-woa-core-ts" class="quarto-xref">Figure&nbsp;8</a>), and mean vertical profiles (<a href="#fig-woa-core-profile" class="quarto-xref">Figure&nbsp;9</a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="fu">library</span>(here)</span>
@@ -981,10 +981,14 @@ Figure&nbsp;6: Temperature vs dissolved oxygen, with explicit labels and legend 
 <span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Longitude (°E)"</span>, <span class="at">y =</span> <span class="st">"Latitude (°N)"</span>) <span class="sc">+</span></span>
 <span id="cb10-8"><a href="#cb10-8"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="10-graphics_files/figure-html/woa-core-example-map-temp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="WOA18 surface temperature (°C) climatology for February (Southern Africa region)."><img src="10-graphics_files/figure-html/woa-core-example-map-temp-1.png" class="img-fluid figure-img" style="width:85.0%" alt="WOA18 surface temperature (°C) climatology for February (Southern Africa region)."></a></p>
-<figcaption>WOA18 surface temperature (°C) climatology for February (Southern Africa region).</figcaption>
+<div id="fig-woa-core-map-temp" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-woa-core-map-temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="10-graphics_files/figure-html/fig-woa-core-map-temp-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Figure&nbsp;7: WOA18 surface temperature (°C) climatology for February (Southern Africa region)."><img src="10-graphics_files/figure-html/fig-woa-core-map-temp-1.png" class="img-fluid figure-img" style="width:85.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-core-map-temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: WOA18 surface temperature (°C) climatology for February (Southern Africa region).
+</figcaption>
 </figure>
 </div>
 </div>
@@ -999,10 +1003,14 @@ Figure&nbsp;6: Temperature vs dissolved oxygen, with explicit labels and legend 
 <span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (PSU)"</span>, <span class="at">y =</span> <span class="st">"Temperature (°C)"</span>) <span class="sc">+</span></span>
 <span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="10-graphics_files/figure-html/woa-core-example-ts-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="A classic T–S view (surface, February) using WOA18 climatology."><img src="10-graphics_files/figure-html/woa-core-example-ts-1.png" class="img-fluid figure-img" style="width:75.0%" alt="A classic T–S view (surface, February) using WOA18 climatology."></a></p>
-<figcaption>A classic T–S view (surface, February) using WOA18 climatology.</figcaption>
+<div id="fig-woa-core-ts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-woa-core-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="10-graphics_files/figure-html/fig-woa-core-ts-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Figure&nbsp;8: A classic T–S view (surface, February) using WOA18 climatology."><img src="10-graphics_files/figure-html/fig-woa-core-ts-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-core-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: A classic T–S view (surface, February) using WOA18 climatology.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1026,10 +1034,14 @@ Figure&nbsp;6: Temperature vs dissolved oxygen, with explicit labels and legend 
 <span id="cb12-16"><a href="#cb12-16"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb12-17"><a href="#cb12-17"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="10-graphics_files/figure-html/woa-core-example-profile-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Mean vertical profiles (annual climatology, region-average)."><img src="10-graphics_files/figure-html/woa-core-example-profile-1.png" class="img-fluid figure-img" style="width:100.0%" alt="Mean vertical profiles (annual climatology, region-average)."></a></p>
-<figcaption>Mean vertical profiles (annual climatology, region-average).</figcaption>
+<div id="fig-woa-core-profile" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-woa-core-profile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="10-graphics_files/figure-html/fig-woa-core-profile-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Figure&nbsp;9: Mean vertical profiles (annual climatology, region-average)."><img src="10-graphics_files/figure-html/fig-woa-core-profile-1.png" class="img-fluid figure-img" style="width:100.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-woa-core-profile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Mean vertical profiles (annual climatology, region-average).
+</figcaption>
 </figure>
 </div>
 </div>

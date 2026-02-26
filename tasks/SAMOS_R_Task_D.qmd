@@ -1,10 +1,11 @@
 ---
-title: "BCB744 Task C"
+title: "BCB744 Task D"
 format: 
   html:
     fig-format: svg
     fig_retina: 2
     fig-dpi: 400
+    number-sections: false
 params: 
   hide_answers: true
 execute:
@@ -40,7 +41,7 @@ library(ggthemes)
 
 # 12–14. Mapping (with style + Natural Earth)
 
-## Question 1
+<!-- ## Question 1
 ```{r fig-library-scales, fig.width=5, fig.asp=0.65, out.width="60%", fig.align='center', echo=FALSE, warning=FALSE, message=FALSE}
 #| fig-cap: "Styled Southern Africa map with annotations and scale."
 # Load libraries
@@ -395,5 +396,152 @@ ggplot() +
   scale_y_continuous(breaks = c(-34.2, -33.4)) # ✓
 ```
 
+
+`r if (params$hide_answers) ":::"` -->
+
+# Water-Mass Structure: WOA18 on a Natural Earth Map
+
+## Question 1
+
+Figure 7 (*WOA18 surface temperature (°C) climatology for February (Southern Africa region)*) in Chapter 10 (*Graphics with **ggplot2***) shows the WOA18 February surface temperature climatology as a plain raster. In this exercise you will substantially develop that figure and add an oceanographic analysis layer.
+
+**Part A — Improved SST map**
+
+Replot the February surface SST field from WOA18, this time overlaying it on a Natural Earth coastline (using the **rnaturalearth** and **sf** packages, as demonstrated in the lecture). Annotate the map with two rectangular bounding boxes that identify the following water masses:
+
+- **Agulhas Current core** — the western boundary current carrying warm, saline Indian Ocean water southwestward along the east coast of South Africa. Use the bounding box: 30–35°E, 37–29°S.
+- **Benguela Upwelling System** — the eastern boundary upwelling system on the west coast of southern Africa; restrict the box to roughly 100 km offshore (i.e., a narrow coastal strip). Use the bounding box: 14–18°E, 33–24°S.
+
+Label each box clearly on the map. Ensure axes are correctly labelled and apply Quarto's figure-label feature (`#| label: fig-...`) so the figure can be cross-referenced.
+
+**Part B — Seasonal T–S diagrams**
+
+For each of the two regions defined in Part A:
+
+1. Filter the full WOA18 dataset (all depths) to the months of **DJF** (December–January–February, austral summer) and **JJA** (June–July–August, austral winter) separately.
+2. Plot **all individual (unaggregated) grid-cell T–S pairs** within each box as small semi-transparent grey background points to show the full spread of the data.
+3. Overlay the **spatially and temporally averaged T–S profile** (mean temperature and mean salinity at each standard depth level, averaged across all grid cells and months within the season) as a coloured path with depth encoded on a continuous colour scale.
+4. Arrange the four panels in a 2 × 2 faceted figure (seasons as rows, regions as columns) and apply Quarto labelling.
+
+Below each figure, write a short paragraph that cross-references it with `@fig-...` and interprets the oceanographic patterns visible.
+
+**(/30)**
+
+`r if (params$hide_answers) "::: {.content-hidden}"`
+
+**Model Answer**
+
+The answer is structured as a silent setup chunk followed by two labelled figure chunks.
+
+```{r task-woa-setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(here)
+
+sf_use_s2(FALSE)
+
+woa <- readr::read_csv(
+  here::here("data", "SAMOS", "processed", "woa18_sa_core_1deg_monthly.csv"),
+  show_col_types = FALSE
+)
+
+africa <- ne_countries(continent = "Africa", returnclass = "sf", scale = "medium")
+```
+
+### Part A — Annotated SST map
+
+```{r fig-task-woa-sst-regions, fig.width=6, fig.asp=0.85, out.width="70%", fig.align='center', echo=TRUE}
+#| fig-cap: "WOA18 February surface SST (°C) on a Natural Earth base map. White box: Agulhas Current core (30–35°E, 37–29°S); cyan box: Benguela Upwelling System coastal strip (14–18°E, 33–24°S)."
+woa |>
+  filter(month == 2, depth_m == 0, variable == "temperature") |>
+  ggplot(aes(x = lon, y = lat, fill = value)) +
+  geom_tile() +
+  geom_sf(data = africa, fill = "cornsilk", colour = "grey30",
+          linewidth = 0.3, inherit.aes = FALSE) +
+  scale_fill_viridis_c(name = "SST (°C)", option = "plasma", na.value = NA) +
+  coord_sf(xlim = c(10, 40), ylim = c(-40, -15), expand = 0) +
+  # Agulhas Current box
+  annotate("rect", xmin = 30, xmax = 35, ymin = -37, ymax = -29,
+           fill = NA, colour = "white", linewidth = 0.9) +
+  annotate("text", x = 32.5, y = -28.2, label = "Agulhas Current",
+           colour = "white", size = 2.5, hjust = 0.5) +
+  # Benguela Upwelling box
+  annotate("rect", xmin = 14, xmax = 18, ymin = -33, ymax = -24,
+           fill = NA, colour = "cyan3", linewidth = 0.9) +
+  annotate("text", x = 16, y = -23.2, label = "Benguela Upwelling",
+           colour = "cyan3", size = 2.5, hjust = 0.5) +
+  labs(x = "Longitude (°E)", y = "Latitude (°S)") +
+  theme_bw(base_size = 9)
+```
+
+@fig-task-woa-sst-regions reveals one of the most striking thermal contrasts in the Southern Hemisphere ocean. The Agulhas Current box captures the warm western-boundary-current core (>22 °C in February), fed by subtropical Indian Ocean water flowing southwestward along the shelf edge. The Benguela box, by contrast, displays the characteristic cold upwelling signal (<15 °C) produced by equatorward winds that drive offshore Ekman transport and draw cold sub-thermocline water to the surface. Despite being separated by only ∼1 500 km, the two regions differ by more than 10 °C at the surface.
+
+### Part B — Seasonal T–S diagrams
+
+```{r fig-task-woa-ts-seasonal, fig.width=7, fig.asp=0.7, out.width="90%", fig.align='center', echo=TRUE}
+#| fig-cap: "Seasonal T–S diagrams for the Benguela Upwelling System (left column) and the Agulhas Current core (right column) in austral summer (DJF, top row) and austral winter (JJA, bottom row). Grey points: all individual WOA18 grid-cell T–S pairs (unaggregated) within each box for the relevant months. Coloured path and filled points: mean T–S profile spatially and temporally averaged at each standard depth level (colour encodes depth; dark = deep)."
+# --- build the tagged, wide-format dataset (used for both layers) ---
+ts_all <- woa |>
+  filter(
+    variable %in% c("temperature", "salinity"),
+    month    %in% c(12, 1, 2, 6, 7, 8)
+  ) |>
+  mutate(
+    season = case_when(
+      month %in% c(12, 1, 2) ~ "DJF (austral summer)",
+      month %in% c(6, 7, 8)  ~ "JJA (austral winter)"
+    ),
+    region = case_when(
+      lon >= 30 & lon <= 35 & lat >= -37 & lat <= -29 ~ "Agulhas Current",
+      lon >= 14 & lon <= 18 & lat >= -33 & lat <= -24 ~ "Benguela Upwelling",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(region)) |>
+  # Keep only shared identifiers before widening; otherwise variable-specific
+  # columns (e.g., unit) prevent temperature/salinity from landing on one row.
+  select(lat, lon, depth_m, month, season, region, variable, value) |>
+  pivot_wider(names_from = variable, values_from = value) |>
+  filter(!is.na(temperature), !is.na(salinity)) |>
+  mutate(
+    region = factor(region, levels = c("Benguela Upwelling", "Agulhas Current")),
+    season = factor(season, levels = c("DJF (austral summer)", "JJA (austral winter)"))
+  )
+
+# --- depth-averaged mean profile ---
+ts_mean <- ts_all |>
+  group_by(region, season, depth_m) |>
+  summarise(
+    temperature = mean(temperature, na.rm = TRUE),
+    salinity    = mean(salinity,    na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# --- plot: raw points beneath, mean profile on top ---
+ggplot() +
+  geom_point(data = ts_all,
+             aes(x = salinity, y = temperature),
+             colour = "grey60", alpha = 0.12, size = 0.4) +
+  geom_path(data = ts_mean,
+            aes(x = salinity, y = temperature, colour = depth_m),
+            linewidth = 0.8) +
+  geom_point(data = ts_mean,
+             aes(x = salinity, y = temperature, colour = depth_m),
+             size = 1.0) +
+  scale_colour_viridis_c(name = "Depth (m)", direction = -1, option = "mako") +
+  facet_grid(season ~ region) +
+  labs(x = "Salinity (PSU)", y = "Temperature (°C)") +
+  theme_bw(base_size = 9) +
+  theme(legend.position = "right")
+```
+
+@fig-task-woa-ts-seasonal reveals several key oceanographic features:
+
+- **Raw scatter vs. mean profile**: the grey background points show the natural spread of T–S values across all grid cells and months within each region-season box. The Benguela scatter is noticeably wider in temperature at shallow depths, reflecting the patchy, spatially variable nature of coastal upwelling. The mean profiles (coloured paths) summarise the typical T–S structure and are well-constrained despite this variability.
+- **Agulhas Current** (right column): surface waters are warm (∼22–24 °C in DJF; ∼18–20 °C in JJA) and saline (>35.2 PSU), reflecting subtropical Indian Ocean water carried southwestward by the current. The T–S curve shows a pronounced subsurface salinity maximum near 100–200 m depth that is diagnostic of Indian Ocean Subtropical Mode Water, followed by a monotonic decline in both T and S toward the deep. The DJF–JJA difference is largely confined to the upper 50–100 m.
+- **Benguela Upwelling** (left column): surface waters are cold (∼12–16 °C) and slightly less saline (∼34.5–35.2 PSU), consistent with South Atlantic Central Water (SACW) that is advected to the surface by wind-driven upwelling. The near-linear T–S relationship through the water column is a hallmark of SACW. In DJF, when southerly upwelling-favourable winds are strongest, the surface T–S point is particularly cool, pulling the profile away from the deeper warm-saline end of the SACW line.
+- **Seasonal signal**: the thermocline shoals and the surface cools or warms with the austral seasonal cycle in both regions, but deep-water T–S properties (below ∼500 m) are virtually identical between DJF and JJA, confirming that seasonal forcing is confined to the upper ocean.
 
 `r if (params$hide_answers) ":::"`
