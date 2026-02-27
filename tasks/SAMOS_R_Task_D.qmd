@@ -414,6 +414,8 @@ Replot the February surface SST field from WOA18, this time overlaying it on a N
 
 Label each box clearly on the map. Ensure axes are correctly labelled and apply Quarto's figure-label feature (`#| label: fig-...`) so the figure can be cross-referenced.
 
+Lastly, add the GEBCO (or equivalent) bathymetry at the depth levels 100, 200, 500, 1000, 1500, and 2000 m over the gridded SST field..
+
 **Part B — Seasonal T–S diagrams**
 
 For each of the two regions defined in Part A:
@@ -515,18 +517,18 @@ ts_mean <- ts_all |>
   group_by(region, season, depth_m) |>
   summarise(
     temperature = mean(temperature, na.rm = TRUE),
-    salinity    = mean(salinity,    na.rm = TRUE),
+    salinity = mean(salinity, na.rm = TRUE),
     .groups = "drop"
   )
 
 # --- plot: raw points beneath, mean profile on top ---
 ggplot() +
   geom_point(data = ts_all,
-             aes(x = salinity, y = temperature),
-             colour = "grey60", alpha = 0.12, size = 0.4) +
+             aes(x = salinity, y = temperature, colour = depth_m),
+             , alpha = 0.4, size = 0.6) +
   geom_path(data = ts_mean,
-            aes(x = salinity, y = temperature, colour = depth_m),
-            linewidth = 0.8) +
+            aes(x = salinity, y = temperature),
+            linewidth = 0.4, colour = "black") +
   geom_point(data = ts_mean,
              aes(x = salinity, y = temperature, colour = depth_m),
              size = 1.0) +

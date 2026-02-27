@@ -78,7 +78,7 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/index.html</loc>
-    <lastmod>2026-02-26T12:12:45.840Z</lastmod>
+    <lastmod>2026-02-26T12:18:01.505Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/13-confidence.html</loc>
@@ -214,7 +214,7 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/SAMOS_R_Task_D.html</loc>
-    <lastmod>2026-02-26T09:45:55.999Z</lastmod>
+    <lastmod>2026-02-27T10:51:03.448Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/tasks/SAMOS_Stats_Task_H.html</loc>
@@ -235,5 +235,9 @@
   <url>
     <loc>http://samos-r.netlify.app/tasks/SAMOS_Stats_Task_F.html</loc>
     <lastmod>2026-02-26T09:43:37.366Z</lastmod>
+  </url>
+  <url>
+    <loc>http://samos-r.netlify.app/SAMOS_Day_5.html</loc>
+    <lastmod>2026-02-27T10:39:16.181Z</lastmod>
   </url>
 </urlset>
