@@ -2,15 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Smit, A. J.">
-<meta name="dcterms.date" content="2021-01-01">
 
 <title>5. Statistical Inference – SAMOS R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -22,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,21 +68,20 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../basic_stats/06-assumptions.html" rel="next">
-<link href="../basic_stats/04-distributions.html" rel="prev">
+<link href="../basic_stats/06-assumptions-and-transformations.html" rel="next">
+<link href="../basic_stats/04-distributions-sampling-uncertainty.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a72d73f98a4a7f3df5cb9b4599317c55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -96,7 +132,7 @@ cookieconsent.run({
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -126,6 +162,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles/styles.css">
+<link rel="stylesheet" href="../../styles/biostats-callouts.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
@@ -192,7 +229,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/02-summarise-and-describe.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/05-inference.html">5. Statistical Inference</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/05-inference.html">5. Statistical Inference</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -348,20 +385,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+ <span class="menu-text">2. Summarising Biological Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3. Statistical Figures</span></a>
+ <span class="menu-text">3. Visualising Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Data Distributions</span></a>
+  <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -372,8 +415,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Assumptions</span></a>
+  <a href="../basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -390,38 +433,110 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9. Simple Linear Regressions</span></a>
+  <a href="../basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">10. Correlations</span></a>
+  <a href="../basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">11. Parametric Tests</span></a>
+  <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">12. Non-Parametric Tests</span></a>
+  <a href="../basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">13. Confidence Intervals</span></a>
+  <a href="../basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">14. Data Transformations</span></a>
+  <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
   </div>
 </li>
       </ul>
@@ -429,7 +544,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Tasks</span></a>
+ <span class="menu-text">Self Assessments</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -438,55 +553,55 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SAMOS Intro R Task A</span></a>
+ <span class="menu-text">Intro R Task A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SAMOS Intro R Task B</span></a>
+ <span class="menu-text">Intro R Task B</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SAMOS Intro R Task C</span></a>
+ <span class="menu-text">Intro R Task C</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task D</span></a>
+ <span class="menu-text">Intro R Task D</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_E.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task E</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task E</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_F.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task F</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task F</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_G.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task G</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_H.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task G</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_Bonus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Bonus Task</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Bonus Task</span></a>
   </div>
 </li>
       </ul>
@@ -501,18 +616,27 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">2</span> Hypothesis Testing</a></li>
-  <li><a href="#probabilities" id="toc-probabilities" class="nav-link" data-scroll-target="#probabilities"><span class="header-section-number">3</span> Probabilities</a></li>
+  <li><a href="#the-basic-workflow-of-hypothesis-testing" id="toc-the-basic-workflow-of-hypothesis-testing" class="nav-link active" data-scroll-target="#the-basic-workflow-of-hypothesis-testing"><span class="header-section-number">1</span> The Basic Workflow of Hypothesis Testing</a></li>
+  <li><a href="#hypotheses" id="toc-hypotheses" class="nav-link" data-scroll-target="#hypotheses"><span class="header-section-number">2</span> Hypotheses</a></li>
+  <li><a href="#test-statistics-p-values-and-decision-rules" id="toc-test-statistics-p-values-and-decision-rules" class="nav-link" data-scroll-target="#test-statistics-p-values-and-decision-rules"><span class="header-section-number">3</span> Test Statistics, <em>p</em>-Values, and Decision Rules</a>
+  <ul class="collapse">
+  <li><a href="#test-statistics" id="toc-test-statistics" class="nav-link" data-scroll-target="#test-statistics"><span class="header-section-number">3.1</span> Test Statistics</a></li>
+  <li><a href="#the-p-value" id="toc-the-p-value" class="nav-link" data-scroll-target="#the-p-value"><span class="header-section-number">3.2</span> The <em>p</em>-Value</a></li>
+  <li><a href="#the-significance-threshold-alpha" id="toc-the-significance-threshold-alpha" class="nav-link" data-scroll-target="#the-significance-threshold-alpha"><span class="header-section-number">3.3</span> The Significance Threshold, <span class="math inline">\(\alpha\)</span></a></li>
+  <li><a href="#the-decision-rule" id="toc-the-decision-rule" class="nav-link" data-scroll-target="#the-decision-rule"><span class="header-section-number">3.4</span> The Decision Rule</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><span class="header-section-number">3.5</span> Interpretation</a></li>
+  </ul></li>
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">4</span> Assumptions</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
+  <li><a href="#parametric-and-non-parametric-methods" id="toc-parametric-and-non-parametric-methods" class="nav-link" data-scroll-target="#parametric-and-non-parametric-methods"><span class="header-section-number">5</span> Parametric and Non-Parametric Methods</a></li>
+  <li><a href="#reporting-inferential-results" id="toc-reporting-inferential-results" class="nav-link" data-scroll-target="#reporting-inferential-results"><span class="header-section-number">6</span> Reporting Inferential Results</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7</span> Conclusion</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/05-inference.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/02-summarise-and-describe.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/05-inference.html">5. Statistical Inference</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/05-inference.html">5. Statistical Inference</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">5. Statistical Inference</h1>
 <p class="subtitle lead">An Introduction to Inferential Statistics</p>
@@ -541,7 +665,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2021</p>
+      <p class="date">2026/04/17</p>
     </div>
   </div>
   
@@ -553,7 +677,6 @@ window.Quarto = {
 </header>
 
 
-<p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -567,12 +690,9 @@ window.Quarto = {
 <ul>
 <li>The concept of inferential statistics</li>
 <li>Hypothesis testing</li>
-<li>Probabilities</li>
-<li>Assumptions and parametric statistics
-<ul>
-<li>Normality and the Shapiro-Wilk test</li>
-<li>Homoscedasticity</li>
-</ul></li>
+<li><em>p</em>-values and decision thresholds</li>
+<li>Assumptions</li>
+<li>How inferential results are reported in a journal article</li>
 </ul>
 </div>
 </div>
@@ -591,67 +711,42 @@ window.Quarto = {
 </ul>
 </div>
 </div>
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>We have seen in <a href="../basic_stats/02-summarise-and-describe.html">Chapter 2</a> and <a href="../basic_stats/03-visualise.html">Chapter 3</a> how to summarise, describe, and visualise our data — these processes form part of descriptive statistics. The next step is the process of conducting <strong>inferential statistics</strong>.</p>
-<p>Inferential statistics is a branch of statistics that focuses on drawing conclusions and making generalisations about a larger population based on the analysis of a smaller, representative sample. This is particularly valuable in research situations where it is impractical, impossible to collect data from every member of a population — <em>i.e.</em> all of biology and ecology. By employing probabilistic reasoning or inferential statistics enable us to estimate population parameters, make predictions, and test hypotheses with a certain level of confidence.</p>
-<p>One of the key aspects of inferential statistics is the concept of <em>sampling variability</em>. Since samples are only a subset of the population, they imperfectly represent whole populations, leading to variations in the estimates of population parameters (repeatedly drawing samples at random from a population will result in slightly different values for key statistical parameters, such as the sample mean, variance). Inferential statistics accounts for this variability by providing measures of uncertainty such as confidence intervals and margins of error, which convey the range within which the true population parameter is likely to fall.</p>
-<p><strong>Parametric statistics</strong> form the foundation of inferential statistics, and they are used to make inferences about population parameters based on sample data. These statistics assume that the data are generated from a specific probability distribution — the normal distribution. An alternative to parametric tests is non-parametric statistics, and we shall hear more about it in <a href="../basic_stats/06-assumptions.html#sec-nonparam">Chapter 6</a>.</p>
-<p>The most common parametric statistics used in inferential statistics include:</p>
-<ul>
-<li><p><strong><em>t</em>-tests (<a href="../basic_stats/07-t_tests.html">Chapter 7</a>)</strong> used to determine if there is a significant difference between the means of two groups of continuous dependent (response) variables.</p></li>
-<li><p><strong>ANOVA (<a href="../basic_stats/08-anova.html">Chapter 8</a>)</strong> used to determine if there is a significant difference between the means of three or more groups of continuous variables.</p></li>
-<li><p><strong>Regression analysis (<a href="../basic_stats/09-regressions.html">Chapter 9</a>)</strong> used to model the relationship between one or more continuous predictor variables and a continuous response variable.</p></li>
-<li><p><strong>Pearson correlation (<a href="../basic_stats/10-correlations.html">Chapter 10</a>)</strong> used to measure the linear association or relationships between two continuous variables.</p></li>
-<li><p><strong>Chi-squared tests</strong> used to determine if there is a significant association between two categorical variables.</p></li>
-</ul>
-<p>These tests typically involve the calculation of a test statistic and the comparison of this value with a critical value and then establishing a <em>p</em>-value to determine whether the results are statistically significant or likely due to chance. These methods are included within a subset of inferential statistics called <strong>probabilistic statistics</strong>.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Probabilistic and Bayesian Statistics
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Probabilistic and Bayesian statistics are two related but distinct branches of statistics that offer tools for modelling, analysing, and drawing inferences from complex data sets. At their core, both approaches rely on the use of probability theory to quantify uncertainty, variability in data but they differ in their assumptions about the nature of this uncertainty and how it should be modelled.</p>
-<p><strong>Probabilistic statistics</strong> is a classical approach that assumes that all sources of variability in a data set can be described by a fixed set of probability distributions, such as the normal distribution, the Poisson distribution. These distributions are characterised by a set of parameters such as the mean and standard deviation, that can be estimated from the data. Probabilistic statistics is widely used in fields such as biology, physics, and economics, where the data are often assumed to be generated by a deterministic process with some random noise present. In contrast, <strong>Bayesian statistics</strong> takes a more flexible approach to modelling uncertainty, allowing for uncertainty in both the parameters of the model, the underlying distribution itself. Bayesian methods are useful when dealing with complex and high-dimensional data sets and with lots of unknowns and assumptions, and have become increasingly popular in fields such as ecology, machine learningin recent years.</p>
-</div>
-</div>
-</section>
-<section id="hypothesis-testing" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Hypothesis Testing</h1>
-<p>Hypothesis testing is a fundamental aspect of the scientific method and is used to evaluate the validity of scientific hypotheses. A hypothesis is a proposed explanation for a phenomenon or observation that can be tested through experimentation or observation. To test a hypothesis, we design experiments, collect data or which we analyse using inferential statistical methods to determine whether the data support or refute the hypothesis.</p>
-<p>Two competing hypotheses about the data are set up at the onset of hypothesis testing: a <strong>null hypothesis</strong> (<em>H</em><sub>0</sub>) and an <strong>alternative hypothesis</strong> (<em>H</em><sub>a</sub>). The null hypothesis typically represents the <em>status quo</em> or a default assumption (a statement of no difference), while the alternative hypothesis represents a new, alternative explanation for the data.</p>
-<p>The goal is to make objective and evidence-based conclusions about the validity of the hypothesis, and to determine whether it can be accepted, rejected based on the available evidence. Hypothesis testing is a critical tool for advancing scientific knowledge and understanding or as it allows us to identify the most promising hypotheses and develop more accurate models of the natural world. Effectively, scientific progress can only be made if the null hypothesis is rejected, the alternative hypothesis accepted.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Hypotheses and Theories
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Hypotheses</strong> and <strong>theories</strong> are both important components of the scientific process, but they serve different functions, represent distinct levels of understanding.</p>
-<p>A <strong>hypothesis</strong> is a tentative explanation or proposition for a specific phenomenon, often based on observations, grounded in existing knowledge. It is a testable statement that can be either supported or refuted through further observation and experimentation, and hypothesis testing through the application of inferential statistics. Hypotheses are typically formulated at the beginning of a research study. They guide the design of experiments, the collection of data. Hypotheses help us make predictions and answer specific questions about the phenomena under investigation. If a hypothesis is repeatedly tested and confirmed through various experiments and it may gain credibility and contribute to the development of a theory.</p>
-<p>A <strong>theory</strong> is a well-substantiated explanation for a broad range of observed phenomena that has been consistently supported by a large body of evidence. Theories are more comprehensive and mature than hypotheses, as they integrate, generalise multiple related hypotheses and empirical findings to explain complex phenomena. They are built upon a solid foundation of tested hypotheses and provide a coherent framework that enables us to make accurate predictions and generate new hypotheses, and further advance our understanding of the natural world.</p>
-</div>
-</div>
-<p>At the heart of many basic scientific inquiries, and hence hypotheses, is the simple question “Is A different from B?” The scientific notation for this question is:</p>
-<ul>
-<li><em>H</em><sub>0</sub>: Group A is not different from Group B</li>
-<li><em>H</em><sub>a</sub>: Group A is different from Group B</li>
-</ul>
-<p>More formally, one would say:</p>
+<p>In Chapter 5, we arrive at the core purpose of this book: a practical exploration of the <em>inferential statistics</em> essential to modern biology. Using this toolkit, we can transform individual data points into broader scientific insights for the best possible explanations for the phenomenon being studied. These statistical methods are fundamental to hypothesis-driven research and provide the means to <em>generalise findings</em> from a sample to a population or predict future outcomes. The reasoning is that sample estimates vary from one sample to the next, thus offering only a partial glimpse into the broader population it represents. In Chapter 4 I showed how to describe that variation. Through inferential statistics, we can draw conclusions that extend beyond the sample by assessing how robustly the sample supports hypotheses about biological processes and populations.</p>
+<p>Inferential statistics build on the foundation of <em>exploratory data analysis (EDA)</em>, which leans heavily on descriptive, or summary, statistics. These initial, descriptive methods summarise the core features of data (their distribution described by a central tendency and spread) and offer a clear, distilled view of the data’s characteristics. Descriptive statistics capture a snapshot of the dataset, but they stop short of allowing us to deduce broader truths about the population from which the data arose. Inferential statistics then takes this groundwork and advances it within the framework of <em>probability theory</em>. In doing so, we draw conclusions and quantify the uncertainty around these deductions.</p>
+<p>Which probability model best represents a dataset is not an arbitrary choice; it flows from the biological mechanisms that generate the data. Confident, effective use of inferential statistics therefore requires an appreciation of both biological theory and the unique characteristics of the data at hand. The probability distribution of data is closely tied to the natural processes behind it, a connection that is often underappreciated. Biological data are shaped by a multitude of factors, partly deterministic, but very much affected by genetics, environmental variables, and stochastic variations among them, each leaving an imprint on the underlying statistical distribution. For example:</p>
 <ol type="1">
-<li><span class="math inline">\(H_{0}: \bar{A} = \bar{B}\)</span> vs.&nbsp;the alternative hypothesis that <span class="math inline">\(H_{a}: \bar{A} \neq \bar{B}\)</span></li>
-<li><span class="math inline">\(H_{0}: \bar{A} \leq \bar{B}\)</span> vs.&nbsp;the alternative hypothesis that <span class="math inline">\(H_{a}: \bar{A} &gt; \bar{B}\)</span></li>
-<li><span class="math inline">\(H_{0}: \bar{A} \geq \bar{B}\)</span> vs.&nbsp;the alternative hypothesis that <span class="math inline">\(H_{a}: \bar{A} &lt; \bar{B}\)</span></li>
+<li><p><strong>Plant Height (Normal Distribution):</strong> The heights of individual plants in a population typically follow a <em>normal distribution</em>. This distribution arises from the combined effects of genetic factors and environmental conditions that influence plant growth, such as soil quality, light, and water availability.</p></li>
+<li><p><strong>Litter Size in Mammals (Poisson Distribution):</strong> In many mammal species, the number of offspring per litter may follow a <em>Poisson distribution</em>, which is common for count data. This distribution reflects the biological processes involved in reproduction, where most females have an average litter size, and larger litters are progressively rarer.</p></li>
 </ol>
+<p>In each case, the mechanism that produces the data also determines its distribution, and that distribution is what we assess when constructing probability statements about the world.</p>
+<p>The central idea of inference is to ask how surprising our observed result would be if a stated null model were true. Knowing which probability distribution governs data under that null is therefore what makes the comparison meaningful and the conclusion defensible. This thinking is the foundation of hypothesis testing, which structures every analytical step that follows.</p>
+<section id="the-basic-workflow-of-hypothesis-testing" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> The Basic Workflow of Hypothesis Testing</h1>
+<p>Hypothesis testing is best understood as a sequence of linked steps:</p>
+<ol type="1">
+<li>state a <strong>null hypothesis</strong> (<span class="math inline">\(H_{0}\)</span>) and an <strong>alternative hypothesis</strong> (<span class="math inline">\(H_{a}\)</span>);</li>
+<li>calculate a <strong>test statistic</strong> from the sample data;</li>
+<li>evaluate how compatible that statistic is with the null model;</li>
+<li>compare the result with a chosen decision threshold, usually <span class="math inline">\(\alpha\)</span>;</li>
+<li>interpret the outcome in scientific context.</li>
+</ol>
+<p>This workflow recurs throughout the rest of the module whether we are comparing means, testing associations, or fitting models.</p>
+<!-- callout-important
+## Do It Now!
+
+A biologist is studying whether kelp (*Ecklonia maxima*) fronds are longer in a sheltered bay than in an exposed rocky shore. Work through the five-step hypothesis-testing workflow above and write out each step for this specific question: (1) state the null and alternative hypotheses in plain language and in statistical notation, (2) name the test statistic you would use, (3) describe how you would evaluate it, (4) state your decision rule, and (5) explain how you would interpret the outcome biologically. Compare your formulation with a partner — did you both write the same null hypothesis?
+-->
+</section>
+<section id="hypotheses" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Hypotheses</h1>
+<p>Hypothesis testing starts by setting up two competing explanations for the data. The <strong>null hypothesis</strong> (<span class="math inline">\(H_{0}\)</span>) usually represents no effect, no difference, or no association. The <strong>alternative hypothesis</strong> (<span class="math inline">\(H_{a}\)</span>) represents the pattern we would regard as evidence against that null model. Only one of them can be retained after running the statistical test.</p>
+<p>Hypothesis testing evaluates whether the observed data are consistent with the null model. It does not prove a hypothesis true, but it asks whether the evidence is strong enough to reject <span class="math inline">\(H_{0}\)</span>.</p>
+<p>At the heart of many basic scientific questions is the simple comparison “Is A different from B?” In statistical notation:</p>
+<p><span class="math display">\[H_{0}: \text{Group A is not different from Group B}\]</span> <span class="math display">\[H_{a}: \text{Group A is different from Group B}\]</span></p>
+<p>More formally:</p>
+<p><span class="math display">\[H_{0}: \bar{A} = \bar{B}\]</span> <span class="math display">\[H_{a}: \bar{A} \neq \bar{B}\]</span></p>
+<p><span class="math display">\[H_{0}: \bar{A} \leq \bar{B}\]</span> <span class="math display">\[H_{a}: \bar{A} &gt; \bar{B}\]</span></p>
+<p><span class="math display">\[H_{0}: \bar{A} \geq \bar{B}\]</span> <span class="math display">\[H_{a}: \bar{A} &lt; \bar{B}\]</span></p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -662,87 +757,213 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Hypothesis 1 is a two-sided <em>t</em>-test and hypotheses 2 and 3 are one-sided tests. This will make sense once you have studied the material in <a href="../basic_stats/07-t_tests.html">Chapter 7</a> about <em>t</em>-tests.</p>
+<p>The hypothesis pair written with <span class="math inline">\(\ne\)</span> is <strong>two-sided</strong> because it asks whether the two means differ in either direction. The two hypothesis pairs written with <span class="math inline">\(&gt;\)</span> and <span class="math inline">\(&lt;\)</span> are <strong>one-sided</strong> because they specify direction explicitly. This distinction becomes important when we formalise these tests in <a href="../basic_stats/07-t_tests.html">Chapter 7</a>.</p>
+</div>
+</div>
+<p>We should also be precise about the language of decisions. In frequentist hypothesis testing, we either <strong>reject <span class="math inline">\(H_{0}\)</span></strong> or <strong>fail to reject <span class="math inline">\(H_{0}\)</span></strong>. We do not “prove” <span class="math inline">\(H_{a}\)</span>, and we do not “accept” <span class="math inline">\(H_{0}\)</span> as true.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For each of the following scenarios, write the appropriate null and alternative hypotheses and state whether the test should be one-sided or two-sided. Justify your choice.</p>
+<ol type="a">
+<li>A pharmaceutical company tests whether a new drug <em>reduces</em> blood pressure more than a placebo.</li>
+<li>An ecologist measures whether a marine reserve has <em>changed</em> average fish size and abundance (either increased or decreased) after five years.</li>
+<li>A food scientist checks whether a new preservation method <em>increases</em> shelf life beyond the industry standard of 14 days.</li>
+</ol>
+<p>After writing your hypotheses, discuss with a partner: why does the directionality matter for the <em>p</em>-value you will eventually compute?</p>
 </div>
 </div>
 </section>
-<section id="probabilities" class="level1 page-columns page-full" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Probabilities</h1>
-<p>The <em>p</em>-value (the significance level, <span class="math inline">\(\alpha\)</span>) is the probability of finding the observed (or measured) outcome to be more extreme (<em>i.e.</em>, very different) than that suggested by the null hypothesis (<span class="math inline">\(H_{0}\)</span>). Typically, biologists set the <em>p</em>-value at <span class="math inline">\(\alpha \leq 0.05\)</span> — in other words, the measured outcome of our experiment only has a 1 in 20 chance of being the same as that of the reference (or control) group. So, when the <em>p</em>-value is <span class="math inline">\(\leq\)</span> 0.05, for example, we say that there is a very good probability that our experimental treatment resulted in an outcome that is very different (we say statistically significantly different) from the measurement obtained from the group to which the treatment had not been applied — in this case we do not accept <span class="math inline">\(H_{0}\)</span> and by necessity <span class="math inline">\(H_{a}\)</span> becomes true.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>The <span class="math inline">\(H_{0}\)</span>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In inferential statistics, when conducting hypothesis testing, we do not “accept”, “prove” the null hypothesis. Instead or we either “reject” or “fail to reject” the null hypothesis based on the evidence provided by our sample data. So, it does not mean the null hypothesis is true, just that there is not enough evidence in your sample to reject it.</p>
-</div>
-</div>
-<p>The choice of <em>p</em>-value at which we reject <span class="math inline">\(H_{0}\)</span> is arbitrary and exists by convention only. Traditionally, the 5% cut-off (<em>i.e.</em>, less than 1 in 20 chance of being wrong<span class="math inline">\(p \leq 0.05\)</span>) is used in biology, but sometimes the threshold is set at 1%, 0.1% (0.01 or 0.001 or respectively), particularly in the medical sciences where avoiding false positives, negatives could be a public health concern. However, more and more biologists shy away from the <em>p</em>-value as they argue that it can give a false sense of security.</p>
+<section id="test-statistics-p-values-and-decision-rules" class="level1 page-columns page-full" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Test Statistics, <em>p</em>-Values, and Decision Rules</h1>
+<section id="test-statistics" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="test-statistics"><span class="header-section-number">3.1</span> Test Statistics</h2>
+<p>A <strong>test statistic</strong> is a numerical summary of the evidence in the sample. Different methods use different statistics: a <em>t</em>-test uses a <em>t</em> statistic, ANOVA uses an <em>F</em> statistic, correlation uses the correlation coefficients <span class="math inline">\(\rho\)</span> or <span class="math inline">\(\tau\)</span>, and regression uses slopes, <span class="math inline">\(R^2\)</span>, and related summaries.</p>
+<p>The common purpose is that all these statistics reduce the sample evidence to a quantity that can be evaluated under the null model.</p>
+</section>
+<section id="the-p-value" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-p-value"><span class="header-section-number">3.2</span> The <em>p</em>-Value</h2>
+<p>The <strong><em>p</em>-value</strong> is the probability of obtaining a result at least as extreme as the one observed, assuming that <span class="math inline">\(H_{0}\)</span> is true. A <em>p</em>-value is <em>not</em> the probability that <span class="math inline">\(H_{0}\)</span> is true. It is a measure of how incompatible the data are with the null model. Smaller <em>p</em>-values indicate stronger incompatibility.</p>
+<p>For example, assume our statistical test results in a <em>p</em>-value of 0.03, then, within the standard frequentist interpretation of a <em>p</em>-value we say:</p>
+<p>“If <span class="math inline">\(H_0\)</span> is true, there is a 3% probability of obtaining a result at least as extreme as ours.”</p>
+<p>That statement has two parts.</p>
+<ol type="1">
+<li><p>First, “If <span class="math inline">\(H_0\)</span> is true”. This is the condition. We temporarily assume the null hypothesis is correct. For example, if <span class="math inline">\(H_0\)</span> says there is no treatment effect, no association, or no difference between groups, we calculate probabilities under that assumption.</p></li>
+<li><p>Second, “a result at least as extreme as ours”. This means not only the exact result we observed, but also any result that would provide <em>equal or stronger</em> evidence against <span class="math inline">\(H_0\)</span>, according to the test statistic being used. So the <em>p</em>-value counts your result and more extreme ones in the tail or tails of the null distribution.</p></li>
+</ol>
+<p>So, for a <em>p</em>-value of 0.03, the interpretation is:</p>
+<p>If the null hypothesis were true, results this extreme or more extreme would arise about 3 times in 100 repeated samples.</p>
+</section>
+<section id="the-significance-threshold-alpha" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-significance-threshold-alpha"><span class="header-section-number">3.3</span> The Significance Threshold, <span class="math inline">\(\alpha\)</span></h2>
+<p>Before looking at the result, we usually choose a decision threshold, denoted <span class="math inline">\(\alpha\)</span>. In many biological studies, <span class="math inline">\(\alpha = 0.05\)</span> remains conventional. Other values, such as 0.01 or 0.001, may be used when false positives carry greater cost.</p>
+<p>Thresholds are conventions that guide decisions. They do not replace expert judgement.</p>
+<!-- callout-important
+## Do It Now!
+
+Which of the following statements correctly interprets a *p*-value of 0.03? Identify all that are correct and explain why the others are wrong.
+
+a. "There is a 3% probability that $H_{0}$ is true."
+b. "If $H_{0}$ is true, there is a 3% probability of obtaining a result at least as extreme as ours."
+c. "The probability that our result occurred by chance is 3%."
+d. "We can be 97% confident that our result is real."
+e. "The data are incompatible with the null model at a level of $p = 0.03$."
+
+Discuss your answers with a partner before we review together as a class.
+
+<!-- For a statistically literate audience, the correct interpretation is:
+
+Correct: b and e
+Incorrect: a, c, d
+
+A p-value of 0.03 means this: assuming the null hypothesis H_0 is true, the probability of observing data as extreme as, or more extreme than, the data obtained is 0.03. That is the formal definition. Statement b expresses that definition directly, so it is correct.
+
+That statement has two parts.
+
+First, “If H_0 is true”.
+This is the condition. We temporarily assume the null hypothesis is correct. For example, if H_0 says there is no treatment effect, no association, or no difference between groups, we calculate probabilities under that assumption.
+
+Second, “a result at least as extreme as ours”.
+This means not only the exact result you observed, but also any result that would provide equal or stronger evidence against H_0, according to the test statistic being used. So the p-value counts your result and more extreme ones in the tail or tails of the null distribution.
+
+For a p-value of 0.03, the interpretation is:
+
+If the null hypothesis were true, results this extreme or more extreme would arise about 3 times in 100 repeated samples.
+
+Statement e is also correct, provided we read “incompatible” in the standard statistical sense: the observed data are relatively unusual under the null model. A p-value of 0.03 indicates that the data show modest evidence against the null model, because such data would arise only about 3% of the time if the null model were true. This does not prove the null is false, but it does indicate poor agreement between the data and that model. -->
+<p>–&gt;</p>
+</section>
+<section id="the-decision-rule" class="level2 page-columns page-full" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="the-decision-rule"><span class="header-section-number">3.4</span> The Decision Rule</h2>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>Statistical tests indicate a statistically significant outcome (the <span class="math inline">\(p \leq 0.05\)</span>) and we accept the <span class="math inline">\(H_{a}\)</span>, or it does not (<span class="math inline">\(p \gt 0.05\)</span>) and we do not reject the <span class="math inline">\(H_{0}\)</span>. There is no “almost significant”. It is, or it is not. <img src="../images/approaching-significance.jpeg" class="img-fluid quarto-figure quarto-figure-center" width="600" alt="A reminder that “almost significant” is not significant."></p>
-</div></div><p>We generally refer to <span class="math inline">\(p \leq 0.05\)</span> as being statistically significant. Statistically highly significant is seen at as <span class="math inline">\(p \leq 0.001\)</span>. In the first instance there is a less than 1 in 20 chance that our experimental sample is not different from the reference group, and in the second instance there is a less than 1 in a 1000 chance tat they are the same. This says something about the acceptable error rates: there is a better chance the <span class="math inline">\(H_{0}\)</span> may in fact be falsely accepted or rejected when the <em>p</em>-value is set at 0.05 than at 0.001.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../images/approaching-significance.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="A reminder that “almost significant” is not significant."><img src="../images/approaching-significance.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600" alt="A reminder that “almost significant” is not significant."></a></p>
+</figure>
+</div>
+<figcaption>A reminder that “almost significant” is not significant.</figcaption>
+</figure>
+</div>
+</div></div><p>The usual rule is:</p>
+<ul>
+<li>if <span class="math inline">\(p \leq \alpha\)</span>, reject <span class="math inline">\(H_{0}\)</span>;</li>
+<li>if <span class="math inline">\(p &gt; \alpha\)</span>, fail to reject <span class="math inline">\(H_{0}\)</span>.</li>
+</ul>
+<p>That rule is operational, but it is not the whole interpretation. A result just below 0.05 and one just above 0.05 do not represent radically different biological realities. The threshold helps formalise a decision but it does not remove the need to consider effect size, uncertainty, design quality, and context.</p>
+</section>
+<section id="interpretation" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="interpretation"><span class="header-section-number">3.5</span> Interpretation</h2>
+<p>When <span class="math inline">\(p \leq \alpha\)</span>, the data are commonly described as statistically significant. When <span class="math inline">\(p &gt; \alpha\)</span>, the evidence is not strong enough to reject <span class="math inline">\(H_{0}\)</span> under the chosen threshold.</p>
+<p>In neither case does the <em>p</em>-value tell us whether the effect is biologically important. That judgement depends on the size of the effect, the uncertainty around it, and the scientific context.</p>
+<!-- callout-important
+## Do It Now!
+
+A researcher tests 20 unrelated hypotheses simultaneously (common in genomics or ecology studies). They use $\alpha = 0.05$ throughout. On average, how many of those tests would you expect to give a false significant result even if *all* null hypotheses are true? Calculate this, then discuss: what does this imply about the reliability of a single *p* < 0.05 finding in a study that tests many hypotheses? What adjustment strategies have you heard of?
+-->
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Type I and Type Ii Errors
+<span class="screen-reader-only">Note</span>Type I and Type II Errors
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A <strong>Type I error</strong> is the false rejection of the <span class="math inline">\(H_{0}\)</span> hypothesis (<em>i.e.</em>, in reality we should not be rejecting it, but the <em>p</em>-value suggests that we must). A <strong>Type II error</strong>, on the other hand, is the false acceptance of the <span class="math inline">\(H_{0}\)</span> hypothesis (<em>i.e.</em>, the <em>p</em>-value suggests we should not reject the <span class="math inline">\(H_{0}\)</span>, but in fact we must). When a statistical test results in a <em>p</em>-value of, say, <span class="math inline">\(p \leq 0.05\)</span> we would conclude that our experimental sample is statistically different from the reference group, but probabilistically there is a 1 in 20 chance that this outcome is incorrect (<em>i.e.</em>, the difference was arrived at by random chance only).</p>
-<p>The choice of <em>p</em>-value threshold depends on several factors, including the nature of the data, the research question, and the desired level of statistical significance. In medical sciences, where the consequences of false positive, false negative results can have significant implications for patient health or a more stringent threshold is often used. A <em>p</em>-value of 0.001 is commonly used in medical research to minimise the risk of Type I errors (rejecting the null hypothesis when it is actually true) and to ensure a high level of statistical confidence in the results.</p>
-<p>In biological sciences, the consequences of false positive, false negative results may be less severe and a <em>p</em>-value of 0.05 is often considered an appropriate threshold for statistical significance. However, it is important to note that the choice of <em>p</em>-value threshold is ultimately subjective, should be based on a careful consideration of the research question and the nature of the data, and the potential consequences of false positive, false negative results.</p>
+<p>A <strong>Type I error</strong> is the false rejection of <span class="math inline">\(H_{0}\)</span>: concluding that there is an effect when there is none. A <strong>Type II error</strong> is the false failure to reject <span class="math inline">\(H_{0}\)</span>: missing a real effect.</p>
+<p>The threshold <span class="math inline">\(\alpha\)</span> controls the long-run rate of Type I error if the assumptions of the test hold. A smaller threshold is more conservative, but that gain usually comes at a cost: it becomes harder to detect real effects.</p>
 </div>
 </div>
-<p>To conclude, when <span class="math inline">\(p \gt 0.05\)</span> there is a lack of compelling evidence to suggest that our experiment has had an influential effect of the hypothesised outcome — even if a graphs hints at differences between groups. When <span class="math inline">\(p \leq 0.05\)</span>, however, there is a good probability that the experiment (etc.) has had an effect, and that the effect is likely not due to random chance. In this case we have a statistically significant finding.</p>
+</section>
 </section>
 <section id="assumptions" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Assumptions</h1>
-<p>Irrespective of the kind of statistical test we wish to perform, we have to make a couple of important assumptions that are <em>not</em> guaranteed to be true. In fact, these assumptions are often violated because real data, especially biological data, are messy.</p>
-<p>The issue of assumption is an important one, and one that we need to understand well. This is will be the purpose of <a href="../basic_stats/06-assumptions.html">Chapter 6</a>, where we will learn about how to test the assumptions, and discover what to do when it does.</p>
+<p>Inferential procedures rely on assumptions about the data, the sampling or experimental design, and the model. For example, many tests assume independence, appropriate distributional form, and constant variance.</p>
+<p>Testing these assumptions are part of the process leading to inference. If the assumptions are badly violated, the reported <em>p</em>-values, confidence intervals, and test statistics may not mean what we think they mean.</p>
+<p>This is the purpose of <a href="../basic_stats/06-assumptions-and-transformations.html">Chapter 6</a>, where I will explain how to check assumptions and what to do when they fail.</p>
 </section>
-<section id="conclusion" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
-<p>We use inferential statistics to draw conclusions about a population based on a sample of data. By using probability theory and statistical inference, we can make inferences about the characteristics of a larger population with a certain level of confidence. We must always keep the assumptions behind inferential statistics in mind so that we can apply the right statistical test, answer our research question within the limits of what our data can tell us.</p>
-<p>In practice, the process works like this:</p>
-<ol type="1">
-<li><strong>Setting the significance level (<span class="math inline">\(\alpha\)</span>)</strong>:
+<section id="parametric-and-non-parametric-methods" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Parametric and Non-Parametric Methods</h1>
+<p>Many standard inferential procedures are <strong>parametric</strong>. That is, they have assumptions about normality. But this does not mean they require the raw data themselves to be perfectly normal in every case. More often, the assumptions concern the distribution of residuals, the form of the model, or the behaviour of the test statistic under the null hypothesis.</p>
+<p>When those assumptions are not reasonable, we often use <strong>non-parametric</strong> or rank-based alternatives. I introduce those alternatives within the relevant method families in <a href="../basic_stats/07-t_tests.html">Chapter 7</a>, <a href="../basic_stats/08-anova.html">Chapter 8</a>, and <a href="../basic_stats/09-correlation-and-association.html">Chapter 9</a>, and then brought together in <a href="../basic_stats/10-test-selection.html">Chapter 10</a>.</p>
+<!-- callout-important
+## Do It Now!
+
+Read the following Results-section excerpt from a hypothetical paper and identify three things the authors did well and two things they should improve, based on the reporting requirements in this chapter.
+
+> "A two-sample *t*-test was used to compare gill-net CPUE between the reserve and control site. The result was significant (*p* = 0.04). This proves that the marine reserve is working."
+
+Rewrite the paragraph to correct the problems you identified. Include the test statistic, degrees of freedom, a measure of effect size or confidence interval, and a biologically meaningful interpretation. Compare your rewritten paragraph with a partner's.
+-->
+</section>
+<section id="reporting-inferential-results" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Reporting Inferential Results</h1>
+<p>Worked examples in the later chapters end with a <code>Reporting</code> section. The purpose of those sections is to demonstrate how the outcome of an analysis would be written in a scientific paper.</p>
+<p>In practice, the reporting should follow the normal requirements of a journal article. The details differ from one method to another, but the overall structure remains more-or-less like this:</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>General Reporting Requirements
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li>Before conducting the test, you decide on a significance level, <span class="math inline">\(\alpha\)</span>, which is the probability of rejecting the null hypothesis when it is actually true (Type I error). Common choices for <span class="math inline">\(\alpha\)</span> are 0.05, 0.01, and 0.10, though the choice is context-dependent.</li>
-</ul></li>
-<li><strong>Conducting the test</strong>:
-<ul>
-<li>You then compute the test statistic (like a <em>t</em>-statistic, F-statistic, etc.) based on your sample data.</li>
-<li>This test statistic is then compared to a distribution (like the <em>t</em>-distribution for the <em>t</em>-test) to find the <em>p</em>-value.</li>
-</ul></li>
-<li><strong>Interpreting the <em>p</em>-value</strong>:
-<ul>
-<li>The <em>p</em>-value is the probability of observing a test statistic as extreme as, or more extreme than, the statistic computed from the sample, assuming that the null hypothesis is true.</li>
-<li>If the p-value is less than <span class="math inline">\(\alpha\)</span> (<em>i.e.</em>, below the critical value), then the evidence suggests that the null hypothesis can be rejected in favour of the alternative hypothesis.</li>
-<li>If the <em>p</em>-value is greater than <span class="math inline">\(\alpha\)</span>, you fail to reject the null hypothesis. This does not mean the null hypothesis is true, just that there is not enough evidence in your sample to reject it.</li>
-</ul></li>
-</ol>
+<li>In the <strong>Methods</strong>, state what was measured, what the response variable was, what the grouping or predictor variables were, and which statistical test or model was used.</li>
+<li>In the <strong>Methods</strong>, state any design features that are essential for interpretation, such as pairing, repeated measures, blocking, or the true experimental unit.</li>
+<li>In the <strong>Methods</strong>, cite the statistical method and, where relevant, the R package used to implement it. Statistical analysis is part of the scholarly record and should be cited as such.</li>
+<li>In the <strong>Results</strong>, report the main biological pattern in plain language before or alongside the formal test result.</li>
+<li>In the <strong>Results</strong>, report the core statistical outcome using tKhe relevant quantities for the method at hand, such as a <em>t</em> statistic, <em>F</em> statistic, correlation coefficient, slope, confidence interval, or similar effect summary.</li>
+<li>In the <strong>Results</strong>, do not confuse statistical significance with biological importance.</li>
+<li>In the <strong>Discussion</strong>, explain what the result means biologically rather than merely restating whether <span class="math inline">\(H_{0}\)</span> was rejected.</li>
+<li>In the <strong>Discussion</strong>, note any important limitation, assumption issue, or caution that affects the interpretation of the result.</li>
+<li>Keep the reporting concise and readable. A good Results paragraph should sound like a journal article, not like raw statistical output copied from R.</li>
+</ul>
+</div>
+</div>
+<p>This is the general reporting approach that I apply throughout the rest of the Biostatistics module. So, in <a href="../basic_stats/07-t_tests.html">Chapter 7</a>, <a href="../basic_stats/08-anova.html">Chapter 8</a>, <a href="../basic_stats/09-correlation-and-association.html">Chapter 9</a>, and the later modelling chapters, with each worked example I therefore include a “Reporting” box that separates the <strong>Methods</strong>, <strong>Results</strong>, and <strong>Discussion</strong>.</p>
+<p>If you need the correct citation for an R package, ask R for it directly:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">citation</span>()</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">citation</span>(<span class="st">"stats"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">citation</span>(<span class="st">"ggplot2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>citation()</code> with no package name gives the citation for R itself. <code>citation("package_name")</code> gives the citation for a specific package. Once that reference is in your <code>.bib</code> file, you can cite it in Quarto with the usual citation syntax, for example <code>[@R-base]</code> or <code>[@R-ggplot2]</code>, depending on the citation key in the BibTeX entry.</p>
+<p>The method itself should also be named clearly in the prose. A Methods sentence can therefore look like this:</p>
+<p><code>Bill length was compared between species with Welch's two-sample *t*-test in R [@R-base].</code></p>
+<p>Or, when a contributed package is central to the analysis:</p>
+<p><code>Estimated marginal means were obtained with the **emmeans** package [@R-emmeans].</code></p>
+</section>
+<section id="conclusion" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Conclusion</h1>
+<p>Inferential statistics lets us use a sample to say something disciplined about a larger population. In the workflow, we state hypotheses, calculate a test statistic, evaluate it under a null model, apply a decision threshold, and interpret the result in context.</p>
+<p>The harder part is expert scientific judgement. We still need to ask whether the design was sound, whether the assumptions were reasonable, and whether the detected effect matters biologically. Those questions remain central in every chapter that follows.</p>
+<p>The next five chapters unpack that general logic into specific inferential families. I begin with assumption checking, then move through <em>t</em>-tests, ANOVA, and correlation, and finally close the inferential block with a method-selection guide. The goal is that each later method is read as one expression of the same inferential workflow introduced here, not as a separate ritual with its own isolated rules.</p>
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
   author = {A. J. , Smit},
   title = {5. {Statistical} {Inference}},
-  date = {2021-01-01},
+  date = {2026-04-17},
   url = {http://samos-r.netlify.app/basic_stats/05-inference.html},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2021" class="csl-entry quarto-appendix-citeas" role="listitem">
-A. J. S (2021) 5. Statistical Inference. <a href="http://samos-r.netlify.app/basic_stats/05-inference.html">http://samos-r.netlify.app/basic_stats/05-inference.html.
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2026) 5. Statistical Inference. <a href="http://samos-r.netlify.app/basic_stats/05-inference.html">http://samos-r.netlify.app/basic_stats/05-inference.html.
 </a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1154,13 +1375,13 @@ A. J. S (2021) 5. Statistical Inference. <a href="http://samos-r.netlify.app/bas
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../basic_stats/04-distributions.html" class="pagination-link" aria-label="4. Data Distributions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">4. Data Distributions</span>
+      <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="pagination-link" aria-label="4. Distributions, Sampling, and Uncertainty">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">4. Distributions, Sampling, and Uncertainty</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../basic_stats/06-assumptions.html" class="pagination-link" aria-label="6. Assumptions">
-        <span class="nav-page-text">6. Assumptions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../basic_stats/06-assumptions-and-transformations.html" class="pagination-link" aria-label="6. Raw-Data Assumptions and Transformations">
+        <span class="nav-page-text">6. Raw-Data Assumptions and Transformations</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

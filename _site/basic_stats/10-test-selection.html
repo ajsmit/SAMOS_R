@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+
+<title>10. Finding Your Way on the Statistical Landscape – SAMOS R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../basic_stats/11-residuals-and-model-based-diagnostics.html" rel="next">
+<link href="../basic_stats/09-correlation-and-association.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles/styles.css">
+<link rel="stylesheet" href="../../styles/biostats-callouts.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tasks/SAMOS_R_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ajsmit/tangled_bank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/10-test-selection.html">10. Finding Your Way on the Statistical Landscape</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/05-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Synthesis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Summarising Biological Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Visualising Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Self Assessments</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task D</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#two-important-questions" id="toc-two-important-questions" class="nav-link active" data-scroll-target="#two-important-questions"><span class="header-section-number">1</span> Two Important Questions</a></li>
+  <li><a href="#the-core-tests" id="toc-the-core-tests" class="nav-link" data-scroll-target="#the-core-tests"><span class="header-section-number">2</span> The Core Tests</a>
+  <ul class="collapse">
+  <li><a href="#comparing-a-single-group-to-a-reference" id="toc-comparing-a-single-group-to-a-reference" class="nav-link" data-scroll-target="#comparing-a-single-group-to-a-reference"><span class="header-section-number">2.1</span> Comparing a Single Group to a Reference</a></li>
+  <li><a href="#comparing-two-groups" id="toc-comparing-two-groups" class="nav-link" data-scroll-target="#comparing-two-groups"><span class="header-section-number">2.2</span> Comparing Two Groups</a></li>
+  <li><a href="#comparing-three-or-more-groups" id="toc-comparing-three-or-more-groups" class="nav-link" data-scroll-target="#comparing-three-or-more-groups"><span class="header-section-number">2.3</span> Comparing Three or More Groups</a></li>
+  <li><a href="#asking-whether-two-variables-move-together" id="toc-asking-whether-two-variables-move-together" class="nav-link" data-scroll-target="#asking-whether-two-variables-move-together"><span class="header-section-number">2.4</span> Asking Whether Two Variables Move Together</a></li>
+  <li><a href="#modelling-how-one-variable-responds-to-another" id="toc-modelling-how-one-variable-responds-to-another" class="nav-link" data-scroll-target="#modelling-how-one-variable-responds-to-another"><span class="header-section-number">2.5</span> Modelling How One Variable Responds to Another</a></li>
+  </ul></li>
+  <li><a href="#beyond-the-core-tests" id="toc-beyond-the-core-tests" class="nav-link" data-scroll-target="#beyond-the-core-tests"><span class="header-section-number">3</span> Beyond the Core Tests</a></li>
+  <li><a href="#assumptions-check-before-you-proceed" id="toc-assumptions-check-before-you-proceed" class="nav-link" data-scroll-target="#assumptions-check-before-you-proceed"><span class="header-section-number">4</span> Assumptions: Check Before You Proceed</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/10-test-selection.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/10-test-selection.html">10. Finding Your Way on the Statistical Landscape</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">10. Finding Your Way on the Statistical Landscape</h1>
+<p class="subtitle lead">A Practical Decision Guide for Core Inferential Questions</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://samos-r.netlify.app">Smit, A. J.</a> <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026/04/07</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In This Chapter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>how two questions about your data narrow the choice to one method family</li>
+<li>a visual reference grid linking question structure to method</li>
+<li>when to leave the core tests behind and move into modelling</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Cheatsheet
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Here is a <a href="../../docs/cheatsheet-course-synthesis.pdf">course synthesis</a> for BCB744 Biostatistics.</li>
+<li>Find here a <a href="../../docs/cheatsheet-inferential-stats.pdf">cheatsheet</a> on statistical methods.</li>
+<li>Here is a <a href="../../docs/cheatsheet-study-design.pdf">study design cheatsheet</a>.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Tasks to Complete in This Chapter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<p>By this point, you have already met the main inferential tools one by one. What is often still missing is a reliable way to navigate among them without treating statistics as a software menu. This chapter closes the inferential block by bringing those separate procedures back under one decision structure.</p>
+<p>The important shift is that method choice should follow from the biological question, the response type, and the design structure that produced the data. When those are clear, the correct family of methods narrows quickly. When they are vague, no decision grid can rescue the analysis.</p>
+<section id="two-important-questions" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Two Important Questions</h1>
+<p>By now you have met the main tools: <em>t</em>-tests, ANOVA, and correlation. Choosing among them, and knowing when none of them is quite right, comes down to two questions about your data.</p>
+<p><strong>Question 1: What kind of response variable do you have?</strong></p>
+<p>Most biological responses are continuous measurements (length, mass, concentration). Some are binary or proportional (success/failure, proportion infected). Others are counts (number of individuals, number of events). The response type determines which model family is even sensible.</p>
+<p><strong>Question 2: What does the explanatory structure look like?</strong></p>
+<p>You are either comparing groups or describing a relationship. If you are comparing groups, how many, and are the observations in each group independent of one another or paired? If you are describing a relationship, is the predictor categorical or continuous?</p>
+<p>That is really all you need to start. The method families I introduce in this course each answer one combination of those two questions. <a href="#fig-method-selection-grid" class="quarto-xref">Figure&nbsp;1</a> shows the connections at a glance.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-method-selection-grid" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-method-selection-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="10-test-selection_files/figure-html/fig-method-selection-grid-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Links from common biological question types to the main method and the next extension when the problem becomes more complex."><img src="10-test-selection_files/figure-html/fig-method-selection-grid-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="2700"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-method-selection-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Links from common biological question types to the main method and the next extension when the problem becomes more complex.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-core-tests" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The Core Tests</h1>
+<section id="comparing-a-single-group-to-a-reference" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="comparing-a-single-group-to-a-reference"><span class="header-section-number">2.1</span> Comparing a Single Group to a Reference</h2>
+<p>If you have one sample and want to know whether the mean is consistent with some reference value, use a <strong>one-sample <em>t</em>-test</strong>. The reference might be a regulatory threshold, a historical baseline, or a theoretical expectation. When the data are too skewed for a mean-based summary to be sensible, the <strong>Wilcoxon signed-rank test</strong> provides a rank-based alternative. Both are in <a href="../basic_stats/07-t_tests.html">Chapter 7</a>.</p>
+</section>
+<section id="comparing-two-groups" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="comparing-two-groups"><span class="header-section-number">2.2</span> Comparing Two Groups</h2>
+<p>Two independent groups call for a <strong>two-sample <em>t</em>-test</strong>. When the same individuals or plots are measured under two conditions, or before and after a treatment, use a <strong>paired <em>t</em>-test</strong> instead. Pairing removes background noise and often sharpens the comparison. When group spreads differ noticeably, prefer Welch’s version, which makes no assumption of equal variance. Rank-based alternatives (<code>wilcox.test()</code>) are available when the distributional assumptions fail clearly. All of this is in <a href="../basic_stats/07-t_tests.html">Chapter 7</a>.</p>
+</section>
+<section id="comparing-three-or-more-groups" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="comparing-three-or-more-groups"><span class="header-section-number">2.3</span> Comparing Three or More Groups</h2>
+<p>Once there are three or more groups, <strong>ANOVA</strong> replaces the <em>t</em>-test. Although the reasoning is the same (we still compare means), ANOVA keeps the false-positive rate in check across all comparisons at once. Factorial ANOVA extends this to two or more categorical factors and their interaction. When group spreads are unequal, Welch’s ANOVA applies. <strong>Kruskal-Wallis</strong> is the rank-based fallback. These are in <a href="../basic_stats/08-anova.html">Chapter 8</a>.</p>
+</section>
+<section id="asking-whether-two-variables-move-together" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="asking-whether-two-variables-move-together"><span class="header-section-number">2.4</span> Asking Whether Two Variables Move Together</h2>
+<p>When the aim is association between two continuous variables and neither is designated the response, use <strong>correlation</strong>. Pearson’s <em>r</em> captures linear association; Spearman’s <em>ρ</em> and Kendall’s <em>τ</em> work on ranks and are appropriate when the relationship is monotone but not linear, or when the data contain outliers. Correlation says nothing about prediction or cause — if you want a response model, move to regression instead. <a href="../basic_stats/09-correlation-and-association.html">Chapter 9</a> covers this.</p>
+</section>
+<section id="modelling-how-one-variable-responds-to-another" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="modelling-how-one-variable-responds-to-another"><span class="header-section-number">2.5</span> Modelling How One Variable Responds to Another</h2>
+<p>When one variable is clearly the response and the other is used to explain it, move from correlation to <strong>regression</strong>. The simplest case is <strong>simple linear regression</strong>, where the response changes approximately linearly with the predictor. When the relationship is bendy, extend the model rather than forcing a straight line. <strong>Polynomial regression</strong> describe different ways the mean response can vary with the predictor within the same simple linear regression framework, but other ways to deal with non-linearity sit outside of the “core” group of tests and models. Regression is developed in <a href="../basic_stats/12-simple-linear-regression.html">Chapter 12</a> and extended in later chapters.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For each research question below, identify the correct method from the five core-test subsections above. Be specific: state whether you would use a one-sample <em>t</em>-test, two-sample <em>t</em>-test, paired t-test, ANOVA, or correlation, and give a one-sentence justification.</p>
+<ol type="a">
+<li>A marine biologist measures the shell width of 25 mussels and wants to know if it exceeds the minimum harvestable size of 45 mm.</li>
+<li>A nutritionist checks whether dietary fat intake (g/day) is related to blood cholesterol (mmol/L) in 60 adults.</li>
+<li>An ecologist compares seed germination rates (%) across four light treatments.</li>
+<li>A physiologist measures blood glucose in 20 rats before and after an insulin injection.</li>
+<li>A forester compares the diameter at breast height in a treated forest stand versus an untreated control stand.</li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="beyond-the-core-tests" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Beyond the Core Tests</h1>
+<p>The core tests cover a lot of ground, but they rest on assumptions that do not always hold.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A Naming Shortcut
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As you move into more advanced methods, some naming patterns start to help:</p>
+<ul>
+<li><strong>Generalised …</strong> usually means that the basic linear-model idea has been extended to allow response variables that are not continuous Gaussian measurements. For example, a <strong>generalised linear model</strong> lets the response follow distributions such as binomial or Poisson instead of the ordinary normal-error model used in simple linear regression.</li>
+<li><strong>Mixed …</strong> usually means that the model contains both <strong>fixed effects</strong> (the main predictors you want to estimate and interpret) and <strong>random effects</strong> (terms that account for grouping, repeated measurements, nesting, or other non-independence in the design). A <strong>linear mixed model</strong> is the standard example.</li>
+</ul>
+<p>This terminology is useful because it lets you recognise what kind of complication a method is designed to handle. If you later encounter names such as <strong>generalised additive model</strong>, <strong>generalised linear mixed model</strong>, or <strong>nonlinear mixed model</strong>, the name already tells you something important about the model: whether it is extending the response distribution, the dependence structure, the shape of the relationship, or some combination of these. Learning to read the names of methods in this way will make the more advanced chapters much easier to navigate.</p>
+</div>
+</div>
+<p><strong>Use GLMs</strong> when the response is not continuous and Gaussian. Counts, proportions, and binary outcomes each have their own distributional family, and forcing them into a Gaussian model produces unreliable inference. <a href="../basic_stats/20-generalised-linear-models.html">Chapter 20</a> introduces GLMs.</p>
+<p><strong>Use mixed models</strong> when observations are not independent, such as repeated measurements on the same individual, samples nested within sites, or any design where the experimental unit is not the same as the observational unit. The problem is one of design, not of distribution, and it cannot be fixed by transforming the response. <a href="../basic_stats/19-dependence-and-mixed-models.html">Chapter 19</a> addresses this.</p>
+<p><strong>Apply GAMs</strong> when the relationship is clearly curved in ways a straight line cannot describe, or use <strong>nonlinear regression</strong> when the shape of the relationship is tied in a mechanistic way to the biological phenomenon. <a href="../basic_stats/21-generalised-additive-models.html">Chapter 21</a> and <a href="../basic_stats/22-nonlinear-regression.html">Chapter 22</a> cover these extensions.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each scenario below clearly breaks the boundary of the core tests. For each one, identify which extension applies (GLM, mixed model, GAM, or nonlinear regression) and explain in one sentence why the standard core test is not adequate:</p>
+<ol type="a">
+<li>You monitor the same 30 fish at four time points and want to compare their growth trajectories.</li>
+<li>You record the presence/absence of a disease across 200 animals and want to relate it to three continuous predictors.</li>
+<li>You measure how predation rate changes with prey density and the pattern follows a saturating (Holling Type II) curve.</li>
+<li>Phytoplankton chlorophyll concentration follows a clearly non-monotonic, hump-shaped relationship with depth.</li>
+</ol>
+<p>Maybe revisit these questions once you’ve familiarised yourself with the advanced methods.</p>
+</div>
+</div>
+</section>
+<section id="assumptions-check-before-you-proceed" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Assumptions: Check Before You Proceed</h1>
+<p>Every method in the table rests on assumptions. The most consequential one is <strong>independence</strong>: if your observations are not independent of one another (because they come from the same individual, the same site, or a before-after design) no distributional fix will rescue the analysis. This was cast in stone when you designed your sampling campaign or experiment, and the data properties have nothing to do with it.</p>
+<p>After independence, check whether the distributional assumptions are roughly plausible. For the core <em>t</em>-tests and ANOVA, the concern is strong skew or extreme outliers. Use the checks introduced in <a href="../basic_stats/06-assumptions-and-transformations.html">Chapter 6</a>. If the assumptions fail clearly, there is usually a rank-based alternative or a transformation that gets you back on solid ground.</p>
+<p>Do not switch methods without being able to say which assumption failed and why. Choosing a non-parametric test because you have heard it is “safer” is not a reason.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Answer the two questions above for each of the following biological scenarios and decide which method family applies. Write your answers in the format: “Response type: [X]. Explanatory structure: [Y]. Method: [Z].”</p>
+<ol type="a">
+<li>You compare the running speed (m/s) of 40 lizards from a hot habitat versus 40 from a cool habitat.</li>
+<li>You record whether 200 fish (binary: alive or dead) survived a hypoxia event at three oxygen levels.</li>
+<li>You measure the growth rate of 30 bacteria colonies (mm/day) and ask whether it is correlated with ambient temperature.</li>
+<li>You track the mass of 15 individual frogs before and after a cold season.</li>
+<li>You compare plant height across five fertiliser treatments (12 plants per treatment).</li>
+</ol>
+<p>After classifying each, check your answers against the grid above.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Look at the five scenarios listed in the previous. For each one, identify the most likely assumption-checking step you would perform before running the test you selected. Then, for scenario (b) (fish survival, binary response), explain why no amount of checking for normality within groups will help, and what you should do instead.</p>
+<p>As a final synthesis exercise, take any dataset you have been working with this semester and classify it using the two questions at the start of this chapter. Map it to the grid, identify the appropriate method, and briefly note which assumption you would check first.</p>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
+<p>The purpose of this chapter is to show that a small number of design and data questions do most of the work in narrowing the choice of method. Once you know what the response is, how the explanatory structure is organised, and whether the observations are independent, the inferential landscape becomes much easier to navigate.</p>
+<p>This also marks a transition in the course. The chapters so far have focused on named inferential procedures for common question types. From the next chapter onward, I move into models as the main analytical framework. Instead of choosing among isolated tests, I begin to think in terms of fitted mean structure, residuals, diagnostics, and model revision.</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
+  author = {A. J. , Smit},
+  title = {10. {Finding} {Your} {Way} on the {Statistical} {Landscape}},
+  date = {2026-04-07},
+  url = {http://samos-r.netlify.app/basic_stats/10-test-selection.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2026) 10. Finding Your Way on the Statistical Landscape. <a href="http://samos-r.netlify.app/basic_stats/10-test-selection.html">http://samos-r.netlify.app/basic_stats/10-test-selection.html.
+</a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../basic_stats/09-correlation-and-association.html" class="pagination-link" aria-label="9. Correlation and Association">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">9. Correlation and Association</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="pagination-link" aria-label="11. Residuals and Model-Based Diagnostics">
+        <span class="nav-page-text">11. Residuals and Model-Based Diagnostics</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026, AJ Smit</p>
+</div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/10-test-selection.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

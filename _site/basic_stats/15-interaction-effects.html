@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+
+<title>15. Interaction Effects – SAMOS R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../basic_stats/16-collinearity-confounding-measurement-error.html" rel="next">
+<link href="../basic_stats/14-multiple-regression-and-model-specification.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles/styles.css">
+<link rel="stylesheet" href="../../styles/biostats-callouts.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tasks/SAMOS_R_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ajsmit/tangled_bank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/15-interaction-effects.html">15. Interaction Effects</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/05-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Synthesis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Summarising Biological Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Visualising Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Self Assessments</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task D</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#important-concepts" id="toc-important-concepts" class="nav-link active" data-scroll-target="#important-concepts"><span class="header-section-number">1</span> Important Concepts</a></li>
+  <li><a href="#the-core-equation" id="toc-the-core-equation" class="nav-link" data-scroll-target="#the-core-equation"><span class="header-section-number">2</span> The Core Equation</a></li>
+  <li><a href="#when-is-an-interaction-appropriate" id="toc-when-is-an-interaction-appropriate" class="nav-link" data-scroll-target="#when-is-an-interaction-appropriate"><span class="header-section-number">3</span> When Is an Interaction Appropriate?</a></li>
+  <li><a href="#interpreting-conditional-coefficients" id="toc-interpreting-conditional-coefficients" class="nav-link" data-scroll-target="#interpreting-conditional-coefficients"><span class="header-section-number">4</span> Interpreting Conditional Coefficients</a>
+  <ul class="collapse">
+  <li><a href="#a-worked-algebra-example" id="toc-a-worked-algebra-example" class="nav-link" data-scroll-target="#a-worked-algebra-example"><span class="header-section-number">4.1</span> A Worked Algebra Example</a></li>
+  <li><a href="#the-role-of-the-reference-group" id="toc-the-role-of-the-reference-group" class="nav-link" data-scroll-target="#the-role-of-the-reference-group"><span class="header-section-number">4.2</span> The Role of the Reference Group</a></li>
+  </ul></li>
+  <li><a href="#example-1-two-continuous-predictors-with-and-without-centring" id="toc-example-1-two-continuous-predictors-with-and-without-centring" class="nav-link" data-scroll-target="#example-1-two-continuous-predictors-with-and-without-centring"><span class="header-section-number">5</span> Example 1: Two Continuous Predictors with and without Centring</a>
+  <ul class="collapse">
+  <li><a href="#example-dataset" id="toc-example-dataset" class="nav-link" data-scroll-target="#example-dataset"><span class="header-section-number">5.1</span> Example Dataset</a></li>
+  <li><a href="#do-an-exploratory-data-analysis-eda" id="toc-do-an-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#do-an-exploratory-data-analysis-eda"><span class="header-section-number">5.2</span> Do an Exploratory Data Analysis (EDA)</a></li>
+  <li><a href="#state-the-model-question" id="toc-state-the-model-question" class="nav-link" data-scroll-target="#state-the-model-question"><span class="header-section-number">5.3</span> State the Model Question</a></li>
+  <li><a href="#fit-the-uncentred-and-centred-models" id="toc-fit-the-uncentred-and-centred-models" class="nav-link" data-scroll-target="#fit-the-uncentred-and-centred-models"><span class="header-section-number">5.4</span> Fit the Uncentred and Centred Models</a></li>
+  <li><a href="#interpret-the-results" id="toc-interpret-the-results" class="nav-link" data-scroll-target="#interpret-the-results"><span class="header-section-number">5.5</span> Interpret the Results</a></li>
+  <li><a href="#scale-dependence" id="toc-scale-dependence" class="nav-link" data-scroll-target="#scale-dependence"><span class="header-section-number">5.6</span> Scale Dependence</a></li>
+  </ul></li>
+  <li><a href="#example-2-coastal-distance-and-bioregional-context" id="toc-example-2-coastal-distance-and-bioregional-context" class="nav-link" data-scroll-target="#example-2-coastal-distance-and-bioregional-context"><span class="header-section-number">6</span> Example 2: Coastal Distance and Bioregional Context</a>
+  <ul class="collapse">
+  <li><a href="#example-dataset-1" id="toc-example-dataset-1" class="nav-link" data-scroll-target="#example-dataset-1"><span class="header-section-number">6.1</span> Example Dataset</a></li>
+  <li><a href="#do-an-exploratory-data-analysis-eda-1" id="toc-do-an-exploratory-data-analysis-eda-1" class="nav-link" data-scroll-target="#do-an-exploratory-data-analysis-eda-1"><span class="header-section-number">6.2</span> Do an Exploratory Data Analysis (EDA)</a></li>
+  <li><a href="#state-the-hypotheses" id="toc-state-the-hypotheses" class="nav-link" data-scroll-target="#state-the-hypotheses"><span class="header-section-number">6.3</span> State the Hypotheses</a></li>
+  <li><a href="#fit-nested-models" id="toc-fit-nested-models" class="nav-link" data-scroll-target="#fit-nested-models"><span class="header-section-number">6.4</span> Fit Nested Models</a></li>
+  <li><a href="#interpret-the-interaction" id="toc-interpret-the-interaction" class="nav-link" data-scroll-target="#interpret-the-interaction"><span class="header-section-number">6.5</span> Interpret the Interaction</a></li>
+  <li><a href="#diagnostic-checks-for-interaction-models" id="toc-diagnostic-checks-for-interaction-models" class="nav-link" data-scroll-target="#diagnostic-checks-for-interaction-models"><span class="header-section-number">6.6</span> Diagnostic Checks for Interaction Models</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">6.7</span> Reporting</a></li>
+  </ul></li>
+  <li><a href="#common-mistakes" id="toc-common-mistakes" class="nav-link" data-scroll-target="#common-mistakes"><span class="header-section-number">7</span> Common Mistakes</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/15-interaction-effects.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/15-interaction-effects.html">15. Interaction Effects</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">15. Interaction Effects</h1>
+<p class="subtitle lead">When the Effect of One Predictor Depends on Another</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://samos-r.netlify.app">Smit, A. J.</a> <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026/04/07</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In This Chapter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>what an interaction term means mathematically and biologically;</li>
+<li>how to interpret the slope of one predictor as a function of another;</li>
+<li>when an interaction is justified and when it is premature;</li>
+<li>why main effects become conditional once an interaction is present;</li>
+<li>how to interpret interaction models using worked algebra and plots;</li>
+<li>how centring continuous predictors clarifies coefficient interpretation;</li>
+<li>how to compare nested models with and without an interaction;</li>
+<li>how effect size and uncertainty matter alongside statistical significance.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Tasks to Complete in This Chapter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<p>Many ecological and biological processes are interactive. Nutrient supply may matter more at high temperature than at low temperature. The influence of distance may differ among bioregions. A treatment may affect males and females differently. These are situations where the effect of one variable is contingent on the state of another.</p>
+<p>Linear regression handles these cases by including an <strong>interaction term</strong>. The idea is that one slope depends on another variable. Building this into a model requires care, because once an interaction is present, the main effects can no longer be read in isolation and the coefficient table becomes harder to interpret without accompanying plots.</p>
+<p>In <a href="../basic_stats/14-multiple-regression-and-model-specification.html">Chapter 14</a> I developed the idea of additive models, and in this chapter we build upon that foundation. In that chapter, I fitted models of the form <code>y ~ group + x</code>, sometimes called ANCOVA, where the fitted lines for each group were constrained to be parallel. Here I ask what happens when parallel lines are not enough, such as when the slope of <code>x</code> may differ among groups, and when the biology demands it.</p>
+<p>One clarification before we start. The term <em>effect modification</em> is sometimes used in epidemiology for exactly the situation when an interaction is a claim that one variable <em>modifies</em> the effect of another. Stating the effect like this is useful, but it might suggest that some causal implication is implicit in the biology, and that is not something that regression alone can establish. This would require clever experimental manipulation. In the work below, I imply that the models describe conditional associations, and whether those associations reflect true causal modification depends on the study design and domain knowledge, not on model output.</p>
+<section id="important-concepts" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Important Concepts</h1>
+<ul>
+<li><strong>An interaction</strong> means the effect of one predictor depends on another predictor.</li>
+<li><strong>Main effects become conditional</strong> once an interaction term is present.</li>
+<li><strong>Plots now become indispensable in model assessment</strong> because coefficients alone rarely communicate interactions clearly.</li>
+<li><strong>Nested model comparisons</strong> are useful for asking whether the interaction improves the model beyond the main effects alone.</li>
+<li><strong>Interactions should be biologically motivated</strong>, not generated mechanically because software allows it.</li>
+</ul>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Two Terms Worth Clarifying
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Conditional</strong> means that the value of one thing depends on the value of another. In an interaction model, the effect of <span class="math inline">\(X_1\)</span> is conditional on <span class="math inline">\(X_2\)</span>: it is not a single fixed number but changes as <span class="math inline">\(X_2\)</span> changes. A main effect is likewise conditional because it describes the effect of a predictor at a specific value of the other predictor (usually zero or the reference level), not across all values simultaneously.</p>
+<p><strong>Nested models</strong> are a sequence of models where each simpler model is a special case of the next. A distance-only model is nested within a distance + bioregion model, which is itself nested within a distance × bioregion model. Because the simpler model can be recovered from the more complex one by setting extra coefficients to zero, the two can be compared directly using a formal test such as the likelihood ratio test or the <span class="math inline">\(F\)</span>-test in <code>anova()</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before reading further, look at the five bullet points in Important Concepts above and discuss with a partner which of the following biological scenarios are likely to involve an interaction, and which are probably additive.</p>
+<ol type="1">
+<li>Fish growth increases with food availability, and fish growth also increases with water temperature. There is no reason to think these effects depend on each other.</li>
+<li>A herbicide reduces plant biomass more strongly in drought conditions than in well-watered plots.</li>
+<li>The number of species on an island increases with island area, and also increases with proximity to the mainland.</li>
+<li>The survival of juvenile fish depends on predator density, but that relationship is stronger in degraded habitats than in intact ones.</li>
+</ol>
+<p>For each, write a brief justification (one sentence) and an R formula showing how you would code the model, <em>i.e.</em>, additive (<code>+</code>) or with interaction (<code>*</code>).</p>
+</div>
+</div>
+</section>
+<section id="the-core-equation" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The Core Equation</h1>
+<p>For two predictors, a linear model with interaction is:</p>
+<p><span id="eq-interaction"><span class="math display">\[Y_i = \alpha + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i}X_{2i} + \epsilon_i \tag{1}\]</span></span></p>
+<p>The coefficient <span class="math inline">\(\beta_3\)</span> multiplies the product <span class="math inline">\(X_1 X_2\)</span>. When <span class="math inline">\(\beta_3 = 0\)</span>, the model collapses to the additive form of Chapter 14. When <span class="math inline">\(\beta_3 \neq 0\)</span>, the effect of <span class="math inline">\(X_1\)</span> on <span class="math inline">\(Y\)</span> is not constant but it is conditional on <span class="math inline">\(X_2\)</span>.</p>
+<p>In R, an interaction is specified with <code>*</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">lm</span>(response <span class="sc">~</span> x1 <span class="sc">*</span> x2, <span class="at">data =</span> df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This expands to:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">lm</span>(response <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x1<span class="sc">:</span>x2, <span class="at">data =</span> df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>:</code> term is the interaction itself, while <code>*</code> includes both main effects and the interaction.</p>
+<p>The important consequence of <a href="#eq-interaction" class="quarto-xref">Equation&nbsp;1</a> is that the slope of <span class="math inline">\(X_1\)</span> (which is the rate at which <span class="math inline">\(Y\)</span> changes as <span class="math inline">\(X_1\)</span> increases) is not a single number. It is:</p>
+<p><span class="math display">\[\frac{\partial Y}{\partial X_1} = \beta_1 + \beta_3 X_2\]</span></p>
+<p>This is what an interaction means in practice. Every unit increase in <span class="math inline">\(X_2\)</span> changes the slope of <span class="math inline">\(X_1\)</span> by exactly <span class="math inline">\(\beta_3\)</span>. If <span class="math inline">\(\beta_3 &gt; 0\)</span>, the effect of <span class="math inline">\(X_1\)</span> strengthens as <span class="math inline">\(X_2\)</span> increases but if <span class="math inline">\(\beta_3 &lt; 0\)</span>, the effect of <span class="math inline">\(X_1\)</span> weakens. If <span class="math inline">\(\beta_3 = 0\)</span>, the slope of <span class="math inline">\(X_1\)</span> is <span class="math inline">\(\beta_1\)</span> everywhere, regardless of <span class="math inline">\(X_2\)</span> and the model reduces to the additive case.</p>
+<p>This also implies that:</p>
+<p><span class="math display">\[\frac{\partial Y}{\partial X_2} = \beta_2 + \beta_3 X_1\]</span></p>
+<p>The interaction coefficient <span class="math inline">\(\beta_3\)</span> simultaneously describes how <span class="math inline">\(X_2\)</span> modifies the slope of <span class="math inline">\(X_1\)</span> and how <span class="math inline">\(X_1\)</span> modifies the slope of <span class="math inline">\(X_2\)</span>. This is why you cannot interpret an interaction by looking at one predictor in isolation.</p>
+</section>
+<section id="when-is-an-interaction-appropriate" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> When Is an Interaction Appropriate?</h1>
+<p>Interactions should follow from biology and should not simply be included in the model because the software allows it. So, before fitting a model with an interaction term, answer these questions.</p>
+<p><strong>Does the mechanism support effect modification?</strong> The strongest justification for an interaction is a biological or ecological mechanism that predicts it. Photosynthetic rate depends on both light and CO₂, and the relationship between rate and light is steeper when CO₂ is not limiting. Here, that is a mechanistic prediction of an interaction. Without some supporting reasoning, an interaction term is just speculation.</p>
+<p><strong>Is there visual evidence of non-parallel fitted lines?</strong> Plotting the response against one predictor, coloured or faceted by the second, may reveal whether the slopes differ. Parallel lines support an additive model but diverging or converging lines suggest an interaction. This assessment is not a formal step, but it is a necessary to gain insight into the presence of effect modification.</p>
+<p><strong>Does the scale of measurement matter?</strong> Interactions can appear or disappear under transformation. A relationship that appears multiplicative on an arithmetic scale often becomes additive on a log scale. Before concluding that an interaction is real, consider whether it reflects the measurement scale rather than the biology. If a log transformation linearises both relationships and eliminates the interaction, the additive log-scale model may be the more parsimonious description.</p>
+<p><strong>Is the dataset large enough to support the interaction?</strong> Every interaction term consumes degrees of freedom. A continuous × continuous interaction adds one parameter. A factor with <span class="math inline">\(k\)</span> levels interacting with a continuous predictor adds <span class="math inline">\(k - 1\)</span> parameters. In small datasets, interaction terms overfit readily and the estimated slopes for individual groups become unreliable. At minimum, ensure adequate observations across the full joint range of both predictors, not just in aggregate, but within each combination. If data cluster in one corner of the predictor space, the interaction estimate extrapolates everywhere else.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Degrees of Freedom
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A degree of freedom is consumed each time the model estimates a parameter from the data. A dataset with <span class="math inline">\(n\)</span> observations and <span class="math inline">\(p\)</span> estimated parameters (intercept plus all slopes and interaction terms) has <span class="math inline">\(n - p\)</span> residual degrees of freedom. This is the quantity left over to estimate the error variance and run hypothesis tests. Fewer residual degrees of freedom means less precise estimates and less powerful tests.</p>
+<p>In practice, count the parameters your model requires, subtract from <span class="math inline">\(n\)</span>, and ask whether what remains is adequate. As a rough guide, aim for at least 10–20 observations per parameter. An interaction between a four-level factor and a continuous predictor adds three parameters; if your dataset has 40 rows, that interaction alone halves the residual degrees of freedom available for everything else.</p>
+</div>
+</div>
+<p>Additive models are simpler and more stable. The burden of justification falls on the interaction, not on the additive alternative.</p>
+</section>
+<section id="interpreting-conditional-coefficients" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Interpreting Conditional Coefficients</h1>
+<p>When an interaction is present, the main-effect coefficients are conditional on the other predictor being at its reference value. This is, zero for continuous predictors and the reference level for factors (see <a href="../basic_stats/14-multiple-regression-and-model-specification.html#dummy-variable-coding">dummy-variable coding in Chapter 14</a>). Although the math makes sense to statisticians, it can produce biologically uninterpretable numbers, especially when zero is not a meaningful reference.</p>
+<p>For example, consider a model of mussel filtration rate (L h⁻¹) as a function of shell length (mm) and seawater temperature (°C), with their interaction included. The main effect of temperature is the slope of temperature on filtration rate when shell length equals zero. A mussel of zero length does not exist. The coefficient is mathematically well-defined but it describes the filtration performance of an animal that isn’t there. Centring shell length on its mean (say, 47 mm, a real mussel of average size) shifts the reference to a biologically meaningful baseline, and the temperature coefficient then describes something an actual mussel does. The mechanics of centring (and the related idea of standardising to unit variance) are introduced in <a href="../basic_stats/14-multiple-regression-and-model-specification.html#a-note-on-scaling-and-centring">Chapter 14</a>; here the motivation is reinforced by the presence of the interaction term.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Centring Continuous Predictors
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Rule</strong>: centre a continuous predictor when zero is not a meaningful or observable value in your study. After centring, the main effect of <span class="math inline">\(X_1\)</span> is its slope when <span class="math inline">\(X_2\)</span> is at its mean, and vice versa. The interaction coefficient and all fitted values are unchanged by centring.</p>
+</div>
+</div>
+<section id="a-worked-algebra-example" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="a-worked-algebra-example"><span class="header-section-number">4.1</span> A Worked Algebra Example</h2>
+<p>A simple numeric illustration makes this visible. Suppose we fit a model where <code>group</code> is a two-level factor (<code>A</code> and <code>B</code>, with <code>A</code> as the reference) and <code>x</code> is a continuous predictor. The factor is represented in the model matrix by a <a href="../basic_stats/14-multiple-regression-and-model-specification.html#dummy-variable-coding">dummy variable</a> <span class="math inline">\(D_i\)</span>:</p>
+<p><span class="math display">\[Y_i = \alpha + \beta_1 x_i + \beta_2 D_i + \beta_3 x_i D_i + \epsilon_i\]</span></p>
+<p>where <span class="math inline">\(D_i = 0\)</span> for group A and <span class="math inline">\(D_i = 1\)</span> for group B.</p>
+<p>Substituting <span class="math inline">\(D = 0\)</span> gives the fitted line for group A:</p>
+<p><span class="math display">\[\hat{Y} = \alpha + \beta_1 x\]</span></p>
+<p>Substituting <span class="math inline">\(D = 1\)</span> gives the fitted line for group B:</p>
+<p><span class="math display">\[\hat{Y} = (\alpha + \beta_2) + (\beta_1 + \beta_3)\, x\]</span></p>
+<p>The slope of <code>x</code> in group A is <span class="math inline">\(\beta_1\)</span>. The slope of <code>x</code> in group B is <span class="math inline">\(\beta_1 + \beta_3\)</span>. The interaction coefficient <span class="math inline">\(\beta_3\)</span> is therefore not the slope in group B, but the <em>difference in slopes</em> between groups B and A. If the slopes were the same (<span class="math inline">\(\beta_3 = 0\)</span>), the lines would be parallel and the model would reduce to the additive ANCOVA of Chapter 14.</p>
+<p>Now put in numbers. Suppose <span class="math inline">\(\alpha = 2\)</span>, <span class="math inline">\(\beta_1 = 0.5\)</span>, <span class="math inline">\(\beta_2 = 3\)</span>, and <span class="math inline">\(\beta_3 = 0.8\)</span>. Then:</p>
+<ul>
+<li>Group A slope: <span class="math inline">\(0.5\)</span> per unit of <code>x</code></li>
+<li>Group B slope: <span class="math inline">\(0.5 + 0.8 = 1.3\)</span> per unit of <code>x</code></li>
+<li>At <span class="math inline">\(x = 10\)</span>: Group A predicts <span class="math inline">\(2 + 0.5(10) = 7\)</span>; Group B predicts <span class="math inline">\((2 + 3) + 1.3(10) = 18\)</span></li>
+</ul>
+<p>The difference in predicted response between groups A and B at <span class="math inline">\(x = 10\)</span> is 11 units, not 3. The 3 units (<span class="math inline">\(\beta_2\)</span>) is only the between-group difference at <span class="math inline">\(x = 0\)</span>. Once the interaction is present, the gap between groups changes with <code>x</code>, and reading the coefficients without tracing through the algebra leads to the wrong conclusion.</p>
+</section>
+<section id="the-role-of-the-reference-group" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="the-role-of-the-reference-group"><span class="header-section-number">4.2</span> The Role of the Reference Group</h2>
+<p>In a factor × continuous interaction, the choice of reference level affects which coefficients appear in the table but not the fitted values or the model’s predictions. If the reference group happens to have a near-zero slope, the main effect of <code>x</code> will appear small or non-significant even when most groups show substantial slopes. This is one more reason to plot. Changing the reference level and refitting the model is also informative, for example, if the conclusions about the biology depend on which group was chosen as reference, they are being drawn from the parameterisation rather than from the data.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write out the full equation for a model with two predictors, <code>temp</code> and <code>bio</code> (a two-level factor with levels <code>"warm"</code> and <code>"cold"</code>), including the interaction. Use <code>"cold"</code> as the reference level.</p>
+<ol type="1">
+<li>Write the equation in the form <span class="math inline">\(Y_i = \alpha + \beta_1 X_{1i} + \beta_2 D_i + \beta_3 X_{1i} D_i + \epsilon_i\)</span>, replacing symbols with words where helpful.</li>
+<li>What is the slope of <code>temp</code> for observations in the <code>"cold"</code> bioregion?</li>
+<li>What is the slope of <code>temp</code> for observations in the <code>"warm"</code> bioregion? Express it in terms of the model coefficients.</li>
+<li>If <span class="math inline">\(\beta_3 = 0\)</span>, what does the model reduce to?</li>
+</ol>
+<p>Verify your reasoning by fitting this model to any small dataset you create:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="at">temp =</span> <span class="fu">runif</span>(<span class="dv">60</span>, <span class="dv">5</span>, <span class="dv">20</span>),</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="at">bio  =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"cold"</span>, <span class="st">"warm"</span>), <span class="dv">30</span>),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="at">y    =</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> temp <span class="sc">+</span> <span class="fu">ifelse</span>(bio <span class="sc">==</span> <span class="st">"warm"</span>, <span class="dv">3</span> <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> temp, <span class="dv">0</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">60</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="fu">lm</span>(y <span class="sc">~</span> temp <span class="sc">*</span> bio, <span class="at">data =</span> df) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check that the coefficient of <code>temp</code> matches your answer to question 2.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="example-1-two-continuous-predictors-with-and-without-centring" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Example 1: Two Continuous Predictors with and without Centring</h1>
+<p>Interactions do not only arise between a factor and a continuous predictor. They also occur when two continuous predictors occur together.</p>
+<p>I model algal growth as a function of temperature and nutrient concentration, expecting that the effect of temperature depends on nutrient supply. Warming may be more influential when nutrients are abundant than when they are scarce. This is a biologically plausible interaction with a mechanistic basis, <em>i.e.</em>, we know that photosynthetic response to temperature is partly limited by nutrient availability.</p>
+<section id="example-dataset" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="example-dataset"><span class="header-section-number">5.1</span> Example Dataset</h2>
+<p>I simulate some data for this example.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">set.seed</span>(<span class="dv">14</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>int_demo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="at">temp =</span> <span class="fu">runif</span>(<span class="dv">120</span>, <span class="dv">8</span>, <span class="dv">24</span>),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="at">nutrient =</span> <span class="fu">runif</span>(<span class="dv">120</span>, <span class="fl">0.5</span>, <span class="dv">5</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="at">growth =</span> <span class="dv">4</span> <span class="sc">+</span> <span class="fl">0.25</span> <span class="sc">*</span> temp <span class="sc">+</span> <span class="fl">1.1</span> <span class="sc">*</span> nutrient <span class="sc">+</span> <span class="fl">0.18</span> <span class="sc">*</span> temp <span class="sc">*</span> nutrient <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>      <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="at">sd =</span> <span class="fl">1.8</span>),</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="at">temp_c =</span> temp <span class="sc">-</span> <span class="fu">mean</span>(temp),</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="at">nutrient_c =</span> nutrient <span class="sc">-</span> <span class="fu">mean</span>(nutrient)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="do-an-exploratory-data-analysis-eda" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="do-an-exploratory-data-analysis-eda"><span class="header-section-number">5.2</span> Do an Exploratory Data Analysis (EDA)</h2>
+<p>Before fitting the interaction model, I inspect the scale of the predictors and the overall response pattern.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>int_demo <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="at">mean_temp =</span> <span class="fu">mean</span>(temp),</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="at">sd_temp =</span> <span class="fu">sd</span>(temp),</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="at">mean_nutrient =</span> <span class="fu">mean</span>(nutrient),</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="at">sd_nutrient =</span> <span class="fu">sd</span>(nutrient),</span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="at">mean_growth =</span> <span class="fu">mean</span>(growth),</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="at">sd_growth =</span> <span class="fu">sd</span>(growth)</span>
+<span id="cb5-9"><a href="#cb5-9"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 1 × 6
+R&gt;   mean_temp sd_temp mean_nutrient sd_nutrient mean_growth sd_growth
+R&gt;       &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+R&gt; 1      16.1    4.43          2.75        1.31        18.8      6.41</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>int_demo <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="at">nutrient_band =</span> <span class="fu">cut</span>(</span>
+<span id="cb7-4"><a href="#cb7-4"></a>      nutrient,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>      <span class="at">breaks =</span> <span class="fu">quantile</span>(nutrient, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span>)),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>      <span class="at">include.lowest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-7"><a href="#cb7-7"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Low nutrient"</span>, <span class="st">"Medium nutrient"</span>, <span class="st">"High nutrient"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    )</span>
+<span id="cb7-9"><a href="#cb7-9"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> temp, <span class="at">y =</span> growth, <span class="at">colour =</span> nutrient_band)) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-14"><a href="#cb7-14"></a>    <span class="at">x =</span> <span class="st">"Temperature"</span>,</span>
+<span id="cb7-15"><a href="#cb7-15"></a>    <span class="at">y =</span> <span class="st">"Growth"</span>,</span>
+<span id="cb7-16"><a href="#cb7-16"></a>    <span class="at">colour =</span> <span class="st">"Nutrient level"</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a>  <span class="fu">theme_grey</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-centering-eda" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-centering-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="15-interaction-effects_files/figure-html/fig-centering-eda-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Algal growth as a function of temperature at low, medium, and high nutrient levels. The fitted lines suggest that the temperature-growth slope steepens as nutrient concentration increases."><img src="15-interaction-effects_files/figure-html/fig-centering-eda-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-centering-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Algal growth as a function of temperature at low, medium, and high nutrient levels. The fitted lines suggest that the temperature-growth slope steepens as nutrient concentration increases.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The fitted lines in <a href="#fig-centering-eda" class="quarto-xref">Figure&nbsp;1</a> are not parallel. As nutrient concentration increases, the temperature-growth slope becomes steeper. This fan shape is the visual sign of an interaction; in other words, the same unit increase in temperature produces a larger growth response when nutrients are abundant than when they are scarce.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Reproduce the fan-shaped plot using <code>int_demo</code>, but this time split by temperature bands instead of nutrient bands. Does the same interaction signature appear when the axes are swapped?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>int_demo <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="at">temp_band =</span> <span class="fu">cut</span>(</span>
+<span id="cb8-4"><a href="#cb8-4"></a>      temp,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>      <span class="at">breaks =</span> <span class="fu">quantile</span>(temp, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span>)),</span>
+<span id="cb8-6"><a href="#cb8-6"></a>      <span class="at">include.lowest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Low temp"</span>, <span class="st">"Medium temp"</span>, <span class="st">"High temp"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8"></a>    )</span>
+<span id="cb8-9"><a href="#cb8-9"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nutrient, <span class="at">y =</span> growth, <span class="at">colour =</span> temp_band)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.65</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nutrient concentration"</span>, <span class="at">y =</span> <span class="st">"Growth"</span>, <span class="at">colour =</span> <span class="st">"Temperature level"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Answer:</p>
+<ol type="1">
+<li>Are the fitted lines parallel or diverging? What does that tell you about the interaction?</li>
+<li>The same interaction is present regardless of which predictor you condition on. Why does that make sense mathematically? (Hint: the interaction term <span class="math inline">\(\beta_3 X_1 X_2\)</span> is symmetric in <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.)</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="state-the-model-question" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="state-the-model-question"><span class="header-section-number">5.3</span> State the Model Question</h2>
+<p>The biological question is not whether temperature or nutrient concentration is influential alone, but it is whether or not the effect of temperature <em>changes across</em> the nutrient gradient.</p>
+<p>For the interaction term, the hypothesis pair is:</p>
+<p><span class="math display">\[H_{0}: \beta_{\text{temp:nutrient}} = 0\]</span> <span class="math display">\[H_{a}: \beta_{\text{temp:nutrient}} \ne 0\]</span></p>
+<p>If the interaction coefficient is zero, the slope of temperature does not depend on nutrient concentration, so we can have one sloped line for all nutrient regimes. If it differs from zero, the temperature effect is conditional on nutrient supply and we will have a different line, each with its unique slope, for each nutrient condition.</p>
+<p>Stating the question like this might suggest that the appropriate model is <code>lm(growth ~ temp:nutrient, data = int_demo)</code>, which specifies the interaction term alone and drops the main effects. That model is almost always wrong. The <code>:</code> operator without main effects constrains both <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> to zero; it asserts that temperature has no direct effect on growth and neither does nutrient concentration, only their product matters. That claim is too strong and usually unjustified biologically. The <strong>hierarchy principle</strong> says that whenever an interaction is in the model, its constituent main effects must be in the model too, regardless of whether the primary question concerns them. This is what <code>*</code> enforces: <code>temp * nutrient</code> expands to <code>temp + nutrient + temp:nutrient</code>. The main effects are there not because they are the focal hypothesis but because the interaction term is only meaningful in their presence. Dropping them changes the interpretation of <span class="math inline">\(\beta_3\)</span> entirely.</p>
+</section>
+<section id="fit-the-uncentred-and-centred-models" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="fit-the-uncentred-and-centred-models"><span class="header-section-number">5.4</span> Fit the Uncentred and Centred Models</h2>
+<p>We fit the same interaction twice: once on raw predictor scales, and once after centring both predictors on their means.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>mod_raw <span class="ot">&lt;-</span> <span class="fu">lm</span>(growth <span class="sc">~</span> temp <span class="sc">*</span> nutrient, <span class="at">data =</span> int_demo)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>mod_cent <span class="ot">&lt;-</span> <span class="fu">lm</span>(growth <span class="sc">~</span> temp_c <span class="sc">*</span> nutrient_c, <span class="at">data =</span> int_demo)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">tibble</span>(</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="at">term =</span> <span class="fu">names</span>(<span class="fu">coef</span>(mod_raw)),</span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="at">uncentred =</span> <span class="fu">round</span>(<span class="fu">coef</span>(mod_raw), <span class="dv">3</span>),</span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="at">centred =</span> <span class="fu">round</span>(<span class="fu">coef</span>(mod_cent), <span class="dv">3</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 4 × 3
+R&gt;   term          uncentred centred
+R&gt;   &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;
+R&gt; 1 (Intercept)       3.89   18.9  
+R&gt; 2 temp              0.23    0.8  
+R&gt; 3 nutrient          0.76    4.09 
+R&gt; 4 temp:nutrient     0.207   0.207</code></pre>
+</div>
+</div>
+</section>
+<section id="interpret-the-results" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="interpret-the-results"><span class="header-section-number">5.5</span> Interpret the Results</h2>
+<p>The interaction coefficient is identical in both models; so, centring does not change the interaction estimate. What centring changes are the main effects, and that is the important point.</p>
+<p>In the uncentred model, the temperature coefficient is the slope of temperature when nutrient concentration is zero. Nutrient ranges from 0.5 to 5 in this dataset, and zero is outside the data range entirely. That coefficient describes an extrapolated, biologically unobservable condition, and interpreting it directly is misleading. In the centred model, the temperature coefficient is the slope of temperature at the mean nutrient concentration, and the nutrient coefficient is the slope of nutrient at the mean temperature. Both describe something that actually occurs in the data, and centring the data makes this possible.</p>
+<p>The fitted values are unchanged because centring is a reparameterisation and not a different model. It repositions the reference point from an arbitrary zero to the sample mean to make the main effects describe something scientifically interpretable rather than a mathematically convenient but biologically meaningless baseline. The same reasonong informs factor × continuous interactions, ANCOVA-style models, and more complex multiple-regression scenarios. Whenever an interaction is present, ask whether the zero point of each continuous predictor gives you main effects that carry biologically relatable meaning. If it does not, centring is the way to go.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run both the uncentred and centred models and compare their coefficient tables side by side as shown above. Then answer the following questions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>mod_raw  <span class="ot">&lt;-</span> <span class="fu">lm</span>(growth <span class="sc">~</span> temp <span class="sc">*</span> nutrient,     <span class="at">data =</span> int_demo)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>mod_cent <span class="ot">&lt;-</span> <span class="fu">lm</span>(growth <span class="sc">~</span> temp_c <span class="sc">*</span> nutrient_c, <span class="at">data =</span> int_demo)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">coef</span>(mod_raw)</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="fu">coef</span>(mod_cent)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol type="1">
+<li>The interaction coefficient (<code>temp:nutrient</code> or <code>temp_c:nutrient_c</code>) should be nearly identical in both models. Is it? Why should it be?</li>
+<li>In <code>mod_raw</code>, the temperature main effect is the slope of <code>temp</code> when <code>nutrient = 0</code>. Is that a meaningful value for this dataset? Check the range of <code>nutrient</code> in the data.</li>
+<li>In <code>mod_cent</code>, what does the temperature main effect now represent? Is this more biologically interpretable?</li>
+<li>Confirm that the fitted values are the same from both models:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">all.equal</span>(<span class="fu">fitted</span>(mod_raw), <span class="fu">fitted</span>(mod_cent))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="scale-dependence" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="scale-dependence"><span class="header-section-number">5.6</span> Scale Dependence</h2>
+<p>Centring is not the only scale consideration worth making. Interactions can appear or disappear depending on whether the response is modelled on an arithmetic or logarithmic scale. If a multiplicative process generates the data (for example, growth rates often multiply rather than add) then a log transformation of the response may convert an apparent interaction into an additive relationship. Before concluding that an interaction is biologically real, ask if it reflects the measurement scale. So, a log-scale additive model and an arithmetic-scale interaction model sometimes describe the same underlying biology.</p>
+</section>
+</section>
+<section id="example-2-coastal-distance-and-bioregional-context" class="level1 page-columns page-full" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Example 2: Coastal Distance and Bioregional Context</h1>
+<section id="example-dataset-1" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="example-dataset-1"><span class="header-section-number">6.1</span> Example Dataset</h2>
+<p>I return to the seaweed dataset introduced in Chapter 14, where distance and bioregion were combined in an additive model. The additive model constrained the distance-dissimilarity slope to be the same across all bioregions, differing only in intercept. Here my question is more specific: does the relationship between Sørensen dissimilarity (<code>Y</code>) and coastal distance (<code>dist</code>) differ among bioregions (<code>bio</code>)?</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>sw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB743"</span>, <span class="st">"seaweed"</span>, <span class="st">"spp_df2.csv"</span>))</span>
+<span id="cb13-2"><a href="#cb13-2"></a>sw<span class="sc">$</span>bio <span class="ot">&lt;-</span> <span class="fu">factor</span>(sw<span class="sc">$</span>bio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="do-an-exploratory-data-analysis-eda-1" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="do-an-exploratory-data-analysis-eda-1"><span class="header-section-number">6.2</span> Do an Exploratory Data Analysis (EDA)</h2>
+<p>We first inspect the response against distance within each bioregion.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> Y, <span class="at">colour =</span> bio)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">1.6</span>) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance along the coast (km)"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5"></a>       <span class="at">y =</span> <span class="st">"Sørensen dissimilarity"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6"></a>       <span class="at">colour =</span> <span class="st">"Bioregion"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-seaweed-interaction" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-seaweed-interaction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="15-interaction-effects_files/figure-html/fig-seaweed-interaction-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Sørensen dissimilarity as a function of coastal distance in four bioregions."><img src="15-interaction-effects_files/figure-html/fig-seaweed-interaction-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seaweed-interaction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Sørensen dissimilarity as a function of coastal distance in four bioregions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The fitted lines in <a href="#fig-seaweed-interaction" class="quarto-xref">Figure&nbsp;2</a> are not parallel. The relationship between distance and dissimilarity appears steeper in some bioregions than in others. That visual evidence justifies the interaction model and I now see that the additive constraint I specified in Chapter 14 may be too simple.</p>
+</section>
+<section id="state-the-hypotheses" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="state-the-hypotheses"><span class="header-section-number">6.3</span> State the Hypotheses</h2>
+<p>Three increasingly specific questions inform this analysis:</p>
+<ol type="1">
+<li>Is dissimilarity related to distance?</li>
+<li>Do average dissimilarity levels differ among bioregions?</li>
+<li>Does the effect of distance differ among bioregions?</li>
+</ol>
+<p>The third question is the interaction question. In that case the null hypothesis is:</p>
+<p><span class="math display">\[H_{0}: \beta_{\text{interaction}} = 0\]</span> <span class="math display">\[H_{a}: \beta_{\text{interaction}} \ne 0\]</span></p>
+<p>for all interaction terms. Here <span class="math inline">\(\beta_{\text{interaction}}\)</span> refers to the set of coefficients that describe how the slope of distance changes among bioregions. If any of these differ from zero, the distance-dissimilarity slope is not the same in all bioregions.</p>
+</section>
+<section id="fit-nested-models" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="fit-nested-models"><span class="header-section-number">6.4</span> Fit Nested Models</h2>
+<p>We fit three nested models:</p>
+<ul>
+<li>a distance-only model;</li>
+<li>a model with the main effects of distance and bioregion;</li>
+<li>a model that adds the interaction between distance and bioregion.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>mod_dist <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist, <span class="at">data =</span> sw)</span>
+<span id="cb15-2"><a href="#cb15-2"></a>mod_main <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>mod_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">*</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb15-4"><a href="#cb15-4"></a></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="fu">anova</span>(mod_dist, mod_main, mod_int)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Analysis of Variance Table
+R&gt; 
+R&gt; Model 1: Y ~ dist
+R&gt; Model 2: Y ~ dist + bio
+R&gt; Model 3: Y ~ dist * bio
+R&gt;   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+R&gt; 1    968 7.7388                                  
+R&gt; 2    965 4.1156  3    3.6232 516.21 &lt; 2.2e-16 ***
+R&gt; 3    962 2.2507  3    1.8648 265.69 &lt; 2.2e-16 ***
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">summary</span>(mod_int)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt; Call:
+R&gt; lm(formula = Y ~ dist * bio, data = sw)
+R&gt; 
+R&gt; Residuals:
+R&gt;       Min        1Q    Median        3Q       Max 
+R&gt; -0.112117 -0.030176 -0.004195  0.023698  0.233520 
+R&gt; 
+R&gt; Coefficients:
+R&gt;                 Estimate Std. Error t value Pr(&gt;|t|)    
+R&gt; (Intercept)    5.341e-03  4.177e-03   1.279   0.2013    
+R&gt; dist           3.530e-04  1.140e-05  30.958  &lt; 2e-16 ***
+R&gt; bioB-ATZ      -6.140e-03  1.659e-02  -0.370   0.7114    
+R&gt; bioBMP         3.820e-02  6.659e-03   5.737 1.29e-08 ***
+R&gt; bioECTZ        1.629e-02  6.447e-03   2.527   0.0117 *  
+R&gt; dist:bioB-ATZ  7.976e-04  1.875e-04   4.255 2.30e-05 ***
+R&gt; dist:bioBMP   -1.285e-04  2.065e-05  -6.222 7.31e-10 ***
+R&gt; dist:bioECTZ   4.213e-04  1.801e-05  23.392  &lt; 2e-16 ***
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+R&gt; 
+R&gt; Residual standard error: 0.04837 on 962 degrees of freedom
+R&gt; Multiple R-squared:  0.8607, Adjusted R-squared:  0.8597 
+R&gt; F-statistic: 849.2 on 7 and 962 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Adding bioregion to the distance-only model improves fit strongly. Adding the interaction improves fit again. The interaction changes the model materially. We can see this in the nested-ANOVA, where the <code>Y ~ dist * bio</code> model has the smallest residual sum of squares (RSS), and is highly significant.</p>
+</section>
+<section id="interpret-the-interaction" class="level2 page-columns page-full" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="interpret-the-interaction"><span class="header-section-number">6.5</span> Interpret the Interaction</h2>
+<p>The interaction model <code>Y ~ dist * bio</code> expands the additive model with a second set of dummy-coded terms (one per non-reference bioregion) that allow the slope of <code>dist</code> to differ across groups. The full equation is:</p>
+<p><span class="math display">\[Y_i = \alpha + \beta_\text{dist}\,\text{dist}_i + \gamma_1 D_{i,\text{B-ATZ}} + \gamma_2 D_{i,\text{BMP}} + \gamma_3 D_{i,\text{ECTZ}} + \delta_1(\text{dist}_i \cdot D_{i,\text{B-ATZ}}) + \delta_2(\text{dist}_i \cdot D_{i,\text{BMP}}) + \delta_3(\text{dist}_i \cdot D_{i,\text{ECTZ}}) + \epsilon_i\]</span></p>
+<p>where each <span class="math inline">\(D\)</span> is an indicator variable (1 for that bioregion, 0 otherwise). Substituting the 0/1 values for each bioregion collapses the equation to a simple regression line, but one with a bioregion-specific intercept <strong>and</strong> a bioregion-specific slope.</p>
+<p><a href="#tbl-int-coding" class="quarto-xref">Table&nbsp;1</a> shows which terms are active for each bioregion. For <code>AMP</code> every dummy is zero, so all <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\delta\)</span> terms drop out entirely. For <code>B-ATZ</code>, <span class="math inline">\(D_{i,\text{B-ATZ}} = 1\)</span> and both <code>bioB-ATZ</code> and <code>dist:bioB-ATZ</code> become active; the interaction term contributes <span class="math inline">\(\delta_1 \cdot \text{dist}_i\)</span>, which scales with the actual distance value.</p>
+<div id="tbl-int-coding" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<div aria-describedby="tbl-int-coding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bioregion</th>
+<th style="text-align: center;"><code>bioB-ATZ</code></th>
+<th style="text-align: center;"><code>bioBMP</code></th>
+<th style="text-align: center;"><code>bioECTZ</code></th>
+<th style="text-align: center;"><code>dist:bioB-ATZ</code></th>
+<th style="text-align: center;"><code>dist:bioBMP</code></th>
+<th style="text-align: center;"><code>dist:bioECTZ</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AMP</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B-ATZ</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\text{dist}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BMP</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\text{dist}\)</span></td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ECTZ</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(\text{dist}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-tbl margin-caption" id="tbl-int-coding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Dummy-variable coding for the interaction model <code>Y ~ dist * bio</code>, with <code>AMP</code> as the reference level. For each non-reference bioregion, exactly one intercept dummy and one slope dummy are switched on.
+</figcaption>
+</figure>
+</div>
+<p>Because each bioregion activates at most one <span class="math inline">\(\gamma\)</span> and one <span class="math inline">\(\delta\)</span>, every group’s regression line reduces to a simple intercept–slope pair. <a href="#tbl-int-algebra" class="quarto-xref">Table&nbsp;2</a> shows the symbolic expressions and <a href="#tbl-int-numeric" class="quarto-xref">Table&nbsp;3</a> applies the coefficient estimates from <code>summary(mod_int)</code>.</p>
+<div id="tbl-int-algebra" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<div aria-describedby="tbl-int-algebra-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bioregion</th>
+<th style="text-align: left;">Effective intercept</th>
+<th style="text-align: left;">Effective slope</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AMP</td>
+<td style="text-align: left;"><span class="math inline">\(\hat\alpha\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat\beta_\text{dist}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B-ATZ</td>
+<td style="text-align: left;"><span class="math inline">\(\hat\alpha + \hat\gamma_1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat\beta_\text{dist} + \hat\delta_1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BMP</td>
+<td style="text-align: left;"><span class="math inline">\(\hat\alpha + \hat\gamma_2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat\beta_\text{dist} + \hat\delta_2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ECTZ</td>
+<td style="text-align: left;"><span class="math inline">\(\hat\alpha + \hat\gamma_3\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat\beta_\text{dist} + \hat\delta_3\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-tbl margin-caption" id="tbl-int-algebra-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Symbolic effective intercepts and slopes for each bioregion in <code>mod_int</code>. The interaction coefficients <span class="math inline">\(\hat\delta_i\)</span> are slope <em>adjustments</em> relative to the reference slope, not bioregion slopes in their own right.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-int-numeric" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
+<div aria-describedby="tbl-int-numeric-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bioregion</th>
+<th style="text-align: left;">Effective intercept</th>
+<th style="text-align: left;">Effective slope (per km)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AMP</td>
+<td style="text-align: left;"><span class="math inline">\(\hat\alpha = 0.00534\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat\beta_\text{dist} = 3.53 \times 10^{-4}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B-ATZ</td>
+<td style="text-align: left;"><span class="math inline">\(0.00534 + (-0.00614) = -0.00080\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(3.53\times10^{-4} + 7.98\times10^{-4} = 1.151\times10^{-3}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BMP</td>
+<td style="text-align: left;"><span class="math inline">\(0.00534 + 0.03820 = 0.04354\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(3.53\times10^{-4} + (-1.29\times10^{-4}) = 2.25\times10^{-4}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ECTZ</td>
+<td style="text-align: left;"><span class="math inline">\(0.00534 + 0.01629 = 0.02163\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(3.53\times10^{-4} + 4.21\times10^{-4} = 7.74\times10^{-4}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-tbl margin-caption" id="tbl-int-numeric-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Numerical effective intercepts and slopes for each bioregion, computed from <code>summary(mod_int)</code>. Read the <code>dist</code> row for <span class="math inline">\(\hat\beta_\text{dist}\)</span> and the <code>dist:bioX</code> rows for the <span class="math inline">\(\hat\delta_i\)</span> adjustments, then add. Do not read the interaction rows as slopes — they are deviations from the AMP slope.
+</figcaption>
+</figure>
+</div>
+<p>The most important column is the effective slope. <code>B-ATZ</code> shows the steepest gradient (<span class="math inline">\(1.15 \times 10^{-3}\)</span> per km), more than three times the <code>BMP</code> slope (<span class="math inline">\(2.25 \times 10^{-4}\)</span> per km). Over a 500 km transect, <code>B-ATZ</code> accumulates roughly 0.58 units of Sørensen dissimilarity from distance alone, while <code>BMP</code> accumulates only 0.11. That is the biological content of the significant interaction.</p>
+<p>The standard errors for the effective slopes follow the same idea presented in <a href="../basic_stats/14-multiple-regression-and-model-specification.html">Chapter 14</a>. That is, the SE of <span class="math inline">\(\hat\beta_\text{dist} + \hat\delta_i\)</span> requires the covariance between the two estimates, available from <code>vcov(mod_int)</code>, or can be read directly by re-levelling <code>bio</code> to place each target bioregion first and refitting.</p>
+<p>The adjusted <span class="math inline">\(R^2\)</span> of around 0.86 indicates that the model accounts for most of the variation in dissimilarity across the coastline.</p>
+<p>The model comparison establishes that the interaction is statistically detectable (<span class="math inline">\(p &lt; 0.001\)</span>). The more biologically informative question is how different the slopes actually are. Extract the slope for each bioregion from the coefficient table by adding <span class="math inline">\(\hat{\beta}_\text{dist}\)</span> to each interaction coefficient, then compare them. If one bioregion shows a slope of 0.003 per kilometre and another shows 0.008 per kilometre, that two-fold difference may be substantial relative to the range of Sørensen dissimilarity (0 to 1), or it may be negligible depending on the spatial scale of the study. A significant interaction is not automatically an important one. Evaluate the magnitude of slope differences against what is biologically meaningful, not only against the null of zero difference.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run the three nested models and use <code>anova()</code> to compare them. Then plot the fitted interaction model to see what the coefficients actually imply. Now plot the fitted lines from <code>mod_int</code> on top of the raw data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>sw<span class="sc">$</span>fitted_int <span class="ot">&lt;-</span> <span class="fu">fitted</span>(mod_int)</span>
+<span id="cb19-2"><a href="#cb19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">ggplot</span>(sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">colour =</span> bio)) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> Y), <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">1.4</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fitted_int), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (km)"</span>, <span class="at">y =</span> <span class="st">"Sørensen dissimilarity"</span>, <span class="at">colour =</span> <span class="st">"Bioregion"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Questions:</p>
+<ol type="1">
+<li>By how much does the residual sum of squares drop when you add the interaction to the main-effects model? Is the improvement statistically significant?</li>
+<li>From the plot, does the interaction look practically meaningful, or do the fitted lines for different bioregions appear nearly parallel despite the significant test?</li>
+<li>Looking at the <code>summary(mod_int)</code> coefficient table, identify one bioregion whose interaction coefficient is near zero. What does that imply about that bioregion’s distance-dissimilarity slope relative to the reference?</li>
+<li>Extract the fitted slope for each bioregion by combining <span class="math inline">\(\hat{\beta}_\text{dist}\)</span> with the relevant interaction coefficient. How large is the biggest slope difference in absolute terms? Is that difference meaningful on the Sørensen scale?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="diagnostic-checks-for-interaction-models" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="diagnostic-checks-for-interaction-models"><span class="header-section-number">6.6</span> Diagnostic Checks for Interaction Models</h2>
+<p>Interaction models are more complex than additive ones and create additional opportunities for misfit. Three checks are worth doing alongside any interaction analysis.</p>
+<p><strong>Residuals by group.</strong> Plot residuals against fitted values separately for each level of the grouping factor. If the residual spread differs substantially among groups, variance heterogeneity is present and may affect inference on the interaction coefficients. This does not invalidate the interaction, but it calls for caution in interpreting standard errors and <span class="math inline">\(p\)</span>-values.</p>
+<p><strong>Leverage.</strong> Observations that are extreme in both predictors simultaneously exert high leverage on interaction estimates. A single unusual observation can drive the entire estimated difference in slopes between groups. Check Cook’s distance and hat values, particularly for bioregions or conditions that are sparsely sampled.</p>
+<p><strong>Data coverage across predictor combinations.</strong> The interaction estimate is most reliable when observations cover the full joint range of both predictors. If one bioregion has few observations at large distances, or if one predictor varies only within a narrow range for certain factor levels, the interaction estimate in those combinations is extrapolation. Plot the joint distribution of predictors before interpreting edge-of-range behaviour.</p>
+</section>
+<section id="reporting" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="reporting"><span class="header-section-number">6.7</span> Reporting</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Write-Up
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Methods</strong></p>
+<p>A linear model containing the interaction between geographic distance and bioregion was fitted to test whether the relationship between distance and Sørensen dissimilarity differed among regions. Nested model comparisons were used to evaluate whether the interaction improved fit beyond the additive model.</p>
+<p><strong>Results</strong></p>
+<p>Sørensen dissimilarity increased with coastal distance, but the slope of that relationship differed among bioregions. A model containing the interaction between distance and bioregion fit the data substantially better than models with distance alone or with only additive main effects (<span class="math inline">\(p &lt; 0.001\)</span> for the interaction comparison; adjusted <span class="math inline">\(R^2 = 0.86\)</span>). The slopes ranged from [smallest] to [largest] per kilometre across the four bioregions, indicating that the distance effect is not uniform across the South African coastline.</p>
+<p><strong>Discussion</strong></p>
+<p>The biologically important point is that distance does not have one universal effect on community turnover. Emphasis in the Discussion should fall on regional differences in turnover rate — their plausible ecological causes, and what they imply for managing distinct coastal zones — not merely on the existence of an interaction term in the model output.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Read through the list of common mistakes that follows. For each one, describe a concrete biological example where a researcher might make that mistake. You do not need to fit any models. This is a thinking exercise.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Common mistake</th>
+<th>Concrete example of when this would happen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adding interactions without biological justification</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Interpreting main effects as if no interaction were present</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Failing to plot the fitted interaction</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Fitting many interaction terms in small datasets</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Treating a significant interaction as important without considering effect size</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Then, using the <code>mod_int</code> model from Example 2, answer: is the interaction in that model biologically important, or merely statistically detectable? Justify your answer by looking at how much the slopes differ among bioregions in the plot you made above.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="common-mistakes" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Common Mistakes</h1>
+<ul>
+<li>Adding interactions without biological justification — the most common path to overfitting.</li>
+<li>Interpreting main effects as if no interaction were present; in an interaction model, main effects are conditional on the reference value of the other predictor.</li>
+<li>Failing to plot the fitted interaction; the coefficient table communicates the parameterisation but not the biological pattern.</li>
+<li>Fitting many interaction terms simultaneously in small datasets; each term adds parameters, reduces degrees of freedom, and increases the risk that one interaction is significant by chance.</li>
+<li>Treating a statistically detectable interaction as biologically important without asking how large the slope differences actually are relative to meaningful variation in the response.</li>
+</ul>
+</section>
+<section id="summary" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Summary</h1>
+<ul>
+<li>An interaction means that the effect of one predictor depends on another. Operationally, the slope of <span class="math inline">\(X_1\)</span> is <span class="math inline">\(\beta_1 + \beta_3 X_2\)</span>, not a constant — it changes linearly with <span class="math inline">\(X_2\)</span>.</li>
+<li>Once an interaction is present, main effects must be interpreted conditionally. They describe the effect of one predictor at the reference value of the other, not its average effect across the data.</li>
+<li>Centring continuous predictors moves the reference to the sample mean and makes main effects interpretable at a scientifically meaningful baseline. The interaction coefficient and fitted values are unchanged.</li>
+<li>Nested model comparisons establish whether the interaction improves model fit, but statistical significance does not determine biological importance. Evaluate slope differences against the biological scale of the response.</li>
+<li>Interactions should be motivated by biological reasoning, checked against visual evidence of non-parallel fitted lines, and validated with attention to scale, sample size, and data coverage across predictor combinations.</li>
+<li>Diagnostic checks — residuals by group, leverage, joint data coverage — matter more in interaction models than in additive ones.</li>
+</ul>
+<p>In the next chapter, I remain in the multiple-regression setting but turn to three major threats to interpretation: collinearity, confounding, and measurement error.</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
+  author = {A. J. , Smit},
+  title = {15. {Interaction} {Effects}},
+  date = {2026-04-07},
+  url = {http://samos-r.netlify.app/basic_stats/15-interaction-effects.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2026) 15. Interaction Effects. <a href="http://samos-r.netlify.app/basic_stats/15-interaction-effects.html">http://samos-r.netlify.app/basic_stats/15-interaction-effects.html.
+</a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="pagination-link" aria-label="14. Multiple Regression and Model Specification">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">14. Multiple Regression and Model Specification</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="pagination-link" aria-label="16. Collinearity, Confounding, and Measurement Error">
+        <span class="nav-page-text">16. Collinearity, Confounding, and Measurement Error</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026, AJ Smit</p>
+</div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/15-interaction-effects.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

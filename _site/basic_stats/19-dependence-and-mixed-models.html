@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+
+<title>19. Dependence and Mixed Models – SAMOS R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../basic_stats/20-generalised-linear-models.html" rel="next">
+<link href="../basic_stats/18-pseudoreplication.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles/styles.css">
+<link rel="stylesheet" href="../../styles/biostats-callouts.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tasks/SAMOS_R_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ajsmit/tangled_bank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/19-dependence-and-mixed-models.html">19. Dependence and Mixed Models</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/05-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Synthesis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Summarising Biological Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Visualising Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Self Assessments</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task D</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#key-concepts" id="toc-key-concepts" class="nav-link active" data-scroll-target="#key-concepts"><span class="header-section-number">1</span> Key Concepts</a></li>
+  <li><a href="#when-this-method-is-appropriate" id="toc-when-this-method-is-appropriate" class="nav-link" data-scroll-target="#when-this-method-is-appropriate"><span class="header-section-number">2</span> When This Method Is Appropriate</a></li>
+  <li><a href="#nature-of-the-data-and-assumptions" id="toc-nature-of-the-data-and-assumptions" class="nav-link" data-scroll-target="#nature-of-the-data-and-assumptions"><span class="header-section-number">3</span> Nature of the Data and Assumptions</a></li>
+  <li><a href="#the-core-equations" id="toc-the-core-equations" class="nav-link" data-scroll-target="#the-core-equations"><span class="header-section-number">4</span> The Core Equations</a></li>
+  <li><a href="#r-functions" id="toc-r-functions" class="nav-link" data-scroll-target="#r-functions"><span class="header-section-number">5</span> R Functions</a></li>
+  <li><a href="#example-1-shorebird-landing-distance-with-site-level-dependence" id="toc-example-1-shorebird-landing-distance-with-site-level-dependence" class="nav-link" data-scroll-target="#example-1-shorebird-landing-distance-with-site-level-dependence"><span class="header-section-number">6</span> Example 1: Shorebird Landing Distance with Site-Level Dependence</a>
+  <ul class="collapse">
+  <li><a href="#example-dataset" id="toc-example-dataset" class="nav-link" data-scroll-target="#example-dataset"><span class="header-section-number">6.1</span> Example Dataset</a></li>
+  <li><a href="#do-an-exploratory-data-analysis-eda" id="toc-do-an-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#do-an-exploratory-data-analysis-eda"><span class="header-section-number">6.2</span> Do an Exploratory Data Analysis (EDA)</a></li>
+  <li><a href="#state-the-model-question-and-hypotheses" id="toc-state-the-model-question-and-hypotheses" class="nav-link" data-scroll-target="#state-the-model-question-and-hypotheses"><span class="header-section-number">6.3</span> State the Model Question and Hypotheses</a></li>
+  <li><a href="#fit-the-model" id="toc-fit-the-model" class="nav-link" data-scroll-target="#fit-the-model"><span class="header-section-number">6.4</span> Fit the Model</a></li>
+  <li><a href="#test-assumptions-check-diagnostics" id="toc-test-assumptions-check-diagnostics" class="nav-link" data-scroll-target="#test-assumptions-check-diagnostics"><span class="header-section-number">6.5</span> Test Assumptions / Check Diagnostics</a></li>
+  <li><a href="#interpret-the-results" id="toc-interpret-the-results" class="nav-link" data-scroll-target="#interpret-the-results"><span class="header-section-number">6.6</span> Interpret the Results</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">6.7</span> Reporting</a></li>
+  </ul></li>
+  <li><a href="#example-2-repeated-snake-habituation-within-individuals" id="toc-example-2-repeated-snake-habituation-within-individuals" class="nav-link" data-scroll-target="#example-2-repeated-snake-habituation-within-individuals"><span class="header-section-number">7</span> Example 2: Repeated Snake Habituation Within Individuals</a>
+  <ul class="collapse">
+  <li><a href="#why-this-is-a-dependence-problem" id="toc-why-this-is-a-dependence-problem" class="nav-link" data-scroll-target="#why-this-is-a-dependence-problem"><span class="header-section-number">7.1</span> Why This Is a Dependence Problem</a></li>
+  <li><a href="#fit-a-naive-model-and-a-mixed-model" id="toc-fit-a-naive-model-and-a-mixed-model" class="nav-link" data-scroll-target="#fit-a-naive-model-and-a-mixed-model"><span class="header-section-number">7.2</span> Fit a Naive Model and a Mixed Model</a></li>
+  <li><a href="#interpret-the-results-1" id="toc-interpret-the-results-1" class="nav-link" data-scroll-target="#interpret-the-results-1"><span class="header-section-number">7.3</span> Interpret the Results</a></li>
+  <li><a href="#reporting-1" id="toc-reporting-1" class="nav-link" data-scroll-target="#reporting-1"><span class="header-section-number">7.4</span> Reporting</a></li>
+  </ul></li>
+  <li><a href="#what-to-do-when-assumptions-fail-alternatives" id="toc-what-to-do-when-assumptions-fail-alternatives" class="nav-link" data-scroll-target="#what-to-do-when-assumptions-fail-alternatives"><span class="header-section-number">8</span> What to Do When Assumptions Fail / Alternatives</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/19-dependence-and-mixed-models.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/19-dependence-and-mixed-models.html">19. Dependence and Mixed Models</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">19. Dependence and Mixed Models</h1>
+<p class="subtitle lead">When Observations Are Not Independent</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://samos-r.netlify.app">Smit, A. J.</a> <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026/04/07</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In This Chapter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>why non-independence creates misleadingly confident analyses;</li>
+<li>how grouped and nested sampling structures arise in ecology;</li>
+<li>the difference between fixed and random effects;</li>
+<li>how to fit and interpret a simple random-intercept mixed model in R;</li>
+<li>how to report a mixed model in the same journal style used elsewhere in the course.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Tasks to Complete in This Chapter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<p>Most of the models in the earlier chapters assume that each observation contributes genuinely new information. In ecological sampling that is often false, because measurements taken from the same site, transect, colony, quadrat, or individual tend to resemble one another more than measurements taken from different sampling units.</p>
+<p>That is what <strong>dependence</strong> means in practice. So, the observations are not fully independent because they share context, history, or structure.</p>
+<p>If we ignore that structure, the analysis becomes overconfident. Standard errors shrink, degrees of freedom are effectively exaggerated, and the model can start reporting strong-looking results that are partly artefacts of the sampling design.</p>
+<p>Mixed-effects models provide one of the main solutions to this challenge. They allow us to keep the fixed effects that address the biological question while accounting for variation among grouped sampling units through <strong>random effects</strong>.</p>
+<section id="key-concepts" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Key Concepts</h1>
+<ul>
+<li><strong>Dependence</strong> means observations are not fully independent of one another.</li>
+<li><strong>Grouped structure</strong> arises when observations are clustered within sites, years, individuals, or other units.</li>
+<li><strong>Fixed effects</strong> represent systematic effects of direct biological interest.</li>
+<li><strong>Random effects</strong> represent structured variation among sampling units.</li>
+<li><strong>A random intercept model</strong> allows each site or group to have its own baseline level.</li>
+<li><strong>Mixed models are tailored to a specific sampling structure or design</strong>.</li>
+</ul>
+</section>
+<section id="when-this-method-is-appropriate" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> When This Method Is Appropriate</h1>
+<p>You should start thinking about mixed models when:</p>
+<ul>
+<li>observations are nested within sites, transects, plots, years, or individuals;</li>
+<li>the same unit is measured repeatedly;</li>
+<li>the sampling design clearly has hierarchical structure;</li>
+<li>treating all observations as independent would create pseudoreplication.</li>
+</ul>
+<p>Typical cases include:</p>
+<ul>
+<li>quadrats within sites;</li>
+<li>birds sampled within beaches;</li>
+<li>repeated measurements on the same animals;</li>
+<li>monthly observations within monitoring stations.</li>
+</ul>
+</section>
+<section id="nature-of-the-data-and-assumptions" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Nature of the Data and Assumptions</h1>
+<p>Mixed models do not remove the need for ordinary model checking. So, for a Gaussian linear mixed model, the main assumptions are still:</p>
+<ol type="1">
+<li>independence <strong>between</strong> higher-level units such as sites or individuals;</li>
+<li>approximately normal residuals;</li>
+<li>reasonably constant residual variance;</li>
+<li>a sensible specification of the random-effects structure.</li>
+</ol>
+<p>The important difference is that we now no longer assume independence among observations inside the same group.</p>
+</section>
+<section id="the-core-equations" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The Core Equations</h1>
+<p>A simple random-intercept mixed model can be written as:</p>
+<p><span id="eq-lmm"><span class="math display">\[Y_{ij} = \alpha + \beta_{1}X_{1ij} + \cdots + \beta_{p}X_{pij} + b_{j} + \epsilon_{ij} \tag{1}\]</span></span></p>
+<p>In <a href="#eq-lmm" class="quarto-xref">Equation&nbsp;1</a>, <span class="math inline">\(Y_{ij}\)</span> is the response for observation <span class="math inline">\(i\)</span> in group <span class="math inline">\(j\)</span>, the <span class="math inline">\(\beta\)</span> terms are the fixed effects, <span class="math inline">\(b_{j}\)</span> is the random intercept for group <span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_{ij}\)</span> is the residual error.</p>
+<p>The important idea is that the model has two sources of variation:</p>
+<ul>
+<li><strong>between-group variation</strong>, captured by the random effect <span class="math inline">\(b_j\)</span>;</li>
+<li><strong>within-group variation</strong>, captured by the residual term <span class="math inline">\(\epsilon_{ij}\)</span>.</li>
+</ul>
+<p>Mixed models help with dependence because the they explicitly allow observations from the same site or individual to share a common baseline.</p>
+</section>
+<section id="r-functions" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> R Functions</h1>
+<p>The most common functions are:</p>
+<ul>
+<li><code>lmer()</code> from <strong>lme4</strong> for Gaussian linear mixed models;</li>
+<li><code>glmer()</code> from <strong>lme4</strong> for generalised mixed models;</li>
+<li><code>nlme::lme()</code> when more explicit correlation structures are needed.</li>
+</ul>
+<p>A simple random-intercept model looks like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">lmer</span>(response <span class="sc">~</span> predictors <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> group), <span class="at">data =</span> df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The term <code>(1 | group)</code> means that each group has its own intercept.</p>
+</section>
+<section id="example-1-shorebird-landing-distance-with-site-level-dependence" class="level1 page-columns page-full" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Example 1: Shorebird Landing Distance with Site-Level Dependence</h1>
+<section id="example-dataset" class="level2 page-columns page-full" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="example-dataset"><span class="header-section-number">6.1</span> Example Dataset</h2>
+<p>We use the <code>BeachBirds.csv</code> dataset from the course data folder. These data contain flight-initiation distances and landing distances for several shorebird species sampled across multiple beach sites. The important point emerging from this example is that observations collected at the same site are likely to be more similar to one another than observations collected at different sites.</p>
+<p>Here we model <code>land.dist</code> as a function of bird <code>Species</code> and <code>Sex</code>, while allowing each <code>Site</code> to have its own baseline intercept.</p>
+<div class="cell page-columns page-full" data-layout-align="center" data-tbl-cap="A subset of the `BeachBirds.csv` data used in the mixed-model example.">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"BeachBirds.csv"</span>),</span>
+<span id="cb2-2"><a href="#cb2-2"></a>                  <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="at">Site =</span> <span class="fu">factor</span>(Site),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="at">Species =</span> <span class="fu">factor</span>(Species),</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="at">Sex =</span> <span class="fu">factor</span>(Sex)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  )</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">gt</span>(<span class="fu">head</span>(birds, <span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display page-columns page-full">
+<div id="imdvleyvla" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="page-columns page-full">
+<style>#imdvleyvla table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#imdvleyvla thead, #imdvleyvla tbody, #imdvleyvla tfoot, #imdvleyvla tr, #imdvleyvla td, #imdvleyvla th {
+  border-style: none;
+}
+
+#imdvleyvla p {
+  margin: 0;
+  padding: 0;
+}
+
+#imdvleyvla .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#imdvleyvla .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#imdvleyvla .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#imdvleyvla .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#imdvleyvla .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#imdvleyvla .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#imdvleyvla .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#imdvleyvla .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#imdvleyvla .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#imdvleyvla .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#imdvleyvla .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#imdvleyvla .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#imdvleyvla .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#imdvleyvla .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#imdvleyvla .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imdvleyvla .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#imdvleyvla .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#imdvleyvla .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#imdvleyvla .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imdvleyvla .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#imdvleyvla .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imdvleyvla .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#imdvleyvla .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imdvleyvla .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#imdvleyvla .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#imdvleyvla .gt_left {
+  text-align: left;
+}
+
+#imdvleyvla .gt_center {
+  text-align: center;
+}
+
+#imdvleyvla .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#imdvleyvla .gt_font_normal {
+  font-weight: normal;
+}
+
+#imdvleyvla .gt_font_bold {
+  font-weight: bold;
+}
+
+#imdvleyvla .gt_font_italic {
+  font-style: italic;
+}
+
+#imdvleyvla .gt_super {
+  font-size: 65%;
+}
+
+#imdvleyvla .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#imdvleyvla .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#imdvleyvla .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#imdvleyvla .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#imdvleyvla .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#imdvleyvla .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#imdvleyvla .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#imdvleyvla .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#imdvleyvla div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-bootstrap="false">
+
+<thead>
+<tr class="gt_col_headings header">
+<th id="Site" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Site</th>
+<th id="Species" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Species</th>
+<th id="Sex" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Sex</th>
+<th id="flush.dist" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">flush.dist</th>
+<th id="land.dist" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">land.dist</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Female</td>
+<td class="gt_row gt_right" headers="flush.dist">12.8</td>
+<td class="gt_row gt_right" headers="land.dist">150.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_right" headers="flush.dist">4.4</td>
+<td class="gt_row gt_right" headers="land.dist">114.1</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Female</td>
+<td class="gt_row gt_right" headers="flush.dist">9.5</td>
+<td class="gt_row gt_right" headers="land.dist">153.7</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Female</td>
+<td class="gt_row gt_right" headers="flush.dist">12.2</td>
+<td class="gt_row gt_right" headers="land.dist">137.7</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Female</td>
+<td class="gt_row gt_right" headers="flush.dist">10.1</td>
+<td class="gt_row gt_right" headers="land.dist">143.3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_right" headers="flush.dist">6.6</td>
+<td class="gt_row gt_right" headers="land.dist">142.8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_right" headers="flush.dist">15.4</td>
+<td class="gt_row gt_right" headers="land.dist">134.1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_right" headers="flush.dist">11.3</td>
+<td class="gt_row gt_right" headers="land.dist">159.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Male</td>
+<td class="gt_row gt_right" headers="flush.dist">13.8</td>
+<td class="gt_row gt_right" headers="land.dist">150.4</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Site">1</td>
+<td class="gt_row gt_center" headers="Species">Oystercatcher</td>
+<td class="gt_row gt_center" headers="Sex">Female</td>
+<td class="gt_row gt_right" headers="flush.dist">12.9</td>
+<td class="gt_row gt_right" headers="land.dist">161.9</td>
+</tr>
+</tbody>
+</table>
+
+<div class="quarto-table-caption margin-caption">A subset of the <code>BeachBirds.csv</code> data used in the mixed-model example.</div></div>
+</div>
+</div>
+</section>
+<section id="do-an-exploratory-data-analysis-eda" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="do-an-exploratory-data-analysis-eda"><span class="header-section-number">6.2</span> Do an Exploratory Data Analysis (EDA)</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="at">n_sites =</span> <span class="fu">n_distinct</span>(Site),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="at">n_species =</span> <span class="fu">n_distinct</span>(Species),</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="at">mean_land =</span> <span class="fu">mean</span>(land.dist),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="at">sd_land =</span> <span class="fu">sd</span>(land.dist)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 1 × 5
+R&gt;       n n_sites n_species mean_land sd_land
+R&gt;   &lt;int&gt;   &lt;int&gt;     &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+R&gt; 1   399       5         4      73.1    44.2</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(birds, <span class="fu">aes</span>(<span class="at">x =</span> Site, <span class="at">y =</span> land.dist)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="at">x =</span> <span class="st">"Site"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="at">y =</span> <span class="st">"Landing distance (m)"</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-birds-site" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-birds-site-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="19-dependence-and-mixed-models_files/figure-html/fig-birds-site-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Landing distance by beach site for the sampled shorebirds."><img src="19-dependence-and-mixed-models_files/figure-html/fig-birds-site-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1200"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-birds-site-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Landing distance by beach site for the sampled shorebirds.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(birds, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> land.dist, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">y =</span> <span class="st">"Landing distance (m)"</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-birds-species" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-birds-species-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="19-dependence-and-mixed-models_files/figure-html/fig-birds-species-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Landing distance differs strongly among shorebird species, but values also vary among sites."><img src="19-dependence-and-mixed-models_files/figure-html/fig-birds-species-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1200"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-birds-species-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Landing distance differs strongly among shorebird species, but values also vary among sites.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The EDA in <a href="#fig-birds-site" class="quarto-xref">Figure&nbsp;1</a> and <a href="#fig-birds-species" class="quarto-xref">Figure&nbsp;2</a> already shows why an ordinary model may be too simple. Landing distance differs among species, but there is also clear site-to-site variability. That suggests a grouped structure in which site should not be ignored.</p>
+</section>
+<section id="state-the-model-question-and-hypotheses" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="state-the-model-question-and-hypotheses"><span class="header-section-number">6.3</span> State the Model Question and Hypotheses</h2>
+<p>The main biological question is whether landing distance differs among species after accounting for the fact that birds were sampled within sites.</p>
+<p>For the primary fixed effect, the hypothesis pair is:</p>
+<p><span class="math display">\[H_{0}: \text{landing distance does not differ among species once site-level grouping is accounted for}\]</span> <span class="math display">\[H_{a}: \text{landing distance differs among species after accounting for site-level grouping}\]</span></p>
+<p>The random effect is not interpreted through a simple null-hypothesis pair in the same way. Its role is to account for the grouped sampling structure.</p>
+</section>
+<section id="fit-the-model" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="fit-the-model"><span class="header-section-number">6.4</span> Fit the Model</h2>
+<p>We first fit an ordinary linear model that ignores site, and then a mixed model with a random intercept for <code>Site</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(land.dist <span class="sc">~</span> Species <span class="sc">+</span> Sex, <span class="at">data =</span> birds)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>fit_lmer <span class="ot">&lt;-</span> <span class="fu">lmer</span>(land.dist <span class="sc">~</span> Species <span class="sc">+</span> Sex <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Site), <span class="at">data =</span> birds)</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="fu">summary</span>(fit_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt; Call:
+R&gt; lm(formula = land.dist ~ Species + Sex, data = birds)
+R&gt; 
+R&gt; Residuals:
+R&gt;     Min      1Q  Median      3Q     Max 
+R&gt; -51.779 -14.413   0.021  12.883  51.754 
+R&gt; 
+R&gt; Coefficients:
+R&gt;                      Estimate Std. Error t value Pr(&gt;|t|)    
+R&gt; (Intercept)            42.637      1.852  23.028  &lt; 2e-16 ***
+R&gt; SpeciesOystercatcher  120.509      2.938  41.014  &lt; 2e-16 ***
+R&gt; SpeciesPlover          36.942      2.232  16.554  &lt; 2e-16 ***
+R&gt; SpeciesStint           17.228      3.355   5.135 4.45e-07 ***
+R&gt; SexMale                -1.591      1.933  -0.823    0.411    
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+R&gt; 
+R&gt; Residual standard error: 19.15 on 394 degrees of freedom
+R&gt; Multiple R-squared:  0.8139, Adjusted R-squared:  0.812 
+R&gt; F-statistic: 430.8 on 4 and 394 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">summary</span>(fit_lmer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+R&gt; lmerModLmerTest]
+R&gt; Formula: land.dist ~ Species + Sex + (1 | Site)
+R&gt;    Data: birds
+R&gt; 
+R&gt; REML criterion at convergence: 3178.2
+R&gt; 
+R&gt; Scaled residuals: 
+R&gt;     Min      1Q  Median      3Q     Max 
+R&gt; -2.9082 -0.7167 -0.0061  0.6730  3.2716 
+R&gt; 
+R&gt; Random effects:
+R&gt;  Groups   Name        Variance Std.Dev.
+R&gt;  Site     (Intercept) 256.0    16.00   
+R&gt;  Residual             167.9    12.96   
+R&gt; Number of obs: 399, groups:  Site, 5
+R&gt; 
+R&gt; Fixed effects:
+R&gt;                      Estimate Std. Error      df t value Pr(&gt;|t|)    
+R&gt; (Intercept)            43.061      7.265   4.177   5.927  0.00354 ** 
+R&gt; SpeciesOystercatcher  119.638      1.991 390.017  60.089  &lt; 2e-16 ***
+R&gt; SpeciesPlover          37.689      1.515 390.044  24.870  &lt; 2e-16 ***
+R&gt; SpeciesStint           18.858      2.275 390.024   8.290 1.85e-15 ***
+R&gt; SexMale                -2.260      1.311 390.029  -1.724  0.08550 .  
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+R&gt; 
+R&gt; Correlation of Fixed Effects:
+R&gt;             (Intr) SpcsOy SpcsPl SpcsSt
+R&gt; SpcsOystrct -0.074                     
+R&gt; SpeciesPlvr -0.100  0.334              
+R&gt; SpeciesStnt -0.072  0.228  0.300       
+R&gt; SexMale     -0.104  0.045  0.085  0.106</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>vc <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(fit_lmer))</span>
+<span id="cb11-2"><a href="#cb11-2"></a>site_var <span class="ot">&lt;-</span> vc<span class="sc">$</span>vcov[vc<span class="sc">$</span>grp <span class="sc">==</span> <span class="st">"Site"</span>]</span>
+<span id="cb11-3"><a href="#cb11-3"></a>resid_var <span class="ot">&lt;-</span> vc<span class="sc">$</span>vcov[vc<span class="sc">$</span>grp <span class="sc">==</span> <span class="st">"Residual"</span>]</span>
+<span id="cb11-4"><a href="#cb11-4"></a>icc <span class="ot">&lt;-</span> site_var <span class="sc">/</span> (site_var <span class="sc">+</span> resid_var)</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="fu">tibble</span>(</span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="at">model =</span> <span class="fu">c</span>(<span class="st">"ordinary linear model"</span>, <span class="st">"mixed model"</span>),</span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="at">AIC =</span> <span class="fu">c</span>(<span class="fu">AIC</span>(fit_lm), <span class="fu">AIC</span>(fit_lmer))</span>
+<span id="cb11-9"><a href="#cb11-9"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 2 × 2
+R&gt;   model                   AIC
+R&gt;   &lt;chr&gt;                 &lt;dbl&gt;
+R&gt; 1 ordinary linear model 3495.
+R&gt; 2 mixed model           3192.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>icc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; [1] 0.603998</code></pre>
+</div>
+</div>
+</section>
+<section id="test-assumptions-check-diagnostics" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="test-assumptions-check-diagnostics"><span class="header-section-number">6.5</span> Test Assumptions / Check Diagnostics</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># plot(fit_lmer)</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit_lmer))</span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(fit_lmer))</span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="fu">hist</span>(<span class="fu">residuals</span>(fit_lmer), <span class="at">main =</span> <span class="st">"Residuals"</span>, <span class="at">xlab =</span> <span class="st">"Residual"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit_lmer), <span class="fu">residuals</span>(fit_lmer),</span>
+<span id="cb15-7"><a href="#cb15-7"></a>     <span class="at">xlab =</span> <span class="st">"Fitted values"</span>, <span class="at">ylab =</span> <span class="st">"Residuals"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-lmm-diagnostics" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lmm-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="19-dependence-and-mixed-models_files/figure-html/fig-lmm-diagnostics-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Standard residual diagnostics for the mixed model."><img src="19-dependence-and-mixed-models_files/figure-html/fig-lmm-diagnostics-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1800"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lmm-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Standard residual diagnostics for the mixed model.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In a first-pass mixed-model workflow, the diagnostics in <a href="#fig-lmm-diagnostics" class="quarto-xref">Figure&nbsp;3</a> help answer the main questions:</p>
+<ul>
+<li>are the residuals grossly non-normal or strongly patterned;</li>
+<li>does the random effect explain a meaningful share of the variance;</li>
+<li>does the mixed model fit better than the independence-assuming alternative.</li>
+</ul>
+<p>Here the random site effect is not trivial. The intra-class correlation is about 0.6, which means that roughly 60% of the variance represented by the model’s variance components is at the site level rather than purely within sites.</p>
+</section>
+<section id="interpret-the-results" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="interpret-the-results"><span class="header-section-number">6.6</span> Interpret the Results</h2>
+<p>The mixed model fit is clearly better than the ordinary model by AIC, which already suggests that site-level dependence matters.</p>
+<p>The species effects are also large. Relative to the reference species, landing distance is substantially greater for Oystercatchers and Plovers, with Stints intermediate. The sex effect is much weaker and does not provide strong evidence for a difference at the conventional 0.05 level.</p>
+<p>The ecological finding is that species differ, and those differences should be interpreted <strong>after accounting for site-level dependence</strong>, not before. If site is ignored, the analysis behaves as though all birds were sampled independently from one large homogeneous pool.</p>
+</section>
+<section id="reporting" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="reporting"><span class="header-section-number">6.7</span> Reporting</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Write-Up
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Methods</strong></p>
+<p>Landing distance was analysed for shorebirds sampled across multiple beach sites using a linear mixed-effects model. Species and sex were included as fixed effects, and site was included as a random intercept to account for the grouped sampling structure. An ordinary linear model that ignored site was fitted for comparison.</p>
+<p><strong>Results</strong></p>
+<p>The mixed model fit the data better than the ordinary linear model (AIC 3495.2 vs 3192.2), indicating that site-level dependence was important. The estimated site-level variance was substantial, with an intra-class correlation of approximately 0.6. After accounting for this grouped structure, landing distance remained much greater in Oystercatchers (<span class="math inline">\(\beta = 119.64\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>), Plovers (<span class="math inline">\(\beta = 37.69\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>), and Stints (<span class="math inline">\(\beta = 18.86\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>) than in the reference species. The sex effect was weaker and not clearly different from zero (<span class="math inline">\(p &gt; 0.05\)</span>).</p>
+<p><strong>Discussion</strong></p>
+<p>Species differed in landing distance, but those differences were estimated while accounting for the non-independence of observations within sites. This makes the inference more defensible and avoids treating site-level similarity as if it were independent replication.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="example-2-repeated-snake-habituation-within-individuals" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Example 2: Repeated Snake Habituation Within Individuals</h1>
+<p>The snake habituation dataset used earlier in the module is a better fit for this chapter than for the core ANOVA chapter. Each snake was measured repeatedly across days, so the observations are not independent. Treating <code>snake</code> as just another fixed factor in an additive ANOVA misses the main design point: repeated measurements on the same individuals create within-snake dependence.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>snakes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"snakes.csv"</span>),</span>
+<span id="cb16-2"><a href="#cb16-2"></a>                   <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="at">snake =</span> <span class="fu">factor</span>(snake),</span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="at">day =</span> <span class="fu">factor</span>(day)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>  )</span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a>snakes <span class="sc">|&gt;</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">group_by</span>(day) <span class="sc">|&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-11"><a href="#cb16-11"></a>    <span class="at">mean_openings =</span> <span class="fu">mean</span>(openings),</span>
+<span id="cb16-12"><a href="#cb16-12"></a>    <span class="at">sd_openings =</span> <span class="fu">sd</span>(openings),</span>
+<span id="cb16-13"><a href="#cb16-13"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 4 × 3
+R&gt;   day   mean_openings sd_openings
+R&gt;   &lt;fct&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+R&gt; 1 1              63.3        30.5
+R&gt; 2 2              47          12.2
+R&gt; 3 3              34.5        26.0
+R&gt; 4 4              25.3        18.1</code></pre>
+</div>
+</div>
+<section id="why-this-is-a-dependence-problem" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="why-this-is-a-dependence-problem"><span class="header-section-number">7.1</span> Why This Is a Dependence Problem</h2>
+<p>The biological question is whether the number of box openings required for habituation changes across repeated days. But each snake contributes several observations, one on each day. That means the data have a grouped structure: measurements from the same snake are likely to be more similar to one another than measurements from different snakes.</p>
+<p>That grouped structure suggests a random-intercept model with snake identity as the grouping factor.</p>
+</section>
+<section id="fit-a-naive-model-and-a-mixed-model" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="fit-a-naive-model-and-a-mixed-model"><span class="header-section-number">7.2</span> Fit a Naive Model and a Mixed Model</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>snakes_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(openings <span class="sc">~</span> day, <span class="at">data =</span> snakes)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>snakes_lmer <span class="ot">&lt;-</span> <span class="fu">lmer</span>(openings <span class="sc">~</span> day <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> snake), <span class="at">data =</span> snakes)</span>
+<span id="cb18-3"><a href="#cb18-3"></a></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="fu">summary</span>(snakes_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt; Call:
+R&gt; lm(formula = openings ~ day, data = snakes)
+R&gt; 
+R&gt; Residuals:
+R&gt;     Min      1Q  Median      3Q     Max 
+R&gt; -41.333 -13.833  -3.333  11.500  43.667 
+R&gt; 
+R&gt; Coefficients:
+R&gt;             Estimate Std. Error t value Pr(&gt;|t|)    
+R&gt; (Intercept)   63.333      9.304   6.807 1.28e-06 ***
+R&gt; day2         -16.333     13.158  -1.241   0.2289    
+R&gt; day3         -28.833     13.158  -2.191   0.0404 *  
+R&gt; day4         -38.000     13.158  -2.888   0.0091 ** 
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+R&gt; 
+R&gt; Residual standard error: 22.79 on 20 degrees of freedom
+R&gt; Multiple R-squared:  0.3195, Adjusted R-squared:  0.2174 
+R&gt; F-statistic:  3.13 on 3 and 20 DF,  p-value: 0.04852</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">summary</span>(snakes_lmer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+R&gt; lmerModLmerTest]
+R&gt; Formula: openings ~ day + (1 | snake)
+R&gt;    Data: snakes
+R&gt; 
+R&gt; REML criterion at convergence: 188.9
+R&gt; 
+R&gt; Scaled residuals: 
+R&gt;     Min      1Q  Median      3Q     Max 
+R&gt; -1.8167 -0.6088 -0.1673  0.4153  1.9075 
+R&gt; 
+R&gt; Random effects:
+R&gt;  Groups   Name        Variance Std.Dev.
+R&gt;  snake    (Intercept)  29.68    5.448  
+R&gt;  Residual             489.73   22.130  
+R&gt; Number of obs: 24, groups:  snake, 6
+R&gt; 
+R&gt; Fixed effects:
+R&gt;             Estimate Std. Error      df t value Pr(&gt;|t|)    
+R&gt; (Intercept)   63.333      9.304  19.806   6.807 1.35e-06 ***
+R&gt; day2         -16.333     12.777  15.000  -1.278  0.22055    
+R&gt; day3         -28.833     12.777  15.000  -2.257  0.03938 *  
+R&gt; day4         -38.000     12.777  15.000  -2.974  0.00946 ** 
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+R&gt; 
+R&gt; Correlation of Fixed Effects:
+R&gt;      (Intr) day2   day3  
+R&gt; day2 -0.687              
+R&gt; day3 -0.687  0.500       
+R&gt; day4 -0.687  0.500  0.500</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="at">model =</span> <span class="fu">c</span>(<span class="st">"ordinary linear model"</span>, <span class="st">"mixed model"</span>),</span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="at">AIC =</span> <span class="fu">c</span>(<span class="fu">AIC</span>(snakes_lm), <span class="fu">AIC</span>(snakes_lmer))</span>
+<span id="cb22-4"><a href="#cb22-4"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 2 × 2
+R&gt;   model                   AIC
+R&gt;   &lt;chr&gt;                 &lt;dbl&gt;
+R&gt; 1 ordinary linear model  224.
+R&gt; 2 mixed model            201.</code></pre>
+</div>
+</div>
+<p>The ordinary model behaves as though all snake-day observations are independent. The mixed model recognises that each snake has its own baseline tendency to habituate faster or more slowly.</p>
+</section>
+<section id="interpret-the-results-1" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="interpret-the-results-1"><span class="header-section-number">7.3</span> Interpret the Results</h2>
+<p>The day effect remains the main biological signal: the number of openings required for habituation decreases across repeated days. But the mixed model estimates that change while accounting for repeated observations within snakes.</p>
+<p>That is the crucial design lesson. This is not mainly a “two-way ANOVA without replication” problem. It is a repeated-measures problem in which snake identity induces dependence.</p>
+</section>
+<section id="reporting-1" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="reporting-1"><span class="header-section-number">7.4</span> Reporting</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Write-Up
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Methods</strong></p>
+<p>The number of box openings required for rattlesnakes to habituate was analysed as a repeated-measures problem. Day was included as a fixed effect, and snake identity was included as a random intercept to account for repeated observations on the same individuals.</p>
+<p><strong>Results</strong></p>
+<p>The number of box openings required for habituation declined across repeated days, indicating that snakes habituated more rapidly with repeated exposure to the apparatus. Modelling snake identity as a random effect accounted for the non-independence created by repeated measurements on the same individuals, making the day effect interpretable at the correct design level.</p>
+<p><strong>Discussion</strong></p>
+<p>The important point is not only that habituation changed through time, but that the analysis respected the repeated-measures structure of the experiment. This is why the example belongs with dependence and mixed models rather than as a core factorial ANOVA illustration.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="what-to-do-when-assumptions-fail-alternatives" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> What to Do When Assumptions Fail / Alternatives</h1>
+<ul>
+<li>If the response is not Gaussian, move to a generalised mixed model with <code>glmer()</code>.</li>
+<li>If repeated measurements through time create autocorrelation, consider a model with explicit correlation structure rather than relying only on a random intercept.</li>
+<li>If the random-effects structure is biologically richer than a simple intercept, extend it cautiously to random slopes where the design supports that.</li>
+<li>If the design is fundamentally pseudoreplicated, a mixed model cannot rescue the study completely; it can only model the dependence that is actually observed.</li>
+</ul>
+</section>
+<section id="summary" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Summary</h1>
+<ul>
+<li>Mixed models are needed when observations are grouped or otherwise dependent.</li>
+<li>The random effect is not an afterthought; it represents the sampling structure directly.</li>
+<li>In the beach-bird example, site-level dependence was strong enough to improve model fit markedly.</li>
+<li>Species differences in landing distance remained important even after that dependence was accounted for.</li>
+</ul>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
+  author = {A. J. , Smit},
+  title = {19. {Dependence} and {Mixed} {Models}},
+  date = {2026-04-07},
+  url = {http://samos-r.netlify.app/basic_stats/19-dependence-and-mixed-models.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2026) 19. Dependence and Mixed Models. <a href="http://samos-r.netlify.app/basic_stats/19-dependence-and-mixed-models.html">http://samos-r.netlify.app/basic_stats/19-dependence-and-mixed-models.html.
+</a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../basic_stats/18-pseudoreplication.html" class="pagination-link" aria-label="18. Pseudoreplication">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">18. Pseudoreplication</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../basic_stats/20-generalised-linear-models.html" class="pagination-link" aria-label="20. Generalised Linear Models">
+        <span class="nav-page-text">20. Generalised Linear Models</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026, AJ Smit</p>
+</div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/19-dependence-and-mixed-models.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

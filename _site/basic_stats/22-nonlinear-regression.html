@@ -1,0 +1,2823 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Smit, A. J.">
+
+<title>22. Nonlinear Regression – SAMOS R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../basic_stats/23-quantile-regression.html" rel="next">
+<link href="../basic_stats/21-generalised-additive-models.html" rel="prev">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles/styles.css">
+<link rel="stylesheet" href="../../styles/biostats-callouts.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">SAMOS R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../intro_r/01-RStudio.html"> 
+<span class="menu-text">Intro to R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../basic_stats/02-summarise-and-describe.html"> 
+<span class="menu-text">Biostatistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tasks/SAMOS_R_Task_A.html"> 
+<span class="menu-text">Tasks</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ajsmit/tangled_bank">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/22-nonlinear-regression.html">22. Nonlinear Regression</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/SAMOS-logo-transparent.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/01-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/02-working-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Working with Data and Code</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. R Markdown and Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/04-data-in-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Data Classes and Structures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/05-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. R Workflows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/06-intro_graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Introduction to Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/07-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Tidy Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/08-tidier.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Tidier Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/09-tidiest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Tidiest Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/10-graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Graphics with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/11-faceting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Faceting Figures</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/12-brewing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Brewing Colours</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/13-mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Mapping with <strong>ggplot2</strong></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/14-mapping_style.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Mapping with Style</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/15-mapping_rnaturalearth.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Mapping with Natural Earth</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/16-mapping_quakes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. The Fiji Earthquake Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_r/17-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Synthesis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Biostatistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Summarising Biological Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Visualising Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/05-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/07-t_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. <em>t</em>-Tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/08-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. ANOVA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Self Assessments</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task C</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro R Task D</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task E</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task F</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Stats_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Bonus Task</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#key-concepts" id="toc-key-concepts" class="nav-link active" data-scroll-target="#key-concepts"><span class="header-section-number">1</span> Key Concepts</a></li>
+  <li><a href="#when-this-method-is-appropriate" id="toc-when-this-method-is-appropriate" class="nav-link" data-scroll-target="#when-this-method-is-appropriate"><span class="header-section-number">2</span> When This Method Is Appropriate</a></li>
+  <li><a href="#nature-of-the-data-and-assumptions" id="toc-nature-of-the-data-and-assumptions" class="nav-link" data-scroll-target="#nature-of-the-data-and-assumptions"><span class="header-section-number">3</span> Nature of the Data and Assumptions</a></li>
+  <li><a href="#the-core-equation" id="toc-the-core-equation" class="nav-link" data-scroll-target="#the-core-equation"><span class="header-section-number">4</span> The Core Equation</a></li>
+  <li><a href="#r-functions" id="toc-r-functions" class="nav-link" data-scroll-target="#r-functions"><span class="header-section-number">5</span> R Functions</a></li>
+  <li><a href="#example-1-why-use-a-mechanistic-nonlinear-model" id="toc-example-1-why-use-a-mechanistic-nonlinear-model" class="nav-link" data-scroll-target="#example-1-why-use-a-mechanistic-nonlinear-model"><span class="header-section-number">6</span> Example 1: Why Use a Mechanistic Nonlinear Model?</a></li>
+  <li><a href="#example-2-algal-nutrient-uptake-kinetics" id="toc-example-2-algal-nutrient-uptake-kinetics" class="nav-link" data-scroll-target="#example-2-algal-nutrient-uptake-kinetics"><span class="header-section-number">7</span> Example 2: Algal Nutrient Uptake Kinetics</a>
+  <ul class="collapse">
+  <li><a href="#do-an-exploratory-data-analysis-eda" id="toc-do-an-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#do-an-exploratory-data-analysis-eda"><span class="header-section-number">7.1</span> Do an Exploratory Data Analysis (EDA)</a></li>
+  <li><a href="#state-the-model-question" id="toc-state-the-model-question" class="nav-link" data-scroll-target="#state-the-model-question"><span class="header-section-number">7.2</span> State the Model Question</a></li>
+  <li><a href="#fit-the-model" id="toc-fit-the-model" class="nav-link" data-scroll-target="#fit-the-model"><span class="header-section-number">7.3</span> Fit the Model</a></li>
+  <li><a href="#check-diagnostics" id="toc-check-diagnostics" class="nav-link" data-scroll-target="#check-diagnostics"><span class="header-section-number">7.4</span> Check Diagnostics</a></li>
+  <li><a href="#interpret-the-results" id="toc-interpret-the-results" class="nav-link" data-scroll-target="#interpret-the-results"><span class="header-section-number">7.5</span> Interpret the Results</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">7.6</span> Reporting</a></li>
+  <li><a href="#what-if-we-add-treatments" id="toc-what-if-we-add-treatments" class="nav-link" data-scroll-target="#what-if-we-add-treatments"><span class="header-section-number">7.7</span> What If We Add Treatments?</a></li>
+  <li><a href="#repeated-measures-extension" id="toc-repeated-measures-extension" class="nav-link" data-scroll-target="#repeated-measures-extension"><span class="header-section-number">7.8</span> Repeated-Measures Extension</a></li>
+  </ul></li>
+  <li><a href="#example-3-repeated-measures-michaelis-menten-kinetics" id="toc-example-3-repeated-measures-michaelis-menten-kinetics" class="nav-link" data-scroll-target="#example-3-repeated-measures-michaelis-menten-kinetics"><span class="header-section-number">8</span> Example 3: Repeated-Measures Michaelis-Menten Kinetics</a>
+  <ul class="collapse">
+  <li><a href="#example-dataset" id="toc-example-dataset" class="nav-link" data-scroll-target="#example-dataset"><span class="header-section-number">8.1</span> Example Dataset</a></li>
+  <li><a href="#do-an-exploratory-data-analysis-eda-1" id="toc-do-an-exploratory-data-analysis-eda-1" class="nav-link" data-scroll-target="#do-an-exploratory-data-analysis-eda-1"><span class="header-section-number">8.2</span> Do an Exploratory Data Analysis (EDA)</a></li>
+  <li><a href="#state-the-model-question-1" id="toc-state-the-model-question-1" class="nav-link" data-scroll-target="#state-the-model-question-1"><span class="header-section-number">8.3</span> State the Model Question</a></li>
+  <li><a href="#fit-the-model-1" id="toc-fit-the-model-1" class="nav-link" data-scroll-target="#fit-the-model-1"><span class="header-section-number">8.4</span> Fit the Model</a></li>
+  <li><a href="#check-diagnostics-1" id="toc-check-diagnostics-1" class="nav-link" data-scroll-target="#check-diagnostics-1"><span class="header-section-number">8.5</span> Check Diagnostics</a></li>
+  <li><a href="#interpret-the-results-1" id="toc-interpret-the-results-1" class="nav-link" data-scroll-target="#interpret-the-results-1"><span class="header-section-number">8.6</span> Interpret the Results</a></li>
+  <li><a href="#reporting-1" id="toc-reporting-1" class="nav-link" data-scroll-target="#reporting-1"><span class="header-section-number">8.7</span> Reporting</a></li>
+  </ul></li>
+  <li><a href="#choosing-among-flexible-models" id="toc-choosing-among-flexible-models" class="nav-link" data-scroll-target="#choosing-among-flexible-models"><span class="header-section-number">9</span> Choosing Among Flexible Models</a></li>
+  <li><a href="#practical-caution" id="toc-practical-caution" class="nav-link" data-scroll-target="#practical-caution"><span class="header-section-number">10</span> Practical Caution</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/22-nonlinear-regression.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/22-nonlinear-regression.html">22. Nonlinear Regression</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">22. Nonlinear Regression</h1>
+<p class="subtitle lead">When Straight Lines Are Not Enough</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://samos-r.netlify.app">Smit, A. J.</a> <a href="https://orcid.org/0000-0002-3799-6126" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://uwc.ac.za">
+            University of the Western Cape
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026/04/07</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In This Chapter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Why some biological relationships are mechanistically nonlinear</li>
+<li>How nonlinear regression differs from polynomial and additive models</li>
+<li>The logic of named nonlinear functions</li>
+<li>A worked Michaelis-Menten example</li>
+<li>How nonlinear mixed-effects models extend mechanistic curves to repeated-measures data</li>
+<li>What to check when fitting nonlinear models</li>
+</ul>
+</div>
+</div>
+<p>Some relationships are curved because the biology is curved. Growth saturates, enzyme kinetics asymptote, seasonal cycles oscillate, and responses may level off, bend, or change slope across the range of the predictor. In such cases, a straight-line model is often too rigid.</p>
+<p>In this chapter, I focus specifically on mechanistic nonlinear regression: models where the response is described by a named nonlinear function whose parameters have scientific meaning. Examples include saturating uptake curves, logistic growth, seasonal sine curves, and other biologically motivated responses.</p>
+<p>Polynomial regression and GAMs are covered in their own chapters because they answer a different modelling need. Here the emphasis is narrower and stronger: what to do when the biology suggests the form of the curve itself.</p>
+<section id="key-concepts" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Key Concepts</h1>
+<ul>
+<li><strong>Nonlinearity</strong> often reflects real biological structure rather than unwanted curvature.</li>
+<li><strong>Flexible regression</strong> can model patterns that a straight line misses.</li>
+<li><strong>Mechanistic nonlinear models are appropriate when the curve has a biologically motivated form.</strong></li>
+<li><strong>Greater flexibility increases the risk of overfitting</strong> if used carelessly.</li>
+<li><strong>Model choice should follow biological form</strong>, not only convenience or visual preference.</li>
+</ul>
+</section>
+<section id="when-this-method-is-appropriate" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> When This Method Is Appropriate</h1>
+<p>You should move beyond a simple linear model when:</p>
+<ul>
+<li>the fitted residuals show clear curvature;</li>
+<li>the biology suggests an asymptote, threshold, saturation, or oscillation;</li>
+<li>the response changes differently across the predictor range;</li>
+<li>the question concerns parts of the response distribution other than the mean.</li>
+</ul>
+<p>The diagnostic chapters earlier in the sequence already suggested this possibility. This chapter is about what to do next.</p>
+</section>
+<section id="nature-of-the-data-and-assumptions" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Nature of the Data and Assumptions</h1>
+<p>Mechanistic nonlinear regression is still regression, so the familiar concerns about independence, residual spread, and overall model adequacy do not disappear. In many introductory applications, the response variable is continuous and the residuals are assumed to be approximately normally distributed with constant variance.</p>
+<p>The key distinction is that the mean structure is explicitly nonlinear and tied to a named function. These models are usually fitted by nonlinear least squares with <code>nls()</code>, or by mixed-effects extensions when grouped or repeated-measures data are present.</p>
+<p>The practical point is that you choose a non-linear model because the straight-line model is inadequate and because the curved alternative matches the biological process or the inferential question more closely. And it looks pretty and complicated.</p>
+</section>
+<section id="the-core-equation" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The Core Equation</h1>
+<p>The general form of a nonlinear regression is:</p>
+<p><span id="eq-nonlinear"><span class="math display">\[Y_i = f(X_i, \theta) + \epsilon_i \tag{1}\]</span></span></p>
+<p>In <a href="#eq-nonlinear" class="quarto-xref">Equation&nbsp;1</a>, <span class="math inline">\(f(\cdot)\)</span> is a biologically chosen nonlinear function and <span class="math inline">\(\theta\)</span> represents the parameter set that defines its shape. This chapter then uses a Michaelis-Menten curve as the main worked example of that general idea.</p>
+</section>
+<section id="r-functions" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> R Functions</h1>
+<p>Some of the most useful R functions are:</p>
+<ul>
+<li><code>nls()</code> for nonlinear least-squares models;</li>
+<li><code>nlme::nlme()</code> when nonlinear relationships occur in grouped or repeated-measures data.</li>
+</ul>
+<p>Examples:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">lm</span>(response <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="at">degree =</span> <span class="dv">2</span>), <span class="at">data =</span> df)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">nls</span>(y <span class="sc">~</span> Vmax <span class="sc">*</span> x <span class="sc">/</span> (Km <span class="sc">+</span> x), <span class="at">data =</span> df,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="at">start =</span> <span class="fu">list</span>(<span class="at">Vmax =</span> <span class="dv">1</span>, <span class="at">Km =</span> <span class="dv">1</span>))</span>
+<span id="cb1-4"><a href="#cb1-4"></a>nlme<span class="sc">::</span><span class="fu">nlme</span>(y <span class="sc">~</span> Vmax <span class="sc">*</span> x <span class="sc">/</span> (Km <span class="sc">+</span> x), <span class="at">data =</span> df, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>One practical difference from ordinary regression is that <code>nls()</code> usually needs sensible starting values. Unlike <code>lm()</code>, it uses an iterative search for the best-fitting parameter values, and poor starting values can prevent convergence.</p>
+</section>
+<section id="example-1-why-use-a-mechanistic-nonlinear-model" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Example 1: Why Use a Mechanistic Nonlinear Model?</h1>
+<p>The first decision is whether the biology gives you a reason to prefer a specific nonlinear function rather than a descriptive curve.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-main-families" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-main-families-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-main-families-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Examples of curved models fitted to simulated data. A polynomial can capture modest curvature, a GAM can adapt flexibly to the data, and a mechanistic nonlinear model can represent a known saturating biological response."><img src="22-nonlinear-regression_files/figure-html/fig-main-families-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-main-families-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Examples of curved models fitted to simulated data. A polynomial can capture modest curvature, a GAM can adapt flexibly to the data, and a mechanistic nonlinear model can represent a known saturating biological response.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-main-families" class="quarto-xref">Figure&nbsp;1</a> shows three broad situations:</p>
+<ul>
+<li>A polynomial model can describe modest curvature, but it is mainly descriptive.</li>
+<li>A GAM is very useful when the relationship is clearly curved but its exact form is unknown or not informative.</li>
+<li>A mechanistic nonlinear model is most attractive when the biology suggests a specific function, because its parameters can often be interpreted directly.</li>
+</ul>
+<p>That last point is important. If we know the process should saturate, as in nutrient uptake kinetics, a mechanistic model tells us more than a flexible smoother. It gives us interpretable parameters such as an asymptote or a half-saturation constant.</p>
+</section>
+<section id="example-2-algal-nutrient-uptake-kinetics" class="level1 page-columns page-full" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Example 2: Algal Nutrient Uptake Kinetics</h1>
+<p>We can measure algal nutrient uptake rates using a multiple flask experiment. We prepare a series of flasks, each containing a different initial concentration of the substrate nutrient, and then estimate nutrient uptake rate over a fixed time interval. The result is a set of uptake rates, <span class="math inline">\(V\)</span> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>), paired with substrate concentrations, <span class="math inline">\([S]\)</span> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>).</p>
+<p>If you need a reminder of the biological and experimental context behind these data, refer back to the BDC223 nutrient-uptake material in <a href="../../BDC223/L08a-nutrient_uptake.qmd">Lecture 8a: Nutrient Uptake</a>, <a href="../../BDC223/L08b-nutrients_michaelis_menten.qmd">Lecture 8b: Uptake Kinetics – Michaelis-Menten</a>, and <a href="../../BDC223/Lab4_nitrogen_uptake.qmd">Lab 4: Uptake Kinetics – Michaelis-Menten</a>. Those pages explain the experimental principles of the multiple-flask design in much more detail than is needed here.</p>
+<p>Applied to algae, the Michaelis-Menten model assumes an irreversible uptake process that saturates at high substrate concentrations. It effectively quantifies key characteristics of the nutrient uptake system, including the maximum uptake rate and the alga’s affinity for the nutrient:</p>
+<p><span id="eq-mm"><span class="math display">\[V_i = \frac{V_{max} \cdot [S_i]}{K_m + [S_i]} + \epsilon_i \tag{2}\]</span></span></p>
+<p>In <a href="#eq-mm" class="quarto-xref">Equation&nbsp;2</a>:</p>
+<ul>
+<li><span class="math inline">\(V_i\)</span> is the uptake rate at the <span class="math inline">\(i\)</span>-th observation (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>);</li>
+<li><span class="math inline">\(V_{max}\)</span> is the maximum nutrient uptake rate achieved (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>);</li>
+<li><span class="math inline">\([S_i]\)</span> is the substrate concentration at the <span class="math inline">\(i\)</span>-th observation (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>);</li>
+<li><span class="math inline">\(K_m\)</span> is the substrate concentration at which uptake reaches half of <span class="math inline">\(V_{max}\)</span> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>); and</li>
+<li><span class="math inline">\(\epsilon_i\)</span> is the residual error.</li>
+</ul>
+<p>The two parameters are biologically meaningful. <span class="math inline">\(V_{max}\)</span> represents the maximum capacity of the alga to utilise the nutrient and is measured in <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>. <span class="math inline">\(K_m\)</span> describes the affinity of the uptake system for that nutrient and is measured in <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>. Lower values of <span class="math inline">\(K_m\)</span> indicate higher affinity.</p>
+<section id="do-an-exploratory-data-analysis-eda" class="level2 page-columns page-full" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="do-an-exploratory-data-analysis-eda"><span class="header-section-number">7.1</span> Do an Exploratory Data Analysis (EDA)</h2>
+<p>To demonstrate fitting a nonlinear model to <span class="math inline">\(V\)</span> versus <span class="math inline">\([S]\)</span> data from a multiple flask experiment, I simulate data across a range of substrate concentrations. The dataset consists of five replicate flasks for each of 13 substrate concentrations.</p>
+<div class="cell page-columns page-full" data-layout-align="center" data-tbl-cap="Preview of the simulated multiple-flask dataset (first and last four rows).">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>conc_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="fl">7.5</span>, <span class="dv">10</span>, <span class="fl">12.5</span>, <span class="dv">15</span>, <span class="fl">17.5</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>n_rep <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>Km_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>Vmax_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>Km_vec_sd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.2</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>Vmax_vec_sd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.7</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>mf_data <span class="ot">&lt;-</span> <span class="fu">generate_data</span>(</span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="at">n_trt =</span> <span class="dv">1</span>,</span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="at">n_rep =</span> n_rep,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="at">conc_vec =</span> conc_vec,</span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="at">Km_vec =</span> Km_vec,</span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="at">Vmax_vec =</span> Vmax_vec,</span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="at">Km_vec_sd =</span> Km_vec_sd,</span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="at">Vmax_vec_sd =</span> Vmax_vec_sd</span>
+<span id="cb2-16"><a href="#cb2-16"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="fu">select</span>(rep, S, V)</span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a>mf_data <span class="sc">|&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, (<span class="fu">n</span>() <span class="sc">-</span> <span class="dv">3</span>)<span class="sc">:</span><span class="fu">n</span>())) <span class="sc">|&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>  gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>  gt<span class="sc">::</span><span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(S, V), <span class="at">decimals =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display page-columns page-full">
+<div id="oyprksffsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="page-columns page-full">
+<style>#oyprksffsj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#oyprksffsj thead, #oyprksffsj tbody, #oyprksffsj tfoot, #oyprksffsj tr, #oyprksffsj td, #oyprksffsj th {
+  border-style: none;
+}
+
+#oyprksffsj p {
+  margin: 0;
+  padding: 0;
+}
+
+#oyprksffsj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#oyprksffsj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#oyprksffsj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#oyprksffsj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#oyprksffsj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#oyprksffsj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#oyprksffsj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#oyprksffsj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#oyprksffsj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#oyprksffsj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#oyprksffsj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#oyprksffsj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#oyprksffsj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#oyprksffsj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#oyprksffsj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oyprksffsj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#oyprksffsj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#oyprksffsj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#oyprksffsj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oyprksffsj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#oyprksffsj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oyprksffsj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#oyprksffsj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oyprksffsj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#oyprksffsj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oyprksffsj .gt_left {
+  text-align: left;
+}
+
+#oyprksffsj .gt_center {
+  text-align: center;
+}
+
+#oyprksffsj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#oyprksffsj .gt_font_normal {
+  font-weight: normal;
+}
+
+#oyprksffsj .gt_font_bold {
+  font-weight: bold;
+}
+
+#oyprksffsj .gt_font_italic {
+  font-style: italic;
+}
+
+#oyprksffsj .gt_super {
+  font-size: 65%;
+}
+
+#oyprksffsj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#oyprksffsj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#oyprksffsj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#oyprksffsj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#oyprksffsj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#oyprksffsj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#oyprksffsj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#oyprksffsj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#oyprksffsj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-bootstrap="false">
+
+<thead>
+<tr class="gt_col_headings header">
+<th id="rep" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">rep</th>
+<th id="S" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">S</th>
+<th id="V" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">V</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="rep">1</td>
+<td class="gt_row gt_right" headers="S">0.00</td>
+<td class="gt_row gt_right" headers="V">0.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="rep">2</td>
+<td class="gt_row gt_right" headers="S">0.00</td>
+<td class="gt_row gt_right" headers="V">0.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="rep">3</td>
+<td class="gt_row gt_right" headers="S">0.00</td>
+<td class="gt_row gt_right" headers="V">0.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="rep">4</td>
+<td class="gt_row gt_right" headers="S">0.00</td>
+<td class="gt_row gt_right" headers="V">0.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="rep">2</td>
+<td class="gt_row gt_right" headers="S">30.00</td>
+<td class="gt_row gt_right" headers="V">35.12</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="rep">3</td>
+<td class="gt_row gt_right" headers="S">30.00</td>
+<td class="gt_row gt_right" headers="V">39.07</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="rep">4</td>
+<td class="gt_row gt_right" headers="S">30.00</td>
+<td class="gt_row gt_right" headers="V">37.78</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="rep">5</td>
+<td class="gt_row gt_right" headers="S">30.00</td>
+<td class="gt_row gt_right" headers="V">36.73</td>
+</tr>
+</tbody>
+</table>
+
+<div class="quarto-table-caption margin-caption">Preview of the simulated multiple-flask dataset (first and last four rows).</div></div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mf-eda" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mf-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-mf-eda-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Plot of uptake rate, V, as a function of substrate concentration, [S], for a multiple flask experiment. The relationship is clearly curved and tends towards saturation."><img src="22-nonlinear-regression_files/figure-html/fig-mf-eda-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mf-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Plot of uptake rate, V, as a function of substrate concentration, [S], for a multiple flask experiment. The relationship is clearly curved and tends towards saturation.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot in <a href="#fig-mf-eda" class="quarto-xref">Figure&nbsp;2</a> already suggests that a straight line is not the right model. Uptake increases quickly away from low substrate concentrations and then begins to level off when the concentrations become higher. That is exactly the sort of pattern for which a Michaelis-Menten model was designed.</p>
+<p>You will also often see greater spread in uptake rate at higher substrate concentrations. That happens because the high-concentration part of the curve approaches the enzyme-limited region. Once transport and assimilation systems are near saturation, small biological differences among flasks in tissue condition, enzyme capacity, light history, or temperature response can translate into visibly different realised uptake rates. At low concentrations, by contrast, uptake is constrained more strongly by substrate availability itself, so the responses are often pulled into a narrower range.</p>
+</section>
+<section id="state-the-model-question" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="state-the-model-question"><span class="header-section-number">7.2</span> State the Model Question</h2>
+<p>At this point, two related questions arise.</p>
+<p>The first is descriptive and mechanistic: can we estimate the uptake parameters <span class="math inline">\(V_{max}\)</span> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>) and <span class="math inline">\(K_m\)</span> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>) from these data?</p>
+<p>The second is comparative: does a Michaelis-Menten model fit these data better than a simple linear model?</p>
+<p>Those are not the same question. The first is about parameter estimation within a nonlinear biological model. The second is about choosing between two competing mean structures.</p>
+</section>
+<section id="fit-the-model" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="fit-the-model"><span class="header-section-number">7.3</span> Fit the Model</h2>
+<p>The Michaelis-Menten model is fit with <code>nls()</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>nls_mod <span class="ot">&lt;-</span> <span class="fu">nls</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  V <span class="sc">~</span> <span class="fu">mm_fun</span>(S, Vmax, Km),</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="at">data =</span> mf_data,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="at">start =</span> <span class="fu">c</span>(<span class="at">Vmax =</span> <span class="dv">30</span>, <span class="at">Km =</span> <span class="dv">5</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="fu">summary</span>(nls_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt; Formula: V ~ mm_fun(S, Vmax, Km)
+R&gt; 
+R&gt; Parameters:
+R&gt;      Estimate Std. Error t value Pr(&gt;|t|)    
+R&gt; Vmax  51.4417     1.1770   43.70   &lt;2e-16 ***
+R&gt; Km    10.5507     0.5975   17.66   &lt;2e-16 ***
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+R&gt; 
+R&gt; Residual standard error: 1.312 on 63 degrees of freedom
+R&gt; 
+R&gt; Number of iterations to convergence: 3 
+R&gt; Achieved convergence tolerance: 8.862e-06</code></pre>
+</div>
+</div>
+<p>The starting values do not have to be exact, but they should be sensible. Here we know from the plot that the asymptote is probably somewhere around <span class="math inline">\(40\)</span> to <span class="math inline">\(50\ \mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>, and that the half-saturation constant is likely to be in the single digits of <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mf-fit" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mf-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-mf-fit-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Michaelis-Menten model fitted to the uptake data. The dashed lines indicate the estimated Km and Vmax values."><img src="22-nonlinear-regression_files/figure-html/fig-mf-fit-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mf-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Michaelis-Menten model fitted to the uptake data. The dashed lines indicate the estimated Km and Vmax values.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="check-diagnostics" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="check-diagnostics"><span class="header-section-number">7.4</span> Check Diagnostics</h2>
+<p>Because this is a least-squares nonlinear model, residual diagnostics are interpreted much as they are for ordinary regression.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>mf_data <span class="ot">&lt;-</span> mf_data <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="at">fitted =</span> <span class="fu">fitted</span>(nls_mod),</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="at">resid =</span> <span class="fu">resid</span>(nls_mod)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  )</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="fu">shapiro.test</span>(mf_data<span class="sc">$</span>resid)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt;  Shapiro-Wilk normality test
+R&gt; 
+R&gt; data:  mf_data$resid
+R&gt; W = 0.97225, p-value = 0.1517</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mf-diagnostics" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mf-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-mf-diagnostics-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Basic diagnostics for the Michaelis-Menten fit. The residuals show no serious trend with the fitted values, and the distribution is approximately symmetric."><img src="22-nonlinear-regression_files/figure-html/fig-mf-diagnostics-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mf-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Basic diagnostics for the Michaelis-Menten fit. The residuals show no serious trend with the fitted values, and the distribution is approximately symmetric.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The diagnostics in <a href="#fig-mf-diagnostics" class="quarto-xref">Figure&nbsp;4</a> do not suggest any serious problem. The residual spread is fairly even, and the histogram is approximately symmetric. As always, you should not rely on a single formal test, but the residual behaviour is consistent with a usable fit.</p>
+</section>
+<section id="interpret-the-results" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="interpret-the-results"><span class="header-section-number">7.5</span> Interpret the Results</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>lm_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(V <span class="sc">~</span> S, <span class="at">data =</span> mf_data)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>model_comp <span class="ot">&lt;-</span> <span class="fu">anova</span>(lm_mod, nls_mod)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>f_stat <span class="ot">&lt;-</span> model_comp<span class="sc">$</span>F[<span class="dv">2</span>]</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="fu">AIC</span>(lm_mod, nls_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt;         df      AIC
+R&gt; lm_mod   3 395.8491
+R&gt; nls_mod  3 223.6862</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">BIC</span>(lm_mod, nls_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt;         df      BIC
+R&gt; lm_mod   3 402.3723
+R&gt; nls_mod  3 230.2094</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>model_comp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Analysis of Variance Table
+R&gt; 
+R&gt; Response: V
+R&gt;           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+R&gt; S          1 10274.8 10274.8  422.59 &lt; 2.2e-16 ***
+R&gt; Residuals 63  1531.8    24.3                      
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The fitted nonlinear model gives estimated values for <span class="math inline">\(V_{max}\)</span> and <span class="math inline">\(K_m\)</span>, and these are the biologically meaningful outputs of the analysis. The estimated <span class="math inline">\(V_{max}\)</span> is the asymptotic uptake rate in <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>, while <span class="math inline">\(K_m\)</span> indicates the substrate concentration in <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span> at which the uptake rate reaches half of that asymptote.</p>
+<p>The model comparison also matters. If the linear and Michaelis-Menten models are both fitted to the same data, the nonlinear model has markedly lower information criteria and a much smaller residual error. That supports the biological interpretation already suggested by the plot; that is, uptake increases with substrate concentration, but it does so in a saturating rather than indefinitely linear way.</p>
+</section>
+<section id="reporting" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="reporting"><span class="header-section-number">7.6</span> Reporting</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Write-Up
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Methods</strong></p>
+<p>Nutrient uptake rate was modelled as a function of substrate concentration with a Michaelis-Menten nonlinear regression fitted by nonlinear least squares. The nonlinear model was compared with a simple linear regression using information criteria and nested model comparison to assess whether the saturating form provided a better description of the data.</p>
+<p><strong>Results</strong></p>
+<p>Nutrient uptake increased rapidly with substrate concentration at low concentrations and then approached an asymptote, consistent with Michaelis-Menten kinetics (<a href="#fig-mf-fit" class="quarto-xref">Figure&nbsp;3</a>). The fitted nonlinear model estimated a maximum uptake rate of 51.44 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span> and a half-saturation constant of 10.55 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>. Relative to a simple linear regression, the Michaelis-Menten model provided the better description of the data, with lower AIC and BIC values and a significant improvement in fit (F = NA, <code>p &lt; 0.05</code>).</p>
+<p><strong>Discussion</strong></p>
+<p>The main biological point is that uptake is saturating rather than indefinitely linear over the observed concentration range. That matters because the fitted parameters now speak directly to uptake capacity and nutrient affinity.</p>
+</div>
+</div>
+</section>
+<section id="what-if-we-add-treatments" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="what-if-we-add-treatments"><span class="header-section-number">7.7</span> What If We Add Treatments?</h2>
+<p>Experiments are seldom as simple as the one above. Consider an experiment designed to assess whether an experimental treatment, such as light intensity or seawater temperature, affects nutrient uptake kinetics. It is biologically plausible to expect that each treatment will result in unique <span class="math inline">\(V_{max}\)</span> values (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>) and <span class="math inline">\(K_m\)</span> values (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>mf_data2 <span class="ot">&lt;-</span> <span class="fu">generate_data</span>(</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="at">n_trt =</span> <span class="dv">3</span>,</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="at">n_rep =</span> <span class="dv">5</span>,</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="at">conc_vec =</span> conc_vec,</span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="at">Km_vec =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">6</span>),</span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="at">Vmax_vec =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">40</span>, <span class="dv">22</span>),</span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="at">Km_vec_sd =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">1.1</span>, <span class="fl">1.0</span>),</span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="at">Vmax_vec_sd =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">1.0</span>, <span class="fl">0.8</span>)</span>
+<span id="cb13-9"><a href="#cb13-9"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mf-treatment" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mf-treatment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-mf-treatment-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Simulated nutrient uptake curves for three treatments. The pattern suggests treatment-specific nonlinear responses rather than a single shared curve."><img src="22-nonlinear-regression_files/figure-html/fig-mf-treatment-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="2100"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mf-treatment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Simulated nutrient uptake curves for three treatments. The pattern suggests treatment-specific nonlinear responses rather than a single shared curve.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The treatment-specific curvature in <a href="#fig-mf-treatment" class="quarto-xref">Figure&nbsp;5</a> makes the modelling problem more challenging and exciting. A separate <code>nls()</code> fit can be used for each treatment, or a nonlinear mixed-effects model can be used when dependence or grouping must be handled explicitly. That is the nonlinear counterpart of the fixed-effects and mixed-effects logic introduced in <a href="../basic_stats/19-dependence-and-mixed-models.html">Chapter 19</a>. If the response is also non-normal, you are moving towards the broader territory covered in <a href="../basic_stats/20-generalised-linear-models.html">Chapter 20</a>.</p>
+<p>The important point is that nonlinear modelling “draws a curve” <em>and</em> it chooses a mean structure that matches the process and then extending that structure carefully when treatments, dependence, or more complicated designs are present.</p>
+</section>
+<section id="repeated-measures-extension" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="repeated-measures-extension"><span class="header-section-number">7.8</span> Repeated-Measures Extension</h2>
+<p>The next extension appears when the same experimental unit is measured repeatedly across the concentration gradient. For example, you might measure uptake repeatedly on the same thallus, plant, or mesocosm under several substrate concentrations. At that point, the observations within each unit are no longer independent, so a separate <code>nls()</code> fit per unit or a pooled <code>nls()</code> fit is no longer enough.</p>
+<p>The nonlinear mixed-effects version of the model keeps the Michaelis-Menten mean structure but lets one or more parameters vary among experimental units. A common starting point is to allow each unit to have its own <code>Vmax</code> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>) around a population-level mean:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>nlme<span class="sc">::</span><span class="fu">nlme</span>(</span>
+<span id="cb14-2"><a href="#cb14-2"></a>  V <span class="sc">~</span> <span class="fu">mm_fun</span>(S, Vmax, Km),</span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="at">data =</span> uptake_long,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="at">fixed =</span> Vmax <span class="sc">+</span> Km <span class="sc">~</span> treatment,</span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="at">random =</span> Vmax <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> individual,</span>
+<span id="cb14-6"><a href="#cb14-6"></a>  <span class="at">start =</span> <span class="fu">c</span>(...)</span>
+<span id="cb14-7"><a href="#cb14-7"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In that formulation, the fixed effects describe how treatment shifts the average kinetic parameters, while the random effect acknowledges that repeated observations from the same individual share the same underlying uptake curve. A full worked example needs a dataset with true repeated measurements on the same biological units and enough observations per unit to estimate the random-effects structure sensibly.</p>
+</section>
+</section>
+<section id="example-3-repeated-measures-michaelis-menten-kinetics" class="level1 page-columns page-full" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Example 3: Repeated-Measures Michaelis-Menten Kinetics</h1>
+<p>The previous examples treated each flask as an independent unit observed once at each starting concentration. A perturbation experiment is different. The same flask is sampled repeatedly through time as nutrient concentration declines, so the observations from that flask are correlated. This is exactly the kind of dependence problem introduced in <a href="../basic_stats/19-dependence-and-mixed-models.html">Chapter 19</a>, except that the mean structure is now nonlinear rather than linear.</p>
+<p>For the BDC223 treatment of this experimental design, including depletion curves and the distinction between perturbation and multiple-flask methods, see <a href="../../BDC223/L08a-nutrient_uptake.qmd">Lecture 8a: Nutrient Uptake</a>, <a href="../../BDC223/L08b-nutrients_michaelis_menten.qmd">Lecture 8b: Uptake Kinetics – Michaelis-Menten</a>, and <a href="../../BDC223/Lab4_nitrogen_uptake.qmd">Lab 4: Uptake Kinetics – Michaelis-Menten</a>. Here we pick up at the point where those experiments become a modelling problem.</p>
+<section id="example-dataset" class="level2 page-columns page-full" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="example-dataset"><span class="header-section-number">8.1</span> Example Dataset</h2>
+<p>These data come from a perturbation experiment on the red seaweed <em>Gracilaria</em> sp. Flasks were enriched to approximately 55–60 <span class="math inline">\(\mu M\)</span> nitrate and sampled repeatedly over roughly 2.5 hours. Uptake rates were measured under three levels of water movement (<code>low</code>, <code>med</code>, <code>high</code>), with three replicate flasks per treatment.</p>
+<div class="cell page-columns page-full" data-layout-align="center" data-tbl-cap="Preview of the perturbation dataset (first eight rows).">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>mm_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"BCB744"</span>, <span class="st">"flow_rates.txt"</span>), <span class="at">sep =</span> <span class="st">""</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="at">flask =</span> <span class="fu">factor</span>(flask),</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="at">trt =</span> <span class="fu">factor</span>(trt, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"med"</span>, <span class="st">"high"</span>))</span>
+<span id="cb15-5"><a href="#cb15-5"></a>  )</span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="fu">head</span>(mm_data, <span class="dv">8</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>  gt<span class="sc">::</span><span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(V, S), <span class="at">decimals =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display page-columns page-full">
+<div id="nrmpannemu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;" class="page-columns page-full">
+<style>#nrmpannemu table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#nrmpannemu thead, #nrmpannemu tbody, #nrmpannemu tfoot, #nrmpannemu tr, #nrmpannemu td, #nrmpannemu th {
+  border-style: none;
+}
+
+#nrmpannemu p {
+  margin: 0;
+  padding: 0;
+}
+
+#nrmpannemu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#nrmpannemu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nrmpannemu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nrmpannemu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nrmpannemu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nrmpannemu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nrmpannemu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nrmpannemu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nrmpannemu .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#nrmpannemu .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#nrmpannemu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nrmpannemu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nrmpannemu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nrmpannemu .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nrmpannemu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nrmpannemu .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nrmpannemu .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nrmpannemu .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#nrmpannemu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nrmpannemu .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nrmpannemu .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nrmpannemu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nrmpannemu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nrmpannemu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nrmpannemu .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nrmpannemu .gt_left {
+  text-align: left;
+}
+
+#nrmpannemu .gt_center {
+  text-align: center;
+}
+
+#nrmpannemu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nrmpannemu .gt_font_normal {
+  font-weight: normal;
+}
+
+#nrmpannemu .gt_font_bold {
+  font-weight: bold;
+}
+
+#nrmpannemu .gt_font_italic {
+  font-style: italic;
+}
+
+#nrmpannemu .gt_super {
+  font-size: 65%;
+}
+
+#nrmpannemu .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#nrmpannemu .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nrmpannemu .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#nrmpannemu .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#nrmpannemu .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#nrmpannemu .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#nrmpannemu .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#nrmpannemu .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#nrmpannemu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-bootstrap="false">
+
+<thead>
+<tr class="gt_col_headings header">
+<th id="flask" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">flask</th>
+<th id="trt" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">trt</th>
+<th id="V" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">V</th>
+<th id="S" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">S</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="flask">a1</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">10.80</td>
+<td class="gt_row gt_right" headers="S">60.20</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="flask">a2</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">10.00</td>
+<td class="gt_row gt_right" headers="S">61.10</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="flask">a3</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">14.10</td>
+<td class="gt_row gt_right" headers="S">60.80</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="flask">a1</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">7.30</td>
+<td class="gt_row gt_right" headers="S">59.40</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="flask">a2</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">15.40</td>
+<td class="gt_row gt_right" headers="S">59.40</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="flask">a3</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">9.50</td>
+<td class="gt_row gt_right" headers="S">59.40</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="flask">a1</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">12.50</td>
+<td class="gt_row gt_right" headers="S">56.70</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="flask">a2</td>
+<td class="gt_row gt_center" headers="trt">low</td>
+<td class="gt_row gt_right" headers="V">10.50</td>
+<td class="gt_row gt_right" headers="S">56.20</td>
+</tr>
+</tbody>
+</table>
+
+<div class="quarto-table-caption margin-caption">Preview of the perturbation dataset (first eight rows).</div></div>
+</div>
+</div>
+</section>
+<section id="do-an-exploratory-data-analysis-eda-1" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="do-an-exploratory-data-analysis-eda-1"><span class="header-section-number">8.2</span> Do an Exploratory Data Analysis (EDA)</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mm-eda" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mm-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-mm-eda-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Repeated-measures uptake data from the perturbation experiment. Each dashed line traces one flask through time as substrate concentration declines."><img src="22-nonlinear-regression_files/figure-html/fig-mm-eda-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1200"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mm-eda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Repeated-measures uptake data from the perturbation experiment. Each dashed line traces one flask through time as substrate concentration declines.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The relationship in <a href="#fig-mm-eda" class="quarto-xref">Figure&nbsp;6</a> is again saturating, so a Michaelis-Menten mean structure is still sensible. The important difference is that each dashed trajectory comes from the same flask measured repeatedly. That means the residuals are likely to be correlated within flask, and the flasks are nested within treatment.</p>
+</section>
+<section id="state-the-model-question-1" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="state-the-model-question-1"><span class="header-section-number">8.3</span> State the Model Question</h2>
+<p>The biological question is whether the Michaelis-Menten parameters differ among water-movement treatments once the repeated-measures structure of the perturbation experiment is taken into account. Here that means asking whether treatment shifts <span class="math inline">\(V_{max}\)</span> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>) and/or <span class="math inline">\(K_m\)</span> (<span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>).</p>
+<p><span class="math display">\[H_{0}: V_{max} \text{ and } K_m \text{ are the same across treatments after accounting for flask-level dependence}\]</span> <span class="math display">\[H_{a}: \text{At least one of } V_{max} \text{ or } K_m \text{ differs among treatments after accounting for flask-level dependence}\]</span></p>
+</section>
+<section id="fit-the-model-1" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="fit-the-model-1"><span class="header-section-number">8.4</span> Fit the Model</h2>
+<p>We compare two nonlinear mixed-effects models. The first is a <strong>global</strong> model in which all treatments share the same Michaelis-Menten parameters. The second allows <code>Vmax</code> and <code>Km</code> to vary by treatment while retaining the same repeated-measures structure.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num_levels <span class="ot">&lt;-</span> <span class="fu">nlevels</span>(mm_data<span class="sc">$</span>trt)</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>start_global <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="at">Vmax =</span> <span class="fu">max</span>(mm_data<span class="sc">$</span>V),</span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="at">Km =</span> <span class="fu">median</span>(mm_data<span class="sc">$</span>S)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a>start_trt <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb16-9"><a href="#cb16-9"></a>  <span class="at">fixed =</span> <span class="fu">c</span>(</span>
+<span id="cb16-10"><a href="#cb16-10"></a>    <span class="at">Vmax =</span> <span class="fu">rep</span>(<span class="fu">max</span>(mm_data<span class="sc">$</span>V), num_levels),</span>
+<span id="cb16-11"><a href="#cb16-11"></a>    <span class="at">Km =</span> <span class="fu">rep</span>(<span class="fu">median</span>(mm_data<span class="sc">$</span>S), num_levels)</span>
+<span id="cb16-12"><a href="#cb16-12"></a>  )</span>
+<span id="cb16-13"><a href="#cb16-13"></a>)</span>
+<span id="cb16-14"><a href="#cb16-14"></a></span>
+<span id="cb16-15"><a href="#cb16-15"></a>mm_global <span class="ot">&lt;-</span> <span class="fu">nlme</span>(</span>
+<span id="cb16-16"><a href="#cb16-16"></a>  V <span class="sc">~</span> <span class="fu">mm_fun</span>(S, Vmax, Km),</span>
+<span id="cb16-17"><a href="#cb16-17"></a>  <span class="at">data =</span> mm_data,</span>
+<span id="cb16-18"><a href="#cb16-18"></a>  <span class="at">fixed =</span> Vmax <span class="sc">+</span> Km <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb16-19"><a href="#cb16-19"></a>  <span class="at">random =</span> Vmax <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> trt<span class="sc">/</span>flask,</span>
+<span id="cb16-20"><a href="#cb16-20"></a>  <span class="at">groups =</span> <span class="sc">~</span> trt<span class="sc">/</span>flask,</span>
+<span id="cb16-21"><a href="#cb16-21"></a>  <span class="at">correlation =</span> <span class="fu">corAR1</span>(<span class="at">form =</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> trt<span class="sc">/</span>flask),</span>
+<span id="cb16-22"><a href="#cb16-22"></a>  <span class="at">start =</span> start_global,</span>
+<span id="cb16-23"><a href="#cb16-23"></a>  <span class="at">method =</span> <span class="st">"ML"</span></span>
+<span id="cb16-24"><a href="#cb16-24"></a>)</span>
+<span id="cb16-25"><a href="#cb16-25"></a></span>
+<span id="cb16-26"><a href="#cb16-26"></a>mm_trt <span class="ot">&lt;-</span> <span class="fu">nlme</span>(</span>
+<span id="cb16-27"><a href="#cb16-27"></a>  V <span class="sc">~</span> <span class="fu">mm_fun</span>(S, Vmax, Km),</span>
+<span id="cb16-28"><a href="#cb16-28"></a>  <span class="at">data =</span> mm_data,</span>
+<span id="cb16-29"><a href="#cb16-29"></a>  <span class="at">fixed =</span> <span class="fu">list</span>(Vmax <span class="sc">~</span> trt, Km <span class="sc">~</span> trt),</span>
+<span id="cb16-30"><a href="#cb16-30"></a>  <span class="at">random =</span> Vmax <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> trt<span class="sc">/</span>flask,</span>
+<span id="cb16-31"><a href="#cb16-31"></a>  <span class="at">groups =</span> <span class="sc">~</span> trt<span class="sc">/</span>flask,</span>
+<span id="cb16-32"><a href="#cb16-32"></a>  <span class="at">correlation =</span> <span class="fu">corAR1</span>(<span class="at">form =</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> trt<span class="sc">/</span>flask),</span>
+<span id="cb16-33"><a href="#cb16-33"></a>  <span class="at">start =</span> start_trt,</span>
+<span id="cb16-34"><a href="#cb16-34"></a>  <span class="at">method =</span> <span class="st">"ML"</span></span>
+<span id="cb16-35"><a href="#cb16-35"></a>)</span>
+<span id="cb16-36"><a href="#cb16-36"></a></span>
+<span id="cb16-37"><a href="#cb16-37"></a>mm_comp <span class="ot">&lt;-</span> <span class="fu">anova</span>(mm_global, mm_trt)</span>
+<span id="cb16-38"><a href="#cb16-38"></a></span>
+<span id="cb16-39"><a href="#cb16-39"></a>mm_comp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt;           Model df      AIC      BIC    logLik   Test  L.Ratio p-value
+R&gt; mm_global     1  6 656.0306 673.3274 -322.0153                        
+R&gt; mm_trt        2 10 648.1068 676.9348 -314.0534 1 vs 2 15.92387  0.0031</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">summary</span>(mm_trt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Nonlinear mixed-effects model fit by maximum likelihood
+R&gt;   Model: V ~ mm_fun(S, Vmax, Km) 
+R&gt;   Data: mm_data 
+R&gt;        AIC      BIC    logLik
+R&gt;   648.1068 676.9348 -314.0534
+R&gt; 
+R&gt; Random effects:
+R&gt;  Formula: Vmax ~ 1 | trt
+R&gt;         Vmax.(Intercept)
+R&gt; StdDev:     0.0001334687
+R&gt; 
+R&gt;  Formula: Vmax ~ 1 | flask %in% trt
+R&gt;         Vmax.(Intercept) Residual
+R&gt; StdDev:     2.572024e-05 2.641716
+R&gt; 
+R&gt; Correlation Structure: AR(1)
+R&gt;  Formula: ~1 | trt/flask 
+R&gt;  Parameter estimate(s):
+R&gt;       Phi 
+R&gt; 0.1539479 
+R&gt; Fixed effects:  list(Vmax ~ trt, Km ~ trt) 
+R&gt;                       Value Std.Error  DF   t-value p-value
+R&gt; Vmax.(Intercept)  13.727753  2.011411 118  6.824938  0.0000
+R&gt; Vmax.trtmed       -1.917486  2.239487 118 -0.856217  0.3936
+R&gt; Vmax.trthigh       1.623586  2.258494 118  0.718880  0.4736
+R&gt; Km.(Intercept)    16.847854  7.413292 118  2.272655  0.0249
+R&gt; Km.trtmed        -11.917482  7.783803 118 -1.531062  0.1284
+R&gt; Km.trthigh       -11.480850  7.623149 118 -1.506051  0.1347
+R&gt;  Correlation: 
+R&gt;                Vm.(I) Vmx.trtm Vmx.trth Km.(I) Km.trtm
+R&gt; Vmax.trtmed    -0.898                                 
+R&gt; Vmax.trthigh   -0.891  0.800                          
+R&gt; Km.(Intercept)  0.923 -0.829   -0.822                 
+R&gt; Km.trtmed      -0.879  0.892    0.783   -0.952        
+R&gt; Km.trthigh     -0.898  0.806    0.877   -0.972  0.926 
+R&gt; 
+R&gt; Standardized Within-Group Residuals:
+R&gt;        Min         Q1        Med         Q3        Max 
+R&gt; -2.0770735 -0.7687045 -0.2436554  0.4550068  3.3221379 
+R&gt; 
+R&gt; Number of Observations: 132
+R&gt; Number of Groups: 
+R&gt;            trt flask %in% trt 
+R&gt;              3              9</code></pre>
+</div>
+</div>
+<p>Three parts of the specification are important:</p>
+<ul>
+<li><code>fixed = ... ~ trt</code> allows the Michaelis-Menten parameters to differ among treatments.</li>
+<li><code>random = Vmax ~ 1 | trt/flask</code> allows replicate flasks within treatments to vary in baseline uptake capacity.</li>
+<li><code>correlation = corAR1(...)</code> acknowledges that repeated measurements within the same flask are serially correlated.</li>
+</ul>
+<p>This is the nonlinear counterpart of the grouped-dependence ideas from Chapter 19. The model still estimates a mechanistic curve, but it now does so in a way that respects repeated measurement on the same experimental unit while keeping the kinetic parameters in their usual units of <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span> (<span class="math inline">\(V_{max}\)</span>) and <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span> (<span class="math inline">\(K_m\)</span>).</p>
+</section>
+<section id="check-diagnostics-1" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="check-diagnostics-1"><span class="header-section-number">8.5</span> Check Diagnostics</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>mm_data <span class="ot">&lt;-</span> mm_data <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    <span class="at">fitted_nlme =</span> <span class="fu">fitted</span>(mm_trt),</span>
+<span id="cb20-4"><a href="#cb20-4"></a>    <span class="at">resid_nlme =</span> <span class="fu">resid</span>(mm_trt, <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>  )</span>
+<span id="cb20-6"><a href="#cb20-6"></a></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="fu">shapiro.test</span>(mm_data<span class="sc">$</span>resid_nlme)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt;  Shapiro-Wilk normality test
+R&gt; 
+R&gt; data:  mm_data$resid_nlme
+R&gt; W = 0.97547, p-value = 0.01719</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mm-diagnostics" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mm-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-mm-diagnostics-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Basic diagnostics for the nonlinear mixed-effects model. The residual pattern is acceptable for a teaching example, with no strong trend against the fitted values."><img src="22-nonlinear-regression_files/figure-html/fig-mm-diagnostics-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1200"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mm-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Basic diagnostics for the nonlinear mixed-effects model. The residual pattern is acceptable for a teaching example, with no strong trend against the fitted values.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The diagnostics in <a href="#fig-mm-diagnostics" class="quarto-xref">Figure&nbsp;7</a> show whether the fitted nonlinear mean structure and the residual assumptions are at least broadly compatible with the data.</p>
+</section>
+<section id="interpret-the-results-1" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="interpret-the-results-1"><span class="header-section-number">8.6</span> Interpret the Results</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>coef_mm <span class="ot">&lt;-</span> <span class="fu">fixed.effects</span>(mm_trt)</span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a>Vmax_by_trt <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="at">low =</span> coef_mm[<span class="st">"Vmax.(Intercept)"</span>],</span>
+<span id="cb22-5"><a href="#cb22-5"></a>  <span class="at">med =</span> coef_mm[<span class="st">"Vmax.(Intercept)"</span>] <span class="sc">+</span> coef_mm[<span class="st">"Vmax.trtmed"</span>],</span>
+<span id="cb22-6"><a href="#cb22-6"></a>  <span class="at">high =</span> coef_mm[<span class="st">"Vmax.(Intercept)"</span>] <span class="sc">+</span> coef_mm[<span class="st">"Vmax.trthigh"</span>]</span>
+<span id="cb22-7"><a href="#cb22-7"></a>)</span>
+<span id="cb22-8"><a href="#cb22-8"></a></span>
+<span id="cb22-9"><a href="#cb22-9"></a>Km_by_trt <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb22-10"><a href="#cb22-10"></a>  <span class="at">low =</span> coef_mm[<span class="st">"Km.(Intercept)"</span>],</span>
+<span id="cb22-11"><a href="#cb22-11"></a>  <span class="at">med =</span> coef_mm[<span class="st">"Km.(Intercept)"</span>] <span class="sc">+</span> coef_mm[<span class="st">"Km.trtmed"</span>],</span>
+<span id="cb22-12"><a href="#cb22-12"></a>  <span class="at">high =</span> coef_mm[<span class="st">"Km.(Intercept)"</span>] <span class="sc">+</span> coef_mm[<span class="st">"Km.trthigh"</span>]</span>
+<span id="cb22-13"><a href="#cb22-13"></a>)</span>
+<span id="cb22-14"><a href="#cb22-14"></a></span>
+<span id="cb22-15"><a href="#cb22-15"></a>param_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb22-16"><a href="#cb22-16"></a>  <span class="at">trt =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"med"</span>, <span class="st">"high"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"med"</span>, <span class="st">"high"</span>)),</span>
+<span id="cb22-17"><a href="#cb22-17"></a>  <span class="at">Vmax =</span> <span class="fu">round</span>(<span class="fu">unname</span>(Vmax_by_trt), <span class="dv">2</span>),</span>
+<span id="cb22-18"><a href="#cb22-18"></a>  <span class="at">Km =</span> <span class="fu">round</span>(<span class="fu">unname</span>(Km_by_trt), <span class="dv">2</span>)</span>
+<span id="cb22-19"><a href="#cb22-19"></a>)</span>
+<span id="cb22-20"><a href="#cb22-20"></a></span>
+<span id="cb22-21"><a href="#cb22-21"></a>param_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 3 × 3
+R&gt;   trt    Vmax    Km
+R&gt;   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+R&gt; 1 low    13.7 16.8 
+R&gt; 2 med    11.8  4.93
+R&gt; 3 high   15.4  5.37</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-mm-fit" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mm-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="22-nonlinear-regression_files/figure-html/fig-mm-fit-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Treatment-specific nonlinear mixed-effects fits for the perturbation experiment."><img src="22-nonlinear-regression_files/figure-html/fig-mm-fit-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1200"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mm-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Treatment-specific nonlinear mixed-effects fits for the perturbation experiment.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The likelihood-ratio test comparing the shared-parameter model with the treatment-specific model shows that allowing <code>Vmax</code> and <code>Km</code> to vary by treatment improves fit strongly (<code>p = 0.0031</code>). That is the main inferential result. The treatment-specific parameter estimates suggest that the low-flow treatment has the highest fitted <code>Km</code> in <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>, while the medium and high treatments reach similar uptake behaviour at lower substrate concentrations. The fitted <code>Vmax</code> values, measured in <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span>, differ less strongly than the <code>Km</code> estimates in this example.</p>
+<p>In nonlinear mixed-effects work, the global model comparison is often more informative than reading each coefficient one-by-one as though they were ordinary linear-model terms. The treatment effect here is a shift in the shape of the kinetic curve under a repeated-measures design.</p>
+</section>
+<section id="reporting-1" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="reporting-1"><span class="header-section-number">8.7</span> Reporting</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Write-Up
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Methods</strong></p>
+<p>Nitrate-uptake kinetics were analysed with a Michaelis-Menten nonlinear mixed-effects model fitted to repeated observations from perturbation flasks. Treatment was included as a fixed effect on the Michaelis-Menten parameters (<code>Vmax</code> and <code>Km</code>), replicate flasks were treated as random effects nested within treatment, and a first-order autoregressive correlation structure was used to account for serial dependence among repeated measurements within each flask. A global model with shared kinetic parameters across treatments was compared with a treatment-specific model using a likelihood-ratio test.</p>
+<p><strong>Results</strong></p>
+<p>Allowing Michaelis-Menten parameters to vary among treatments improved model fit relative to the shared-parameter model (likelihood-ratio test: L.Ratio = 15.92, <code>p = 0.0031</code>). The fitted treatment-specific curves differed mainly in the half-saturation constant, with the low-flow treatment showing the highest fitted <span class="math inline">\(K_m\)</span> and the medium- and high-flow treatments reaching high uptake rates at lower substrate concentrations (<a href="#fig-mm-fit" class="quarto-xref">Figure&nbsp;8</a>). Estimated parameter values were low flow: <span class="math inline">\(V_{max} =\)</span> 13.73 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span> and <span class="math inline">\(K_m =\)</span> 16.85 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>; medium flow: <span class="math inline">\(V_{max} =\)</span> 11.81 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span> and <span class="math inline">\(K_m =\)</span> 4.93 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>; high flow: <span class="math inline">\(V_{max} =\)</span> 15.35 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{N}\ \mathrm{g}^{-1}\ \mathrm{h}^{-1}\)</span> and <span class="math inline">\(K_m =\)</span> 5.37 <span class="math inline">\(\mu\mathrm{mol}\ \mathrm{L}^{-1}\)</span>.</p>
+<p><strong>Discussion</strong></p>
+<p>The biological point is that repeated-measures uptake data can support treatment differences in kinetic behaviour, but only if the dependence structure is modelled explicitly. Ignoring the repeated sampling of the same flasks would treat correlated measurements as independent and would make the inferential result less trustworthy.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="choosing-among-flexible-models" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Choosing Among Flexible Models</h1>
+<p>There are a few practical considerations to keep in mind when choosing a mechanistic nonlinear model. Sometimes different curved models can provide similar fits to the same data, but they have very different implications for interpretation. The reason to prefer a mechanistic nonlinear model is precisely that its parameters mean something biologically. If that interpretability is weak or artificial, a descriptive alternative such as a polynomial regression or GAM may be more honest.</p>
+</section>
+<section id="practical-caution" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Practical Caution</h1>
+<p>Flexibility is valuable, but it comes with a cost.</p>
+<ul>
+<li>More flexible models are often harder to interpret.</li>
+<li>They can overfit small datasets.</li>
+<li>They may fit noise rather than structure if the biological logic is weak.</li>
+<li>Nonlinear least-squares models can fail to converge if the functional form or starting values are poor.</li>
+</ul>
+<p>This is why flexible regression should be a response to a clear diagnostic or biological need, not just a default preference for curved lines.</p>
+</section>
+<section id="summary" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Summary</h1>
+<ul>
+<li>Not all biological relationships are well described by straight lines.</li>
+<li>Mechanistic nonlinear models serve a distinct purpose within the broader family of curved-response models.</li>
+<li>Model choice should follow the biology and the inferential goal.</li>
+<li>Mechanistic nonlinear models are especially valuable when their parameters have clear biological meaning.</li>
+<li>Greater flexibility can improve fit, but it also increases interpretive demands and the risk of overfitting.</li>
+</ul>
+<p>In the next chapter, I extend the regression sequence in a different direction by asking what happens when the scientific target is another part of the response distribution rather than the mean alone.</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
+  author = {A. J. , Smit},
+  title = {22. {Nonlinear} {Regression}},
+  date = {2026-04-07},
+  url = {http://samos-r.netlify.app/basic_stats/22-nonlinear-regression.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2026) 22. Nonlinear Regression. <a href="http://samos-r.netlify.app/basic_stats/22-nonlinear-regression.html">http://samos-r.netlify.app/basic_stats/22-nonlinear-regression.html.
+</a>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("http:\/\/samos-r\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../basic_stats/21-generalised-additive-models.html" class="pagination-link" aria-label="21. Generalised Additive Models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">21. Generalised Additive Models</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../basic_stats/23-quantile-regression.html" class="pagination-link" aria-label="23. Quantile Regression">
+        <span class="nav-page-text">23. Quantile Regression</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026, AJ Smit</p>
+</div>   
+    <div class="nav-footer-center">
+
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/22-nonlinear-regression.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

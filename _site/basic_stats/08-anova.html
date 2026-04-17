@@ -2,15 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Smit, A. J.">
-<meta name="dcterms.date" content="2021-01-01">
 
 <title>8. ANOVA – SAMOS R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -66,21 +68,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../basic_stats/09-regressions.html" rel="next">
+<link href="../basic_stats/09-correlation-and-association.html" rel="next">
 <link href="../basic_stats/07-t_tests.html" rel="prev">
 <script src="../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a72d73f98a4a7f3df5cb9b4599317c55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -129,11 +130,9 @@ cookieconsent.run({
 </script> 
   
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -163,6 +162,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles/styles.css">
+<link rel="stylesheet" href="../../styles/biostats-callouts.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
@@ -229,7 +229,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/02-summarise-and-describe.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/08-anova.html">8. ANOVA</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/08-anova.html">8. ANOVA</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -385,20 +385,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+ <span class="menu-text">2. Summarising Biological Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3. Statistical Figures</span></a>
+ <span class="menu-text">3. Visualising Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Data Distributions</span></a>
+  <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -409,8 +415,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Assumptions</span></a>
+  <a href="../basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -427,38 +433,110 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9. Simple Linear Regressions</span></a>
+  <a href="../basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">10. Correlations</span></a>
+  <a href="../basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">11. Parametric Tests</span></a>
+  <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">12. Non-Parametric Tests</span></a>
+  <a href="../basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">13. Confidence Intervals</span></a>
+  <a href="../basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">14. Data Transformations</span></a>
+  <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
   </div>
 </li>
       </ul>
@@ -466,7 +544,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Tasks</span></a>
+ <span class="menu-text">Self Assessments</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -475,55 +553,55 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SAMOS Intro R Task A</span></a>
+ <span class="menu-text">Intro R Task A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_B.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SAMOS Intro R Task B</span></a>
+ <span class="menu-text">Intro R Task B</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_C.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SAMOS Intro R Task C</span></a>
+ <span class="menu-text">Intro R Task C</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_D.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task D</span></a>
+ <span class="menu-text">Intro R Task D</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_E.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task E</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task E</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_F.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task F</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task F</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_G.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task G</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_G.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_H.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Task G</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_H.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Task G</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tasks/BCB744_Task_Bonus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">BCB744 Bonus Task</span></a>
+  <a href="../tasks/SAMOS_Stats_Task_Bonus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistics Bonus Task</span></a>
   </div>
 </li>
       </ul>
@@ -538,38 +616,40 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#at-a-glance" id="toc-at-a-glance" class="nav-link active" data-scroll-target="#at-a-glance"><span class="header-section-number">1</span> At a Glance</a></li>
-  <li><a href="#introduction-to-anova" id="toc-introduction-to-anova" class="nav-link" data-scroll-target="#introduction-to-anova"><span class="header-section-number">2</span> Introduction to ANOVA</a>
+  <li><a href="#why-not-do-multiple-t-tests" id="toc-why-not-do-multiple-t-tests" class="nav-link active" data-scroll-target="#why-not-do-multiple-t-tests"><span class="header-section-number">1</span> Why Not Do Multiple <em>t</em>-Tests?</a></li>
+  <li><a href="#how-anova-partitions-variation" id="toc-how-anova-partitions-variation" class="nav-link" data-scroll-target="#how-anova-partitions-variation"><span class="header-section-number">2</span> How ANOVA Partitions Variation</a></li>
+  <li><a href="#data-structure-and-decision-rule" id="toc-data-structure-and-decision-rule" class="nav-link" data-scroll-target="#data-structure-and-decision-rule"><span class="header-section-number">3</span> Data Structure and Decision Rule</a></li>
+  <li><a href="#r-functions" id="toc-r-functions" class="nav-link" data-scroll-target="#r-functions"><span class="header-section-number">4</span> R Functions</a></li>
+  <li><a href="#example-1-chick-masses-under-four-diets" id="toc-example-1-chick-masses-under-four-diets" class="nav-link" data-scroll-target="#example-1-chick-masses-under-four-diets"><span class="header-section-number">5</span> Example 1: Chick Masses Under Four Diets</a>
   <ul class="collapse">
-  <li><a href="#remember-the-t-test" id="toc-remember-the-t-test" class="nav-link" data-scroll-target="#remember-the-t-test"><span class="header-section-number">2.1</span> Remember the <em>t</em>-test</a></li>
-  <li><a href="#why-not-do-multiple-t-tests" id="toc-why-not-do-multiple-t-tests" class="nav-link" data-scroll-target="#why-not-do-multiple-t-tests"><span class="header-section-number">2.2</span> Why Not Do Multiple <em>t</em>-tests?</a></li>
+  <li><a href="#the-one-way-design" id="toc-the-one-way-design" class="nav-link" data-scroll-target="#the-one-way-design"><span class="header-section-number">5.1</span> The One-Way Design</a></li>
+  <li><a href="#do-an-exploratory-data-analysis-eda" id="toc-do-an-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#do-an-exploratory-data-analysis-eda"><span class="header-section-number">5.2</span> Do an Exploratory Data Analysis (EDA)</a></li>
+  <li><a href="#apply-the-test" id="toc-apply-the-test" class="nav-link" data-scroll-target="#apply-the-test"><span class="header-section-number">5.3</span> Apply the Test</a></li>
+  <li><a href="#brief-residual-check" id="toc-brief-residual-check" class="nav-link" data-scroll-target="#brief-residual-check"><span class="header-section-number">5.4</span> Brief Residual Check</a></li>
+  <li><a href="#sec-identify-groups-differ" id="toc-sec-identify-groups-differ" class="nav-link" data-scroll-target="#sec-identify-groups-differ"><span class="header-section-number">5.5</span> Identify Which Groups Differ</a></li>
+  <li><a href="#interpret-the-results" id="toc-interpret-the-results" class="nav-link" data-scroll-target="#interpret-the-results"><span class="header-section-number">5.6</span> Interpret the Results</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">5.7</span> Reporting</a></li>
   </ul></li>
-  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova"><span class="header-section-number">3</span> ANOVA</a>
+  <li><a href="#factorial-anova" id="toc-factorial-anova" class="nav-link" data-scroll-target="#factorial-anova"><span class="header-section-number">6</span> Factorial ANOVA</a>
   <ul class="collapse">
-  <li><a href="#single-factor" id="toc-single-factor" class="nav-link" data-scroll-target="#single-factor"><span class="header-section-number">3.1</span> Single Factor</a></li>
-  <li><a href="#multiple-factors" id="toc-multiple-factors" class="nav-link" data-scroll-target="#multiple-factors"><span class="header-section-number">3.2</span> Multiple Factors</a></li>
+  <li><a href="#a-detour-we-should-avoid" id="toc-a-detour-we-should-avoid" class="nav-link" data-scroll-target="#a-detour-we-should-avoid"><span class="header-section-number">6.1</span> A Detour We Should Avoid</a></li>
+  <li><a href="#two-factors-in-one-model" id="toc-two-factors-in-one-model" class="nav-link" data-scroll-target="#two-factors-in-one-model"><span class="header-section-number">6.2</span> Two Factors in One Model</a></li>
+  <li><a href="#interaction-in-factorial-anova" id="toc-interaction-in-factorial-anova" class="nav-link" data-scroll-target="#interaction-in-factorial-anova"><span class="header-section-number">6.3</span> Interaction in Factorial ANOVA</a></li>
   </ul></li>
-  <li><a href="#sec-alt" id="toc-sec-alt" class="nav-link" data-scroll-target="#sec-alt"><span class="header-section-number">4</span> Alternatives to ANOVA</a>
+  <li><a href="#sec-alt" id="toc-sec-alt" class="nav-link" data-scroll-target="#sec-alt"><span class="header-section-number">7</span> If Assumptions Fail</a>
   <ul class="collapse">
-  <li><a href="#wilcoxon-rank-sum-test" id="toc-wilcoxon-rank-sum-test" class="nav-link" data-scroll-target="#wilcoxon-rank-sum-test"><span class="header-section-number">4.1</span> Wilcoxon Rank Sum Test</a></li>
-  <li><a href="#kruskall-wallis-rank-sum-test" id="toc-kruskall-wallis-rank-sum-test" class="nav-link" data-scroll-target="#kruskall-wallis-rank-sum-test"><span class="header-section-number">4.2</span> Kruskall-wallis Rank Sum Test</a>
-  <ul class="collapse">
-  <li><a href="#single-factor-1" id="toc-single-factor-1" class="nav-link" data-scroll-target="#single-factor-1"><span class="header-section-number">4.2.1</span> Single factor</a></li>
-  <li><a href="#multiple-factors-1" id="toc-multiple-factors-1" class="nav-link" data-scroll-target="#multiple-factors-1"><span class="header-section-number">4.2.2</span> Multiple factors</a></li>
+  <li><a href="#welchs-one-way-anova" id="toc-welchs-one-way-anova" class="nav-link" data-scroll-target="#welchs-one-way-anova"><span class="header-section-number">7.1</span> Welch’s One-Way ANOVA</a></li>
+  <li><a href="#kruskal-wallis-rank-sum-test" id="toc-kruskal-wallis-rank-sum-test" class="nav-link" data-scroll-target="#kruskal-wallis-rank-sum-test"><span class="header-section-number">7.2</span> Kruskal-Wallis Rank-Sum Test</a></li>
   </ul></li>
-  <li><a href="#the-sa-time-data" id="toc-the-sa-time-data" class="nav-link" data-scroll-target="#the-sa-time-data"><span class="header-section-number">4.3</span> The Sa Time Data</a></li>
-  </ul></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">5</span> Examples</a>
-  <ul class="collapse">
-  <li><a href="#snakes" id="toc-snakes" class="nav-link" data-scroll-target="#snakes"><span class="header-section-number">5.1</span> Snakes!</a></li>
-  </ul></li>
+  <li><a href="#what-this-chapter-does-not-cover" id="toc-what-this-chapter-does-not-cover" class="nav-link" data-scroll-target="#what-this-chapter-does-not-cover"><span class="header-section-number">8</span> What This Chapter Does Not Cover</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">9</span> Conclusion</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ajsmit/SAMOS_R/edit/main/basic_stats/08-anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ajsmit/SAMOS_R/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/02-summarise-and-describe.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/08-anova.html">8. ANOVA</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../basic_stats/01-statistical-landscape.html">Biostatistics</a></li><li class="breadcrumb-item"><a href="../basic_stats/08-anova.html">8. ANOVA</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">8. ANOVA</h1>
 <p class="subtitle lead">Comparing the Means of More than Two Groups</p>
@@ -598,7 +678,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2021</p>
+      <p class="date">2026/04/17</p>
     </div>
   </div>
   
@@ -610,21 +690,14 @@ window.Quarto = {
 </header>
 
 
-<p><a href="../images/SAMOS-logo-transparent.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../images/SAMOS-logo-transparent.png" class="img-fluid" style="width:35.0%"></a></p>
-<blockquote class="blockquote">
-<p>“The ocean is the life support system of Earth.”</p>
-<p>— Sylvia A. Earle (paraphrase)</p>
-</blockquote>
-<div id="tbl-knitr-opts-chunk-set" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
-<figure class="quarto-float quarto-float-tbl figure page-columns page-full">
-<div aria-describedby="tbl-knitr-opts-chunk-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div>
-
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../images/fancy_stats.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="A meme about fancy statistics."><img src="../images/fancy_stats.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="250" alt="A meme about fancy statistics."></a></p>
+</figure>
 </div>
-</div>
-<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-tbl quarto-uncaptioned margin-caption" id="tbl-knitr-opts-chunk-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1
-</figcaption>
+<figcaption>A meme about fancy statistics.</figcaption>
 </figure>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled">
@@ -638,11 +711,11 @@ Table&nbsp;1
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Single factor ANOVA</li>
-<li>Multiple factor ANOVA</li>
-<li>Tukey HSD test</li>
-<li>Wilcoxon rank sum test</li>
-<li>Kruskal-Wallis rank sum test</li>
+<li>one-way ANOVA</li>
+<li>Tukey HSD</li>
+<li>factorial ANOVA</li>
+<li>Welch’s one-way ANOVA</li>
+<li>Kruskal-Wallis rank-sum test</li>
 </ul>
 </div>
 </div>
@@ -656,7 +729,7 @@ Table&nbsp;1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Find here a <a href="../../docs/Methods_cheatsheet_v1.pdf">Cheatsheet</a> on statistical methods.</p>
+<p>Find here a <a href="../../docs/cheatsheet-inferential-stats.pdf">Cheatsheet</a> on statistical methods.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-important callout-titled">
@@ -670,308 +743,814 @@ Table&nbsp;1
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Task G</li>
+<li>Self-Assessment Task 8-1 <strong>(/8)</strong></li>
+<li>Self-Assessment Task 8-2 <strong>(/6)</strong></li>
+<li>Self-Assessment Task 8-3 <strong>(/16)</strong></li>
+<li>Self-Assessment Task 8-4 <strong>(/5)</strong></li>
+<li>Self-Assessment Task 8-5 <strong>(/5)</strong></li>
+<li>Self-Assessment Task 8-6 <strong>(/5)</strong></li>
+<li><a href="../tasks/BCB744_Biostats_Self-Assessment.qmd">Self-Assessment instructions and full task overview</a></li>
 </ul>
 </div>
 </div>
-<section id="at-a-glance" class="level1 page-columns page-full" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> At a Glance</h1>
-<p>Where the Student’s and Welch’s <em>t</em>-tests are used to test for the difference between the means of two groups, analysis of variance (ANOVA)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is used to <em>compare the means of three, more groups</em>. The following expectations about your data should be met to conduct an ANOVA:</p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Variations of the basic ANOVA include an analysis of covariance (ANCOVA) when, in addition to the categorical variable, your data also contains a <strong>continuous covariate</strong> (<em>e.g.</em>, age, mass) that you want to control. Or, if your study involves multiple dependent variables, you may need to consider using <strong>multivariate analysis of variance (MANOVA)</strong> instead. ANOVAs that have multiple independent variables are called <strong>factorial ANOVAs</strong> (<em>e.g.</em> 2-way ANOVA, 3-way ANOVA).</p></div></div><ul>
-<li><p><strong>Continuous dependent variable</strong> The dependent variable should be measured on a <em>continuous scale</em> (<em>e.g.</em>, height, weight, test scores).</p></li>
-<li><p><strong>Categorical independent variable</strong> The independent variable should be <em>categorical with at least three levels</em> or groups (<em>e.g.</em>, different treatments, age groups).</p>
-<ul>
-<li><strong>Independent groups</strong> The groups being compared should be independent of each other, meaning that the observations within each group should not affect the other group’s observations. In the case of repeated measures ANOVA, the groups are related (<em>e.g.</em>, before-and-after measurements, multiple measurements on the same subjects).</li>
-</ul></li>
-</ul>
-<p>Other assumptions to be aware of with regards to the dependent variable:</p>
-<ul>
-<li>Independence of data</li>
-<li>Normally distributed data</li>
-<li>Homogeneity of variances</li>
-<li>We also encourage that the data are balanced</li>
-</ul>
-</section>
-<section id="introduction-to-anova" class="level1 page-columns page-full" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Introduction to ANOVA</h1>
-<p>Whole big books have been written about analysis of variance (ANOVA). Although there are many experimental designs that may be analysed with ANOVAs, biologists are taught to pay special attention to the design of experiments, and generally make sure that the experiments are fully <em>factorial</em> (in the case of two-way, higher ANOVAs) and balanced. For this reason we will focus in this introductory statistics course on one-way and factorial ANOVAs only.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>chicks <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(ChickWeight)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>chicks_day21 <span class="ot">&lt;-</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">21</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Factorial Designs
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A factorial experimental design involves studying the effects of two or more factors (also known as independent variables) on a response variable (dependent variable) simultaneously. The term ‘factorial’ comes from the fact that each level of one factor is combined with each level of the other factor(s), resulting in all possible combinations of factor levels.</p>
-<p>In a factorial design, the <em>main effects</em> of each factor, the <em>interaction effects</em> between factors can be analysed. When we have two factors and this is typically done by applying a 2-way ANOVA, but higher-order ANOVAs are also available. The main effect of a factor is its individual effect on the response variable (ignoring the effect due to the other(s)), while the interaction effect occurs when the effect of one factor depends on the level of another factor.</p>
-<p>The simplest factorial design is the 2 <span class="math inline">\(\times\)</span> 2 design, which involves two factors, each with two levels. For example, if you are studying the effect of temperature (high vs.&nbsp;low), fertiliser concentration (high vs.&nbsp;low) on the yield of a crop and a 2 <span class="math inline">\(\times\)</span> 2 factorial design would involve four experimental conditions:</p>
-<ul>
-<li>high temperature and high fertiliser concentration</li>
-<li>high temperature and low fertiliser concentration</li>
-<li>low temperature and high fertiliser concentration</li>
-<li>low temperature and low fertiliser concentration</li>
-</ul>
-<p>In the above example there are 4 possible combinations. Factorial designs can involve more than two factors and/or more than two levels per factor, leading to more complex experimental setups. For example, in a 3 <span class="math inline">\(\times\)</span> 4 there will be 12 combinations of the two factor levels, and in a 2 <span class="math inline">\(\times\)</span> 3 <span class="math inline">\(\times\)</span> 5 factorial experiment the three factors with their respective levels will result in 30 combinations.</p>
-</div>
-</div>
-<p>As we have seen in <a href="../basic_stats/07-t_tests.html">Chapter 7</a> about <em>t</em>-tests, ANOVAs also require that some assumptions are met:</p>
-<ul>
-<li><p><strong>Normal distribution</strong> The data in each group should follow a normal distribution or be approximately normally distributed. If the assumption of normality is not met, as, for example, determined with the <code>shapiro.test()</code>, you may consider using a non-parametric alternative such as Kruskal-Wallis rank sum test, <code>kruskal.test()</code>. This assumption can be relaxed for large sample sizes due to the <a href="../basic_stats/04-distributions.html#sec-normal">Central Limit Theorem</a>.</p></li>
-<li><p><strong>Homoscedasticity</strong> The variances of the groups should be approximately equal. This assumption can be tested using Levene’s test, <code>car::leveneTest()</code>, or Bartlett’s test, <code>bartlett.test()</code>. When the variances are different but the data are normally distributed, consider the ‘Welch ANOVA,’ <code>oneway.test()</code>, instead of <code>aov()</code>.</p></li>
-<li><p><strong>Random sampling</strong> The data should be obtained through random sampling or random assignment, ensuring that each observation has an equal chance of being included in the sample.</p></li>
-<li><p><strong>Independent observations</strong> The observations within each group should be independent of each other.</p></li>
-</ul>
-<p>If some of the above assumptions are violated, then your course of action is to either use a <a href="@sec-alt">non-parametric test</a> (and <a href="../../docs/Methods_cheatsheet_v1.pdf">here</a>), transform the data (as in <a href="../basic_stats/06-assumptions.html">Chapter 6</a>), use a generalised linear model if non-normal or to use a linear mixed model when non-independence of data cannot be guaranteed. As I have already indicated, ANOVAs are also sensitive to the presence of outliers, so we need to ensure that outliers are not present. Outliers can be removed but if they are an important feature of the data, then a non-parametric test can be used.</p>
-<p>Rather than talking about <em>t</em>-tests and ANOVAs as if they do different things, let us acknowledge that they ask a similar question. That question being, “are the means of these two, more things we want to compare different or are they the same?” At this stage it is important to note that, as with <em>t</em>-tests, the independent variable is expected to be categorical (<em>i.e.</em> a factor denoting two, more different treatments or sampling conditions) and that the dependent variable must be continuous. You may perhaps be more familiar with this question when it is presented as a set of hypotheses as we saw in a <em>t</em>-test:</p>
-<ul>
-<li><strong><em>H</em><sub>0</sub></strong> Group A is not different from Group B.</li>
-<li><strong><em>H</em><sub>a</sub></strong> Group A is different from Group B.</li>
-</ul>
-<p>In an ANOVA, hypotheses will be more similar to these:</p>
-<ul>
-<li><strong><em>H</em><sub>0</sub></strong> There are no differences among Groups A, B, or C.</li>
-<li><strong><em>H</em><sub>a</sub></strong> There are differences among Groups A, B, or C.</li>
-</ul>
-<p>This is a scientific question in the simplest sense. Often, for basic inquiries such as that posed above, we need to see if one group differs significantly from another. The way in which we accomplish this is by looking at the mean, variance within a set of data compared against another similar set.</p>
-<section id="remember-the-t-test" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="remember-the-t-test"><span class="header-section-number">2.1</span> Remember the <em>t</em>-test</h2>
-<p>As you already know, a <em>t</em>-test is used when we want to compare two different sample sets against one another. This is also known as a two-factor, two level test. When one wants to compare multiple (more than two) sample sets against one another an ANOVA is required (I will get there shortly). Remember how to perform a <em>t</em>-test in R: we will revisit this test using the<code>chicks</code> data, but only for Diets 1, 2 from day 21.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># First grab the data</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>chicks <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(ChickWeight)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Then subset out only the sample sets to be compared</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>chicks_sub <span class="ot">&lt;-</span> chicks <span class="sc">%&gt;%</span> </span>
-<span id="cb1-6"><a href="#cb1-6"></a>  <span class="fu">filter</span>(Diet <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), Time <span class="sc">==</span> <span class="dv">21</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Once we have filtered our data we may now perform the <em>t</em>-test.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">t.test</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> chicks_sub)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; 
-R&gt;  Welch Two Sample t-test
-R&gt; 
-R&gt; data:  weight by Diet
-R&gt; t = -1.2857, df = 15.325, p-value = 0.2176
-R&gt; alternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0
-R&gt; 95 percent confidence interval:
-R&gt;  -98.09263  24.19263
-R&gt; sample estimates:
-R&gt; mean in group 1 mean in group 2 
-R&gt;          177.75          214.70</code></pre>
-</div>
-</div>
-<p>As one may recall from <a href="../basic_stats/07-t_tests.html">Chapter 7</a>, whenever we want to give a formula to a function in R, we use the <code>~</code>. The formula used above, <code>weight ~ Diet</code>, reads in plain English as “weight as a function of diet”. This is perhaps easier to understand as “<em>Y</em> as a function of <em>X</em>.” This means that we are assuming whatever is to the left of the <code>~</code> is the dependent variable, and whatever is to the right is the independent variable. Did the Diet 1, 2 produce significantly fatter birds?</p>
-<p>One could also supplement the output by producing a graph (<a href="#fig-boxwhisker1" class="quarto-xref">Figure&nbsp;1</a>).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(ggstatsplot)</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="do">## Since the Confidence Intervals for the Effect Sizes Are Computed Using</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="do">## Bootstrapping, Important to Set a Seed for Reproducibility</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">set.seed</span>(<span class="dv">13</span>)</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="do">## Parametric T-test and Box Plot</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">ggbetweenstats</span>(</span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="at">data =</span> chicks_sub,</span>
-<span id="cb4-10"><a href="#cb4-10"></a>  <span class="at">x =</span> Diet,</span>
-<span id="cb4-11"><a href="#cb4-11"></a>  <span class="at">y =</span> weight,</span>
-<span id="cb4-12"><a href="#cb4-12"></a>  <span class="at">xlab =</span> <span class="st">"Diet"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13"></a>  <span class="at">ylab =</span> <span class="st">"Chick mass (g)"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="at">plot.type =</span> <span class="st">"box"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15"></a>  <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>,</span>
-<span id="cb4-16"><a href="#cb4-16"></a>  <span class="at">pairwise.display =</span> <span class="st">"ns"</span>,</span>
-<span id="cb4-17"><a href="#cb4-17"></a>  <span class="at">type =</span> <span class="st">"p"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18"></a>  <span class="at">results.subtitle =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-19"><a href="#cb4-19"></a>  <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb4-20"><a href="#cb4-20"></a>  <span class="at">title =</span> <span class="st">"t-test"</span>,</span>
-<span id="cb4-21"><a href="#cb4-21"></a>  <span class="at">ggtheme =</span> ggthemes<span class="sc">::</span><span class="fu">theme_fivethirtyeight</span>(),</span>
-<span id="cb4-22"><a href="#cb4-22"></a>  <span class="at">package =</span> <span class="st">"basetheme"</span>,</span>
-<span id="cb4-23"><a href="#cb4-23"></a>  <span class="at">palette =</span> <span class="st">"ink"</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-boxwhisker1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-boxwhisker1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="08-anova_files/figure-html/fig-boxwhisker1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;1: Box-and-whisker plot showing the differences in means between chicks reared to 21 days old and fed Diets 1 and 2"><img src="08-anova_files/figure-html/fig-boxwhisker1-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxwhisker1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Box-and-whisker plot showing the differences in means between chicks reared to 21 days old and fed Diets 1 and 2
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Notice above that we did not need to specify to use a <em>t</em>-test. The <code>ggbetweenstats()</code> function automatically determines if an independent samples <em>t</em>-test or a 1-way ANOVA is required based on whether there are two groups or three or more groups within the grouping (factor) variable.</p>
-<p>That was a nice revision. But applied to the <code>chicks</code> data it seemed a bit silly, because you may ask, “What if I wanted to know if there are differences among the means computed at Day 1, Day 6, Day 10, and Day 21?” We should not use <em>t</em>-tests to do this (although we can). So now we can move on to the ANOVA.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.1: Do It Now!
+<span class="screen-reader-only">Important</span>Do It Now!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li>Why should we not just apply <em>t</em>-tests once per each of the pairs of comparisons we want to make?</li>
-</ul>
+<p>As a reminder of what <em>t</em>-tests are about, use your BCB742 Bokbaai data, and devise a research question that requires the application of a <em>t</em>-test. Work through the entire <em>t</em>-test workflow, and produce the Methods, Results, and Discussion as an output (together with the code thhat enabled your analysis).</p>
 </div>
 </div>
-</section>
-<section id="why-not-do-multiple-t-tests" class="level2 page-columns page-full" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="why-not-do-multiple-t-tests"><span class="header-section-number">2.2</span> Why Not Do Multiple <em>t</em>-tests?</h2>
-<p>In the <code>chicks</code> data we have four diets, not only two as in the <em>t</em>-test example just performed. Why not then simply do a <em>t</em>-test multiple times, once for each pair of diets given to the chickens? Multiple <em>t</em>-tests would be written as:</p>
-<ul>
-<li><span class="math inline">\(H_{0}: \mu_1 = \mu_2\)</span></li>
-<li><span class="math inline">\(H_{0}: \mu_1 = \mu_3\)</span></li>
-<li><span class="math inline">\(H_{0}: \mu_1 = \mu_4\)</span></li>
-<li><span class="math inline">\(H_{0}: \mu_2 = \mu_3\)</span></li>
-<li><span class="math inline">\(H_{0}: \mu_2 = \mu_4\)</span></li>
-<li><span class="math inline">\(H_{0}: \mu_3 = \mu_4\)</span></li>
-</ul>
-<p>This would be invalid. The problem is that the chance of committing a Type I error increases as more multiple comparisons are done. So, the overall chance of rejecting the <em>H</em><sub>0</sub> increases. Why? If one sets <span class="math inline">\(\alpha=0.05\)</span> (the significance level below which the <em>H</em><sub>0</sub> is no longer accepted), one will still reject the <em>H</em><sub>0</sub> 5% of the time when it is in fact true (<em>i.e.</em> when there is no difference between the groups). When many pairwise comparisons are made, the probability of rejecting the <em>H</em><sub>0</sub> at least once is higher because we take this 5% risk each time we repeat a <em>t</em>-test. In the case of the chicken diets, we would have to perform six <em>t</em>-tests, and the error rate would increase to slightly less than <span class="math inline">\(6\times5\%\)</span>. See Table 1.</p>
-<div id="kable-table-div" class="page-columns page-full">
-<div class="cell page-columns page-full">
-<div id="tbl-kbl-results-long-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<p>ANOVA extends the comparison-of-means idea from <a href="../basic_stats/07-t_tests.html">Chapter 7</a> to more than two groups. The question changes from “do these two means differ?” to “do these group means all come from the same population mean?” The response variable is still continuous and the predictor still categorical, but now we have more than two groups.</p>
+<p>Although ANOVA is also a linear model with categorical predictors, this chapter begins with grouped-data displays because they are intuitive and useful for exploratory analyses. Formally, however, the assumptions of ANOVA belong to the model errors and are therefore checked most directly through residuals from the fitted ANOVA model. The later regression chapters, especially <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html">Chapter 11</a>, <a href="../basic_stats/12-simple-linear-regression.html">Chapter 12</a>, and <a href="../basic_stats/14-multiple-regression-and-model-specification.html">Chapter 14</a>, make that linear-model connection clear.</p>
+<section id="why-not-do-multiple-t-tests" class="level1 page-columns page-full" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Why Not Do Multiple <em>t</em>-Tests?</h1>
+<p>The first impulse with several groups is often to compare every pair with a separate <em>t</em>-test. That is the wrong decision. Each additional test creates another opportunity for a false positive, so the overall Type I error rate rises as the number of pairwise comparisons increases.</p>
+<p>In the <code>chicks</code> data we have four diets. Pairwise testing would require six null hypotheses:</p>
+<p><span class="math display">\[H_{0}: \mu_1 = \mu_2\]</span> <span class="math display">\[H_{0}: \mu_1 = \mu_3\]</span> <span class="math display">\[H_{0}: \mu_1 = \mu_4\]</span> <span class="math display">\[H_{0}: \mu_2 = \mu_3\]</span> <span class="math display">\[H_{0}: \mu_2 = \mu_4\]</span> <span class="math display">\[H_{0}: \mu_3 = \mu_4\]</span></p>
+<p>With each repeated test, the probability of rejecting at least one true null hypothesis increases.</p>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div id="tbl-kbl-results-long-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <div aria-describedby="tbl-kbl-results-long-digits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small">
+<div id="vwwrcfoxnn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vwwrcfoxnn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vwwrcfoxnn thead, #vwwrcfoxnn tbody, #vwwrcfoxnn tfoot, #vwwrcfoxnn tr, #vwwrcfoxnn td, #vwwrcfoxnn th {
+  border-style: none;
+}
+
+#vwwrcfoxnn p {
+  margin: 0;
+  padding: 0;
+}
+
+#vwwrcfoxnn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vwwrcfoxnn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vwwrcfoxnn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vwwrcfoxnn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vwwrcfoxnn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vwwrcfoxnn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vwwrcfoxnn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vwwrcfoxnn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vwwrcfoxnn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vwwrcfoxnn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vwwrcfoxnn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vwwrcfoxnn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vwwrcfoxnn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vwwrcfoxnn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vwwrcfoxnn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vwwrcfoxnn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vwwrcfoxnn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vwwrcfoxnn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vwwrcfoxnn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vwwrcfoxnn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vwwrcfoxnn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vwwrcfoxnn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vwwrcfoxnn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vwwrcfoxnn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vwwrcfoxnn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vwwrcfoxnn .gt_left {
+  text-align: left;
+}
+
+#vwwrcfoxnn .gt_center {
+  text-align: center;
+}
+
+#vwwrcfoxnn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vwwrcfoxnn .gt_font_normal {
+  font-weight: normal;
+}
+
+#vwwrcfoxnn .gt_font_bold {
+  font-weight: bold;
+}
+
+#vwwrcfoxnn .gt_font_italic {
+  font-style: italic;
+}
+
+#vwwrcfoxnn .gt_super {
+  font-size: 65%;
+}
+
+#vwwrcfoxnn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vwwrcfoxnn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vwwrcfoxnn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vwwrcfoxnn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vwwrcfoxnn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vwwrcfoxnn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vwwrcfoxnn .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#vwwrcfoxnn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vwwrcfoxnn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table cell table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
-<tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">K</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">0.2</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">0.1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">0.05</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">0.02</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">0.01</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">0.001</th>
+<tr class="gt_col_headings header">
+<th id="K" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">K</th>
+<th id="a0.2" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">0.2</th>
+<th id="a0.1" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">0.1</th>
+<th id="a0.05" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">0.05</th>
+<th id="a0.02" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">0.02</th>
+<th id="a0.01" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">0.01</th>
+<th id="a0.001" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">0.001</th>
 </tr>
 </thead>
-<tbody>
+<tbody class="gt_table_body">
 <tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0.20</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">0.05</td>
-<td style="text-align: right;">0.02</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">0.00</td>
+<td class="gt_row gt_right" headers="K">2</td>
+<td class="gt_row gt_right" headers="0.2">0.20</td>
+<td class="gt_row gt_right" headers="0.1">0.10</td>
+<td class="gt_row gt_right" headers="0.05">0.05</td>
+<td class="gt_row gt_right" headers="0.02">0.02</td>
+<td class="gt_row gt_right" headers="0.01">0.01</td>
+<td class="gt_row gt_right" headers="0.001">0.00</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0.49</td>
-<td style="text-align: right;">0.27</td>
-<td style="text-align: right;">0.14</td>
-<td style="text-align: right;">0.06</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">0.00</td>
+<td class="gt_row gt_right" headers="K">3</td>
+<td class="gt_row gt_right" headers="0.2">0.49</td>
+<td class="gt_row gt_right" headers="0.1">0.27</td>
+<td class="gt_row gt_right" headers="0.05">0.14</td>
+<td class="gt_row gt_right" headers="0.02">0.06</td>
+<td class="gt_row gt_right" headers="0.01">0.03</td>
+<td class="gt_row gt_right" headers="0.001">0.00</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0.74</td>
-<td style="text-align: right;">0.47</td>
-<td style="text-align: right;">0.26</td>
-<td style="text-align: right;">0.11</td>
-<td style="text-align: right;">0.06</td>
-<td style="text-align: right;">0.01</td>
+<td class="gt_row gt_right" headers="K">4</td>
+<td class="gt_row gt_right" headers="0.2">0.74</td>
+<td class="gt_row gt_right" headers="0.1">0.47</td>
+<td class="gt_row gt_right" headers="0.05">0.26</td>
+<td class="gt_row gt_right" headers="0.02">0.11</td>
+<td class="gt_row gt_right" headers="0.01">0.06</td>
+<td class="gt_row gt_right" headers="0.001">0.01</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0.89</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">0.40</td>
-<td style="text-align: right;">0.18</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">0.01</td>
+<td class="gt_row gt_right" headers="K">5</td>
+<td class="gt_row gt_right" headers="0.2">0.89</td>
+<td class="gt_row gt_right" headers="0.1">0.65</td>
+<td class="gt_row gt_right" headers="0.05">0.40</td>
+<td class="gt_row gt_right" headers="0.02">0.18</td>
+<td class="gt_row gt_right" headers="0.01">0.10</td>
+<td class="gt_row gt_right" headers="0.001">0.01</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.99</td>
-<td style="text-align: right;">0.90</td>
-<td style="text-align: right;">0.60</td>
-<td style="text-align: right;">0.36</td>
-<td style="text-align: right;">0.04</td>
+<td class="gt_row gt_right" headers="K">10</td>
+<td class="gt_row gt_right" headers="0.2">1.00</td>
+<td class="gt_row gt_right" headers="0.1">0.99</td>
+<td class="gt_row gt_right" headers="0.05">0.90</td>
+<td class="gt_row gt_right" headers="0.02">0.60</td>
+<td class="gt_row gt_right" headers="0.01">0.36</td>
+<td class="gt_row gt_right" headers="0.001">0.04</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.98</td>
-<td style="text-align: right;">0.85</td>
-<td style="text-align: right;">0.17</td>
+<td class="gt_row gt_right" headers="K">20</td>
+<td class="gt_row gt_right" headers="0.2">1.00</td>
+<td class="gt_row gt_right" headers="0.1">1.00</td>
+<td class="gt_row gt_right" headers="0.05">1.00</td>
+<td class="gt_row gt_right" headers="0.02">0.98</td>
+<td class="gt_row gt_right" headers="0.01">0.85</td>
+<td class="gt_row gt_right" headers="0.001">0.17</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.99</td>
+<td class="gt_row gt_right" headers="K">100</td>
+<td class="gt_row gt_right" headers="0.2">1.00</td>
+<td class="gt_row gt_right" headers="0.1">1.00</td>
+<td class="gt_row gt_right" headers="0.05">1.00</td>
+<td class="gt_row gt_right" headers="0.02">1.00</td>
+<td class="gt_row gt_right" headers="0.01">1.00</td>
+<td class="gt_row gt_right" headers="0.001">0.99</td>
 </tr>
 </tbody>
 </table>
+
+</div>
 </div>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-tbl margin-caption" id="tbl-kbl-results-long-digits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: <strong>Table 1.</strong> Probability of committing a Type I error due to applying multiple <em>t</em>-tests to test for differences between <em>K</em> means. <em>α</em> from <code>0.2</code> to <code>0.0001</code> are shown.
+Table&nbsp;1: Probability of at least one Type I error when all pairwise <em>t</em>-tests are run among <em>K</em> groups.
 </figcaption>
 </figure>
 </div>
 </div>
-</div>
-<p>If you insist in creating more work for yourself and do <em>t</em>-tests many times, one way to overcome the problem of committing Type I errors that stem from multiple comparisons is to apply a Bonferroni correction.</p>
+<p>ANOVA makes this a global question:</p>
+<p><span class="math display">\[H_{0}: \mu_1 = \mu_2 = \mu_3 = \dots = \mu_k\]</span> <span class="math display">\[H_{a}: \text{not all group means are equal}\]</span></p>
+<p>If the global null hypothesis is rejected, we then ask which groups differ using a post hoc procedure such as Tukey’s HSD.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Bonferonni Correction
+<span class="screen-reader-only">Note</span>Bonferroni Correction
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Bonferroni correction is used to adjust the significance level of multiple hypothesis tests, such as multiple paired <em>t</em>-tests among many groups, in order to reduce the risk of false positives, Type I errors. It is named after the Italian mathematician Carlo Emilio Bonferroni.</p>
-<p>The Bonferroni correction is based on the principle that when multiple hypothesis tests are performed, the probability of observing at least one significant result due to random chance increases. To correct for this, the significance level (usually 0.05) is divided by the number of tests being performed. This results in a more stringent significance level for each individual test, it so reduces the risk of committing a Type I error.</p>
-<p>For example, if we conduct ten hypothesis tests, the significance level for each test after Bonferonni correction would become 0.05/10 = 0.005. The implication is that each individual test would need to have a <em>p</em>-value less than 0.005 to be considered significant at the overall significance level of 0.05.</p>
-<p>On the downside, this method can be overly conservative, we may then increase the risk of Type II errors and which are false negatives. If you really cannot avoid multiple tests, then also assess one of the alternatives to Bonferonni’s method, viz: the false discovery rate (FDR) correction, the Holm-Bonferroni correction, Benjamini-Hochberg’s procedure, the Sidak correction, or some of the Bayesian approaches.</p>
+<p>Should you insist on doing multiple <em>t</em>-tests, Bonferroni correction divides the significance threshold by the number of tests. It reduces the false-positive rate, but it can become very conservative. The better solution, when the scientific question concerns several group means at once, is to fit the appropriate multi-group model, such as an ANOVA, rather than correct a stack of pairwise <em>t</em>-tests after the fact.</p>
 </div>
 </div>
-<p>Or better still, we do an ANOVA that controls for these Type I errors so that it remains at 5%.</p>
-</section>
-</section>
-<section id="anova" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> ANOVA</h1>
-<div class="callout callout-style-default callout-note callout-titled">
+<div id="self-assessment-task-8-1" class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Hypothesis for an Anova
+<span class="screen-reader-only">Important</span>Self-Assessment Task 8-1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If we have four groups whose means we want to compare, a suitable <em>H</em><sub>0</sub> would be:</p>
-<p><span class="math inline">\(H_{0}: \mu_1 = \mu_2 = \mu_3 = \mu_4\)</span></p>
-<p>and</p>
-<p><span class="math inline">\(H_{a}\)</span>: the means of the four groups are not equal.</p>
-<p>Here, <span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span>, <span class="math inline">\(\mu_3\)</span>,<span class="math inline">\(\mu_4\)</span> are four population means. For the <em>H</em><sub>0</sub> to be rejected, all that is required is for one of the pairs of means to be different, not all of them.</p>
+<ol type="a">
+<li><p>Why should we not just apply <em>t</em>-tests once per each of the pairs of comparisons we want to make? <strong>(/3)</strong></p></li>
+<li><p>Using the table above, calculate the probability of at least one false positive when comparing five groups (<span class="math inline">\(K = 5\)</span>) at <span class="math inline">\(\alpha = 0.05\)</span> using pairwise <em>t</em>-tests. How many comparisons would that involve? Then calculate the same probability at <span class="math inline">\(\alpha = 0.01\)</span>. Is a Bonferroni correction or a single ANOVA the better solution? Discuss with a partner and be ready to explain your reasoning. <strong>(/5)</strong></p></li>
+</ol>
 </div>
 </div>
-<section id="single-factor" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="single-factor"><span class="header-section-number">3.1</span> Single Factor</h2>
-<p>We continue with the chicken data. The <em>t</em>-test showed that Diets 1 and 2 resulted in the same chicken mass at Day 21. What about the other two diets? Our <em>H</em><sub>0</sub> is that, at Day 21, <span class="math inline">\(\mu_{1}=\mu_{2}=\mu_{3}=\mu_{4}\)</span>. Is there a statistical difference between chickens fed these four diets, or do we retain the <em>H</em><sub>0</sub>? The R function for an ANOVA is <code>aov()</code>. To look for significant differences between all four diets on the last day of sampling we use this one line of code:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>chicks.aov1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">21</span>))</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">summary</span>(chicks.aov1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="how-anova-partitions-variation" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> How ANOVA Partitions Variation</h1>
+<p>ANOVA gets to the global question by partitioning the total variation in the response into two components:</p>
+<ul>
+<li>variation among the group means;</li>
+<li>variation within the groups.</li>
+</ul>
+<p>If the group means differ more than we would expect from within-group variation alone, the ANOVA result becomes large enough to reject <span class="math inline">\(H_0\)</span>. This partition is illustrated in <a href="#fig-anova-decomposition" class="quarto-xref">Figure&nbsp;1</a>. This partition is illustrated in <a href="#fig-anova-decomposition" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>grand_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(chicks_day21<span class="sc">$</span>weight)</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">ggplot</span>(chicks_day21, <span class="fu">aes</span>(Diet, weight)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.08</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">colour =</span> <span class="st">"red4"</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> grand_mean, <span class="at">colour =</span> <span class="st">"dodgerblue3"</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Diet"</span>, <span class="at">y =</span> <span class="st">"Chick mass (g)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-anova-decomposition" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-anova-decomposition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="08-anova_files/figure-html/fig-anova-decomposition-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;1: Visual intuition for ANOVA. The dashed blue line is the grand mean. The red points are the diet means. Distance from the red points to the blue line contributes to between-group variation. Distance from observations to their group mean contributes to within-group variation."><img src="08-anova_files/figure-html/fig-anova-decomposition-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova-decomposition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Visual intuition for ANOVA. The dashed blue line is the grand mean. The red points are the diet means. Distance from the red points to the blue line contributes to between-group variation. Distance from observations to their group mean contributes to within-group variation.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Mathematical Detail
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Suppose there are <span class="math inline">\(k\)</span> groups, <span class="math inline">\(Y_{ij}\)</span> is the <span class="math inline">\(j\)</span>-th observation in group <span class="math inline">\(i\)</span>, <span class="math inline">\(\bar{Y}_i\)</span> is the mean of group <span class="math inline">\(i\)</span>, and <span class="math inline">\(\bar{Y}\)</span> is the grand mean.</p>
+<p><span id="eq-anova-ss"><span class="math display">\[SS_{\text{total}} = SS_{\text{among}} + SS_{\text{within}} \tag{1}\]</span></span></p>
+<p>The total sum of squares is:</p>
+<p><span id="eq-anova-sstotal"><span class="math display">\[SS_{\text{total}} = \sum_{i=1}^{k}\sum_{j=1}^{n_i}(Y_{ij} - \bar{Y})^2 \tag{2}\]</span></span></p>
+<p>The among-groups sum of squares is:</p>
+<p><span id="eq-anova-ssamong"><span class="math display">\[SS_{\text{among}} = \sum_{i=1}^{k} n_i(\bar{Y}_i - \bar{Y})^2 \tag{3}\]</span></span></p>
+<p>The within-groups sum of squares is:</p>
+<p><span id="eq-anova-sswithin"><span class="math display">\[SS_{\text{within}} = \sum_{i=1}^{k}\sum_{j=1}^{n_i}(Y_{ij} - \bar{Y}_i)^2 \tag{4}\]</span></span></p>
+<p>ANOVA converts these to mean squares:</p>
+<p><span id="eq-anova-ms"><span class="math display">\[MS_{\text{among}} = \frac{SS_{\text{among}}}{k - 1}, \qquad MS_{\text{within}} = \frac{SS_{\text{within}}}{N - k} \tag{5}\]</span></span></p>
+<p>and compares them with the <em>F</em>-ratio:</p>
+<p><span id="eq-anova-f"><span class="math display">\[F = \frac{MS_{\text{among}}}{MS_{\text{within}}} \tag{6}\]</span></span></p>
+<p>Large <em>F</em> values indicate that the group means differ more than we would expect from within-group variation alone.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="data-structure-and-decision-rule" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data Structure and Decision Rule</h1>
+<p>Use a one-way ANOVA when:</p>
+<ul>
+<li>the response variable is continuous;</li>
+<li>the predictor is categorical with three or more independent levels;</li>
+<li>the observations are independent;</li>
+<li>the within-group distributions are reasonably well behaved.</li>
+</ul>
+<p>Use this decision rule:</p>
+<ul>
+<li>if the group spreads are similar, use classical one-way ANOVA with <code>aov()</code>;</li>
+<li>if the data are strongly non-normal and a rank-based comparison is more defensible, use Kruskal-Wallis with <code>kruskal.test()</code>.</li>
+</ul>
+<p>Boxplots with jitter are the first EDA tool to use here. Look for:</p>
+<ul>
+<li>separation in group centres;</li>
+<li>large differences in spread;</li>
+<li>outliers that dominate one group;</li>
+<li>shapes that suggest strong skewness.</li>
+</ul>
+<p>These grouped plots are exploratory checks, not the final diagnostic step. In ANOVA itself, the assumptions are about the residual variation left after fitting the group means. I use the grouped plots here because they make the data structure easy to see, but the full residual-based analysis is developed explicitly in <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html">Chapter 11</a>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About Homogeneity Tests
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You’ve heard this before: Levene’s test and Bartlett’s test are supporting tools, not the main decision pathway. Visual comparison of spread comes first. If the group spreads differ substantially, switch to Welch’s ANOVA rather than treating a non-significant homogeneity test as permission to ignore the problem.</p>
+</div>
+</div>
+</section>
+<section id="r-functions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> R Functions</h1>
+<p>The main functions used in this chapter are:</p>
+<ul>
+<li><code>aov()</code> for classical ANOVA;</li>
+<li><code>summary()</code> for the ANOVA table;</li>
+<li><code>TukeyHSD()</code> for post hoc pairwise comparisons;</li>
+<li><code>oneway.test()</code> for Welch’s one-way ANOVA;</li>
+<li><code>kruskal.test()</code> for the Kruskal-Wallis rank-sum test.</li>
+</ul>
+<p>A further practical point is worth stating now, even though I explain it properly only later. Once an ANOVA model has been fitted, the assumptions are checked most directly on the residuals from that model. In this chapter I still use grouped plots and summaries as the first pass because they are easy to read, but I also show the residual diagnostics briefly so that the workflow is already in place. <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html">Chapter 11</a> returns to this carefully and explains why residuals become the main object of diagnosis.</p>
+</section>
+<section id="example-1-chick-masses-under-four-diets" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Example 1: Chick Masses Under Four Diets</h1>
+<p>At Day 21, do chicks fed four diets differ in mean body mass?</p>
+<p>I set my hypotheses:</p>
+<p><span class="math display">\[H_{0}: \mu_1 = \mu_2 = \mu_3 = \mu_4\]</span> <span class="math display">\[H_{a}: \text{not all group means are equal}\]</span></p>
+<section id="the-one-way-design" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="the-one-way-design"><span class="header-section-number">5.1</span> The One-Way Design</h2>
+<p>This is a one-way design because there is one grouping variable, <code>Diet</code>, with four levels. The response variable is chick mass.</p>
+</section>
+<section id="do-an-exploratory-data-analysis-eda" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="do-an-exploratory-data-analysis-eda"><span class="header-section-number">5.2</span> Do an Exploratory Data Analysis (EDA)</h2>
+<p>I begin with a boxplot and jittered points so that the distribution within each diet is visible in <a href="#fig-boxwhisker2" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(chicks_day21, <span class="fu">aes</span>(<span class="at">x =</span> Diet, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="at">width =</span> <span class="fl">0.6</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="at">fill =</span> <span class="st">"grey85"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="at">colour =</span> <span class="st">"black"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.08</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="at">fun =</span> mean,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb3-13"><a href="#cb3-13"></a>    <span class="at">colour =</span> <span class="st">"black"</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="at">fun.data =</span> mean_sdl,</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="at">fun.args =</span> <span class="fu">list</span>(<span class="at">mult =</span> <span class="dv">1</span>),</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="at">geom =</span> <span class="st">"errorbar"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="at">width =</span> <span class="fl">0.12</span>,</span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="at">linewidth =</span> <span class="fl">0.5</span>,</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="at">colour =</span> <span class="st">"black"</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Diet"</span>, <span class="at">y =</span> <span class="st">"Chick mass (g)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-boxwhisker2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-boxwhisker2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="08-anova_files/figure-html/fig-boxwhisker2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;2: Boxplot and jittered observations for chick mass at Day 21 under four diets. Black points show the diet means and the vertical bars show one standard deviation above and below each mean."><img src="08-anova_files/figure-html/fig-boxwhisker2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxwhisker2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Boxplot and jittered observations for chick mass at Day 21 under four diets. Black points show the diet means and the vertical bars show one standard deviation above and below each mean.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot suggests that Diet 3 has the largest mean mass and Diet 1 the smallest. The spreads are not identical, but they are similar enough that a classical one-way ANOVA is plausible.</p>
+<p>I support that visual judgement with grouped summaries and a homogeneity test.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>chicks_day21 <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">group_by</span>(Diet) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">n =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(weight),</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(weight),</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="at">shapiro_p =</span> <span class="fu">shapiro.test</span>(weight)<span class="sc">$</span>p.value,</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; # A tibble: 4 × 5
+R&gt;   Diet      n  mean    sd shapiro_p
+R&gt;   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+R&gt; 1 1        16  178.  58.7     0.591
+R&gt; 2 2        10  215.  78.1     0.949
+R&gt; 3 3        10  270.  71.6     0.895
+R&gt; 4 4         9  239.  43.3     0.186</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> chicks_day21)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; Levene's Test for Homogeneity of Variance (center = median)
+R&gt;       Df F value Pr(&gt;F)
+R&gt; group  3  1.1597 0.3367
+R&gt;       41</code></pre>
+</div>
+</div>
+<p>The Shapiro-Wilk tests show no strong evidence against normality within any diet at Day 21, and Levene’s test shows no strong evidence that the spreads differ. So, there is no strong reason to not apply an ANOVA.</p>
+</section>
+<section id="apply-the-test" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="apply-the-test"><span class="header-section-number">5.3</span> Apply the Test</h2>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>chicks_aov1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> chicks_day21)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">summary</span>(chicks_aov1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
 R&gt; Diet         3  57164   19055   4.655 0.00686 **
@@ -980,30 +1559,89 @@ R&gt; ---
 R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.2: Do It Now!
+<span class="screen-reader-only">Note</span>Reading the ANOVA Table
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The ANOVA table has one row per source of variation and a <code>Residuals</code> row. Here is what each column records, using the chick-diet result as a worked example.</p>
+<p><strong><code>Df</code> (degrees of freedom)</strong> counts the independent pieces of information available to estimate each source of variation.</p>
+<ul>
+<li><code>Diet</code>: <span class="math inline">\(k - 1 = 4 - 1 = 3\)</span>, because four diet groups require only three contrasts to fully describe all group-mean differences; once three comparisons are fixed, the fourth is determined.</li>
+<li><code>Residuals</code>: <span class="math inline">\(N - k = 45 - 4 = 41\)</span>, where <span class="math inline">\(N\)</span> is the total number of observations. Once each of the four group means has been estimated, 41 observations remain to estimate within-group scatter.</li>
+</ul>
+<p><strong><code>Sum Sq</code> (sum of squares)</strong> quantifies the total squared deviation attributable to each source (<a href="#eq-anova-ssamong" class="quarto-xref">Equation&nbsp;3</a> and <a href="#eq-anova-sswithin" class="quarto-xref">Equation&nbsp;4</a> in the <em>Mathematical Detail</em> box above).</p>
+<ul>
+<li><code>Diet</code> (<span class="math inline">\(SS_\text{among}\)</span>): the weighted sum of squared distances from each group mean to the grand mean — how much the four diet means spread around the overall mean across all chicks.</li>
+<li><code>Residuals</code> (<span class="math inline">\(SS_\text{within}\)</span>): the sum of squared distances from each individual observation to its own group mean — unexplained scatter within each diet group.</li>
+</ul>
+<p><strong><code>Mean Sq</code> (mean square)</strong> converts each sum of squares to an average by dividing by its degrees of freedom. This step places both sources on a comparable per-degree-of-freedom scale so that the between- and within-group variation can be fairly compared.</p>
+<p><span class="math display">\[MS_\text{Diet} = \frac{SS_\text{Diet}}{Df_\text{Diet}}, \qquad MS_\text{Residuals} = \frac{SS_\text{Residuals}}{Df_\text{Residuals}}\]</span></p>
+<p><strong><code>F value</code></strong> is the ratio of the two mean squares (<a href="#eq-anova-f" class="quarto-xref">Equation&nbsp;6</a>).</p>
+<p><span class="math display">\[F = \frac{MS_\text{Diet}}{MS_\text{Residuals}}\]</span></p>
+<p>If <span class="math inline">\(H_0\)</span> is true, the diet group means vary only by chance, and both mean squares estimate the same underlying population variance, so <span class="math inline">\(F\)</span> should hover near 1. A large <span class="math inline">\(F\)</span> means the diet means spread far more than would be expected from within-diet scatter alone. Here, <span class="math inline">\(F_{3,\,41} \approx 4.66\)</span>, which falls far enough into the right tail of the <span class="math inline">\(F_{3,\,41}\)</span> null distribution that <span class="math inline">\(p &lt; 0.01\)</span>. This means that an <span class="math inline">\(F\)</span> this large would arise by chance less than 1% of the time if all four diet means were truly equal.</p>
+</div>
+</div>
+</section>
+<section id="brief-residual-check" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="brief-residual-check"><span class="header-section-number">5.4</span> Brief Residual Check</h2>
+<p>Before interpreting the ANOVA table, I take a quick look at the fitted residuals (<a href="#fig-chicks-aov1-diagnostics" class="quarto-xref">Figure&nbsp;3</a>). The residual-versus-fitted panel checks whether the spread is broadly stable across the fitted group means, and the Q-Q plot checks whether the residual distribution is close enough to normal for the usual ANOVA inference.</p>
+<p>I do not develop these plots fully here because the full thinking behind residual tests belongs to <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html">Chapter 11</a>. For now, the point is simply that ANOVA assumptions are checked on the fitted model as well as through grouped exploratory displays.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">plot</span>(chicks_aov1, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">plot</span>(chicks_aov1, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-chicks-aov1-diagnostics" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chicks-aov1-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="08-anova_files/figure-html/fig-chicks-aov1-diagnostics-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;3: Brief residual diagnostics for the chick-mass ANOVA. The left panel shows residuals versus fitted values and the right panel shows a normal Q-Q plot of the residuals."><img src="08-anova_files/figure-html/fig-chicks-aov1-diagnostics-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1800"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chicks-aov1-diagnostics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Brief residual diagnostics for the chick-mass ANOVA. The left panel shows residuals versus fitted values and the right panel shows a normal Q-Q plot of the residuals.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>For this example, the residuals do not show an alarming departure from the model assumptions. The grouped summaries and the residual diagnostics therefore tell the same broad story: a classical one-way ANOVA is reasonable here.</p>
+<div id="self-assessment-task-8-2" class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Self-Assessment Task 8-2
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ol type="a">
-<li>What does the outcome say about the chicken masses? Which ones are different from each other?</li>
-<li>Devise a graphical display of this outcome.</li>
+<li>What does the outcome say about the chicken masses? Which ones are different from each other? <strong>(/2)</strong></li>
+<li>Devise a graphical display of this outcome. <strong>(/4)</strong></li>
 </ol>
 </div>
 </div>
-<p>If this seems too easy to be true, it is because we are not quite done yet. You could use your graphical display to eyeball where the significant differences are, or we can turn to a more ‘precise’ approach. The next step one could take is to run a Tukey HSD test on the results of the ANOVA by wrapping <code>tukeyHSD()</code> around <code>aov()</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">TukeyHSD</span>(chicks.aov1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The ANOVA table answers the global question only. A significant result means that at least one diet mean differs from at least one other diet mean.</p>
+</section>
+<section id="sec-identify-groups-differ" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="sec-identify-groups-differ"><span class="header-section-number">5.5</span> Identify Which Groups Differ</h2>
+<p>Once there is enough evidence to no longer accept the global null hypothesis, I use Tukey’s HSD to identify the pairwise differences while controlling the family-wise error rate.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">TukeyHSD</span>(chicks_aov1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   Tukey multiple comparisons of means
 R&gt;     95% family-wise confidence level
 R&gt; 
-R&gt; Fit: aov(formula = weight ~ Diet, data = filter(chicks, Time == 21))
+R&gt; Fit: aov(formula = weight ~ Diet, data = chicks_day21)
 R&gt; 
 R&gt; $Diet
 R&gt;          diff        lwr       upr     p adj
@@ -1015,135 +1653,82 @@ R&gt; 4-2  23.85556  -54.85981 102.57092 0.8486781
 R&gt; 4-3 -31.74444 -110.45981  46.97092 0.7036249</code></pre>
 </div>
 </div>
-<p>The output of <code>tukeyHSD()</code> shows us that pairwise comparisons of all of the groups we are comparing. We can also display this as a very rough figure (<a href="#fig-tukeydiff" class="quarto-xref">Figure&nbsp;2</a>):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(chicks.aov1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each row in the Tukey output is one pairwise comparison. The <code>diff</code> column is the estimated mean difference between the two diets. The <code>lwr</code> and <code>upr</code> columns give the confidence interval for that difference. If the confidence interval does not cross zero, the two diets differ at the chosen family-wise confidence level. If the interval includes zero, the data do not support a clear difference for that pair. The <code>p adj</code> column gives the multiplicity-adjusted <em>p</em>-value for the same comparison.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(chicks_aov1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
-<div id="fig-tukeydiff" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-tukeydiff" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tukeydiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="08-anova_files/figure-html/fig-tukeydiff-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;2: A plot of the Tukey-HSD test showing the differences in means between chicks reared to 21 days old and fed four diets."><img src="08-anova_files/figure-html/fig-tukeydiff-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
+<a href="08-anova_files/figure-html/fig-tukeydiff-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;4: Tukey HSD comparisons among the four chick diets at Day 21."><img src="08-anova_files/figure-html/fig-tukeydiff-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tukeydiff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: A plot of the Tukey-HSD test showing the differences in means between chicks reared to 21 days old and fed four diets.
+Figure&nbsp;4: Tukey HSD comparisons among the four chick diets at Day 21.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>We may also produce a nicer looking graphical summary in the form of a box-and-whisker plot and/or a violin plot. Here I combine both (<a href="#fig-boxwhisker2" class="quarto-xref">Figure&nbsp;3</a>):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">set.seed</span>(<span class="dv">666</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="do">## Parametric T-test and Box Plot</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">ggbetweenstats</span>(</span>
-<span id="cb10-5"><a href="#cb10-5"></a>  <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">21</span>),</span>
-<span id="cb10-6"><a href="#cb10-6"></a>  <span class="at">x =</span> Diet,</span>
-<span id="cb10-7"><a href="#cb10-7"></a>  <span class="at">y =</span> weight,</span>
-<span id="cb10-8"><a href="#cb10-8"></a>  <span class="at">xlab =</span> <span class="st">"Diet"</span>,</span>
-<span id="cb10-9"><a href="#cb10-9"></a>  <span class="at">ylab =</span> <span class="st">"Chick mass (g)"</span>,</span>
-<span id="cb10-10"><a href="#cb10-10"></a>  <span class="at">plot.type =</span> <span class="st">"box"</span>,</span>
-<span id="cb10-11"><a href="#cb10-11"></a>  <span class="at">boxplot.args =</span> <span class="fu">list</span>(<span class="at">notch =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb10-12"><a href="#cb10-12"></a>  <span class="at">type =</span> <span class="st">"parametric"</span>,</span>
-<span id="cb10-13"><a href="#cb10-13"></a>  <span class="at">results.subtitle =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb10-14"><a href="#cb10-14"></a>  <span class="at">pairwise.comparisons =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb10-15"><a href="#cb10-15"></a>  <span class="at">pairwise.display =</span> <span class="st">"s"</span>,</span>
-<span id="cb10-16"><a href="#cb10-16"></a>  <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>,</span>
-<span id="cb10-17"><a href="#cb10-17"></a>  <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb10-18"><a href="#cb10-18"></a>  <span class="at">title =</span> <span class="st">"ANOVA"</span>,</span>
-<span id="cb10-19"><a href="#cb10-19"></a>  <span class="at">ggtheme =</span> ggthemes<span class="sc">::</span><span class="fu">theme_fivethirtyeight</span>(),</span>
-<span id="cb10-20"><a href="#cb10-20"></a>  <span class="at">package =</span> <span class="st">"basetheme"</span>,</span>
-<span id="cb10-21"><a href="#cb10-21"></a>  <span class="at">palette =</span> <span class="st">"ink"</span></span>
-<span id="cb10-22"><a href="#cb10-22"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-boxwhisker2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-boxwhisker2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="08-anova_files/figure-html/fig-boxwhisker2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;3: Box-and-whisker plot showing the differences in means between chicks reared to 21 days old and fed four diets. Shown is a notched box plot where the extent of the notches is 1.58 * IQR / sqrt(n). This is approximately equivalent to a 95% confidence interval and may be used for comparing medians."><img src="08-anova_files/figure-html/fig-boxwhisker2-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-boxwhisker2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Box-and-whisker plot showing the differences in means between chicks reared to 21 days old and fed four diets. Shown is a notched box plot where the extent of the notches is <code>1.58 * IQR / sqrt(n)</code>. This is approximately equivalent to a 95% confidence interval and may be used for comparing medians.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
+<p>The pairwise pattern is easier to scan in <a href="#fig-tukeydiff" class="quarto-xref">Figure&nbsp;4</a>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.3: Do It Now!
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Produce a <code>ggplot2</code> version of the Tukey result.</p>
+</div>
+</div>
+<div id="self-assessment-task-8-3" class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Self-Assessment Task 8-3
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Look at the help file for the <code>TukeyHSD()</code> function to better understand what the output means.</p>
 <ol type="a">
-<li>How does one interpret the results? What does this tell us about the effect that that different diets has on the chicken weights at Day 21?</li>
-<li>Figure out a way to plot the Tukey HSD outcomes in <strong>ggplot</strong>.</li>
-<li>Why does the ANOVA return a significant result, but the Tukey test shows that not all of the groups are significantly different from one another?</li>
+<li>How does one interpret the results? What does this tell us about the effect that that different diets has on the chicken weights at Day 21? <strong>(/3)</strong></li>
+<li>Figure out a way to plot the Tukey HSD outcomes in <strong>ggplot</strong>. <strong>(/10)</strong></li>
+<li>Why does the ANOVA return a significant result, but the Tukey test shows that not all of the groups are significantly different from one another? <strong>(/3)</strong></li>
 </ol>
 </div>
 </div>
-<!-- ```{r} -->
-<!-- # plot(TukeyHSD(chicks.aov)) -->
-<!-- ``` -->
 </section>
-<section id="multiple-factors" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="multiple-factors"><span class="header-section-number">3.2</span> Multiple Factors</h2>
-<p>What if we have multiple grouping variables, and not just one? We would encounter this kind of situation in factorial designs. In the case of the chicken data, there is also time that seems to be having an effect.</p>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="interpret-the-results" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="interpret-the-results"><span class="header-section-number">5.6</span> Interpret the Results</h2>
+<p>The global ANOVA is significant, so I reject <span class="math inline">\(H_0\)</span> and conclude that diet explains some of the variation in chick mass at Day 21. The clearest pairwise difference is between Diet 1 and Diet 3. Diet 3 chicks are about 92.6 g heavier on average than Diet 1 chicks.</p>
+<p>The observed diet means are 177.8 g, 214.7 g, 270.3 g, and 238.6 g. Those differences are not all the same size, and the Tukey step shows that only some of them are large enough relative to within-diet variation to be declared significant.</p>
+<p>The overall effect size is also worth reporting. For this ANOVA, about 25% of the variation in Day 21 chick mass is associated with diet (<span class="math inline">\(\eta^2 \approx 0.25\)</span>).</p>
+</section>
+<section id="reporting" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="reporting"><span class="header-section-number">5.7</span> Reporting</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.4: Do It Now!
+<span class="screen-reader-only">Note</span>Write-Up
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="a">
-<li>How is time having an effect? <strong>(/3)</strong></li>
-<li>What hypotheses can we construct around time? <strong>(/2)</strong></li>
-</ol>
-</div>
-</div>
-<p>Let us look at some variations around questions concerning time. We might ask, at a particular time step, are there differences amongst the effect due to diet on chicken mass? Let us see when diets are starting to have an effect by examining the outcomes at times 0, 2, 10, and 21:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># effect at time = 0</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">0</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;             Df Sum Sq Mean Sq F value Pr(&gt;F)
-R&gt; Diet         3   4.32   1.440   1.132  0.346
-R&gt; Residuals   46  58.50   1.272</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># effect at time = 2</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">2</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
-R&gt; Diet         3  158.4   52.81   4.781 0.00555 **
-R&gt; Residuals   46  508.1   11.05                   
-R&gt; ---
-R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># effect at time = 10</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">10</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-R&gt; Diet         3   8314    2771    6.46 0.000989 ***
-R&gt; Residuals   45  19304     429                     
-R&gt; ---
-R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># effect at time = 21</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">21</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
-R&gt; Diet         3  57164   19055   4.655 0.00686 **
-R&gt; Residuals   41 167839    4094                   
-R&gt; ---
-R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<p><strong>Methods</strong></p>
+<p>Chick mass at Day 21 was compared among four diet treatments with a one-way ANOVA. The grouped distributions were inspected with boxplots and summary statistics, and group spread was checked before fitting the model. Tukey’s HSD procedure was then used for post hoc pairwise comparisons.</p>
+<p><strong>Results</strong></p>
+<p>At Day 21, mean chick mass differed among diets (one-way ANOVA: <span class="math inline">\(F_{3,41} = 4.66\)</span>, <span class="math inline">\(p &lt; 0.01\)</span>). Chicks fed Diet 1 had a mean mass of 177.8 g (SD = 58.7), compared with 214.7 g (SD = 78.1) for Diet 2, 270.3 g (SD = 71.6) for Diet 3, and 238.6 g (SD = 43.3) for Diet 4. Tukey’s HSD showed that the clearest pairwise difference was between Diet 1 and Diet 3 (<span class="math inline">\(p &lt; 0.01\)</span>), with Diet 3 chicks heavier by 92.6 g on average. Diet accounted for about 25% of the variation in chick mass at Day 21 (<span class="math inline">\(\eta^2 \approx 0.25\)</span>).</p>
+<p><strong>Discussion</strong></p>
+<p>The post hoc structure shows selective diet differences rather than universal separation among all four diet means. The global ANOVA detects structure among the means; Tukey’s HSD identifies where that structure lies.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -1152,7 +1737,72 @@ R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.5: Do It Now!
+<span class="screen-reader-only">Important</span>Do It Now!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Repeat the ANOVA analysis above using the built-in <code>PlantGrowth</code> dataset instead of the <code>chicks</code> data. This dataset contains dry weight of plants under a control condition and two treatment conditions.</p>
+<ol type="a">
+<li>Make a box plot of <code>weight ~ group</code>.</li>
+<li>Check the normality assumption within each group (histograms or Shapiro-Wilk).</li>
+<li>Fit a one-way ANOVA: <code>aov(weight ~ group, data = PlantGrowth)</code>.</li>
+<li>If the global test is significant, apply Tukey’s HSD and identify which groups differ.</li>
+<li>Write a two-sentence Results statement following the format above.</li>
+</ol>
+<!-- ```r
+data(PlantGrowth)
+boxplot(weight ~ group, data = PlantGrowth)
+fit <- aov(weight ~ group, data = PlantGrowth)
+summary(fit)
+TukeyHSD(fit)
+``` -->
+</div>
+</div>
+</section>
+</section>
+<section id="factorial-anova" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Factorial ANOVA</h1>
+<p>So far, there has been one grouping variable only. I now extend the same idea to more than one factor.</p>
+<p>In the <code>ChickWeight</code> data, diet is not the only categorical structure. Time also changes chick mass. That gives two distinct questions:</p>
+<ul>
+<li>what is the effect of diet?</li>
+<li>does the effect of diet change through time?</li>
+</ul>
+<section id="a-detour-we-should-avoid" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="a-detour-we-should-avoid"><span class="header-section-number">6.1</span> A Detour We Should Avoid</h2>
+<p>One tempting approach is to run a separate one-way ANOVA at each time point. That repeats the same multiple-testing problem that motivated ANOVA in the first place.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">21</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>p_values <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(times))</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(times)) {</span>
+<span id="cb14-5"><a href="#cb14-5"></a>  time_data <span class="ot">&lt;-</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> times[i])</span>
+<span id="cb14-6"><a href="#cb14-6"></a>  fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> time_data)</span>
+<span id="cb14-7"><a href="#cb14-7"></a>  p_values[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)[[<span class="dv">1</span>]][[<span class="st">"Pr(&gt;F)"</span>]][<span class="dv">1</span>]</span>
+<span id="cb14-8"><a href="#cb14-8"></a>}</span>
+<span id="cb14-9"><a href="#cb14-9"></a></span>
+<span id="cb14-10"><a href="#cb14-10"></a>time_scan <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-11"><a href="#cb14-11"></a>  <span class="at">Time =</span> times,</span>
+<span id="cb14-12"><a href="#cb14-12"></a>  <span class="at">p_value =</span> p_values</span>
+<span id="cb14-13"><a href="#cb14-13"></a>)</span>
+<span id="cb14-14"><a href="#cb14-14"></a></span>
+<span id="cb14-15"><a href="#cb14-15"></a>time_scan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt;   Time      p_value
+R&gt; 1    0 0.3459145928
+R&gt; 2    2 0.0055475424
+R&gt; 3   10 0.0009891053
+R&gt; 4   21 0.0068579588</code></pre>
+</div>
+</div>
+<p>The results are interpretable, but my method was less than ideal (and not to mention, also repetitive). Each time point gets its own ANOVA, and the family-wise error rate rises again. Separate ANOVAs across time repeat the same multiple-testing problem as separate <em>t</em>-tests across diets.</p>
+<div id="self-assessment-task-8-4" class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Self-Assessment Task 8-4
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1162,481 +1812,248 @@ R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre
 </ol>
 </div>
 </div>
-<p>Or we may ask, regardless of diet (<em>i.e.</em> disregarding the effect of diet by clumping all chickens together), is time having an effect?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>chicks.aov2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> <span class="fu">as.factor</span>(Time),</span>
-<span id="cb19-2"><a href="#cb19-2"></a>                   <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">21</span>)))</span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">summary</span>(chicks.aov2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;                  Df Sum Sq Mean Sq F value Pr(&gt;F)    
-R&gt; as.factor(Time)   3 939259  313086   234.8 &lt;2e-16 ***
-R&gt; Residuals       190 253352    1333                   
-R&gt; ---
-R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
+<div id="self-assessment-task-8-5" class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.6: Do It Now!
+<span class="screen-reader-only">Important</span>Self-Assessment Task 8-5
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ol type="a">
-<li>Write out the hypotheses for this ANOVA. <strong>(/2)</strong></li>
-<li>What do you conclude from the above ANOVA. <strong>(/3)</strong></li>
+<li>How is time having an effect? <strong>(/3)</strong></li>
+<li>What hypotheses can we construct around time? <strong>(/2)</strong></li>
 </ol>
 </div>
 </div>
-<p>Or, to save ourselves a lot of time, reduce the coding effort and we may simply run a two-way ANOVA and look at the effects of <code>Diet</code> and <code>Time</code> simultaneously. To specify the different factors we put them in our formula and separate them with a <code>+</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet <span class="sc">+</span> <span class="fu">as.factor</span>(Time),</span>
-<span id="cb21-2"><a href="#cb21-2"></a>            <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">21</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="two-factors-in-one-model" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="two-factors-in-one-model"><span class="header-section-number">6.2</span> Two Factors in One Model</h2>
+<p>A two-way ANOVA brings diet and time into the same model. Below, <code>Time</code> is converted to a factor because the question is about distinct sampling times. Should I keep time as a continuous covariate, this would change the model into a linear regression, as I show in <a href="../basic_stats/12-simple-linear-regression.html">Chapter 12</a> and extend in <a href="../basic_stats/14-multiple-regression-and-model-specification.html">Chapter 14</a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>chicks_two_way <span class="ot">&lt;-</span> <span class="fu">filter</span>(chicks, Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">21</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">mutate</span>(<span class="at">Time =</span> <span class="fu">factor</span>(Time))</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet <span class="sc">+</span> Time, <span class="at">data =</span> chicks_two_way))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;                 Df Sum Sq Mean Sq F value  Pr(&gt;F)    
-R&gt; Diet             3  39595   13198   5.987 0.00091 ***
-R&gt; as.factor(Time)  1 734353  734353 333.120 &lt; 2e-16 ***
-R&gt; Residuals       90 198402    2204                    
+<pre><code>R&gt;             Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+R&gt; Diet         3  39595   13198   5.987 0.00091 ***
+R&gt; Time         1 734353  734353 333.120 &lt; 2e-16 ***
+R&gt; Residuals   90 198402    2204                    
 R&gt; ---
 R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.7: Do It Now!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="a">
-<li>What question are we asking with the above line of code? <strong>(/3)</strong></li>
-<li>What is the answer? <strong>(/2)</strong></li>
-<li>Why did we wrap <code>Time</code> in <code>as.factor()</code>? <strong>(/2)</strong></li>
-</ol>
-</div>
-</div>
-<p>It is also possible to look at what the interaction effect between grouping variables (<em>i.e.</em> in this case the effect of time on diet — does the effect of time depend on which diet we are looking at?), and not just within the individual grouping variables. To do this we replace the <code>+</code> in our formula with <code>*</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet <span class="sc">*</span> <span class="fu">as.factor</span>(Time),</span>
-<span id="cb23-2"><a href="#cb23-2"></a>            <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">21</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;                      Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-R&gt; Diet                  3  40914   13638   6.968 0.000298 ***
-R&gt; as.factor(Time)       1 582221  582221 297.472  &lt; 2e-16 ***
-R&gt; Diet:as.factor(Time)  3  25530    8510   4.348 0.006684 ** 
-R&gt; Residuals            86 168322    1957                     
-R&gt; ---
-R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.8: Do It Now!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>How do these results differ from the previous set? <strong>(/3)</strong></p>
-</div>
-</div>
-<p>One may also run a post-hoc Tukey test on these results the same as for a single factor ANOVA:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet <span class="sc">*</span> <span class="fu">as.factor</span>(Time),</span>
-<span id="cb25-2"><a href="#cb25-2"></a>             <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">21</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;   Tukey multiple comparisons of means
-R&gt;     95% family-wise confidence level
-R&gt; 
-R&gt; Fit: aov(formula = weight ~ Diet * as.factor(Time), data = filter(chicks, Time %in% c(20, 21)))
-R&gt; 
-R&gt; $Diet
-R&gt;          diff        lwr       upr     p adj
-R&gt; 2-1  36.18030  -9.301330  81.66194 0.1663037
-R&gt; 3-1  90.63030  45.148670 136.11194 0.0000075
-R&gt; 4-1  62.25253  15.223937 109.28111 0.0045092
-R&gt; 3-2  54.45000   3.696023 105.20398 0.0305957
-R&gt; 4-2  26.07222 -26.072532  78.21698 0.5586643
-R&gt; 4-3 -28.37778 -80.522532  23.76698 0.4863940
-R&gt; 
-R&gt; $`as.factor(Time)`
-R&gt;           diff       lwr      upr     p adj
-R&gt; 21-20 8.088223 -17.44017 33.61661 0.5303164
-R&gt; 
-R&gt; $`Diet:as.factor(Time)`
-R&gt;                 diff        lwr        upr     p adj
-R&gt; 2:20-1:20  35.188235  -40.67378 111.050253 0.8347209
-R&gt; 3:20-1:20  88.488235   12.62622 164.350253 0.0111136
-R&gt; 4:20-1:20  63.477124  -14.99365 141.947897 0.2035951
-R&gt; 1:21-1:20   7.338235  -58.96573  73.642198 0.9999703
-R&gt; 2:21-1:20  44.288235  -31.57378 120.150253 0.6116081
-R&gt; 3:21-1:20  99.888235   24.02622 175.750253 0.0023872
-R&gt; 4:21-1:20  68.143791  -10.32698 146.614563 0.1371181
-R&gt; 3:20-2:20  53.300000  -31.82987 138.429869 0.5234263
-R&gt; 4:20-2:20  28.288889  -59.17374 115.751515 0.9723470
-R&gt; 1:21-2:20 -27.850000 -104.58503  48.885027 0.9486212
-R&gt; 2:21-2:20   9.100000  -76.02987  94.229869 0.9999766
-R&gt; 3:21-2:20  64.700000  -20.42987 149.829869 0.2732059
-R&gt; 4:21-2:20  32.955556  -54.50707 120.418182 0.9377007
-R&gt; 4:20-3:20 -25.011111 -112.47374  62.451515 0.9862822
-R&gt; 1:21-3:20 -81.150000 -157.88503  -4.414973 0.0305283
-R&gt; 2:21-3:20 -44.200000 -129.32987  40.929869 0.7402877
-R&gt; 3:21-3:20  11.400000  -73.72987  96.529869 0.9998919
-R&gt; 4:21-3:20 -20.344444 -107.80707  67.118182 0.9960548
-R&gt; 1:21-4:20 -56.138889 -135.45396  23.176184 0.3619622
-R&gt; 2:21-4:20 -19.188889 -106.65152  68.273738 0.9972631
-R&gt; 3:21-4:20  36.411111  -51.05152 123.873738 0.8984019
-R&gt; 4:21-4:20   4.666667  -85.06809  94.401428 0.9999998
-R&gt; 2:21-1:21  36.950000  -39.78503 113.685027 0.8067041
-R&gt; 3:21-1:21  92.550000   15.81497 169.285027 0.0075185
-R&gt; 4:21-1:21  60.805556  -18.50952 140.120628 0.2629945
-R&gt; 3:21-2:21  55.600000  -29.52987 140.729869 0.4679025
-R&gt; 4:21-2:21  23.855556  -63.60707 111.318182 0.9896157
-R&gt; 4:21-3:21 -31.744444 -119.20707  55.718182 0.9486128</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.9: Do It Now!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Yikes! That is a massive amount of results. What does all of this mean, and why is it so verbose? <strong>(/5)</strong></p>
-</div>
-</div>
-<!-- #### About interaction terms -->
-<!-- AJS to insert stuff here -->
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Summary
+<span class="screen-reader-only">Note</span>Reading the Two-Way ANOVA Table
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To summarise <em>t</em>-tests, single-factor (1-way), multifactor (2- or 3-way and etc.) ANOVAs:</p>
-<ol type="1">
-<li><p>A <em>t</em>-test is applied to situations where one wants to compare the means of only <strong>two</strong> groups of a response variable within <strong>one categorical independent variable</strong> (we say a factor with two levels).</p></li>
-<li><p>A 1-way ANOVA also looks at the means of a response variable belonging to <strong>one categorical independent variable</strong>, but the categorical response variable has <strong>more than two</strong> levels in it.</p></li>
-<li><p>Following on from there, a 2-way ANOVA compares the means of response variables belonging to all the levels within <strong>two categorical independent variables</strong> (<em>e.g.</em> Factor 1 might have three levels, and Factor 2 five levels). In the simplest formulation, it does so by looking at the <strong>main effects</strong>, which is the group differences between the three levels of Factor 1, disregarding the contribution due to the group membership to Factor 2 and also the group differences amongst the levels of Factor 2 but disregarding the group membership of Factor 1. In addition to looking at the main effects, a 2-way ANOVA can also consider the <strong>interaction</strong> (or combined effect) of Factors 1, 2 in influencing the means.</p></li>
+<p>Adding <code>Time</code> gives the table a second source row, but the column arithmetic is identical to the one-way case, but applied now to each factor in turn.</p>
+<p><strong><code>Df</code></strong>: each factor loses one degree of freedom per level estimated.</p>
+<ul>
+<li><code>Diet</code>: <span class="math inline">\(k_\text{Diet} - 1 = 3\)</span>.</li>
+<li><code>Time</code>: <span class="math inline">\(k_\text{Time} - 1 = 1\)</span> (two time points, so one contrast).</li>
+<li><code>Residuals</code>: <span class="math inline">\(N\)</span> minus one degree of freedom for every group mean estimated across both factors: <span class="math inline">\(N - k_\text{Diet} - k_\text{Time} = N - 4 - 2\)</span>.</li>
+</ul>
+<p><strong><code>Sum Sq</code></strong>: each row measures the variation in chick mass attributable to <em>that factor alone</em>, after the variation explained by the other factor has been removed. The two <code>Sum Sq</code> values are therefore independent slices of the total variation.</p>
+<p><strong><code>Mean Sq</code></strong>: each <code>Sum Sq</code> divided by its <code>Df</code>, as before. There is still only one <code>Residuals</code> row, and its <code>Mean Sq</code> serves as the shared denominator for both <span class="math inline">\(F\)</span> ratios.</p>
+<p><strong><code>F value</code></strong>: computed separately for each main effect, but both use the same residual mean square as the denominator.</p>
+<p><span class="math display">\[F_\text{Diet} = \frac{MS_\text{Diet}}{MS_\text{Residuals}}, \qquad F_\text{Time} = \frac{MS_\text{Time}}{MS_\text{Residuals}}\]</span></p>
+<p>The large <span class="math inline">\(F\)</span> values for both <code>Diet</code> and <code>Time</code> confirm that each factor explains variation in chick mass over and above the other — both factors matter independently.</p>
+</div>
+</div>
+<div id="self-assessment-task-8-6" class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Self-Assessment Task 8-6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li>Write out the hypotheses for this ANOVA. <strong>(/2)</strong></li>
+<li>What do you conclude from the above ANOVA? <strong>(/3)</strong></li>
 </ol>
 </div>
 </div>
+<p>With this additive model, I ask whether diet and time each have an effect on chick mass, assuming that the diet effect is the same at both time points.</p>
 </section>
-</section>
-<section id="sec-alt" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Alternatives to ANOVA</h1>
-<p>In the first main section of this chapter we learned how to test hypotheses based on the comparisons of means between sets of data when we were able to meet our two base assumptions. These parametric tests are preferred over non-parametric tests because they are more robust. However, when we simply are not able to meet these assumptions we must not despair. Non-parametric tests are still useful. In this chapter we will learn how to run non-parametric tests for two sample, multiple sample datasets. To start and let us load our libraries<code>chicks</code> data if we have not already.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># First activate libraries</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb27-4"><a href="#cb27-4"></a></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="co"># Then load data</span></span>
-<span id="cb27-6"><a href="#cb27-6"></a>chicks <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(ChickWeight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>With our libraries and data loaded, let us find a day in which at least one of our assumptions are violated.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Then check for failing assumptions</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>chicks <span class="sc">%&gt;%</span> </span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">filter</span>(Time <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">group_by</span>(Diet) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">summarise</span>(<span class="at">norm_wt =</span> <span class="fu">as.numeric</span>(<span class="fu">shapiro.test</span>(weight)[<span class="dv">2</span>]),</span>
-<span id="cb28-6"><a href="#cb28-6"></a>            <span class="at">var_wt =</span> <span class="fu">var</span>(weight))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="interaction-in-factorial-anova" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="interaction-in-factorial-anova"><span class="header-section-number">6.3</span> Interaction in Factorial ANOVA</h2>
+<p>If the effect of diet changes with time, the additive model is too simple. We then include an interaction term:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> Diet <span class="sc">*</span> Time, <span class="at">data =</span> chicks_two_way))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt; # A tibble: 4 × 3
-R&gt;   Diet  norm_wt var_wt
-R&gt;   &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-R&gt; 1 1     0.0138   0.989
-R&gt; 2 2     0.138    2.23 
-R&gt; 3 3     0.00527  1.07 
-R&gt; 4 4     0.0739   1.11</code></pre>
+<pre><code>R&gt;             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+R&gt; Diet         3  39595   13198   6.839 0.000343 ***
+R&gt; Time         1 734353  734353 380.521  &lt; 2e-16 ***
+R&gt; Diet:Time    3  30504   10168   5.269 0.002187 ** 
+R&gt; Residuals   87 167898    1930                     
+R&gt; ---
+R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<section id="wilcoxon-rank-sum-test" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="wilcoxon-rank-sum-test"><span class="header-section-number">4.1</span> Wilcoxon Rank Sum Test</h2>
-<p>The non-parametric version of a <em>t</em>-test is a Wilcox rank sum test. To perform this test in R we may again use <code>compare_means()</code> and specify the test we want:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">compare_means</span>(weight <span class="sc">~</span> Diet,</span>
-<span id="cb30-2"><a href="#cb30-2"></a>              <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">0</span>,</span>
-<span id="cb30-3"><a href="#cb30-3"></a>                            Diet <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)),</span>
-<span id="cb30-4"><a href="#cb30-4"></a>              <span class="at">method =</span> <span class="st">"wilcox.test"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; # A tibble: 1 × 8
-R&gt;   .y.    group1 group2     p p.adj p.format p.signif method  
-R&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   
-R&gt; 1 weight 1      2      0.235  0.23 0.23     ns       Wilcoxon</code></pre>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The Interaction Row
 </div>
 </div>
-<p>What do our results show?</p>
-</section>
-<section id="kruskall-wallis-rank-sum-test" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="kruskall-wallis-rank-sum-test"><span class="header-section-number">4.2</span> Kruskall-wallis Rank Sum Test</h2>
-<section id="single-factor-1" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="single-factor-1"><span class="header-section-number">4.2.1</span> Single factor</h3>
-<p>The non-parametric version of an ANOVA is a Kruskall-Wallis rank sum test. As you may have by now surmised, this may be done with <code>compare_means()</code> as seen below:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">compare_means</span>(weight <span class="sc">~</span> Diet,</span>
-<span id="cb32-2"><a href="#cb32-2"></a>              <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">0</span>),</span>
-<span id="cb32-3"><a href="#cb32-3"></a>              <span class="at">method =</span> <span class="st">"kruskal.test"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; # A tibble: 1 × 6
-R&gt;   .y.        p p.adj p.format p.signif method        
-R&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;         
-R&gt; 1 weight 0.475  0.48 0.48     ns       Kruskal-Wallis</code></pre>
+<div class="callout-body-container callout-body">
+<p>Including <code>Diet * Time</code> expands the table with a fourth row: <code>Diet:Time</code>. Everything about <code>Df</code>, <code>Sum Sq</code>, <code>Mean Sq</code>, and <code>F value</code> works exactly as before, but the new row has its own interpretation.</p>
+<p><strong><code>Df</code> for <code>Diet:Time</code></strong>: the product of the two main-effect degrees of freedom.</p>
+<p><span class="math display">\[Df_\text{Diet:Time} = (k_\text{Diet} - 1) \times (k_\text{Time} - 1) = 3 \times 1 = 3\]</span></p>
+<p>This reflects the number of independent interaction contrasts: with four diets and two time points there are three independent ways the diet-by-time pattern can deviate from a purely additive structure.</p>
+<p><strong><code>Sum Sq</code> for <code>Diet:Time</code></strong>: the variation not accounted for by the two main effects acting independently. It captures the <em>extra</em> structure that emerges only from the combination of diet and time — the part where diet differences at Time 0 do not simply repeat at Time 21.</p>
+<p><strong><code>Mean Sq</code> for <code>Diet:Time</code></strong>: <span class="math inline">\(SS_\text{Diet:Time}\)</span> divided by <span class="math inline">\(Df_\text{Diet:Time} = 3\)</span>.</p>
+<p><strong><code>F value</code> for <code>Diet:Time</code></strong>: the interaction mean square divided by the <em>same</em> residual mean square used for the main effects.</p>
+<p><span class="math display">\[F_\text{Diet:Time} = \frac{MS_\text{Diet:Time}}{MS_\text{Residuals}}\]</span></p>
+<p>A large <span class="math inline">\(F\)</span> here means the diet-related pattern of chick mass is not the same at both time points — the groups diverge differently depending on when they are measured. The <code>Residuals</code> <code>Df</code> is now smaller than in the additive model because three additional degrees of freedom have been consumed by estimating the interaction.</p>
 </div>
 </div>
-<p>As with the ANOVA, this first step with the Kruskall-Wallis test is not the last. We must again run a post-hoc test on our results. This time we will need to use <code>pgirmess::kruskalmc()</code>, which means we will need to load a new library.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">library</span>(pgirmess)</span>
-<span id="cb34-2"><a href="#cb34-2"></a></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="fu">kruskalmc</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> <span class="fu">filter</span>(chicks, Time <span class="sc">==</span> <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; Multiple comparison test after Kruskal-Wallis 
-R&gt; alpha: 0.05 
-R&gt; Comparisons
-R&gt;     obs.dif critical.dif stat.signif
-R&gt; 1-2    6.95     14.89506       FALSE
-R&gt; 1-3    6.90     14.89506       FALSE
-R&gt; 1-4    4.15     14.89506       FALSE
-R&gt; 2-3    0.05     17.19933       FALSE
-R&gt; 2-4    2.80     17.19933       FALSE
-R&gt; 3-4    2.75     17.19933       FALSE</code></pre>
-</div>
-</div>
-<p>Let us consult the help file for <code>kruskalmc()</code> to understand what this print-out means.</p>
-</section>
-<section id="multiple-factors-1" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="multiple-factors-1"><span class="header-section-number">4.2.2</span> Multiple factors</h3>
-<p>The water becomes murky quickly when one wants to perform multiple factor non-parametric comparison of means tests. To that end, we will not cover the few existing methods here. Rather, one should avoid the necessity for these types of tests when designing an experiment.</p>
-</section>
-</section>
-<section id="the-sa-time-data" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="the-sa-time-data"><span class="header-section-number">4.3</span> The Sa Time Data</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>sa_time <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"snakes.csv"</span>),</span>
-<span id="cb36-2"><a href="#cb36-2"></a>                              <span class="at">col_types =</span> <span class="fu">list</span>(<span class="fu">col_double</span>(),</span>
-<span id="cb36-3"><a href="#cb36-3"></a>                                               <span class="fu">col_double</span>(),</span>
-<span id="cb36-4"><a href="#cb36-4"></a>                                               <span class="fu">col_double</span>())))</span>
-<span id="cb36-5"><a href="#cb36-5"></a>sa_time_long <span class="ot">&lt;-</span> sa_time <span class="sc">%&gt;%</span> </span>
-<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">"term"</span>, <span class="at">value =</span> <span class="st">"minutes"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-7"><a href="#cb36-7"></a>  <span class="fu">filter</span>(minutes <span class="sc">&lt;</span> <span class="dv">300</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-8"><a href="#cb36-8"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">as.factor</span>(term))</span>
-<span id="cb36-9"><a href="#cb36-9"></a></span>
-<span id="cb36-10"><a href="#cb36-10"></a>my_comparisons <span class="ot">&lt;-</span> <span class="fu">list</span>( <span class="fu">c</span>(<span class="st">"now"</span>, <span class="st">"now_now"</span>),</span>
-<span id="cb36-11"><a href="#cb36-11"></a>                        <span class="fu">c</span>(<span class="st">"now_now"</span>, <span class="st">"just_now"</span>),</span>
-<span id="cb36-12"><a href="#cb36-12"></a>                        <span class="fu">c</span>(<span class="st">"now"</span>, <span class="st">"just_now"</span>) )</span>
-<span id="cb36-13"><a href="#cb36-13"></a></span>
-<span id="cb36-14"><a href="#cb36-14"></a><span class="fu">ggboxplot</span>(sa_time_long, <span class="at">x =</span> <span class="st">"term"</span>, <span class="at">y =</span> <span class="st">"minutes"</span>,</span>
-<span id="cb36-15"><a href="#cb36-15"></a>          <span class="at">colour =</span> <span class="st">"term"</span>, <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>, <span class="st">"#FC4E07"</span>),</span>
-<span id="cb36-16"><a href="#cb36-16"></a>          <span class="at">add =</span> <span class="st">"jitter"</span>, <span class="at">shape =</span> <span class="st">"term"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="08-anova_files/figure-html/code-anova-plot6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Time is not a limited resource in South Africa."><img src="08-anova_files/figure-html/code-anova-plot6-1.png" class="img-fluid figure-img" style="width:75.0%" alt="Time is not a limited resource in South Africa."></a></p>
-<figcaption>Time is not a limited resource in South Africa.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="examples" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Examples</h1>
-<section id="snakes" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="snakes"><span class="header-section-number">5.1</span> Snakes!</h2>
-<p>These data could be analysed by a two-way ANOVA without replication, or a repeated measures ANOVA. Here I will analyse it by using a two-way ANOVA without replication.</p>
-<p>Place and Abramson (2008) placed diamondback rattlesnakes (<em>Crotalus atrox</em>) in a ‘rattlebox,’ a box with a lid that would slide open, shut every 5 minutes. At first and the snake would rattle its tail each time the box opened. After a while, the snake would become habituated to the box opening, stop rattling its tail. They counted the number of box openings until a snake stopped rattling; fewer box openings means the snake was more quickly habituated. They repeated this experiment on each snake on four successive days and which is treated as an influential variable here. Place and Abramson (2008) used 10 snakes, but some of them never became habituated; to simplify this example, data from the six snakes that did become habituated on each day are used.</p>
-<p>First, we read in the data, making sure to convert the column named <code>day</code> to a factor. Why? Because ANOVAs work with factor independent variables, while <code>day</code> as it is encoded by default is in fact a continuous variable.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>snakes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SAMOS"</span>, <span class="st">"other_data"</span>, <span class="st">"snakes.csv"</span>))</span>
-<span id="cb37-2"><a href="#cb37-2"></a>snakes<span class="sc">$</span>day <span class="ot">=</span> <span class="fu">as.factor</span>(snakes<span class="sc">$</span>day)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The first thing we do is to create some summaries of the data. Refer to the summary statistics Chapter.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>snakes.summary <span class="ot">&lt;-</span> snakes <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">group_by</span>(day, snake) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_openings =</span> <span class="fu">mean</span>(openings),</span>
-<span id="cb38-4"><a href="#cb38-4"></a>            <span class="at">sd_openings =</span> <span class="fu">sd</span>(openings)) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-5"><a href="#cb38-5"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb38-6"><a href="#cb38-6"></a>snakes.summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; # A tibble: 24 × 4
-R&gt;    day   snake mean_openings sd_openings
-R&gt;    &lt;fct&gt; &lt;chr&gt;         &lt;dbl&gt;       &lt;dbl&gt;
-R&gt;  1 1     D1               85          NA
-R&gt;  2 1     D11              40          NA
-R&gt;  3 1     D12              65          NA
-R&gt;  4 1     D3              107          NA
-R&gt;  5 1     D5               61          NA
-R&gt;  6 1     D8               22          NA
-R&gt;  7 2     D1               58          NA
-R&gt;  8 2     D11              45          NA
-R&gt;  9 2     D12              27          NA
-R&gt; 10 2     D3               51          NA
-R&gt; # ℹ 14 more rows</code></pre>
-</div>
-</div>
+<p>The interaction addresses the question whether diet-related differences are the same at Time 0 and Time 21. Stated differently, does the effect of diet change depending on when we sample the chicks? In this subset, yes, it depends. The interaction term is significant, so the effect of diet depends on time. <a href="../basic_stats/15-interaction-effects.html">Chapter 15</a> develops the interpretation of interactions in much more detail.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Task G.9: Do It Now!
+<span class="screen-reader-only">Important</span>Do It Now!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li>Something seems… off. What is going on here? Please explain this outcome.</li>
-</ul>
-</div>
-</div>
-<p>To fix this problem, let us ignore the grouping by both <code>snake</code> and <code>day</code>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>snakes.summary <span class="ot">&lt;-</span> snakes <span class="sc">%&gt;%</span> </span>
-<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">group_by</span>(day) <span class="sc">%&gt;%</span> </span>
-<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_openings =</span> <span class="fu">mean</span>(openings),</span>
-<span id="cb40-4"><a href="#cb40-4"></a>            <span class="at">sd_openings =</span> <span class="fu">sd</span>(openings)) <span class="sc">%&gt;%</span> </span>
-<span id="cb40-5"><a href="#cb40-5"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb40-6"><a href="#cb40-6"></a>snakes.summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; # A tibble: 4 × 3
-R&gt;   day   mean_openings sd_openings
-R&gt;   &lt;fct&gt;         &lt;dbl&gt;       &lt;dbl&gt;
-R&gt; 1 1              63.3        30.5
-R&gt; 2 2              47          12.2
-R&gt; 3 3              34.5        26.0
-R&gt; 4 4              25.3        18.1</code></pre>
-</div>
-</div>
-<p><code>Rmisc::summarySE()</code> offers a convenience function if your feeling less frisky about calculating the summary statistics yourself:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">library</span>(Rmisc)</span>
-<span id="cb42-2"><a href="#cb42-2"></a>snakes.summary2 <span class="ot">&lt;-</span> <span class="fu">summarySE</span>(<span class="at">data =</span> snakes,</span>
-<span id="cb42-3"><a href="#cb42-3"></a>                             <span class="at">measurevar =</span> <span class="st">"openings"</span>,</span>
-<span id="cb42-4"><a href="#cb42-4"></a>                             <span class="at">groupvars =</span> <span class="fu">c</span>(<span class="st">"day"</span>))</span>
-<span id="cb42-5"><a href="#cb42-5"></a>snakes.summary2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt;   day N openings       sd        se       ci
-R&gt; 1   1 6 63.33333 30.45434 12.432931 31.95987
-R&gt; 2   2 6 47.00000 12.21475  4.986649 12.81859
-R&gt; 3   3 6 34.50000 25.95958 10.597956 27.24291
-R&gt; 4   4 6 25.33333 18.08498  7.383164 18.97903</code></pre>
-</div>
-</div>
-<p>Now we turn to some visual data summaries (<a href="#fig-anova-plot" class="quarto-xref">Figure&nbsp;4</a>).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> snakes, <span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">y =</span> openings)) <span class="sc">+</span></span>
-<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> snakes.summary2, <span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">xend =</span> day,</span>
-<span id="cb44-3"><a href="#cb44-3"></a>                                           <span class="at">y =</span> openings <span class="sc">-</span> ci,</span>
-<span id="cb44-4"><a href="#cb44-4"></a>                                           <span class="at">yend =</span> openings <span class="sc">+</span> ci,</span>
-<span id="cb44-5"><a href="#cb44-5"></a>                                           <span class="at">colour =</span> day),</span>
-<span id="cb44-6"><a href="#cb44-6"></a>              <span class="at">size =</span> <span class="fl">2.0</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb44-7"><a href="#cb44-7"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> day), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb44-8"><a href="#cb44-8"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
-<span id="cb44-9"><a href="#cb44-9"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-anova-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-anova-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="08-anova_files/figure-html/fig-anova-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;4: Boxplots showing the change in the snakes’ habituation to box opening over time."><img src="08-anova_files/figure-html/fig-anova-plot-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Boxplots showing the change in the snakes’ habituation to box opening over time.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>What are our null hypotheses?</p>
-<ol type="1">
-<li><strong><em>H</em><sub>0</sub></strong> There is no difference between snakes with respect to the number of openings at which they habituate.</li>
-<li><strong><em>H</em><sub>0</sub></strong> There is no difference between days in terms of the number of openings at which the snakes habituate.</li>
+<ol type="a">
+<li>What does the interaction term mean biologically in this chick example?</li>
+<li>Why do we lose information if we fit only separate one-way ANOVAs across time?</li>
 </ol>
-<p>Fit the ANOVA model to test these hypotheses:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>snakes.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(openings <span class="sc">~</span> day <span class="sc">+</span> snake, <span class="at">data =</span> snakes)</span>
-<span id="cb45-2"><a href="#cb45-2"></a><span class="fu">summary</span>(snakes.aov)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-alt" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> If Assumptions Fail</h1>
+<p>Should some of the assumption tests fail, the one-way alternatives you could try are:</p>
+<ul>
+<li>use classical ANOVA when the group spreads are similar and the grouped distributions are reasonably well behaved;</li>
+<li>use Welch’s ANOVA when the main problem is unequal spread across groups;</li>
+<li>use Kruskal-Wallis when a rank-based one-way comparison is more defensible;</li>
+<li>switch to a different model when the real issue is dependence, repeated measurement, or a non-Gaussian response structure.</li>
+</ul>
+<section id="welchs-one-way-anova" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="welchs-one-way-anova"><span class="header-section-number">7.1</span> Welch’s One-Way ANOVA</h2>
+<p>Welch’s ANOVA keeps the same one-way comparison-of-means question but does not assume equal variances.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">oneway.test</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> chicks_day21)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R&gt;             Df Sum Sq Mean Sq F value Pr(&gt;F)  
-R&gt; day          3   4878  1625.9   3.320 0.0487 *
-R&gt; snake        5   3042   608.4   1.242 0.3382  
-R&gt; Residuals   15   7346   489.7                 
-R&gt; ---
-R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<pre><code>R&gt; 
+R&gt;  One-way analysis of means (not assuming equal variances)
+R&gt; 
+R&gt; data:  weight and Diet
+R&gt; F = 4.6618, num df = 3.000, denom df = 20.594, p-value = 0.01219</code></pre>
 </div>
 </div>
-<p>Now we need to test of the assumptions hold true (<em>i.e.</em> errors are normally distributed and heteroscedastic) (<a href="#fig-anova-plot5" class="quarto-xref">Figure&nbsp;5</a>). Also, where are the differences (<a href="#fig-tukey" class="quarto-xref">Figure&nbsp;6</a>)?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb47-2"><a href="#cb47-2"></a><span class="co"># Checking assumptions...</span></span>
-<span id="cb47-3"><a href="#cb47-3"></a><span class="co"># make a histogram of the residuals;</span></span>
-<span id="cb47-4"><a href="#cb47-4"></a><span class="co"># they must be normal</span></span>
-<span id="cb47-5"><a href="#cb47-5"></a>snakes.res <span class="ot">&lt;-</span> <span class="fu">residuals</span>(snakes.aov)</span>
-<span id="cb47-6"><a href="#cb47-6"></a><span class="fu">hist</span>(snakes.res, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb47-7"><a href="#cb47-7"></a></span>
-<span id="cb47-8"><a href="#cb47-8"></a><span class="co"># make a plot of residuals and the fitted values;</span></span>
-<span id="cb47-9"><a href="#cb47-9"></a><span class="co"># # they must be normal and homoscedastic</span></span>
-<span id="cb47-10"><a href="#cb47-10"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(snakes.aov), <span class="fu">residuals</span>(snakes.aov), <span class="at">col =</span> <span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-anova-plot5" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-anova-plot5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="08-anova_files/figure-html/fig-anova-plot5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;5: Exploring the assumptions visually."><img src="08-anova_files/figure-html/fig-anova-plot5-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova-plot5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Exploring the assumptions visually.
-</figcaption>
-</figure>
+<p>As before, the question is, does at least one group mean differ? The interpretation is also the same as for classical one-way ANOVA. The difference is only that Welch’s test does not pool the within-group variances into one common estimate.</p>
+</section>
+<section id="kruskal-wallis-rank-sum-test" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="kruskal-wallis-rank-sum-test"><span class="header-section-number">7.2</span> Kruskal-Wallis Rank-Sum Test</h2>
+<p>If the response is too badly behaved for a mean-based one-way ANOVA, Kruskal-Wallis is the standard one-way rank-based alternative.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">kruskal.test</span>(weight <span class="sc">~</span> Diet, <span class="at">data =</span> chicks_day21)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt;  Kruskal-Wallis rank sum test
+R&gt; 
+R&gt; data:  weight by Diet
+R&gt; Kruskal-Wallis chi-squared = 10.585, df = 3, p-value = 0.0142</code></pre>
 </div>
 </div>
+<p>As with one-way ANOVA, a significant Kruskal-Wallis result is global. It tells us that the groups do not all occupy the same part of the rank distribution, but it does not identify which groups differ.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">pairwise.wilcox.test</span>(</span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="at">x =</span> chicks_day21<span class="sc">$</span>weight,</span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="at">g =</span> chicks_day21<span class="sc">$</span>Diet,</span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="at">p.adjust.method =</span> <span class="st">"holm"</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R&gt; 
+R&gt;  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
+R&gt; 
+R&gt; data:  chicks_day21$weight and chicks_day21$Diet 
+R&gt; 
+R&gt;   1     2     3    
+R&gt; 2 0.616 -     -    
+R&gt; 3 0.026 0.573 -    
+R&gt; 4 0.126 0.616 0.616
+R&gt; 
+R&gt; P value adjustment method: holm</code></pre>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>snakes.tukey <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(snakes.aov, <span class="at">which =</span> <span class="st">"day"</span>, <span class="at">conf.level =</span> <span class="fl">0.90</span>)</span>
-<span id="cb48-2"><a href="#cb48-2"></a><span class="fu">plot</span>(snakes.tukey, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-tukey" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tukey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="08-anova_files/figure-html/fig-tukey-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;6: Exploring the differences between days."><img src="08-anova_files/figure-html/fig-tukey-1.png" class="img-fluid figure-img" style="width:75.0%"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tukey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Exploring the differences between days.
-</figcaption>
-</figure>
+<p>Kruskal-Wallis is a one-way method. There is no direct two-way Kruskal-Wallis counterpart that plays the same introductory role for factorial designs. Once the design includes multiple factors, the analysis needs a different modelling strategy rather than a simple rank-based extension of the one-way test.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do It Now!
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>The <code>InsectSprays</code> dataset (built into R) gives counts of insects under six spray treatments. Counts are non-negative integers that may not meet ANOVA’s normality assumption.</p>
+<ol type="a">
+<li>Make a box plot: <code>boxplot(count ~ spray, data = InsectSprays)</code>. Is there obvious right-skew or unequal variance?</li>
+<li>Run the Shapiro-Wilk test within each spray group.</li>
+<li>Apply the Kruskal-Wallis test: <code>kruskal.test(count ~ spray, data = InsectSprays)</code>.</li>
+<li>If significant, apply the pairwise Wilcoxon test with Holm correction.</li>
+<li>Compare this result with a log-transformed ANOVA on the same data. Do the conclusions agree?</li>
+</ol>
+<!-- ```r
+kruskal.test(count ~ spray, data = InsectSprays)
+pairwise.wilcox.test(InsectSprays$count, InsectSprays$spray,
+                     p.adjust.method = "holm")
+``` -->
 </div>
+</div>
+</section>
+</section>
+<section id="what-this-chapter-does-not-cover" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> What This Chapter Does Not Cover</h1>
+<ul>
+<li><strong>ANCOVA</strong> is a linear model with a factor and a continuous covariate. It belongs in <a href="../basic_stats/14-multiple-regression-and-model-specification.html">Chapter 14</a>, where factors and covariates are treated within the same model.</li>
+<li><strong>Repeated-measures, blocked, or within-individual designs</strong> are dependence problems. Those belong in <a href="../basic_stats/19-dependence-and-mixed-models.html">Chapter 19</a>.</li>
+<li><strong>Multifactor rank-based procedures</strong> are not a clean introductory counterpart to factorial ANOVA. Once the design reaches that level, it is usually better to rethink the modelling approach directly.</li>
+</ul>
+</section>
+<section id="conclusion" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Conclusion</h1>
+<p>ANOVA is the multi-group extension of the mean-comparison questions introduced with <em>t</em>-tests. The sequence is straightforward: recognise when repeated pairwise testing is inappropriate, ask one global question, inspect the grouped data, fit the model, and then use a post hoc procedure only if the global null hypothesis has been rejected.</p>
+<p>The one-way case gives the foundation. Factorial ANOVA adds more than one categorical predictor. Later chapters connect this grouped-data view of ANOVA to the broader linear-model family.</p>
 
 
 </section>
-</section>
 
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2021,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
   author = {A. J. , Smit},
   title = {8. {ANOVA}},
-  date = {2021-01-01},
+  date = {2026-04-17},
   url = {http://samos-r.netlify.app/basic_stats/08-anova.html},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2021" class="csl-entry quarto-appendix-citeas" role="listitem">
-A. J. S (2021) 8. ANOVA. <a href="http://samos-r.netlify.app/basic_stats/08-anova.html">http://samos-r.netlify.app/basic_stats/08-anova.html.
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-a._j.2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+A. J. S (2026) 8. ANOVA. <a href="http://samos-r.netlify.app/basic_stats/08-anova.html">http://samos-r.netlify.app/basic_stats/08-anova.html.
 </a>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -2053,8 +2470,8 @@ A. J. S (2021) 8. ANOVA. <a href="http://samos-r.netlify.app/basic_stats/08-anov
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../basic_stats/09-regressions.html" class="pagination-link" aria-label="9. Simple Linear Regressions">
-        <span class="nav-page-text">9. Simple Linear Regressions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../basic_stats/09-correlation-and-association.html" class="pagination-link" aria-label="9. Correlation and Association">
+        <span class="nav-page-text">9. Correlation and Association</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

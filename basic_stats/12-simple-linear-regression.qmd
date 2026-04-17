@@ -1,0 +1,837 @@
+---
+title: "12. Simple Linear Regression"
+subtitle: "The Entry Point to Model-Based Biostatistics"
+date: last-modified
+date-format: "YYYY/MM/DD"
+reference-location: margin
+---
+
+```{r code-brewing-opts, echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "R>",
+  warning = FALSE,
+  message = FALSE,
+  fig.asp = NULL,
+  fig.align = "center",
+  fig.retina = 2,
+  dpi = 300
+)
+
+ggplot2::theme_set(
+  ggplot2::theme_grey(base_size = 8)
+)
+```
+
+```{r code-libraries, echo=FALSE}
+library(tidyverse)
+library(ggpubr)
+library(gt)
+library(broom)
+library(lmtest)
+library(palmerpenguins)
+```
+
+::: {.callout-note appearance="simple"}
+## In This Chapter
+
+- what a simple linear regression model is;
+- when regression is more appropriate than correlation;
+- the assumptions behind a straight-line model;
+- how to fit a model with `lm()`;
+- how to diagnose normality, homoscedasticity, linearity, and outliers;
+- how to interpret slopes, fitted values, confidence intervals, and prediction intervals;
+- how explanatory and predictive uses of the same regression differ;
+- how to report a regression in the style of a Results section.
+:::
+
+::: {.callout-important appearance="simple"}
+## Tasks to Complete in This Chapter
+
+- Self-Assessment Task 12-1 **(/10)**
+- Self-Assessment Task 12-2 **(/30)**
+- [Self-Assessment instructions and full task overview](../tasks/BCB744_Biostats_Self-Assessment.qmd)
+:::
+
+Linear models are among the most useful statistical tools available to biologists because they describe and quantify how a **response** variable, $Y$, changes as one or more **predictor** variables, $X$, change. In statistics, a model is a mathematical representation of a real process. It is not reality itself, but an idealised description of the part of reality we want to understand. Linear models are especially valuable because they are simple enough to interpret, yet flexible enough to support a large part of modern statistical practice.
+
+In the broadest sense, a linear model is one in which the unknown parameters enter linearly, even if the variables themselves are transformed or combined in more elaborate ways. The most basic member of that family is the **simple linear model**, which is the focus of this chapter. It has one continuous predictor and one continuous response, and it is fitted by **simple linear regression**. The goal may be *explanatory*, where the predictor is hypothesised to influence the response, or *predictive*, where I simply want a formula that estimates likely values of the response from observed values of the predictor. A causal interpretation is therefore common, but it is not required.
+
+Regression analysis is the procedure by which I estimate the model parameters from data. The aim is to fit the model that best captures the observed response-predictor relationship and then interpret the strength, direction, and uncertainty of that relationship. This differs from [correlation](09-correlation-and-association.qmd), which quantifies association without imposing a response-predictor structure. When one variable changes systematically with another but neither prediction nor a defensible response-predictor distinction is of interest, correlation is usually the more appropriate tool.
+
+As established in [Chapter 11](11-residuals-and-model-based-diagnostics.qmd), every observed response can be written as $Y_i = \hat{Y}_i + e_i$, where $\hat{Y}_i$ is the fitted value and $e_i$ is the residual. In the previous chapter I focused on residuals, fitted values, and the diagnostic thinking used to assess whether a model is behaving adequately. Here I carry that thinking into the first full regression model in the course and show how the equation, the slope, the fitted line, and the diagnostics all belong to one workflow.
+
+Simple linear regression is therefore the entry point to the wider model-based framework. From here I move to [polynomial regression](13-polynomial-regression.qmd), where curvature is handled within the linear-model framework; to [multiple regression](14-multiple-regression-and-model-specification.qmd), where several predictors act simultaneously; to [interaction terms](15-interaction-effects.qmd), where the effect of one predictor depends on another; and later to [generalised linear models](20-generalised-linear-models.qmd), where the same modelling thinking is extended to non-normal responses by introducing a link function and a different error distribution. If the response-predictor structure is defensible and a straight-line mean relationship is biologically plausible, simple linear regression is usually the correct place to begin.
+
+# Main Concepts
+
+These ideas organise the chapter.
+
+- **Simple linear regression** models one continuous response as a function of one continuous predictor.
+- **The response-predictor distinction** is essential because it is not simply putting a line onto a correlation scatter plot.
+- **The slope** is usually the main inferential quantity because it describes the expected change in the response for a one-unit change in the predictor.
+- **The intercept** is often less biologically interesting, but it is still part of the fitted model.
+- **Residuals** are central to assumption checking because they reveal structure that the model has failed to capture.
+- **Confidence intervals** and **prediction intervals** answer different questions and should not be confused.
+
+# Nature of the Data and Assumptions
+
+## Requirements Before Fitting
+
+As the experimenter, you must ensure the following requirements *before* a simple linear regression is fitted:
+
+1.  **A defensible response-predictor structure:** There should be a theoretical or philosophical basis for treating one variable as the predictor and the other as the response. This may be explicitly causal, but it can also be predictive if that distinction is still biologically sensible.
+
+2.  **Independence of observations:** Each measured value of the response must be independent of the others. If repeated measurements, clustered sampling, or temporal dependence are present, a different modelling framework may be required.
+
+    When temporal or spatial order is plausible, plot residuals against the order in which observations were collected. Runs of positive or negative residuals, or systematic cycles, indicate dependence that the model has not captured. For the sparrow and penguin examples you will encounter below, measurements are treated as independent, so this check is not performed here.
+
+3.  **Continuous predictor:** The predictor variable should be continuous.
+
+4.  **Continuous response:** The response variable should also be continuous.
+
+## Assumptions to Check After Fitting
+
+After the model has been fitted, the following assumptions must be checked:
+
+1.  **Normality:** The residuals $e_i$ should be approximately normally distributed.
+2.  **Homoscedasticity:** The variance of the residuals $e_i$ should be roughly constant across the fitted values.
+3.  **Linearity:** The mean relationship between the predictor and the response should be approximately linear.
+4.  **Measurement error in the predictor:** Standard linear regression assumes that the predictor is measured without serious error. In practice this is only approximately true, and we return to this issue in [Chapter 16](16-collinearity-confounding-measurement-error.qmd).
+
+As in the earlier inferential chapters, you must pay attention to the workflow. We first inspect the data (EDA and graphically), then fit the model, then examine the residuals (graphically first, then assumption tests if desired), and *only then* interpret the coefficients with confidence.
+
+## Assumption and Diagnostics
+
+The table below summarises which diagnostic tool targets which assumption and what pattern to watch for.
+
+| Assumption | What it concerns | Main diagnostic | Visual signal to watch for |
+|------------------|------------------|------------------|------------------|
+| Linearity | mean structure | residual vs fitted plot | slope or curvature in residuals |
+| Constant variance | spread | residual vs fitted / scale-location | funnel or changing vertical spread |
+| Normality | residual distribution | residual Q-Q plot | systematic bends away from reference line |
+| Independence | relationship among residuals | residuals vs order/time/space | runs, cycles, clusters |
+
+# The Model
+
+Simple linear regression is the first statistical method in the work we have done thus far in which we write an explicit equation (the model) for the mean response and then estimate its parameters from data.
+
+The model is:
+
+$$Y_i = \alpha + \beta X_i + \epsilon_i$$ {#eq-slr-model}
+
+In @eq-slr-model, $Y_i$ is the response for observation $i$, $X_i$ is the predictor, $\alpha$ is the intercept, $\beta$ is the slope, and $\epsilon_i$ is the error term. Errors $\epsilon_i$ are unobserved theoretical quantities. Residuals $e_i$ are their observed estimates, computed after fitting, and are the objects used for diagnostic checks.
+
+The line is fitted by minimising the sum of squared residuals. This is why ordinary linear regression is often called an **ordinary least squares** method.
+
+The animation below shows the fitted line rotating through the data as the error sum of squares is minimised.
+
+```{=html}
+<video controls width="82%" style="display:block; margin: 0 auto;">
+  <source src="../../mov/lm_rotate.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+```
+
+::: {.callout-note appearance="simple"}
+## Errors and Residuals
+
+The model contains errors $\epsilon_i$, which are the unobserved theoretical deviations of each true response from the straight-line mean. In most regression models we assume that the errors are independent and identically distributed (i.i.d.). When the errors are approximately normal this can be written as $\epsilon_i \sim N(0, \sigma^2)$. The requirement of mean zero implies that, on average, the model does not systematically over- or under-predict. Constant variance implies that the spread of errors is roughly similar across the predictor range. Independence implies that errors do not carry systematic structure from one observation to the next.
+
+The residuals $e_i = Y_i - \hat{Y}_i$ are the observed estimates of these unobserved errors. It is the residuals that are available after fitting and that we inspect in diagnostic plots.
+
+Violation of these assumptions can lead to biased or inefficient parameter estimates, poor uncertainty estimates, and misleading inference.
+:::
+
+The next section formalises how the line is chosen from the data.
+
+::: {.callout-important appearance="simple"}
+## Do It Now!
+
+Before fitting any model, take a moment to check whether simple linear regression is the right tool. For each scenario below, decide whether the method is appropriate and identify any requirement that is not met:
+
+| Scenario | Appropriate? | Which requirement, if any, fails? |
+|------------------------|------------------------|------------------------|
+| Plant height (continuous) modelled as a function of rainfall (continuous); one measurement per plant | ? | ? |
+| Blood pressure measured five times on each of 20 patients; modelled as a function of time | ? | ? |
+| Species presence/absence modelled as a function of temperature | ? | ? |
+| Tree diameter (continuous) modelled as a function of stand density (continuous); trees within the same plot share resources | ? | ? |
+
+Discuss your answers with a partner and then read on to check them against the requirements listed above.
+:::
+
+# The Fitting Rule
+
+The least-squares criterion used by `lm()` is to choose $\alpha$ and $\beta$ so that the residual sum of squares is as small as possible:
+
+$$\text{RSS} = \sum_{i=1}^{n}(Y_i - \hat{Y}_i)^2$$ {#eq-rss}
+
+@eq-rss is not a regression model. It is the fitting rule that tells us how the software decides which of all possible straight lines is the best-fitting one.
+
+# R Function
+
+The main function used in this chapter is `lm()`:
+
+```{r}
+#| eval: false
+lm(response ~ predictor, data = df)
+```
+
+You can read the formula `response ~ predictor` as "the response is modelled as a function of the predictor."
+
+The fitted model can then be explored with functions such as:
+
+- `summary()` for the coefficients and overall fit;
+- `confint()` for confidence intervals around the coefficients;
+- `augment()` from **broom** for fitted values and residuals;
+- `predict()` for confidence and prediction intervals;
+- `plot()` for standard diagnostic plots;
+- `bptest()` from **lmtest** for a formal test of heteroscedasticity.
+
+::: {.callout-important appearance="simple"}
+## Do It Now!
+
+Fit the sparrow model by hand before running `lm()`. The least-squares slope is $\hat{\beta} = r \cdot (s_Y / s_X)$ and the intercept is $\hat{\alpha} = \bar{Y} - \hat{\beta}\bar{X}$.
+
+``` r
+sparrows <- tibble(
+  age  = c(3, 4, 5, 6, 8, 9, 10, 11, 12, 14, 15, 16, 17),
+  wing = c(1.4, 1.5, 2.2, 2.4, 3.1, 3.2, 3.2, 3.9, 4.1, 4.7, 4.5, 5.2, 5.0)
+)
+```
+
+````{=html}
+<!-- ```r
+r   <- cor(sparrows$age, sparrows$wing)
+sx  <- sd(sparrows$age)
+sy  <- sd(sparrows$wing)
+xbar <- mean(sparrows$age)
+ybar <- mean(sparrows$wing)
+
+beta_hat  <- r * sy / sx
+alpha_hat <- ybar - beta_hat * xbar
+
+c(intercept = alpha_hat, slope = beta_hat)
+``` -->
+````
+
+Then verify your hand-calculated values against `lm(wing ~ age, data = sparrows)`. Do they match? Explain in one sentence why the slope formula involves both the correlation and the ratio of standard deviations.
+:::
+
+# Outliers and Their Impact on Simple Linear Regression
+
+Outliers are data points that deviate substantially from the overall pattern or trend observed in the data. They can have disproportionate effects on a simple linear regression because the fitted line is estimated by minimising squared residuals, as in @eq-rss. Extreme observations may therefore influence the slope, the intercept, the standard errors, the confidence intervals, and the diagnostic patterns.
+
+This does not mean that unusual observations must automatically be removed. Some are recording errors and should be corrected or excluded. Others are rare but real biological events and may carry important information. The correct response is therefore to identify potentially influential points, inspect them carefully, and decide whether they reveal error, unusual but valid biology, or a more fundamental model problem.
+
+# Example 1: Sparrow Wing Length and Age
+
+::: {.callout-note appearance="simple"}
+## Diagnostic Workflow for Simple Linear Regression
+
+1.  Fit the model with `lm()`.
+2.  Plot residuals versus fitted values then check for curvature (linearity) and changing spread (constant variance).
+3.  Plot the residual Q-Q plot and check whether the residual distribution is close enough to normal.
+4.  If temporal or spatial order is plausible, plot residuals against order and check for runs or cycles (independence).
+5.  Inspect Cook's distance and leverage and identify observations with disproportionate influence.
+6.  Revise the model if any diagnostic reveals leftover structure.
+:::
+
+I begin with a very small sparrow dataset because it makes the general approach clear. I then go to a fuller worked example using the Adelie penguin data from the `palmerpenguins` package, which is much closer to the style and level of complexity encountered in real biological analyses.
+
+```{r code-sparrows-tibble}
+#| echo: false
+sparrows <- tibble(
+  age = c(3, 4, 5, 6, 8, 9, 10, 11, 12, 14, 15, 16, 17),
+  wing = c(1.4, 1.5, 2.2, 2.4, 3.1, 3.2, 3.2, 3.9, 4.1, 4.7, 4.5, 5.2, 5.0)
+)
+```
+
+```{r tbl-gt-sparrows}
+#| echo: false
+#| tbl-cap: "Sparrow wing-length data used in the introductory simple linear regression example."
+
+gt(sparrows) |>
+  cols_label(
+    age = html("Age (days)"),
+    wing = html("Wing length<br>(cm)")
+  )
+```
+
+::: callout-important
+## Do It Now!
+
+Before looking at the sparrow scatter plot, sketch what you expect the relationship between age and wing length to look like based on your biological knowledge alone. Then run the code below and compare your sketch with the actual data:
+
+``` r
+ggplot(sparrows, aes(x = age, y = wing)) +
+  geom_point(shape = 1, colour = "indianred") +
+  labs(x = "Age (days)", y = "Wing length (cm)")
+```
+
+Does a straight line look like a reasonable summary of this relationship? Are there any obvious outliers or influential-looking points at the extremes of the age range?
+:::
+
+## Do an Exploratory Data Analysis (EDA)
+
+The sparrow data show the basic form of a simple linear model.
+
+```{r code-sparrow-summary}
+summary(sparrows)
+```
+
+```{r fig-sparrow}
+#| echo: false
+#| fig-cap: "Wing length of sparrows at different ages."
+#| fig-width: 4
+#| fig-height: 3
+#| code-fold: true
+
+ggplot(sparrows, aes(x = age, y = wing)) +
+  geom_smooth(method = "lm", linewidth = 0.4, alpha = 0.4,
+        colour = "black", se = TRUE, fill = "dodgerblue") +
+  geom_point(shape = 1, colour = "indianred") +
+  labs(x = "Age (days)", y = "Wing length (cm)")
+```
+
+In @fig-sparrow, the scatter plot suggests a clear positive linear relationship: older sparrows tend to have longer wings, and the relationship appears close to linear over the range of the data. This example makes the fitted line and the slope easy to understand before we look at a noisier dataset.
+
+## State the Model Question and Hypothesis
+
+With the sparrow example, I ask whether wing length changes systematically with age.
+
+The statistic of interest in a simple linear regression is usually the slope in @eq-slr-model, which quantifies the magnitude and direction of dependence of the response on the predictor:
+
+$$H_{0}: \beta = 0$$ $$H_{a}: \beta \ne 0$$
+
+If the slope is zero (a more-or-less horizontal line), there is no linear relationship between the predictor and the expected value of the response. If the slope differs from zero, then the predictor helps explain variation in the response.
+
+## Fit the Model
+
+```{r code-sparrow-lm}
+sparrow_mod <- lm(wing ~ age, data = sparrows)
+summary(sparrow_mod)
+```
+
+The output provides the intercept, the slope, their standard errors, a test of whether the coefficients differ from zero, the residual standard error, and the model $R^2$.
+
+::: {#self-assessment-task-12-1 .callout-important}
+## Self-Assessment Task 12-1
+
+a.  Examine the contents of the regression model object `sparrow_mod`. Explain the main components and how they relate to `summary(sparrow_mod)`. **☐ (/3)**
+b.  Using values inside the model object, show how to reconstruct the observed response values from the fitted values and residuals. **☐ (/3)**
+c.  Fit a linear regression through the model residuals and explain the result. **☐ (/2)**
+d.  Fit a linear regression through the fitted values and explain the result. **☐ (/2)**
+:::
+
+::: {.callout-important appearance="simple"}
+## Do It Now!
+
+Read the `summary()` output for `sparrow_mod` carefully. Without using a calculator, answer the following questions from the printed output:
+
+1.  What is the estimated slope, and what does it tell you about the expected change in wing length per additional day of age?
+2.  What is the $p$-value for the slope, and what conclusion do you draw about $H_0: \beta = 0$?
+3.  The residual standard error is printed near the bottom of the summary. What does this number represent in the units of the response variable?
+4.  What does $R^2 \approx 0.97$ tell you about how much of the variation in wing length the model accounts for?
+
+Discuss your answers with a partner before continuing.
+:::
+
+## Test the Assumptions
+
+Assumptions in regression are checked after fitting the model.
+
+```{r code-sparrow-augment}
+sparrow_aug <- augment(sparrow_mod)
+sparrow_aug |>
+  select(age, wing, .fitted, .resid) |>
+  head()
+```
+
+```{r fig-sparrow-diagnostics}
+#| echo: false
+#| fig-cap: "Standard diagnostic plots for the sparrow simple linear regression. Clockwise from top left: residuals versus fitted values (linearity and constant variance), normal Q-Q plot (residual normality), residuals versus leverage (influential observations), and scale-location plot (homoscedasticity)."
+#| fig-width: 6
+#| fig-height: 5
+par(mfrow = c(2, 2))
+plot(sparrow_mod)
+par(mfrow = c(1, 1))
+```
+
+### Normality
+
+The Q-Q panel in @fig-sparrow-diagnostics shows the sample quantiles of the residuals plotted against the theoretical quantiles of a normal distribution. For these data the points track close to the reference line, indicating that the residuals do not depart strongly from normality.
+
+### Homoscedasticity
+
+The residuals-versus-fitted panel in @fig-sparrow-diagnostics does not reveal a systematic funnel or wedge pattern. The spread of residuals appears reasonably even across the range of fitted values, consistent with the constant-variance assumption.
+
+### Influential observations
+
+Because the dataset contains only 13 observations, formal influence diagnostics have limited statistical power. No single observation stands out dramatically in the scale-location or Cook's-distance panels, but conclusions based on such a small sample should be interpreted cautiously.
+
+In @fig-sparrow-diagnostics, the diagnostic plots suggest that the model is broadly adequate for these data. The residuals do not show severe curvature, the spread is reasonably even, and the Q-Q plot does not suggest a dramatic departure from normality. Because the dataset is small, these plots should be interpreted cautiously, but there is no obvious reason to abandon the linear model.
+
+## Interpret the Results
+
+Inference applies within the observed range of the predictor. Extrapolation beyond the data is possible but requires explicit justification, because the straight-line form may not hold outside the observed range.
+
+I construct the final model fit as a figure, which I will use in my reporting.
+
+```{r fig-sparrow-results}
+#| echo: false
+#| fig-cap: "Wing length as a function of age in the sparrow example. The straight line is the fitted simple linear regression and the blue shading is the 95% confidence interval."
+#| fig-width: 4
+#| fig-height: 3
+#| code-fold: true
+
+ggplot(sparrows,
+       aes(x = age, y = wing)) +
+  geom_smooth(method = "lm", linewidth = 0.4, alpha = 0.4,
+        colour = "black", se = TRUE, fill = "dodgerblue") +
+  geom_point(shape = 1, colour = "indianred") +
+  labs(x = "Age (days)", y = "Wing length (cm)")
+```
+
+In @fig-sparrow-results, the fitted slope is positive, which means that wing length increases with age. In this example, the slope estimate is about 0.27 cm per day, so the model implies that the expected wing length increases by roughly 0.27 cm for each additional day of age across the range of these observations.
+
+The intercept is the expected wing length when age is zero. Here that value is not biologically the main point of interest. It is simply the point where the fitted line crosses the vertical axis.
+
+The model explains a large proportion of the variation in the observed wing lengths ($R^2 \approx 0.97$), and the test of the slope provides very strong evidence that the linear relationship is not zero ($p < 0.001$).
+
+## Reporting
+
+::: {.callout-note appearance="simple"}
+## Write-Up
+
+**Methods**
+
+The relationship between sparrow wing length and age was assessed with a simple linear regression, with wing length as the response variable and age as the continuous predictor. Model adequacy was evaluated from standard residual diagnostics.
+
+**Results**
+
+Sparrow wing length increased strongly with age in the fitted simple linear regression ($\beta = 0.270$, 95% CI: 0.241 to 0.300; $R^2 = 0.97$; $p < 0.001$) (@fig-sparrow-results). Across the observed age range, older birds therefore had consistently longer wings, with the expected wing length increasing by about 0.27 cm for each additional day of age.
+
+**Discussion**
+
+This example is useful because it makes the biological interpretation of the slope very clear: age is associated with a strong increase in wing length over the observed range, and the fitted line captures most of the variation in these simple demonstration data.
+:::
+
+::: {.callout-important appearance="simple"}
+## Do It Now!
+
+Use the sparrow model to generate predictions for two new ages and compare the confidence and prediction intervals:
+
+``` r
+new_ages <- tibble(age = c(6, 14))
+predict(sparrow_mod, newdata = new_ages, interval = "confidence")
+predict(sparrow_mod, newdata = new_ages, interval = "prediction")
+```
+
+Answer the following:
+
+1.  Which interval is wider at each age, and why?
+2.  Both intervals are wider at age 14 than at age 6 relative to the interval at the mean age. Explain why interval width varies across the predictor range.
+3.  Would you trust a prediction for age 25? Why or why not?
+:::
+
+# Example 2: Adelie Penguin Bill Length and Body Mass
+
+The following example uses the `penguins` dataset from the `palmerpenguins` package to model bill length as a function of body mass in Adelie penguins.
+
+Although I could also calculate a correlation, I will use a simple linear regression because I want a predictive model that estimates bill length from body mass. This is a defensible use of simple linear regression even though I am not claiming that body mass directly causes bill length.
+
+```{r code-penguin-data}
+Adelie <- penguins[penguins$species == "Adelie", ]
+Adelie <- Adelie[-4, ]
+```
+
+```{r tbl-penguins}
+#| echo: false
+#| tbl-cap: "Size measurements for adult foraging Adelie penguins near Palmer Station, Antarctica."
+
+Adelie |>
+  dplyr::select(-species, -island, -bill_depth_mm, -flipper_length_mm, -sex, -year) |>
+  head() |>
+  gt() |>
+  cols_label(
+    bill_length_mm = html("Bill length (mm)"),
+    body_mass_g = html("Body mass (g)")
+  )
+```
+
+## Do an Exploratory Data Analysis (EDA)
+
+```{r code-penguin-summary}
+dim(Adelie)
+summary(Adelie)
+```
+
+We see that the dataset contains many more observations than the sparrow example. I focus here on `body_mass_g` and `bill_length_mm`. Both are continuous, and restricting the analysis to Adelie penguins gives me a relatively coherent biological subset for the example.
+
+## Create a Plot
+
+```{r fig-penguin-slr}
+#| fig-cap: "Scatter plot of the Palmer Station Adelie penguin data with a best fit line."
+#| fig-width: 4
+#| fig-height: 3
+#| code-fold: true
+
+ggplot(Adelie,
+       aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_smooth(method = "lm", linewidth = 0.4, alpha = 0.4,
+              colour = "black", se = TRUE, fill = "dodgerblue") +
+  geom_point(shape = 1, colour = "indianred") +
+  labs(x = "Body mass (g)", y = "Bill length (mm)")
+```
+
+In @fig-penguin-slr, there is also a clear positive relationship between body mass and bill length despite considerable scatter. This relationship appears linear enough to justify a simple linear model as a first approximation. Creating a publication-quality plot complete with the regression line in place preempts the model fitting, but I can use it later for reporting should it turn out that the model fit is defensible.
+
+## State the Hypothesis
+
+$$H_{0}: \beta = 0$$ $$H_{a}: \beta \ne 0$$
+
+The null hypothesis is that body mass has no linear association with bill length, while the alternative is that the slope differs from zero.
+
+If the slope is zero, then the predictor does not explain systematic change in the expected response.
+
+## Fit the Model
+
+```{r code-penguin-lm}
+mod1 <- lm(bill_length_mm ~ body_mass_g,
+           data = Adelie)
+summary(mod1)
+```
+
+## Test the Assumptions
+
+To facilitate assumption checking I use `augment()` from **broom** to add fitted values, residuals, leverage, and related diagnostics to the data.
+
+```{r code-penguin-augment}
+mod1_data <- augment(mod1)
+```
+
+### Normality
+
+I use the Shapiro-Wilk test as one formal check of the residual distribution.
+
+```{r code-shapiro}
+shapiro.test(residuals(mod1))
+```
+
+The formal test does not flag a serious departure from normality here, but graphical diagnostics are usually more informative than the test alone, especially in moderate samples where the test has limited power to detect mild departures.
+
+```{r fig-assump-plots}
+#| fig-cap: "Diagnostic plots for the simple linear regression of Adelie penguin bill length on body mass. A) Normal Q-Q plot. B) Histogram of residuals. C) Residuals versus fitted values. D) Scale-location plot."
+#| fig-width: 6
+#| fig-height: 4
+#| code-fold: true
+
+p1 <- ggplot(mod1_data, aes(sample = .resid)) +
+  stat_qq(shape = 1, colour = "pink") +
+  stat_qq_line(colour = "steelblue4") +
+  labs(title = "Normal Q-Q", x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_grey()
+
+p2 <- ggplot(mod1_data, aes(x = .resid)) +
+  geom_histogram(binwidth = 1, fill = "pink", color = "pink") +
+  labs(title = "Histogram of Residuals", x = "Residuals", y = "Frequency") +
+  theme_grey()
+
+p3 <- ggplot(mod1_data, aes(x = .fitted, y = .resid)) +
+  geom_point(shape = 1, colour = "pink") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Residuals vs Fitted", x = "Fitted values", y = "Residuals") +
+  theme_grey()
+
+p4 <- ggplot(mod1_data, aes(x = .fitted, y = sqrt(abs(.resid)))) +
+  geom_point(shape = 1, colour = "pink") +
+  geom_smooth(se = FALSE, colour = "steelblue4") +
+  labs(title = "Scale-Location", x = "Fitted values", y = "Sq. Root |Resid.|") +
+  theme_grey()
+
+ggarrange(p1, p2, p3, p4, nrow = 2, ncol = 2, labels = "AUTO")
+```
+
+In @fig-assump-plots, the Q-Q plot and histogram suggest that the residuals are approximately normally distributed. There is no obvious extreme departure that would make the model immediately unusable.
+
+### Homoscedasticity
+
+The Breusch-Pagan test is one formal check of constant variance.
+
+```{r code-bptest}
+bptest(mod1)
+```
+
+The formal test is consistent with the visual impression from the residual plots. Graphical inspection should take precedence: if the scale-location plot shows a clear trend, the spread is not constant regardless of the test p-value. The test does not suggest strong heteroscedasticity, and the residuals-versus-fitted and scale-location panels in @fig-assump-plots also indicate that the spread of residuals is reasonably even across the fitted range.
+
+### Check for Outliers
+
+Four complementary diagnostics reveal different facets of how individual observations affect the fitted model (@fig-penguin-outliers1, @fig-penguin-outliers2): DFFITS, Cook's distance, residuals versus leverage, and Cook's distance versus leverage.
+
+```{r code-outlier-data}
+cooksd_thresh <- 4 / nrow(mod1_data)
+dffits_threshold <- 2 * sqrt(2 / nrow(Adelie))
+
+mod1_data <- mod1_data %>%
+  mutate(index = row_number(),
+         leverage = hatvalues(mod1),
+         dffits = dffits(mod1),
+         colour = ifelse(.cooksd > cooksd_thresh, "black", "pink"))
+```
+
+```{r fig-penguin-outliers1}
+#| fig-cap: "Diagnostic plots for visual inspection of outliers in the Adelie penguin regression. A) DFFITS. B) Cook's distance. C) Residuals versus leverage. D) Cook's distance versus leverage. Observations beyond the Cook's distance threshold are shown in black and labelled by row number."
+#| fig-width: 6
+#| fig-height: 4
+#| code-fold: true
+
+plt1 <- ggplot(mod1_data, aes(x = index, y = dffits)) +
+  geom_col(fill = ifelse(abs(mod1_data$dffits) > dffits_threshold, "black", "pink")) +
+  geom_hline(yintercept = dffits_threshold, linetype = "dashed", colour = "red") +
+  geom_hline(yintercept = -dffits_threshold, linetype = "dashed", colour = "red") +
+  geom_text(aes(label = ifelse(abs(dffits) > dffits_threshold, as.character(index), "")),
+            hjust = 1.0, vjust = 1.0, colour = "darkred") +
+  labs(x = "Observation Index", y = "DFFITS") +
+  theme_grey()
+
+plt2 <- ggplot(mod1_data, aes(x = index, y = .cooksd, fill = colour)) +
+  geom_col() +
+  geom_hline(yintercept = cooksd_thresh, linetype = "dashed", color = "red") +
+  geom_text(aes(label = ifelse(.cooksd > cooksd_thresh, as.character(index), "")),
+            hjust = 1.2, vjust = 1.0, color = "darkred") +
+  labs(x = "Observation Index", y = "Cook's Dist.") +
+  scale_fill_identity() +
+  theme_grey()
+
+plt3 <- ggplot(mod1_data, aes(x = .hat, y = .std.resid)) +
+  geom_point(aes(size = .cooksd, colour = colour), shape = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "black") +
+  geom_vline(xintercept = 2 * mean(mod1_data$.hat), linetype = "dashed", colour = "blue") +
+  geom_smooth(method = "loess", se = FALSE, colour = "steelblue4") +
+  geom_text(aes(label = ifelse(.cooksd > cooksd_thresh, as.character(index), "")),
+            hjust = 1.0, vjust = 1.0, colour = "darkred") +
+  labs(x = "Leverage",
+       y = "Std. Resid.",
+       size = "Cook's Distance") +
+  scale_colour_identity() +
+  theme_grey() +
+  theme(legend.position = "bottom") +
+  guides(size = guide_legend("Cook's Dist."))
+
+plt4 <- ggplot(mod1_data, aes(x = .hat, y = .cooksd)) +
+  geom_point(aes(size = .cooksd, colour = colour), shape = 1) +
+  geom_hline(yintercept = cooksd_thresh, linetype = "dashed", colour = "red") +
+  geom_vline(xintercept = 2 * mean(mod1_data$.hat), linetype = "dashed", colour = "blue") +
+  geom_text(aes(label = ifelse(.cooksd > cooksd_thresh, as.character(index), "")),
+            hjust = 1.0, vjust = 1.0, colour = "darkred") +
+  labs(x = "Leverage",
+       y = "Cook's Dist.",
+       size = "Cook's Distance") +
+  scale_colour_identity() +
+  theme_grey() +
+  guides(size = guide_legend("Cook's Distance"))
+
+ggarrange(plt1, plt2, plt3, plt4, nrow = 2, ncol = 2, labels = "AUTO",
+          common.legend = TRUE)
+```
+
+```{r fig-penguin-outliers2}
+#| fig-cap: "Scatter plot of Adelie penguin bill length against body mass, with observations exceeding the Cook's distance threshold highlighted."
+#| fig-width: 4
+#| fig-height: 3
+#| code-fold: true
+
+ggplot(mod1_data, aes(x = body_mass_g, y = bill_length_mm)) +
+  geom_point(aes(size = .cooksd, colour = colour), shape = 1) +
+  geom_smooth(method = "lm", se = FALSE, colour = "steelblue4") +
+  geom_text(aes(label = ifelse(abs(.cooksd) > cooksd_thresh, rownames(mod1_data), "")),
+            hjust = 1.0, vjust = 1.0, colour = "darkred") +
+  labs(x = "Body mass (g)", y = "Bill length (mm)") +
+  scale_colour_identity() +
+  theme_grey() +
+  theme(legend.position = "bottom") +
+  guides(size = guide_legend("Cook's Distance"))
+```
+
+DFFITS (Difference in Fits) shows how much the fitted value *at each observation* changes when that observation is removed, expressed in estimated standard-error units (@fig-penguin-outliers1 **A**). The dashed lines at $\pm 2\sqrt{p/n}$ mark the threshold beyond which removal would noticeably shift the local prediction. Most bars sit well inside the bounds, and none extends dramatically beyond, so no individual penguin strongly controls its own fitted value.
+
+Cook's distance measures *overall* influence by showing the total shift in all fitted values when one observation is excluded. The rough threshold $4/n$ (dashed red line; @fig-penguin-outliers1 **B**) identifies candidates for inspection, but they do not have to be automatically deleted without good justification. A handful of observations approach or just cross the line (shown in black and labelled by row number) but no bar is very much taller than its neighbours and the exceedances are marginal.
+
+@fig-penguin-outliers1 **C** combines the two sources of concern. Leverage, on the $x$-axis, measures how far an observation's predictor value sits from the centre of the predictor distribution; a high-leverage point has an unusual $X$ value. The $y$-axis shows standardised residuals, and point size encodes Cook's distance. The danger zone is upper and lower right: high leverage combined with a large residual means the observation pulls the fitted line toward itself with no counterweight from the rest of the data. The vertical dashed line marks twice the mean leverage. Most points cluster toward the left and within \$\pm\$2 standardised residuals; a few approach the leverage threshold, but none combines unusual predictor position with a large residual.
+
+In @fig-penguin-outliers1 **D**, leverage is placed on the $x$-axis and Cook's distance on the $y$-axis, making both dimensions of concern visible at once. Observations in the upper-right region (beyond the horizontal Cook's threshold *and* the vertical leverage threshold) would be the highest priority to examine. No point occupies that region here.
+
+@fig-penguin-outliers2 locates the flagged observations in the original scatter. The highlighted penguins are not at the extremes of either variable and are not pulling the line in any obvious direction. Some observations contribute more to the fitted model than others, as is normal, but no single point dominates the result. If a flagged observation turned out to be a data-entry error, I would correct or exclude it; if it represents a genuine biological extreme, I would keep it and document its influence.
+
+## Interpret the Results
+
+Now that the assumptions appear broadly acceptable, I can interpret the fitted model. The slope of the regression line is positive, so bill length increases with body mass. The coefficient is about $3.2 \times 10^{-3}$ mm/g, meaning that the expected bill length increases by about 0.0032 mm for every additional gram of body mass.
+
+Note that the units of the slope depend directly on the units of both variables. Here the slope is expressed in mm per gram, which produces a small numerical value. Rescaling body mass to kilograms (dividing by 1000) would yield a slope of about 3.2 mm/kg, which is easier to describe verbally. The biological meaning is unchanged.
+
+The multiple $R^2$ is about 0.30, so the model explains roughly 30% of the observed variation in bill length. A biologically informative regression does not *need* to explain nearly all the variation in the response to be worthwhile.
+
+The test of the slope provides strong evidence that the relationship is not zero ($p < 0.001$). I apply an ANOVA on the fitted model and this leads me to the same practical conclusion, which is that the straight-line model explains a meaningful amount of variation in bill length.
+
+Among the diagnostics, the residuals-versus-fitted plot is the most informative here. The spread is reasonably even and there is no clear curvature, which supports the straight-line mean structure for this species subset.
+
+Had the Q-Q plot shown strong tail departures or the residual spread changed markedly across the fitted range, the next step would be to consider a response transformation, a different model family, or the inclusion of additional predictors.
+
+## Reporting
+
+::: {.callout-note appearance="simple"}
+## Write-Up
+
+**Methods**
+
+The data analysed in this example were drawn from the Palmer Penguins dataset, which contains measurements on penguins sampled in the Palmer Archipelago, Antarctica. For this worked example, only Adelie penguins were retained. Bill length was treated as the response variable and body mass as the continuous predictor.
+
+A simple linear regression model was fitted using `lm()` in R, with bill length modelled as a function of body mass. Model adequacy was assessed by inspecting residual plots, by applying the Shapiro-Wilk test to the residuals, and by using the Breusch-Pagan test to assess homoscedasticity. Influential observations were explored using Cook's distance, DFFITS, and leverage-based diagnostics.
+
+**Results**
+
+Bill length increased with body mass in the fitted simple linear regression ($\beta = 0.00319$, SE = 0.00040, $t = 8.02$, $p < 0.001$) (@fig-penguin-slr). The model explained about 30% of the variation in bill length ($R^2 = 0.30$), indicating that body mass was an informative but incomplete predictor of bill length. The overall model was also strongly supported by the ANOVA ($F = 64.25$, $p < 0.001$, d.f. = 1, 149).
+
+**Discussion**
+
+The worked example supports a positive relationship between body mass and bill length in Adelie penguins, but it also shows the limits of a one-predictor model. Body mass explains part of the variation in bill length, not all of it. A fuller biological account would need additional predictors such as sex, age, or ecological context.
+:::
+
+::: {.callout-important appearance="simple"}
+## Do It Now!
+
+The penguin model explained only about 30% of the variation in bill length. Explore whether restricting the data to females improves the fit.
+
+````{=html}
+<!-- ```r
+library(palmerpenguins)
+Adelie_female <- penguins |>
+  filter(species == "Adelie", sex == "female") |>
+  drop_na(body_mass_g, bill_length_mm)
+
+mod_female <- lm(bill_length_mm ~ body_mass_g, data = Adelie_female)
+summary(mod_female)
+``` -->
+````
+
+Compare the $R^2$ and residual standard error from the female-only model with the values from `mod1` (all Adelie penguins combined). Does splitting by sex change the picture? Run the same model for males and compare. What does this tell you about the usefulness of one-predictor models in biology?
+:::
+
+# Confidence and Prediction Intervals
+
+The fitted line gives the expected mean response for a given value of the predictor, but two different kinds of interval are commonly needed. A **confidence interval** describes uncertainty in the estimated mean response, whereas a **prediction interval** describes uncertainty for an individual future observation. The prediction interval is always wider because it must include the scatter of individual observations around the fitted mean.
+
+```{r code-predict-intervals}
+new_x <- tibble(age = c(7, 13))
+predict(sparrow_mod, newdata = new_x, interval = "confidence")
+predict(sparrow_mod, newdata = new_x, interval = "prediction")
+```
+
+I can also visualise the same distinction in the penguin example.
+
+```{r fig-penguin-intervals}
+#| fig-cap: "Adelie penguin bill length model with confidence interval (blue) and prediction interval (pink) around the fitted values."
+#| fig-width: 4
+#| fig-height: 3
+#| code-fold: true
+
+pred_conf <- as.data.frame(predict(mod1,
+                                   newdata = Adelie,
+                                   interval = "confidence"))
+
+pred_pred <- as.data.frame(predict(mod1,
+                                   newdata = Adelie,
+                                   interval = "prediction"))
+
+results <- cbind(Adelie, pred_conf, pred_pred[, 2:3])
+names(results)[c(9:13)] <- c("fit", "lwr_conf", "upr_conf",
+                             "lwr_pred", "upr_pred")
+
+ggplot(data = results, aes(x = body_mass_g, y = fit)) +
+  geom_line(linewidth = 0.4, colour = "red") +
+  geom_ribbon(aes(ymin = lwr_pred, ymax = upr_pred),
+              alpha = 0.2, fill = "red") +
+  geom_ribbon(aes(ymin = lwr_conf, ymax = upr_conf),
+              alpha = 0.2, fill = "blue") +
+  geom_point(aes(y = bill_length_mm), shape = 1) +
+  labs(x = "Body mass (g)", y = "Bill length (mm)") +
+  theme_grey()
+```
+
+In @fig-penguin-intervals, the blue confidence band is narrower because it describes uncertainty around the fitted mean response, whereas the pink prediction band is wider because it must also accommodate the scatter of individual penguins around that mean. Confidence intervals are therefore useful when the primary interest lies in the mean expected response at a given predictor value. Prediction intervals are more relevant when the goal is to anticipate the range in which an individual future observation may fall.
+
+# Prediction Versus Explanation
+
+The same fitted straight-line model can be used for at least two different scientific purposes. In an **explanatory** analysis, the main interest is usually the slope itself and what it says about the biological relationship between the predictor and the response. A **predictive** analysis, on the other hand, places the emphasis on the fitted values, prediction intervals, and how accurately the model can anticipate new observations.
+
+The sparrow example is mostly explanatory. We care primarily that wing length increases with age and that the slope is clearly positive. The Adelie penguin example is closer to a predictive framing because we have treated body mass as a variable from which bill length might be estimated for new individuals.
+
+The distinction is important because it changes what should be emphasised in a Results section. Explanatory work usually emphasises the slope, its uncertainty, and the biological interpretation of the effect. Predictive work still needs the model coefficients, but it should pay much more attention to fitted values, prediction intervals, and the amount of unexplained variation.
+
+This is also why a model with a highly significant slope is not automatically a good predictive model. A relationship can be biologically real and still leave substantial scatter around the fitted line, as in @fig-penguin-slr. Conversely, a model that predicts well is not automatically evidence for a causal mechanism. In [Chapter 24](24-prediction-and-explanation.qmd), I return to this distinction.
+
+# What to Do When Assumptions Fail
+
+When diagnostic patterns reveals that the assumptions of the linear model are not adequate, the first step is to ask what those patterns are telling you. Residuals that suggest non-linearity indicate that the model has not absorbed all the systematic structure in the data; the remedy is either to transform the response or predictor variables, or to fit a more flexible model. Polynomial regression, mechanistic non-linear models, and Generalised Additive Models (GAMs) can all accommodate curvature. If residual variance changes strongly with fitted values, consider a transformation or a different modelling framework altogether, such as a Generalised Linear Model (GLM).
+
+Outliers require careful judgement. If they arise from data-entry errors or procedural failures, removal is defensible; however, it should be documented and justified, because outliers may be functionally important as they can reveal rare but real extreme events. When you are confident that an outlier is a genuine observation, robust regression techniques such as M-estimation or least trimmed squares (which downweight influential points rather than discarding them) are worth considering. A final option is to apply an appropriate transformation, such as a logarithm or square root, which can compress the scale sufficiently to reduce the leverage of extreme values without removing any data.
+
+# Common Mistakes
+
+Common mistakes in simple linear regression include:
+
+- using regression when the relationship is only associative and poorly justified as a response-predictor model;
+- ignoring non-independence among observations;
+- fitting a straight line to a clearly curved relationship;
+- treating statistical significance as biological importance;
+- reporting $R^2$ without discussing effect size, uncertainty, or assumptions.
+
+::: {#self-assessment-task-12-2 .callout-important}
+## Self-Assessment Task 12-2
+
+Complete a full simple linear regression analysis using life expectancy as the response and schooling as the predictor. Your job is not only to fit the model, but also to identify and justify the treatment of problematic observations.
+
+Use the dataset [kaggle_life_expectancy_data.csv](../../data/BCB744/kaggle_life_expectancy_data.csv).
+
+You should do the following:
+
+1.  Prepare the data by selecting the variables needed for the analysis and removing rows with missing values.
+2.  Fit the initial simple linear regression model.
+3.  Plot the data and show the fitted regression line.
+4.  Check the initial model diagnostics graphically.
+5.  Identify the issue in the dataset.
+6.  Provide evidence for this issue as a table.
+7.  Explain why these cases appear problematic for this analysis.
+8.  Remove the problematic cases and refit the model.
+9.  Recheck the diagnostics graphically for the revised model.
+10. Interpret the final model clearly and state whether it is an improvement over the initial fit. Tabulate the important model-fit statistics in support of your conclusion.
+11. End with a short scientific write-up containing Methods, Results, and Discussion sections.
+
+## Marking Rubric
+
+| Component | Marks |
+|-------------------------------|----------------------------------------:|
+| Data preparation | 3 |
+| Initial model fitting and figure | 3 |
+| Initial model diagnostics | 3 |
+| Identifying and explaining the issue | 3 |
+| Evidence for the issue presented as a table | 4 |
+| Removing the problematic cases appropriately | 2 |
+| Refitting the analysis | 3 |
+| Rechecking the diagnostics | 3 |
+| Interpreting the final model and comparing it with the initial model | 3 |
+| Scientific write-up (Methods, Results, Discussion) | 3 |
+
+**Total: 30 marks**
+:::
+
+# Summary
+
+- Simple linear regression models one continuous response as a function of one continuous predictor.
+- The slope is usually the main inferential quantity because it describes how the expected response changes with the predictor.
+- Regression differs from correlation because it imposes a response-predictor structure.
+- Residual diagnostics are essential because they tell us whether the model is adequate.
+- Outlier diagnostics help us decide whether unusual observations are errors, influential extremes, or signs of model misspecification.
+- Confidence intervals and prediction intervals answer different questions.
+
+I established the workflow for modelling, above. In the next chapter, I extend the same workflow to curved relationships, and in [Chapter 14](14-multiple-regression-and-model-specification.qmd) I then move to several predictors at once.

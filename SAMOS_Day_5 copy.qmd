@@ -1,0 +1,31 @@
+---
+title: "SAMOS Day 5"
+author: "AJ Smit"
+editor: source
+format: html
+---
+
+## Making maps in **ggplot2**
+
+```{r}
+# Load libraries
+library(tidyverse)
+library(ggpubr)
+
+# Load data
+load("data/SAMOS/other_data/south_africa_coast.Rdata")
+load("data/SAMOS/other_data/sa_provinces.RData")
+load("data/SAMOS/other_data/rast_annual.Rdata")
+load("data/SAMOS/other_data/MUR.Rdata")
+load("data/SAMOS/other_data/MUR_low_res.RData")
+
+# Choose which SST product you would like to use
+sst <- MUR_low_res
+# OR
+sst <- MUR
+
+# The colour palette we will use for ocean temperature
+cols11 <- c("#004dcd", "#0068db", "#007ddb", "#008dcf", "#009bbc",
+            "#00a7a9", "#1bb298", "#6cba8f", "#9ac290", "#bec99a")
+```
+

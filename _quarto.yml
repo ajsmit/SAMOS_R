@@ -139,19 +139,32 @@ website:
           # - intro_r/20-dates.qmd
       - section: "Biostatistics"
         contents:
+          - basic_stats/01-statistical-landscape.qmd
           - basic_stats/02-summarise-and-describe.qmd
           - basic_stats/03-visualise.qmd
-          - basic_stats/04-distributions.qmd
+          - basic_stats/04-distributions-sampling-uncertainty.qmd
           - basic_stats/05-inference.qmd
-          - basic_stats/06-assumptions.qmd
+          - basic_stats/06-assumptions-and-transformations.qmd
           - basic_stats/07-t_tests.qmd
           - basic_stats/08-anova.qmd
-          - basic_stats/09-regressions.qmd
-          - basic_stats/10-correlations.qmd
-          - basic_stats/11-decision_guide.qmd
-          - basic_stats/12-glance.qmd
-          - basic_stats/13-confidence.qmd
-          - basic_stats/14-transformations.qmd
+          - basic_stats/09-correlation-and-association.qmd
+          - basic_stats/10-test-selection.qmd
+          - basic_stats/11-residuals-and-model-based-diagnostics.qmd
+          - basic_stats/12-simple-linear-regression.qmd
+          - basic_stats/13-polynomial-regression.qmd
+          - basic_stats/14-multiple-regression-and-model-specification.qmd
+          - basic_stats/15-interaction-effects.qmd
+          - basic_stats/16-collinearity-confounding-measurement-error.qmd
+          - basic_stats/17-model-checking-and-evaluation.qmd
+          - basic_stats/18-pseudoreplication.qmd
+          - basic_stats/19-dependence-and-mixed-models.qmd
+          - basic_stats/20-generalised-linear-models.qmd
+          - basic_stats/21-generalised-additive-models.qmd
+          - basic_stats/22-nonlinear-regression.qmd
+          - basic_stats/23-quantile-regression.qmd
+          - basic_stats/24-prediction-and-explanation.qmd
+          - basic_stats/25-regularisation.qmd
+          - basic_stats/26-reproducible-workflow.qmd
       - section: "Self Assessments"
         contents:
           - tasks/SAMOS_R_Task_A.qmd

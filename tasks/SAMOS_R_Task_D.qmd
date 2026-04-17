@@ -6,8 +6,16 @@ format:
     fig_retina: 2
     fig-dpi: 400
     number-sections: false
+    embed-resources: true
+  typst:
+    fontsize: 11pt
+    hyphenate: true
+    lang: en
+    mainfont: "Minion Pro"
+    section-numbering: 1.1.1.1
+    toc: false
 params: 
-  hide_answers: true
+  hide_answers: false
 execute:
   fig-format: png
   dev: ragg_png
@@ -401,9 +409,9 @@ ggplot() +
 
 # Water-Mass Structure: WOA18 on a Natural Earth Map
 
-## Question 1
+## Assessment Question
 
-Figure 7 (*WOA18 surface temperature (°C) climatology for February (Southern Africa region)*) in Chapter 10 (*Graphics with **ggplot2***) shows the WOA18 February surface temperature climatology as a plain raster. In this exercise you will substantially develop that figure and add an oceanographic analysis layer.
+[Figure 7](https://samos-r.netlify.app/intro_r/10-graphics) "WOA18 surface temperature (°C) climatology for February (Southern Africa region)" in Chapter 10, Graphics with **ggplot2**, shows the WOA18 February surface temperature climatology as a plain raster. In this exercise you will substantially develop that figure and add an oceanographic analysis layer.
 
 **Part A — Improved SST map**
 

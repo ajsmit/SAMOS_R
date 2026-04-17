@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>SAMOS Core Module 3.2 &amp; 3.4 – SAMOS R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,15 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-71333b407a30c047e4062d2e25432596.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -350,20 +352,26 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+ <span class="menu-text">2. Summarising Biological Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3. Statistical Figures</span></a>
+ <span class="menu-text">3. Visualising Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Data Distributions</span></a>
+  <a href="./basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -374,8 +382,8 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Assumptions</span></a>
+  <a href="./basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -392,38 +400,110 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9. Simple Linear Regressions</span></a>
+  <a href="./basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">10. Correlations</span></a>
+  <a href="./basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">11. Parametric Tests</span></a>
+  <a href="./basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">12. Non-Parametric Tests</span></a>
+  <a href="./basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">13. Confidence Intervals</span></a>
+  <a href="./basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">14. Data Transformations</span></a>
+  <a href="./basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
   </div>
 </li>
       </ul>
@@ -795,7 +875,7 @@ cookieconsent.run({
 <tr class="odd">
 <td style="text-align: left;">Wk16</td>
 <td style="text-align: left;">L1</td>
-<td style="text-align: left;">1. Introduction to Statistics</td>
+<td style="text-align: left;"><a href="./basic_stats/01-statistical-landscape.html">1. The Statistical Landscape</a></td>
 <td style="text-align: left;">20 Apr 26</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -803,24 +883,24 @@ cookieconsent.run({
 <tr class="even">
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/02-summarise-and-describe.html">2. Exploring With Summaries and Descriptions</a></td>
+<td style="text-align: left;"><a href="./basic_stats/02-summarise-and-describe.html">2. Summarising Biological Data</a></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="tasks/SAMOS_Stats_Task_E.html">Task E</a></td>
+<td style="text-align: left;"><a href="./basic_stats/02-summarise-and-describe.html#self-assessment-task-2-1">SA 2-1</a>, <a href="./basic_stats/02-summarise-and-describe.html#self-assessment-task-2-2">2-2</a>, <a href="./basic_stats/02-summarise-and-describe.html#self-assessment-task-2-3">2-3</a>, <a href="./basic_stats/02-summarise-and-describe.html#self-assessment-task-2-4">2-4</a>, <a href="./basic_stats/02-summarise-and-describe.html#self-assessment-task-2-5">2-5</a>, <a href="./basic_stats/02-summarise-and-describe.html#self-assessment-task-2-6">2-6</a>, <a href="./basic_stats/02-summarise-and-describe.html#self-assessment-task-2-7">2-7</a></td>
 <td style="text-align: left;">21 Apr 26</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/03-visualise.html">3. Exploring With Figures</a></td>
+<td style="text-align: left;"><a href="./basic_stats/03-visualise.html">3. Visualising Data</a></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="tasks/SAMOS_Stats_Task_E.html">Task E</a></td>
+<td style="text-align: left;"><a href="./basic_stats/03-visualise.html#self-assessment-task-3-1">SA 3-1</a></td>
 <td style="text-align: left;">21 Apr 26</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: left;">L2</td>
-<td style="text-align: left;"><a href="./basic_stats/04-distributions.html">4. Data Distributions</a></td>
-<td style="text-align: left;">21 Apr 26</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/04-distributions-sampling-uncertainty.html">4. Distributions, Sampling, and Uncertainty</a></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
@@ -835,74 +915,194 @@ cookieconsent.run({
 <tr class="even">
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/06-assumptions.html">6. Assumptions</a></td>
+<td style="text-align: left;"><a href="./basic_stats/06-assumptions-and-transformations.html">6. Raw-Data Assumptions and Transformations</a></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">L2</td>
 <td style="text-align: left;"><a href="./basic_stats/07-t_tests.html">7. Inferences About One or Two Populations</a></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="tasks/SAMOS_Stats_Task_F.html">Task F</a></td>
+<td style="text-align: left;">21 Apr 26</td>
+<td style="text-align: left;"><a href="./basic_stats/07-t_tests.html#self-assessment-task-7-1">SA 7-1</a>, <a href="./basic_stats/07-t_tests.html#self-assessment-task-7-2">SA 7-2</a></td>
 <td style="text-align: left;">22 Apr 26</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/08-anova.html">8. Analysis of Variance (ANOVA)</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/08-anova.html#self-assessment-task-8-1">SA 8-1</a>, <a href="./basic_stats/08-anova.html#self-assessment-task-8-2">8-2</a>, <a href="./basic_stats/08-anova.html#self-assessment-task-8-3">8-3</a>, <a href="./basic_stats/08-anova.html#self-assessment-task-8-4">8-4</a>, <a href="./basic_stats/08-anova.html#self-assessment-task-8-5">8-5</a>, <a href="./basic_stats/08-anova.html#self-assessment-task-8-6">8-6</a></td>
+<td style="text-align: left;">22 Apr 26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/09-correlation-and-association.html">9. Correlation and Association</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/09-correlation-and-association.html#self-assessment-task-9-1">SA 9-1</a>, <a href="./basic_stats/09-correlation-and-association.html#self-assessment-task-9-2">SA 9-2</a></td>
+<td style="text-align: left;">22 Apr 26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/10-test-selection.html">10. Finding Your Way on the Statistical Landscape</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;"></td>
 <td style="text-align: left;">L3</td>
-<td style="text-align: left;"><a href="./basic_stats/08-anova.html">8. Analysis of Variance (ANOVA)</a></td>
+<td style="text-align: left;"><a href="./basic_stats/11-residuals-and-model-based-diagnostics.html">11. Residuals and Model-Based Diagnostics</a></td>
 <td style="text-align: left;">22 Apr 26</td>
-<td style="text-align: left;"><a href="tasks/SAMOS_Stats_Task_G.html">Task G</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/12-simple-linear-regression.html">12. Simple Linear Regression</a></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="./basic_stats/12-simple-linear-regression.html#self-assessment-task-12-1">SA 12-1</a>, <a href="./basic_stats/12-simple-linear-regression.html#self-assessment-task-12-2">12-2</a></td>
 <td style="text-align: left;">23 Apr 26</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/09-regressions.html">9. Simple Linear Regressions</a></td>
+<td style="text-align: left;"><a href="./basic_stats/13-polynomial-regression.html">13. Polynomial Regression</a></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="tasks/SAMOS_Stats_Task_H.html">Task H</a></td>
-<td style="text-align: left;">24 Apr 26</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/10-correlations.html">10. Correlations</a></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="tasks/SAMOS_Stats_Task_H.html">Task H</a></td>
-<td style="text-align: left;">24 Apr 26</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;"></td>
 <td style="text-align: left;">L4</td>
-<td style="text-align: left;"><a href="./basic_stats/11-decision_guide.html">11. A Guide to Selecting the Right Parametric Test</a></td>
+<td style="text-align: left;"><a href="./basic_stats/14-multiple-regression-and-model-specification.html">14. Multiple Regression and Model Specification</a></td>
 <td style="text-align: left;">23 Apr 26</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/12-glance.html">12. Non-Parametric Statistics</a></td>
-<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/13-confidence.html">13. Confidence Intervals</a></td>
+<td style="text-align: left;"><a href="./basic_stats/15-interaction-effects.html">15. Interaction Effects</a></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/16-collinearity-confounding-measurement-error.html">16. Collinearity, Confounding, and Measurement Error</a></td>
+<td style="text-align: left;">–</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"><a href="./basic_stats/14-transformations.html">14. Data Transformations</a></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/17-model-checking-and-evaluation.html">17. Model Checking and Evaluation</a></td>
+<td style="text-align: left;">–</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/18-pseudoreplication.html">18. Pseudoreplication</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/19-dependence-and-mixed-models.html">19. Dependence and Mixed Models</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/20-generalised-linear-models.html">20. Generalised Linear Models</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/21-generalised-additive-models.html">21. Generalised Additive Models</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/22-nonlinear-regression.html">22. Nonlinear Regression</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/23-quantile-regression.html">23. Quantile Regression</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/24-prediction-and-explanation.html">24. Prediction and Explanation</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/25-regularisation.html">25. Regularisation</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SS</td>
+<td style="text-align: left;"><a href="./basic_stats/26-reproducible-workflow.html">26. Reproducible Workflow</a></td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Wk16</td>
+<td style="text-align: left;">L5</td>
+<td style="text-align: left;">Revision and test preparation</td>
+<td style="text-align: left;">24 Apr 26</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="my-highlight"><strong>Test 2: Statistics Theory Test</strong></span></td>
+<td style="text-align: left;">TBA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">TBA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="my-highlight"><strong>Exam: Statistics Prac Exam (Intro R + Statistics)</strong></span></td>
+<td style="text-align: left;">TBA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">TBA</td>
 </tr>
 </tbody>
 </table>

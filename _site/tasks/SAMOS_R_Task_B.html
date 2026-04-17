@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Intro R Task B – SAMOS R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,15 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-71333b407a30c047e4062d2e25432596.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f6a473d5fe4ef677b3d60661e2971130.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -197,7 +199,7 @@ cookieconsent.run({
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_B.html">Intro R Task B</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Self Assessments</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_B.html">Intro R Task B</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -353,20 +355,26 @@ cookieconsent.run({
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../basic_stats/01-statistical-landscape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. The Statistical Landscape</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../basic_stats/02-summarise-and-describe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Data Summaries &amp; Descriptions</span></a>
+ <span class="menu-text">2. Summarising Biological Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../basic_stats/03-visualise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3. Statistical Figures</span></a>
+ <span class="menu-text">3. Visualising Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/04-distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Data Distributions</span></a>
+  <a href="../basic_stats/04-distributions-sampling-uncertainty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Distributions, Sampling, and Uncertainty</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -377,8 +385,8 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/06-assumptions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Assumptions</span></a>
+  <a href="../basic_stats/06-assumptions-and-transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Raw-Data Assumptions and Transformations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -395,38 +403,110 @@ cookieconsent.run({
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/09-regressions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9. Simple Linear Regressions</span></a>
+  <a href="../basic_stats/09-correlation-and-association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Correlation and Association</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/10-correlations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">10. Correlations</span></a>
+  <a href="../basic_stats/10-test-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Finding Your Way on the Statistical Landscape</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/11-decision_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">11. Parametric Tests</span></a>
+  <a href="../basic_stats/11-residuals-and-model-based-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Residuals and Model-Based Diagnostics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/12-glance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">12. Non-Parametric Tests</span></a>
+  <a href="../basic_stats/12-simple-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Simple Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/13-confidence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">13. Confidence Intervals</span></a>
+  <a href="../basic_stats/13-polynomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Polynomial Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../basic_stats/14-transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">14. Data Transformations</span></a>
+  <a href="../basic_stats/14-multiple-regression-and-model-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Multiple Regression and Model Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/15-interaction-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Interaction Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/16-collinearity-confounding-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Collinearity, Confounding, and Measurement Error</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/17-model-checking-and-evaluation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Model Checking and Evaluation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/18-pseudoreplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Pseudoreplication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/19-dependence-and-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">19. Dependence and Mixed Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/20-generalised-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">20. Generalised Linear Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/21-generalised-additive-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">21. Generalised Additive Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/22-nonlinear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">22. Nonlinear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/23-quantile-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Quantile Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/24-prediction-and-explanation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">24. Prediction and Explanation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/25-regularisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">25. Regularisation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../basic_stats/26-reproducible-workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">26. Reproducible Workflow</span></a>
   </div>
 </li>
       </ul>
@@ -434,7 +514,7 @@ cookieconsent.run({
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Tasks</span></a>
+ <span class="menu-text">Self Assessments</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -528,7 +608,7 @@ cookieconsent.run({
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Tasks</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_B.html">Intro R Task B</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_A.html">Self Assessments</a></li><li class="breadcrumb-item"><a href="../tasks/SAMOS_R_Task_B.html">Intro R Task B</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Intro R Task B</h1>
 </div>
@@ -778,23 +858,23 @@ R&gt; 5 Irma     2017      155</code></pre>
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <div aria-describedby="tbl-taskD-q5-gt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="pktcquxyky" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pktcquxyky table {
+<div id="wykzbgytlp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wykzbgytlp table {
   font-family: 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pktcquxyky thead, #pktcquxyky tbody, #pktcquxyky tfoot, #pktcquxyky tr, #pktcquxyky td, #pktcquxyky th {
+#wykzbgytlp thead, #wykzbgytlp tbody, #wykzbgytlp tfoot, #wykzbgytlp tr, #wykzbgytlp td, #wykzbgytlp th {
   border-style: none;
 }
 
-#pktcquxyky p {
+#wykzbgytlp p {
   margin: 0;
   padding: 0;
 }
 
-#pktcquxyky .gt_table {
+#wykzbgytlp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -820,12 +900,12 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_caption {
+#wykzbgytlp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pktcquxyky .gt_title {
+#wykzbgytlp .gt_title {
   color: #333333;
   font-size: 14px;
   font-weight: initial;
@@ -837,7 +917,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-bottom-width: 0;
 }
 
-#pktcquxyky .gt_subtitle {
+#wykzbgytlp .gt_subtitle {
   color: #333333;
   font-size: 12px;
   font-weight: initial;
@@ -849,7 +929,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-top-width: 0;
 }
 
-#pktcquxyky .gt_heading {
+#wykzbgytlp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -861,13 +941,13 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_bottom_border {
+#wykzbgytlp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_col_headings {
+#wykzbgytlp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -882,7 +962,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_col_heading {
+#wykzbgytlp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -902,7 +982,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   overflow-x: hidden;
 }
 
-#pktcquxyky .gt_column_spanner_outer {
+#wykzbgytlp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -914,15 +994,15 @@ R&gt; 5 Irma     2017      155</code></pre>
   padding-right: 4px;
 }
 
-#pktcquxyky .gt_column_spanner_outer:first-child {
+#wykzbgytlp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pktcquxyky .gt_column_spanner_outer:last-child {
+#wykzbgytlp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pktcquxyky .gt_column_spanner {
+#wykzbgytlp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -934,11 +1014,11 @@ R&gt; 5 Irma     2017      155</code></pre>
   width: 100%;
 }
 
-#pktcquxyky .gt_spanner_row {
+#wykzbgytlp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pktcquxyky .gt_group_heading {
+#wykzbgytlp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -964,7 +1044,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   text-align: left;
 }
 
-#pktcquxyky .gt_empty_group_heading {
+#wykzbgytlp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -979,15 +1059,15 @@ R&gt; 5 Irma     2017      155</code></pre>
   vertical-align: middle;
 }
 
-#pktcquxyky .gt_from_md > :first-child {
+#wykzbgytlp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pktcquxyky .gt_from_md > :last-child {
+#wykzbgytlp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pktcquxyky .gt_row {
+#wykzbgytlp .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -1006,7 +1086,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   overflow-x: hidden;
 }
 
-#pktcquxyky .gt_stub {
+#wykzbgytlp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1019,7 +1099,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   padding-right: 5px;
 }
 
-#pktcquxyky .gt_stub_row_group {
+#wykzbgytlp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1033,15 +1113,15 @@ R&gt; 5 Irma     2017      155</code></pre>
   vertical-align: top;
 }
 
-#pktcquxyky .gt_row_group_first td {
+#wykzbgytlp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pktcquxyky .gt_row_group_first th {
+#wykzbgytlp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pktcquxyky .gt_summary_row {
+#wykzbgytlp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1051,16 +1131,16 @@ R&gt; 5 Irma     2017      155</code></pre>
   padding-right: 5px;
 }
 
-#pktcquxyky .gt_first_summary_row {
+#wykzbgytlp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_first_summary_row.thick {
+#wykzbgytlp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pktcquxyky .gt_last_summary_row {
+#wykzbgytlp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1070,7 +1150,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_grand_summary_row {
+#wykzbgytlp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1080,7 +1160,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   padding-right: 5px;
 }
 
-#pktcquxyky .gt_first_grand_summary_row {
+#wykzbgytlp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1090,7 +1170,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_last_grand_summary_row_top {
+#wykzbgytlp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1100,11 +1180,11 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_striped {
+#wykzbgytlp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pktcquxyky .gt_table_body {
+#wykzbgytlp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1113,7 +1193,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_footnotes {
+#wykzbgytlp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1127,7 +1207,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_footnote {
+#wykzbgytlp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1136,7 +1216,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   padding-right: 5px;
 }
 
-#pktcquxyky .gt_sourcenotes {
+#wykzbgytlp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1150,7 +1230,7 @@ R&gt; 5 Irma     2017      155</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#pktcquxyky .gt_sourcenote {
+#wykzbgytlp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1158,77 +1238,77 @@ R&gt; 5 Irma     2017      155</code></pre>
   padding-right: 5px;
 }
 
-#pktcquxyky .gt_left {
+#wykzbgytlp .gt_left {
   text-align: left;
 }
 
-#pktcquxyky .gt_center {
+#wykzbgytlp .gt_center {
   text-align: center;
 }
 
-#pktcquxyky .gt_right {
+#wykzbgytlp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pktcquxyky .gt_font_normal {
+#wykzbgytlp .gt_font_normal {
   font-weight: normal;
 }
 
-#pktcquxyky .gt_font_bold {
+#wykzbgytlp .gt_font_bold {
   font-weight: bold;
 }
 
-#pktcquxyky .gt_font_italic {
+#wykzbgytlp .gt_font_italic {
   font-style: italic;
 }
 
-#pktcquxyky .gt_super {
+#wykzbgytlp .gt_super {
   font-size: 65%;
 }
 
-#pktcquxyky .gt_footnote_marks {
+#wykzbgytlp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pktcquxyky .gt_asterisk {
+#wykzbgytlp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pktcquxyky .gt_indent_1 {
+#wykzbgytlp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pktcquxyky .gt_indent_2 {
+#wykzbgytlp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pktcquxyky .gt_indent_3 {
+#wykzbgytlp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pktcquxyky .gt_indent_4 {
+#wykzbgytlp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pktcquxyky .gt_indent_5 {
+#wykzbgytlp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pktcquxyky .katex-display {
+#wykzbgytlp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pktcquxyky div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wykzbgytlp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table do-not-create-environment table table-sm table-striped small" data-quarto-bootstrap="false">
+<table class="gt_table table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
 <td colspan="3" class="gt_heading gt_title gt_font_normal"><strong>Top 5 storms by maximum wind speed</strong></td>
