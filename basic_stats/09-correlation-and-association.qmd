@@ -49,7 +49,7 @@ Find here a [Cheatsheet](../../docs/cheatsheet-inferential-stats.pdf) on statist
 
 -   Self-Assessment Task 9-1 **(/10)**
 -   Self-Assessment Task 9-2 **(/20)**
--   [Self-Assessment instructions and full task overview](../tasks/BCB744_Biostats_Self-Assessment.qmd)
+-   [Self-Assessment instructions and full task overview](../tasks/SAMOS_Biostats_Self-Assessment.qmd)
 :::
 
 In the previous chapters, I asked whether means differ among groups. Correlation answers, do two variables vary together?
@@ -218,6 +218,28 @@ cor.test(
   method = "pearson"
 )
 ```
+
+::: {.callout-note appearance="simple"}
+## Reading the Correlation Test Output
+
+`cor.test()` produces a compact block of results. Here is what each element means, using the Pearson result as a worked example.
+
+**Header line** names the method: `Pearson's product-moment correlation`, `Spearman's rank correlation rho`, or `Kendall's rank correlation tau`.
+
+**`t`** is the test statistic used to evaluate $H_0: \rho = 0$. It is derived from the sample correlation coefficient $r$ and the sample size:
+
+$$t = \frac{r\sqrt{n-2}}{\sqrt{1 - r^2}}$$
+
+This is not a directly measured quantity; it converts $r$ into the *t*-distribution framework so that a *p*-value can be computed. A larger $|t|$ means the evidence against $H_0: \rho = 0$ is stronger.
+
+**`df`** $= n - 2$. Two degrees of freedom are lost because both variables have sample means that had to be estimated before computing $r$.
+
+**`p-value`** is the probability of obtaining a $|t|$ at least this large if the true population correlation $\rho$ were zero.
+
+**`95 percent confidence interval`** is an interval for the true population $\rho$. Because $r$ is bounded between $-1$ and $+1$ and its sampling distribution is skewed near those bounds, this interval is computed using Fisher's $z$-transformation and then back-transformed. The interval does not have to be symmetric around $r$.
+
+**`cor`** under `sample estimates` is the sample Pearson correlation coefficient $r$, *i.e.*, the effect size. For Spearman and Kendall output, this line becomes `rho` and `tau`, respectively, and the test statistic changes accordingly.
+:::
 
 ## Interpret the Results
 

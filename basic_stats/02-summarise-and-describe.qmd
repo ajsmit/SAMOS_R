@@ -60,7 +60,7 @@ library(ggpubr)
 -   Self-Assessment Task 2-5 **(/5)**
 -   Self-Assessment Task 2-6 **(/3)**
 -   Self-Assessment Task 2-7 **(/2)**
--   [Self-Assessment instructions and full task overview](../tasks/BCB744_Biostats_Self-Assessment.qmd)
+-   [Self-Assessment instructions and full task overview](../tasks/SAMOS_Biostats_Self-Assessment.qmd)
 :::
 
 Exploratory data analysis (EDA) establishes what kind of data we actually have before we test hypotheses or fit models. It tells us how many observations we have, what variables were measured, how much variation is present, whether missing values or outliers need attention, and whether the data contain obvious grouping structure. Poor summaries at this stage usually lead to poor inference later.

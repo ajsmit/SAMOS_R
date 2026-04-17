@@ -23,7 +23,7 @@ ggplot2::theme_set(
 ```
 
 ::: {.content-visible when-format="html"}
-![A meme about fancy statistics.](../images/fancy_stats.jpg){fig-align="center" width="250"}
+![A meme about fancy statistics.](../../images/fancy_stats.jpg){fig-align="center" width="250"}
 :::
 
 ```{r code-knitr-opts-chunk-set, echo=FALSE}
@@ -57,7 +57,7 @@ Find here a [Cheatsheet](../../docs/cheatsheet-inferential-stats.pdf) on statist
 - Self-Assessment Task 8-4 **(/5)**
 - Self-Assessment Task 8-5 **(/5)**
 - Self-Assessment Task 8-6 **(/5)**
-- [Self-Assessment instructions and full task overview](../tasks/BCB744_Biostats_Self-Assessment.qmd)
+- [Self-Assessment instructions and full task overview](../tasks/SAMOS_Biostats_Self-Assessment.qmd)
 :::
 
 ```{r code-chicks-setup}

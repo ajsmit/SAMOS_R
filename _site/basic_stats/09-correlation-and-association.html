@@ -552,6 +552,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Biostats_Self-Assessment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Biostats Self-Assessment Tasks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro R Task A</span></a>
   </div>
@@ -700,7 +706,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026/04/16</p>
+      <p class="date">2026/04/17</p>
     </div>
   </div>
   
@@ -757,7 +763,7 @@ window.Quarto = {
 <ul>
 <li>Self-Assessment Task 9-1 <strong>(/10)</strong></li>
 <li>Self-Assessment Task 9-2 <strong>(/20)</strong></li>
-<li><a href="../tasks/BCB744_Biostats_Self-Assessment.qmd">Self-Assessment instructions and full task overview</a></li>
+<li><a href="../tasks/SAMOS_Biostats_Self-Assessment.html">Self-Assessment instructions and full task overview</a></li>
 </ul>
 </div>
 </div>
@@ -961,6 +967,27 @@ R&gt;  0.3548169 0.8300525
 R&gt; sample estimates:
 R&gt;       cor 
 R&gt; 0.6524911</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reading the Correlation Test Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>cor.test()</code> produces a compact block of results. Here is what each element means, using the Pearson result as a worked example.</p>
+<p><strong>Header line</strong> names the method: <code>Pearson's product-moment correlation</code>, <code>Spearman's rank correlation rho</code>, or <code>Kendall's rank correlation tau</code>.</p>
+<p><strong><code>t</code></strong> is the test statistic used to evaluate <span class="math inline">\(H_0: \rho = 0\)</span>. It is derived from the sample correlation coefficient <span class="math inline">\(r\)</span> and the sample size:</p>
+<p><span class="math display">\[t = \frac{r\sqrt{n-2}}{\sqrt{1 - r^2}}\]</span></p>
+<p>This is not a directly measured quantity; it converts <span class="math inline">\(r\)</span> into the <em>t</em>-distribution framework so that a <em>p</em>-value can be computed. A larger <span class="math inline">\(|t|\)</span> means the evidence against <span class="math inline">\(H_0: \rho = 0\)</span> is stronger.</p>
+<p><strong><code>df</code></strong> <span class="math inline">\(= n - 2\)</span>. Two degrees of freedom are lost because both variables have sample means that had to be estimated before computing <span class="math inline">\(r\)</span>.</p>
+<p><strong><code>p-value</code></strong> is the probability of obtaining a <span class="math inline">\(|t|\)</span> at least this large if the true population correlation <span class="math inline">\(\rho\)</span> were zero.</p>
+<p><strong><code>95 percent confidence interval</code></strong> is an interval for the true population <span class="math inline">\(\rho\)</span>. Because <span class="math inline">\(r\)</span> is bounded between <span class="math inline">\(-1\)</span> and <span class="math inline">\(+1\)</span> and its sampling distribution is skewed near those bounds, this interval is computed using Fisher’s <span class="math inline">\(z\)</span>-transformation and then back-transformed. The interval does not have to be symmetric around <span class="math inline">\(r\)</span>.</p>
+<p><strong><code>cor</code></strong> under <code>sample estimates</code> is the sample Pearson correlation coefficient <span class="math inline">\(r\)</span>, <em>i.e.</em>, the effect size. For Spearman and Kendall output, this line becomes <code>rho</code> and <code>tau</code>, respectively, and the test statistic changes accordingly.</p>
 </div>
 </div>
 </section>
@@ -1252,23 +1279,23 @@ R&gt; 0.3426171</code></pre>
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <div aria-describedby="tbl-ecklonia-pearson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
 <div class="cell-output-display column-page">
-<div id="muayhhbwyn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#muayhhbwyn table {
+<div id="kqsyofcugi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kqsyofcugi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#muayhhbwyn thead, #muayhhbwyn tbody, #muayhhbwyn tfoot, #muayhhbwyn tr, #muayhhbwyn td, #muayhhbwyn th {
+#kqsyofcugi thead, #kqsyofcugi tbody, #kqsyofcugi tfoot, #kqsyofcugi tr, #kqsyofcugi td, #kqsyofcugi th {
   border-style: none;
 }
 
-#muayhhbwyn p {
+#kqsyofcugi p {
   margin: 0;
   padding: 0;
 }
 
-#muayhhbwyn .gt_table {
+#kqsyofcugi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1294,12 +1321,12 @@ R&gt; 0.3426171</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_caption {
+#kqsyofcugi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#muayhhbwyn .gt_title {
+#kqsyofcugi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1311,7 +1338,7 @@ R&gt; 0.3426171</code></pre>
   border-bottom-width: 0;
 }
 
-#muayhhbwyn .gt_subtitle {
+#kqsyofcugi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1323,7 +1350,7 @@ R&gt; 0.3426171</code></pre>
   border-top-width: 0;
 }
 
-#muayhhbwyn .gt_heading {
+#kqsyofcugi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1335,13 +1362,13 @@ R&gt; 0.3426171</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_bottom_border {
+#kqsyofcugi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_col_headings {
+#kqsyofcugi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1356,7 +1383,7 @@ R&gt; 0.3426171</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_col_heading {
+#kqsyofcugi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1376,7 +1403,7 @@ R&gt; 0.3426171</code></pre>
   overflow-x: hidden;
 }
 
-#muayhhbwyn .gt_column_spanner_outer {
+#kqsyofcugi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1388,15 +1415,15 @@ R&gt; 0.3426171</code></pre>
   padding-right: 4px;
 }
 
-#muayhhbwyn .gt_column_spanner_outer:first-child {
+#kqsyofcugi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#muayhhbwyn .gt_column_spanner_outer:last-child {
+#kqsyofcugi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#muayhhbwyn .gt_column_spanner {
+#kqsyofcugi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1408,11 +1435,11 @@ R&gt; 0.3426171</code></pre>
   width: 100%;
 }
 
-#muayhhbwyn .gt_spanner_row {
+#kqsyofcugi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#muayhhbwyn .gt_group_heading {
+#kqsyofcugi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1438,7 +1465,7 @@ R&gt; 0.3426171</code></pre>
   text-align: left;
 }
 
-#muayhhbwyn .gt_empty_group_heading {
+#kqsyofcugi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1453,15 +1480,15 @@ R&gt; 0.3426171</code></pre>
   vertical-align: middle;
 }
 
-#muayhhbwyn .gt_from_md > :first-child {
+#kqsyofcugi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#muayhhbwyn .gt_from_md > :last-child {
+#kqsyofcugi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#muayhhbwyn .gt_row {
+#kqsyofcugi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1480,7 +1507,7 @@ R&gt; 0.3426171</code></pre>
   overflow-x: hidden;
 }
 
-#muayhhbwyn .gt_stub {
+#kqsyofcugi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1493,7 +1520,7 @@ R&gt; 0.3426171</code></pre>
   padding-right: 5px;
 }
 
-#muayhhbwyn .gt_stub_row_group {
+#kqsyofcugi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1507,15 +1534,15 @@ R&gt; 0.3426171</code></pre>
   vertical-align: top;
 }
 
-#muayhhbwyn .gt_row_group_first td {
+#kqsyofcugi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#muayhhbwyn .gt_row_group_first th {
+#kqsyofcugi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#muayhhbwyn .gt_summary_row {
+#kqsyofcugi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1525,16 +1552,16 @@ R&gt; 0.3426171</code></pre>
   padding-right: 5px;
 }
 
-#muayhhbwyn .gt_first_summary_row {
+#kqsyofcugi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_first_summary_row.thick {
+#kqsyofcugi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#muayhhbwyn .gt_last_summary_row {
+#kqsyofcugi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1544,7 +1571,7 @@ R&gt; 0.3426171</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_grand_summary_row {
+#kqsyofcugi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1554,7 +1581,7 @@ R&gt; 0.3426171</code></pre>
   padding-right: 5px;
 }
 
-#muayhhbwyn .gt_first_grand_summary_row {
+#kqsyofcugi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1564,7 +1591,7 @@ R&gt; 0.3426171</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_last_grand_summary_row_top {
+#kqsyofcugi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1574,11 +1601,11 @@ R&gt; 0.3426171</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_striped {
+#kqsyofcugi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#muayhhbwyn .gt_table_body {
+#kqsyofcugi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1587,7 +1614,7 @@ R&gt; 0.3426171</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_footnotes {
+#kqsyofcugi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1601,7 +1628,7 @@ R&gt; 0.3426171</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_footnote {
+#kqsyofcugi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1610,7 +1637,7 @@ R&gt; 0.3426171</code></pre>
   padding-right: 5px;
 }
 
-#muayhhbwyn .gt_sourcenotes {
+#kqsyofcugi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1624,7 +1651,7 @@ R&gt; 0.3426171</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#muayhhbwyn .gt_sourcenote {
+#kqsyofcugi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1632,72 +1659,72 @@ R&gt; 0.3426171</code></pre>
   padding-right: 5px;
 }
 
-#muayhhbwyn .gt_left {
+#kqsyofcugi .gt_left {
   text-align: left;
 }
 
-#muayhhbwyn .gt_center {
+#kqsyofcugi .gt_center {
   text-align: center;
 }
 
-#muayhhbwyn .gt_right {
+#kqsyofcugi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#muayhhbwyn .gt_font_normal {
+#kqsyofcugi .gt_font_normal {
   font-weight: normal;
 }
 
-#muayhhbwyn .gt_font_bold {
+#kqsyofcugi .gt_font_bold {
   font-weight: bold;
 }
 
-#muayhhbwyn .gt_font_italic {
+#kqsyofcugi .gt_font_italic {
   font-style: italic;
 }
 
-#muayhhbwyn .gt_super {
+#kqsyofcugi .gt_super {
   font-size: 65%;
 }
 
-#muayhhbwyn .gt_footnote_marks {
+#kqsyofcugi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#muayhhbwyn .gt_asterisk {
+#kqsyofcugi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#muayhhbwyn .gt_indent_1 {
+#kqsyofcugi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#muayhhbwyn .gt_indent_2 {
+#kqsyofcugi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#muayhhbwyn .gt_indent_3 {
+#kqsyofcugi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#muayhhbwyn .gt_indent_4 {
+#kqsyofcugi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#muayhhbwyn .gt_indent_5 {
+#kqsyofcugi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#muayhhbwyn .katex-display {
+#kqsyofcugi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#muayhhbwyn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kqsyofcugi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2171,7 +2198,7 @@ Figure&nbsp;6: Relationship between stipe length and epiphyte length in <em>Eckl
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
   author = {A. J. , Smit},
   title = {9. {Correlation} and {Association}},
-  date = {2026-04-16},
+  date = {2026-04-17},
   url = {http://samos-r.netlify.app/basic_stats/09-correlation-and-association.html},
   langid = {en}
 }

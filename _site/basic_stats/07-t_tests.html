@@ -552,6 +552,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Biostats_Self-Assessment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Biostats Self-Assessment Tasks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro R Task A</span></a>
   </div>
@@ -722,7 +728,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026/04/07</p>
+      <p class="date">2026/04/17</p>
     </div>
   </div>
   
@@ -766,7 +772,7 @@ window.Quarto = {
 <ul>
 <li>Self-Assessment Task 7-1 <strong>(/15)</strong></li>
 <li>Self-Assessment Task 7-2 <strong>(/10)</strong></li>
-<li><a href="../tasks/BCB744_Biostats_Self-Assessment.qmd">Self-Assessment instructions and full task overview</a></li>
+<li><a href="../tasks/SAMOS_Biostats_Self-Assessment.html">Self-Assessment instructions and full task overview</a></li>
 </ul>
 </div>
 </div>
@@ -977,6 +983,29 @@ R&gt;  22.45242 23.87718
 R&gt; sample estimates:
 R&gt; mean of x 
 R&gt;   23.1648</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reading the <em>t</em>-Test Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R’s <code>t.test()</code> output has a fixed layout. Here is what each line records, using the second test (against <span class="math inline">\(\mu_0 = 24.5\)</span> m) as a worked example.</p>
+<p><strong>Header line</strong> names the variant being applied; here a one-sample <em>t</em>-test.</p>
+<p><strong><code>t</code></strong> is the test statistic. For a one-sample test it is:</p>
+<p><span class="math display">\[t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}\]</span></p>
+<p>It measures how many standard errors the sample mean sits from the null value. A large <span class="math inline">\(|t|\)</span> means the sample mean is far from <span class="math inline">\(\mu_0\)</span> relative to the precision of the estimate.</p>
+<p><strong><code>df</code></strong> (degrees of freedom) <span class="math inline">\(= n - 1\)</span>. For these 31 trees, <span class="math inline">\(df = 30\)</span>. The <em>t</em>-distribution used to compute the <em>p</em>-value has this shape; heavier tails at low <span class="math inline">\(df\)</span> account for the extra uncertainty from estimating the standard deviation.</p>
+<p><strong><code>p-value</code></strong> is the probability of obtaining a <span class="math inline">\(|t|\)</span> at least as large as the one observed, under <span class="math inline">\(H_0\)</span>. It is not the probability that <span class="math inline">\(H_0\)</span> is true. A small <em>p</em>-value means the data would be unusual if the true mean were <span class="math inline">\(\mu_0\)</span>.</p>
+<p><strong><code>alternative hypothesis</code></strong> states the <span class="math inline">\(H_a\)</span> that was tested. The default is two-sided (<code>true mean is not equal to</code>); one-sided variants print <code>greater than</code> or <code>less than</code>.</p>
+<p><strong><code>95 percent confidence interval</code></strong> is the interval <span class="math inline">\(({\bar{x} - t^* \cdot SE},\; \bar{x} + t^* \cdot SE)\)</span>, where <span class="math inline">\(t^*\)</span> is the critical value for the chosen confidence level. If this interval excludes <span class="math inline">\(\mu_0\)</span>, the two-sided test rejects <span class="math inline">\(H_0\)</span> at <span class="math inline">\(\alpha = 0.05\)</span>; these two pieces of information are always consistent.</p>
+<p><strong><code>mean of x</code></strong> is the sample mean <span class="math inline">\(\bar{x}\)</span>, the point estimate of the population mean.</p>
+<p>For a <strong>two-sample <em>t</em>-test</strong>, the output looks the same except that (i) <span class="math inline">\(df\)</span> is no longer a whole number if Welch’s correction is applied, (ii) <code>mean of x</code> becomes <code>mean in group A</code> and <code>mean in group B</code>, and (iii) the confidence interval is for the <em>difference</em> between the two group means rather than for a single mean.</p>
 </div>
 </div>
 </section>
@@ -1924,7 +1953,7 @@ R&gt;                     6.116154                     4.996154</code></pre>
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
   author = {A. J. , Smit},
   title = {7. {*t*-Tests}},
-  date = {2026-04-07},
+  date = {2026-04-17},
   url = {http://samos-r.netlify.app/basic_stats/07-t_tests.html},
   langid = {en}
 }

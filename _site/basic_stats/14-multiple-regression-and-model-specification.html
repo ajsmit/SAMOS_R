@@ -571,6 +571,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../tasks/SAMOS_Biostats_Self-Assessment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SAMOS Biostats Self-Assessment Tasks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../tasks/SAMOS_R_Task_A.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro R Task A</span></a>
   </div>
@@ -653,7 +659,7 @@ window.Quarto = {
   <li><a href="#check-for-multicollinearity" id="toc-check-for-multicollinearity" class="nav-link" data-scroll-target="#check-for-multicollinearity"><span class="header-section-number">7.4</span> Check for Multicollinearity</a></li>
   <li><a href="#reduce-multicollinearity" id="toc-reduce-multicollinearity" class="nav-link" data-scroll-target="#reduce-multicollinearity"><span class="header-section-number">7.5</span> Reduce Multicollinearity</a></li>
   <li><a href="#fit-the-selected-model" id="toc-fit-the-selected-model" class="nav-link" data-scroll-target="#fit-the-selected-model"><span class="header-section-number">7.6</span> Fit the Selected Model</a></li>
-  <li><a href="#reading-the-coefficient-table-and-the-anova-table" id="toc-reading-the-coefficient-table-and-the-anova-table" class="nav-link" data-scroll-target="#reading-the-coefficient-table-and-the-anova-table"><span class="header-section-number">7.7</span> Reading the Coefficient and ANOVA Tables</a></li>
+  <li><a href="#the-sequential-anova-table" id="toc-the-sequential-anova-table" class="nav-link" data-scroll-target="#the-sequential-anova-table"><span class="header-section-number">7.7</span> The Sequential ANOVA Table</a></li>
   <li><a href="#scaling-and-centring" id="toc-scaling-and-centring" class="nav-link" data-scroll-target="#scaling-and-centring"><span class="header-section-number">7.8</span> Scaling and Centring</a></li>
   <li><a href="#check-diagnostics" id="toc-check-diagnostics" class="nav-link" data-scroll-target="#check-diagnostics"><span class="header-section-number">7.9</span> Check Diagnostics</a></li>
   <li><a href="#interpret-the-results" id="toc-interpret-the-results" class="nav-link" data-scroll-target="#interpret-the-results"><span class="header-section-number">7.10</span> Interpret the Results</a></li>
@@ -720,7 +726,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026/04/07</p>
+      <p class="date">2026/04/17</p>
     </div>
   </div>
   
@@ -1017,23 +1023,23 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <div aria-describedby="tbl-slr-fits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="mjienejufo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mjienejufo table {
+<div id="kperqtnjlq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kperqtnjlq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mjienejufo thead, #mjienejufo tbody, #mjienejufo tfoot, #mjienejufo tr, #mjienejufo td, #mjienejufo th {
+#kperqtnjlq thead, #kperqtnjlq tbody, #kperqtnjlq tfoot, #kperqtnjlq tr, #kperqtnjlq td, #kperqtnjlq th {
   border-style: none;
 }
 
-#mjienejufo p {
+#kperqtnjlq p {
   margin: 0;
   padding: 0;
 }
 
-#mjienejufo .gt_table {
+#kperqtnjlq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1059,12 +1065,12 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-left-color: #D3D3D3;
 }
 
-#mjienejufo .gt_caption {
+#kperqtnjlq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mjienejufo .gt_title {
+#kperqtnjlq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1076,7 +1082,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-bottom-width: 0;
 }
 
-#mjienejufo .gt_subtitle {
+#kperqtnjlq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1088,7 +1094,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-top-width: 0;
 }
 
-#mjienejufo .gt_heading {
+#kperqtnjlq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1100,13 +1106,13 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-right-color: #D3D3D3;
 }
 
-#mjienejufo .gt_bottom_border {
+#kperqtnjlq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mjienejufo .gt_col_headings {
+#kperqtnjlq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1121,7 +1127,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-right-color: #D3D3D3;
 }
 
-#mjienejufo .gt_col_heading {
+#kperqtnjlq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1141,7 +1147,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   overflow-x: hidden;
 }
 
-#mjienejufo .gt_column_spanner_outer {
+#kperqtnjlq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1153,15 +1159,15 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   padding-right: 4px;
 }
 
-#mjienejufo .gt_column_spanner_outer:first-child {
+#kperqtnjlq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mjienejufo .gt_column_spanner_outer:last-child {
+#kperqtnjlq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mjienejufo .gt_column_spanner {
+#kperqtnjlq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1173,11 +1179,11 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   width: 100%;
 }
 
-#mjienejufo .gt_spanner_row {
+#kperqtnjlq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mjienejufo .gt_group_heading {
+#kperqtnjlq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1203,7 +1209,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   text-align: left;
 }
 
-#mjienejufo .gt_empty_group_heading {
+#kperqtnjlq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1218,15 +1224,15 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   vertical-align: middle;
 }
 
-#mjienejufo .gt_from_md > :first-child {
+#kperqtnjlq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mjienejufo .gt_from_md > :last-child {
+#kperqtnjlq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mjienejufo .gt_row {
+#kperqtnjlq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1245,7 +1251,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   overflow-x: hidden;
 }
 
-#mjienejufo .gt_stub {
+#kperqtnjlq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1258,7 +1264,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   padding-right: 5px;
 }
 
-#mjienejufo .gt_stub_row_group {
+#kperqtnjlq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1272,15 +1278,15 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   vertical-align: top;
 }
 
-#mjienejufo .gt_row_group_first td {
+#kperqtnjlq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mjienejufo .gt_row_group_first th {
+#kperqtnjlq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mjienejufo .gt_summary_row {
+#kperqtnjlq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1290,16 +1296,16 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   padding-right: 5px;
 }
 
-#mjienejufo .gt_first_summary_row {
+#kperqtnjlq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mjienejufo .gt_first_summary_row.thick {
+#kperqtnjlq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mjienejufo .gt_last_summary_row {
+#kperqtnjlq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1309,7 +1315,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-bottom-color: #D3D3D3;
 }
 
-#mjienejufo .gt_grand_summary_row {
+#kperqtnjlq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1319,7 +1325,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   padding-right: 5px;
 }
 
-#mjienejufo .gt_first_grand_summary_row {
+#kperqtnjlq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1329,7 +1335,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-top-color: #D3D3D3;
 }
 
-#mjienejufo .gt_last_grand_summary_row_top {
+#kperqtnjlq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1339,11 +1345,11 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-bottom-color: #D3D3D3;
 }
 
-#mjienejufo .gt_striped {
+#kperqtnjlq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mjienejufo .gt_table_body {
+#kperqtnjlq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1352,7 +1358,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-bottom-color: #D3D3D3;
 }
 
-#mjienejufo .gt_footnotes {
+#kperqtnjlq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1366,7 +1372,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-right-color: #D3D3D3;
 }
 
-#mjienejufo .gt_footnote {
+#kperqtnjlq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1375,7 +1381,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   padding-right: 5px;
 }
 
-#mjienejufo .gt_sourcenotes {
+#kperqtnjlq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1389,7 +1395,7 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   border-right-color: #D3D3D3;
 }
 
-#mjienejufo .gt_sourcenote {
+#kperqtnjlq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1397,72 +1403,72 @@ Figure&nbsp;1: Simple linear regressions fitted separately for five candidate cl
   padding-right: 5px;
 }
 
-#mjienejufo .gt_left {
+#kperqtnjlq .gt_left {
   text-align: left;
 }
 
-#mjienejufo .gt_center {
+#kperqtnjlq .gt_center {
   text-align: center;
 }
 
-#mjienejufo .gt_right {
+#kperqtnjlq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mjienejufo .gt_font_normal {
+#kperqtnjlq .gt_font_normal {
   font-weight: normal;
 }
 
-#mjienejufo .gt_font_bold {
+#kperqtnjlq .gt_font_bold {
   font-weight: bold;
 }
 
-#mjienejufo .gt_font_italic {
+#kperqtnjlq .gt_font_italic {
   font-style: italic;
 }
 
-#mjienejufo .gt_super {
+#kperqtnjlq .gt_super {
   font-size: 65%;
 }
 
-#mjienejufo .gt_footnote_marks {
+#kperqtnjlq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mjienejufo .gt_asterisk {
+#kperqtnjlq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mjienejufo .gt_indent_1 {
+#kperqtnjlq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mjienejufo .gt_indent_2 {
+#kperqtnjlq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mjienejufo .gt_indent_3 {
+#kperqtnjlq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mjienejufo .gt_indent_4 {
+#kperqtnjlq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mjienejufo .gt_indent_5 {
+#kperqtnjlq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#mjienejufo .katex-display {
+#kperqtnjlq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#mjienejufo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kperqtnjlq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1645,7 +1651,7 @@ Figure&nbsp;2: The null model fitted to Sørensen dissimilarity (Y) in the East 
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><code>summary()</code> on a fitted <code>lm</code> object computes the overall <span class="math inline">\(F\)</span>-statistic internally, by comparing the fitted model’s residual sum of squares with the total sum of squares around the grand mean of <code>Y</code>. That total sum of squares is what the null model’s residuals would give, and R derives it directly from the response vector without needing the null model object. I explicitly fit the <code>null_mod1</code> here for two reasons: i) to make the idea of the null model visible as a named model object, and to allow a direct nested comparison using <code>anova()</code>, which is demonstrated below.</p>
+<p><code>summary()</code> on a fitted <code>lm</code> object computes the overall <span class="math inline">\(F\)</span>-statistic internally, by comparing the fitted model’s residual sum of squares with the total sum of squares around the grand mean of <code>Y</code>. That total sum of squares is what the null model’s residuals would give, and R derives it directly from the response vector without needing the null model object. I explicitly fit the <code>null_mod1</code> here because I want to: i) make the idea of the null model visible as a named model object, ii) allow a direct nested comparison using <code>anova()</code>, which I will demonstrate below, and lastly, iii) to apply in the <code>stepAIC()</code> forward model selection procedure, which I also demonstrate below.</p>
 </div>
 </div>
 </div>
@@ -1772,13 +1778,22 @@ R&gt; 1.423601 1.674397 1.585055</code></pre>
 <span id="cb28-3"><a href="#cb28-3"></a>  <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> <span class="fu">lm</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> sw_vif), <span class="at">upper =</span> vif_mod),</span>
 <span id="cb28-4"><a href="#cb28-4"></a>  <span class="at">direction =</span> <span class="st">"forward"</span>,</span>
 <span id="cb28-5"><a href="#cb28-5"></a>  <span class="at">trace =</span> <span class="cn">FALSE</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a>)</span>
-<span id="cb28-7"><a href="#cb28-7"></a></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="fu">formula</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R&gt; Y ~ augMean + febSD + augSD</code></pre>
+<span id="cb28-6"><a href="#cb28-6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We include the null model as part of the <code>stepAIC()</code> function. The fitted model therefore estimates a single value (the grand mean of <code>Y</code>) and uses it as the prediction for every observation. In <code>stepAIC()</code>, this sets the starting point (for forward selection) or the lower boundary (for both forward and stepwise) to prevent the search from stepping below an intercept-only baseline.</p>
+</div>
+</div>
+</div>
+<p>The selected model is:</p>
+<p><span class="math display">\[Y = \alpha + \beta_1 \text{augMean} + \beta_2 \text{febSD} + \beta_3 \text{augSD} + \epsilon\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; 
 R&gt; Call:
@@ -1801,7 +1816,57 @@ R&gt; Residual standard error: 0.06609 on 285 degrees of freedom
 R&gt; Multiple R-squared:  0.8387, Adjusted R-squared:  0.837 
 R&gt; F-statistic: 494.1 on 3 and 285 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reading the <code>summary()</code> Output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The column meanings extend those introduced in <a href="../basic_stats/12-simple-linear-regression.html#reading-the-regression-summary">Chapter 12</a>, with one big difference, which is, every quantity in the coefficient table is now a <em>partial</em> estimate.</p>
+<p>Each row tests one predictor’s effect <em>conditional on all other predictors in the model</em>. The <em>t</em>-statistic for <code>augMean</code> asks: given that <code>febSD</code> and <code>augSD</code> are already in the model, does <code>augMean</code> still contribute?</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>What it contains</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Estimate</code></td>
+<td><span class="math inline">\(\hat\beta_j\)</span> gives the expected change in <span class="math inline">\(Y\)</span> per one-unit increase in predictor <span class="math inline">\(j\)</span>, <strong>with all other predictors held constant</strong>. It is this partial interpretation is what makes multiple regression different from a sequence of simple regressions.</td>
+</tr>
+<tr class="even">
+<td><code>Std. Error</code></td>
+<td>The standard error of <span class="math inline">\(\hat\beta_j\)</span>. In multiple regression this is inflated by any correlation between predictors (multicollinearity).</td>
+</tr>
+<tr class="odd">
+<td><code>t value</code></td>
+<td><span class="math inline">\(\hat\beta_j / \text{Std. Error}\)</span> is the partial <em>t</em>-statistic for <span class="math inline">\(H_0: \beta_j = 0\)</span> given the full model.</td>
+</tr>
+<tr class="even">
+<td><code>Pr(&gt;|t|)</code></td>
+<td>The two-sided <em>p</em>-value for that partial test.</td>
+</tr>
+</tbody>
+</table>
+<p>The bottom of the output also reports the overall <span class="math inline">\(F\)</span>-statistic, which is a <em>global</em> test of whether the full model explains more variance than the intercept-only null model. It uses the same <span class="math inline">\(F = MS_\text{model} / MS_\text{residuals}\)</span> ratio described in <a href="../basic_stats/08-anova.html#reading-the-anova-table">Chapter 8</a>, and is numerically identical to the result of <code>anova(null_mod1, full_mod1)</code> shown earlier.</p>
+</div>
+</div>
+</section>
+<section id="the-sequential-anova-table" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="the-sequential-anova-table"><span class="header-section-number">7.7</span> The Sequential ANOVA Table</h2>
+<p><code>anova()</code> on a fitted <code>lm</code> produces a <em>sequential</em> (Type I) decomposition, which is a completely different question from the one <code>summary()</code> answers.</p>
+<p><code>summary()</code> asks: does this predictor contribute, <em>given all other predictors simultaneously</em>? It is a simultaneous (Type III) test and its results do not depend on predictor order.</p>
+<p><code>anova()</code> asks: does this predictor explain additional variance <em>beyond what the preceding predictors already captured</em>? It is a sequential (Type I) test that adds predictors one at a time in formula order and records how much residual sum of squares each removes at its own step. Here, <code>augMean</code> is assessed first against the intercept-only baseline; <code>febSD</code> then receives credit for whatever <code>augMean</code> left unexplained; <code>augSD</code> receives the remainder. The <code>Sum Sq</code> and <span class="math inline">\(F\)</span> values therefore change if the predictors are reordered in the formula, whereas the <code>Estimate</code>, <code>t value</code>, and <code>Pr(&gt;|t|)</code> in <code>summary()</code> do not.</p>
+<p>Use <code>summary()</code> to test whether a specific predictor contributes after adjusting for all others. Use <code>anova()</code> to describe how variance is partitioned across predictors in a biologically meaningful order, or to compare nested models (see <a href="../basic_stats/15-interaction-effects.html">Chapter 15</a>).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">anova</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; Analysis of Variance Table
 R&gt; 
@@ -1815,26 +1880,51 @@ R&gt; ---
 R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-<p>We include the null model as part of the <code>stepAIC()</code> function. The fitted model therefore estimates a single value (the grand mean of <code>Y</code>)and uses it as the prediction for every observation. In <code>stepAIC()</code>, this sets the starting point (for forward selection) or the lower boundary (for both forward and stepwise) to prevent the search from stepping below an intercept-only baseline.</p>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reading the <code>anova()</code> Output
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>The columns follow the same principle as the ANOVA tables in <a href="../basic_stats/08-anova.html#reading-the-anova-table">Chapter 8</a>:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>What it contains</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Df</code></td>
+<td>Degrees of freedom consumed by that predictor (1 per continuous predictor).</td>
+</tr>
+<tr class="even">
+<td><code>Sum Sq</code></td>
+<td>Reduction in residual <span class="math inline">\(SS\)</span> achieved by adding this predictor at this step, given all preceding predictors are already in the model.</td>
+</tr>
+<tr class="odd">
+<td><code>Mean Sq</code></td>
+<td><code>Sum Sq</code> / <code>Df</code>.</td>
+</tr>
+<tr class="even">
+<td><code>F value</code></td>
+<td><code>Mean Sq</code> for this predictor divided by the single residual <code>Mean Sq</code> at the bottom of the table.</td>
+</tr>
+<tr class="odd">
+<td><code>Pr(&gt;F)</code></td>
+<td><em>p</em>-value for that <span class="math inline">\(F\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The <span class="math inline">\(F = t^2\)</span> identity</strong></p>
+<p>For a single predictor (<span class="math inline">\(Df = 1\)</span>), the <span class="math inline">\(F\)</span> from <code>anova()</code> equals the square of the <span class="math inline">\(t\)</span> from <code>summary()</code> <em>only when that predictor is last in the formula</em>, because in that position the sequential and simultaneous tests coincide. Reordering breaks the equality for every predictor except the last.</p>
 </div>
-<p>The selected model is:</p>
-<p><span class="math display">\[Y = \alpha + \beta_1 \text{augMean} + \beta_2 \text{febSD} + \beta_3 \text{augSD} + \epsilon\]</span></p>
-</section>
-<section id="reading-the-coefficient-table-and-the-anova-table" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="reading-the-coefficient-table-and-the-anova-table"><span class="header-section-number">7.7</span> Reading the Coefficient and ANOVA Tables</h2>
-<p><code>summary()</code> and <code>anova()</code> each answer a different question, and both appear above.</p>
-<p>The <strong>coefficient table</strong> from <code>summary()</code> tests each partial effect <em>conditional</em> on all other predictors in the model. The <em>t</em>-statistic for <code>augMean</code> asks: given that <code>febSD</code> and <code>augSD</code> are already in the model, does <code>augMean</code> still contribute? Each test conditions on the full model as specified.</p>
-<p>Each <span class="math inline">\(\hat\beta\)</span> is the rate of change in <span class="math inline">\(Y\)</span> per unit change in that predictor, with all others held constant. For <code>augMean</code>, <span class="math inline">\(\hat\beta_1 = 0.2833\)</span>: each additional degree Celsius of August mean temperature corresponds to a 0.28-unit increase in Sørensen dissimilarity. Sørensen spans 0 to 1, so that is a steep gradient (roughly a quarter of the entire response range per degree) reflecting the strong thermal structuring of seaweed assemblages along the South African coast.</p>
-<p>The <strong>ANOVA table</strong> from <code>anova()</code> is <em>sequential</em>. It partitions the total sum of squares in the order the predictors were entered: <code>augMean</code> is assessed first, then <code>febSD</code> gets credit for what <code>augMean</code> left unexplained, and <code>augSD</code> gets the remainder. Change the order of predictors in the formula and the sums of squares in the ANOVA table change.</p>
-<p>For testing whether a predictor contributes after adjusting for all others, the coefficient table is the appropriate place to look. The ANOVA table is more informative when the question is about the total variance attributable to each predictor in a natural sequence, or when comparing nested models (see <a href="../basic_stats/15-interaction-effects.html">Chapter 15</a>).</p>
+</div>
 <!-- ::: callout-important
 ## Do It Now!
 
@@ -1861,7 +1951,7 @@ Do the sums of squares change? Does the `summary()` coefficient table change? Ex
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">avPlots</span>(mod1, <span class="at">col =</span> <span class="st">"dodgerblue4"</span>, <span class="at">col.lines =</span> <span class="st">"magenta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">avPlots</span>(mod1, <span class="at">col =</span> <span class="st">"dodgerblue4"</span>, <span class="at">col.lines =</span> <span class="st">"magenta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mod1-partial" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -1881,9 +1971,9 @@ Figure&nbsp;3: Added-variable (partial regression) plots for the selected model 
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">autoplot</span>(mod1, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">colour =</span> <span class="st">"dodgerblue4"</span>,</span>
-<span id="cb35-2"><a href="#cb35-2"></a>         <span class="at">smooth.colour =</span> <span class="st">"magenta"</span>) <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">theme_grey</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">autoplot</span>(mod1, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">colour =</span> <span class="st">"dodgerblue4"</span>,</span>
+<span id="cb34-2"><a href="#cb34-2"></a>         <span class="at">smooth.colour =</span> <span class="st">"magenta"</span>) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">theme_grey</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mod1-diagnostics" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -1910,7 +2000,7 @@ Figure&nbsp;4: Standard diagnostic plots for <code>mod1</code>. Top left: residu
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">crPlots</span>(mod1, <span class="at">col =</span> <span class="st">"dodgerblue4"</span>, <span class="at">col.lines =</span> <span class="st">"magenta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">crPlots</span>(mod1, <span class="at">col =</span> <span class="st">"dodgerblue4"</span>, <span class="at">col.lines =</span> <span class="st">"magenta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mod1-crplots" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -1934,7 +2024,7 @@ Figure&nbsp;5: Component-plus-residual plots for <code>mod1</code>. Each panel s
 <div class="callout-body-container">
 <p>The added-variable plots in <a href="#fig-mod1-partial" class="quarto-xref">Figure&nbsp;3</a> and the component-plus-residual plots in <a href="#fig-mod1-crplots" class="quarto-xref">Figure&nbsp;5</a> address different questions and plot different quantities against each other, which is why they can look similar without being equivalent.</p>
 <p>An <strong>added-variable plot</strong> for predictor <span class="math inline">\(X_j\)</span> plots two sets of residuals against each other: the residuals from regressing <span class="math inline">\(Y\)</span> on all predictors <em>except</em> <span class="math inline">\(X_j\)</span>, against the residuals from regressing <span class="math inline">\(X_j\)</span> on all those same other predictors. Both axes have been purged of the other predictors’ effects. The slope of the line in that panel is exactly the partial coefficient <span class="math inline">\(\hat\beta_j\)</span>. What the plot reveals is the partial relationship; that is, the strength and direction of <span class="math inline">\(X_j\)</span>’s contribution to <span class="math inline">\(Y\)</span> after everything else in the model has been removed from both variables. If <span class="math inline">\(X_j\)</span> has no partial effect, the cloud in its panel will be horizontal. If <span class="math inline">\(X_j\)</span>’s partial effect is nonlinear, the cloud will curve.</p>
-<p>A <strong>component-plus-residual plot</strong> (also called a partial-residual plot) for predictor <span class="math inline">\(X_j\)</span> plots <span class="math inline">\(e_i + \hat\beta_j X_{ji}\)</span> on the vertical axis — the raw residuals with the fitted linear component of <span class="math inline">\(X_j\)</span> added back in — against <span class="math inline">\(X_{ji}\)</span> itself on the horizontal axis. The idea is to reconstruct what the response would look like as a function of <span class="math inline">\(X_j\)</span> alone, after adjusting for the other predictors. The slope of the fitted line in the panel is again <span class="math inline">\(\hat\beta_j\)</span>, but now the vertical axis is on the original scale of the predictor rather than on a residualised scale.</p>
+<p>A <strong>component-plus-residual plot</strong> (also called a partial-residual plot) for predictor <span class="math inline">\(X_j\)</span> plots <span class="math inline">\(e_i + \hat\beta_j X_{ji}\)</span> on the vertical axis (the raw residuals with the fitted linear component of <span class="math inline">\(X_j\)</span> added back in) against <span class="math inline">\(X_{ji}\)</span> itself on the horizontal axis. The idea is to reconstruct what the response would look like as a function of <span class="math inline">\(X_j\)</span> alone, after adjusting for the other predictors. The slope of the fitted line in the panel is again <span class="math inline">\(\hat\beta_j\)</span>, but now the vertical axis is on the original scale of the predictor rather than on a residualised scale.</p>
 <p>The practical difference is that added-variable plots are better for assessing the <em>existence</em> and <em>strength</em> of a partial effect and for detecting influential observations, because both axes are free of the other predictors. Component-plus-residual plots are better for diagnosing the <em>functional form</em> of each predictor’s contribution, because the vertical axis retains the scale of <span class="math inline">\(X_j\)</span> and any smooth curve fitted through the cloud reveals whether a linear term is adequate or whether a nonlinear term is needed. In both plots, the line should be roughly straight; but it is the component-plus-residual plot where departures from linearity are most directly interpretable as evidence that a predictor needs to be transformed.</p>
 </div>
 </div>
@@ -2007,40 +2097,40 @@ confint(mod1)
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>fit_anova <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> bio, <span class="at">data =</span> sw)</span>
-<span id="cb37-2"><a href="#cb37-2"></a>fit_ancova <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
-<span id="cb37-3"><a href="#cb37-3"></a></span>
-<span id="cb37-4"><a href="#cb37-4"></a>dist_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(sw<span class="sc">$</span>dist), <span class="fu">max</span>(sw<span class="sc">$</span>dist), <span class="at">length.out =</span> <span class="dv">200</span>)</span>
-<span id="cb37-5"><a href="#cb37-5"></a>bios       <span class="ot">&lt;-</span> <span class="fu">unique</span>(sw<span class="sc">$</span>bio)</span>
-<span id="cb37-6"><a href="#cb37-6"></a></span>
-<span id="cb37-7"><a href="#cb37-7"></a>pred_anova <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">dist =</span> dist_range, <span class="at">bio =</span> bios)</span>
-<span id="cb37-8"><a href="#cb37-8"></a>pred_anova<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_anova, <span class="at">newdata =</span> pred_anova)</span>
-<span id="cb37-9"><a href="#cb37-9"></a></span>
-<span id="cb37-10"><a href="#cb37-10"></a>pred_ancova <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">dist =</span> dist_range, <span class="at">bio =</span> bios)</span>
-<span id="cb37-11"><a href="#cb37-11"></a>pred_ancova<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_ancova, <span class="at">newdata =</span> pred_ancova)</span>
-<span id="cb37-12"><a href="#cb37-12"></a></span>
-<span id="cb37-13"><a href="#cb37-13"></a>p_a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb37-14"><a href="#cb37-14"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> Y, <span class="at">colour =</span> bio),</span>
-<span id="cb37-15"><a href="#cb37-15"></a>             <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb37-16"><a href="#cb37-16"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_anova, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> fit, <span class="at">colour =</span> bio),</span>
-<span id="cb37-17"><a href="#cb37-17"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
-<span id="cb37-18"><a href="#cb37-18"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Bioregion"</span>) <span class="sc">+</span></span>
-<span id="cb37-19"><a href="#cb37-19"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (km)"</span>, <span class="at">y =</span> <span class="st">"Mean Sørensen Dissimilarity"</span>,</span>
-<span id="cb37-20"><a href="#cb37-20"></a>       <span class="at">subtitle =</span> <span class="st">"Y ~ bio  (group means only; no slope)"</span>) <span class="sc">+</span></span>
-<span id="cb37-21"><a href="#cb37-21"></a>  <span class="fu">theme_grey</span>()</span>
-<span id="cb37-22"><a href="#cb37-22"></a></span>
-<span id="cb37-23"><a href="#cb37-23"></a>p_b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb37-24"><a href="#cb37-24"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> Y, <span class="at">colour =</span> bio),</span>
-<span id="cb37-25"><a href="#cb37-25"></a>             <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb37-26"><a href="#cb37-26"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_ancova, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> fit, <span class="at">colour =</span> bio),</span>
-<span id="cb37-27"><a href="#cb37-27"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
-<span id="cb37-28"><a href="#cb37-28"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Bioregion"</span>) <span class="sc">+</span></span>
-<span id="cb37-29"><a href="#cb37-29"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (km)"</span>, <span class="at">y =</span> <span class="st">"Mean Sørensen Dissimilarity"</span>,</span>
-<span id="cb37-30"><a href="#cb37-30"></a>       <span class="at">subtitle =</span> <span class="st">"Y ~ dist + bio  (shared slope, different intercepts)"</span>) <span class="sc">+</span></span>
-<span id="cb37-31"><a href="#cb37-31"></a>  <span class="fu">theme_grey</span>()</span>
-<span id="cb37-32"><a href="#cb37-32"></a></span>
-<span id="cb37-33"><a href="#cb37-33"></a><span class="fu">ggarrange</span>(p_a, p_b, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>, <span class="at">common.legend =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb37-34"><a href="#cb37-34"></a>          <span class="at">legend =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>fit_anova <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb36-2"><a href="#cb36-2"></a>fit_ancova <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb36-3"><a href="#cb36-3"></a></span>
+<span id="cb36-4"><a href="#cb36-4"></a>dist_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(sw<span class="sc">$</span>dist), <span class="fu">max</span>(sw<span class="sc">$</span>dist), <span class="at">length.out =</span> <span class="dv">200</span>)</span>
+<span id="cb36-5"><a href="#cb36-5"></a>bios       <span class="ot">&lt;-</span> <span class="fu">unique</span>(sw<span class="sc">$</span>bio)</span>
+<span id="cb36-6"><a href="#cb36-6"></a></span>
+<span id="cb36-7"><a href="#cb36-7"></a>pred_anova <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">dist =</span> dist_range, <span class="at">bio =</span> bios)</span>
+<span id="cb36-8"><a href="#cb36-8"></a>pred_anova<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_anova, <span class="at">newdata =</span> pred_anova)</span>
+<span id="cb36-9"><a href="#cb36-9"></a></span>
+<span id="cb36-10"><a href="#cb36-10"></a>pred_ancova <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">dist =</span> dist_range, <span class="at">bio =</span> bios)</span>
+<span id="cb36-11"><a href="#cb36-11"></a>pred_ancova<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_ancova, <span class="at">newdata =</span> pred_ancova)</span>
+<span id="cb36-12"><a href="#cb36-12"></a></span>
+<span id="cb36-13"><a href="#cb36-13"></a>p_a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-14"><a href="#cb36-14"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> Y, <span class="at">colour =</span> bio),</span>
+<span id="cb36-15"><a href="#cb36-15"></a>             <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb36-16"><a href="#cb36-16"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_anova, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> fit, <span class="at">colour =</span> bio),</span>
+<span id="cb36-17"><a href="#cb36-17"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb36-18"><a href="#cb36-18"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Bioregion"</span>) <span class="sc">+</span></span>
+<span id="cb36-19"><a href="#cb36-19"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (km)"</span>, <span class="at">y =</span> <span class="st">"Mean Sørensen Dissimilarity"</span>,</span>
+<span id="cb36-20"><a href="#cb36-20"></a>       <span class="at">subtitle =</span> <span class="st">"Y ~ bio  (group means only; no slope)"</span>) <span class="sc">+</span></span>
+<span id="cb36-21"><a href="#cb36-21"></a>  <span class="fu">theme_grey</span>()</span>
+<span id="cb36-22"><a href="#cb36-22"></a></span>
+<span id="cb36-23"><a href="#cb36-23"></a>p_b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-24"><a href="#cb36-24"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> Y, <span class="at">colour =</span> bio),</span>
+<span id="cb36-25"><a href="#cb36-25"></a>             <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb36-26"><a href="#cb36-26"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_ancova, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> fit, <span class="at">colour =</span> bio),</span>
+<span id="cb36-27"><a href="#cb36-27"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb36-28"><a href="#cb36-28"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Bioregion"</span>) <span class="sc">+</span></span>
+<span id="cb36-29"><a href="#cb36-29"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (km)"</span>, <span class="at">y =</span> <span class="st">"Mean Sørensen Dissimilarity"</span>,</span>
+<span id="cb36-30"><a href="#cb36-30"></a>       <span class="at">subtitle =</span> <span class="st">"Y ~ dist + bio  (shared slope, different intercepts)"</span>) <span class="sc">+</span></span>
+<span id="cb36-31"><a href="#cb36-31"></a>  <span class="fu">theme_grey</span>()</span>
+<span id="cb36-32"><a href="#cb36-32"></a></span>
+<span id="cb36-33"><a href="#cb36-33"></a><span class="fu">ggarrange</span>(p_a, p_b, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>, <span class="at">common.legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-34"><a href="#cb36-34"></a>          <span class="at">legend =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-parallel-lines" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -2063,15 +2153,15 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>bio_demo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb38-2"><a href="#cb38-2"></a>  <span class="at">bio =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"AMP"</span>, <span class="st">"B-ATZ"</span>, <span class="st">"BMP"</span>, <span class="st">"ECTZ"</span>),</span>
-<span id="cb38-3"><a href="#cb38-3"></a>               <span class="at">levels =</span> <span class="fu">levels</span>(<span class="fu">factor</span>(sw<span class="sc">$</span>bio)))</span>
-<span id="cb38-4"><a href="#cb38-4"></a>)</span>
-<span id="cb38-5"><a href="#cb38-5"></a></span>
-<span id="cb38-6"><a href="#cb38-6"></a>bio_model_matrix <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> bio, <span class="at">data =</span> bio_demo) <span class="sc">|&gt;</span></span>
-<span id="cb38-7"><a href="#cb38-7"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a>  <span class="fu">mutate</span>(<span class="at">bio =</span> bio_demo<span class="sc">$</span>bio) <span class="sc">|&gt;</span></span>
-<span id="cb38-9"><a href="#cb38-9"></a>  <span class="fu">relocate</span>(bio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>bio_demo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="at">bio =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"AMP"</span>, <span class="st">"B-ATZ"</span>, <span class="st">"BMP"</span>, <span class="st">"ECTZ"</span>),</span>
+<span id="cb37-3"><a href="#cb37-3"></a>               <span class="at">levels =</span> <span class="fu">levels</span>(<span class="fu">factor</span>(sw<span class="sc">$</span>bio)))</span>
+<span id="cb37-4"><a href="#cb37-4"></a>)</span>
+<span id="cb37-5"><a href="#cb37-5"></a></span>
+<span id="cb37-6"><a href="#cb37-6"></a>bio_model_matrix <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> bio, <span class="at">data =</span> bio_demo) <span class="sc">|&gt;</span></span>
+<span id="cb37-7"><a href="#cb37-7"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a>  <span class="fu">mutate</span>(<span class="at">bio =</span> bio_demo<span class="sc">$</span>bio) <span class="sc">|&gt;</span></span>
+<span id="cb37-9"><a href="#cb37-9"></a>  <span class="fu">relocate</span>(bio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell page-columns page-full" data-layout-align="center">
@@ -2079,23 +2169,23 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
 <figure class="quarto-float quarto-float-tbl figure page-columns page-full">
 <div aria-describedby="tbl-bio-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="bompcrzndi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bompcrzndi table {
+<div id="xuwmmbmftk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xuwmmbmftk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bompcrzndi thead, #bompcrzndi tbody, #bompcrzndi tfoot, #bompcrzndi tr, #bompcrzndi td, #bompcrzndi th {
+#xuwmmbmftk thead, #xuwmmbmftk tbody, #xuwmmbmftk tfoot, #xuwmmbmftk tr, #xuwmmbmftk td, #xuwmmbmftk th {
   border-style: none;
 }
 
-#bompcrzndi p {
+#xuwmmbmftk p {
   margin: 0;
   padding: 0;
 }
 
-#bompcrzndi .gt_table {
+#xuwmmbmftk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2121,12 +2211,12 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-left-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_caption {
+#xuwmmbmftk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bompcrzndi .gt_title {
+#xuwmmbmftk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2138,7 +2228,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-bottom-width: 0;
 }
 
-#bompcrzndi .gt_subtitle {
+#xuwmmbmftk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2150,7 +2240,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-top-width: 0;
 }
 
-#bompcrzndi .gt_heading {
+#xuwmmbmftk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2162,13 +2252,13 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-right-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_bottom_border {
+#xuwmmbmftk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_col_headings {
+#xuwmmbmftk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2183,7 +2273,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-right-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_col_heading {
+#xuwmmbmftk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2203,7 +2293,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   overflow-x: hidden;
 }
 
-#bompcrzndi .gt_column_spanner_outer {
+#xuwmmbmftk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2215,15 +2305,15 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   padding-right: 4px;
 }
 
-#bompcrzndi .gt_column_spanner_outer:first-child {
+#xuwmmbmftk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bompcrzndi .gt_column_spanner_outer:last-child {
+#xuwmmbmftk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bompcrzndi .gt_column_spanner {
+#xuwmmbmftk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2235,11 +2325,11 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   width: 100%;
 }
 
-#bompcrzndi .gt_spanner_row {
+#xuwmmbmftk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bompcrzndi .gt_group_heading {
+#xuwmmbmftk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2265,7 +2355,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   text-align: left;
 }
 
-#bompcrzndi .gt_empty_group_heading {
+#xuwmmbmftk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2280,15 +2370,15 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   vertical-align: middle;
 }
 
-#bompcrzndi .gt_from_md > :first-child {
+#xuwmmbmftk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bompcrzndi .gt_from_md > :last-child {
+#xuwmmbmftk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bompcrzndi .gt_row {
+#xuwmmbmftk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2307,7 +2397,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   overflow-x: hidden;
 }
 
-#bompcrzndi .gt_stub {
+#xuwmmbmftk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2320,7 +2410,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   padding-right: 5px;
 }
 
-#bompcrzndi .gt_stub_row_group {
+#xuwmmbmftk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2334,15 +2424,15 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   vertical-align: top;
 }
 
-#bompcrzndi .gt_row_group_first td {
+#xuwmmbmftk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bompcrzndi .gt_row_group_first th {
+#xuwmmbmftk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bompcrzndi .gt_summary_row {
+#xuwmmbmftk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2352,16 +2442,16 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   padding-right: 5px;
 }
 
-#bompcrzndi .gt_first_summary_row {
+#xuwmmbmftk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_first_summary_row.thick {
+#xuwmmbmftk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bompcrzndi .gt_last_summary_row {
+#xuwmmbmftk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2371,7 +2461,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-bottom-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_grand_summary_row {
+#xuwmmbmftk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2381,7 +2471,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   padding-right: 5px;
 }
 
-#bompcrzndi .gt_first_grand_summary_row {
+#xuwmmbmftk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2391,7 +2481,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-top-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_last_grand_summary_row_top {
+#xuwmmbmftk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2401,11 +2491,11 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-bottom-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_striped {
+#xuwmmbmftk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bompcrzndi .gt_table_body {
+#xuwmmbmftk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2414,7 +2504,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-bottom-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_footnotes {
+#xuwmmbmftk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2428,7 +2518,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-right-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_footnote {
+#xuwmmbmftk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2437,7 +2527,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   padding-right: 5px;
 }
 
-#bompcrzndi .gt_sourcenotes {
+#xuwmmbmftk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2451,7 +2541,7 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   border-right-color: #D3D3D3;
 }
 
-#bompcrzndi .gt_sourcenote {
+#xuwmmbmftk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2459,72 +2549,72 @@ Figure&nbsp;6: (A) A one-way ANOVA model (<code>Y ~ bio</code>) produces one hor
   padding-right: 5px;
 }
 
-#bompcrzndi .gt_left {
+#xuwmmbmftk .gt_left {
   text-align: left;
 }
 
-#bompcrzndi .gt_center {
+#xuwmmbmftk .gt_center {
   text-align: center;
 }
 
-#bompcrzndi .gt_right {
+#xuwmmbmftk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bompcrzndi .gt_font_normal {
+#xuwmmbmftk .gt_font_normal {
   font-weight: normal;
 }
 
-#bompcrzndi .gt_font_bold {
+#xuwmmbmftk .gt_font_bold {
   font-weight: bold;
 }
 
-#bompcrzndi .gt_font_italic {
+#xuwmmbmftk .gt_font_italic {
   font-style: italic;
 }
 
-#bompcrzndi .gt_super {
+#xuwmmbmftk .gt_super {
   font-size: 65%;
 }
 
-#bompcrzndi .gt_footnote_marks {
+#xuwmmbmftk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bompcrzndi .gt_asterisk {
+#xuwmmbmftk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bompcrzndi .gt_indent_1 {
+#xuwmmbmftk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bompcrzndi .gt_indent_2 {
+#xuwmmbmftk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bompcrzndi .gt_indent_3 {
+#xuwmmbmftk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bompcrzndi .gt_indent_4 {
+#xuwmmbmftk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bompcrzndi .gt_indent_5 {
+#xuwmmbmftk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#bompcrzndi .katex-display {
+#xuwmmbmftk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#bompcrzndi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xuwmmbmftk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2583,13 +2673,13 @@ Table&nbsp;2: Dummy-variable coding for the four seaweed bioregions when <code>A
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>bio_model_matrix <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>bio, <span class="at">names_to =</span> <span class="st">"term"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> bio, <span class="at">fill =</span> <span class="fu">factor</span>(value))) <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a>  <span class="fu">geom_tile</span>(<span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb39-5"><a href="#cb39-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"0"</span> <span class="ot">=</span> <span class="st">"grey85"</span>, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"steelblue4"</span>)) <span class="sc">+</span></span>
-<span id="cb39-6"><a href="#cb39-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bioregion"</span>, <span class="at">fill =</span> <span class="st">"Value"</span>) <span class="sc">+</span></span>
-<span id="cb39-7"><a href="#cb39-7"></a>  <span class="fu">theme_grey</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>bio_model_matrix <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>bio, <span class="at">names_to =</span> <span class="st">"term"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> bio, <span class="at">fill =</span> <span class="fu">factor</span>(value))) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a>  <span class="fu">geom_tile</span>(<span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"0"</span> <span class="ot">=</span> <span class="st">"grey85"</span>, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"steelblue4"</span>)) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Bioregion"</span>, <span class="at">fill =</span> <span class="st">"Value"</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a>  <span class="fu">theme_grey</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-bio-dummy-coding" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -2609,7 +2699,7 @@ Figure&nbsp;7: Visualisation of the dummy-variable coding shown in <a href="#tbl
 <p><a href="#fig-bio-dummy-coding" class="quarto-xref">Figure&nbsp;7</a> shows the same information as a grid. The pattern clearly reveals that no two bioregions share a 1 in the same dummy variable column. Each bioregion is uniquely identified by exactly one blue cell, or, in the case of <code>AMP</code>, by the absence of blue cells.</p>
 <p>Let’s see what <code>summary()</code> does. When <code>sw$bio</code> is passed to <code>lm()</code> as a factor, R creates the three dummy columns shown in <a href="#tbl-bio-demo" class="quarto-xref">Table&nbsp;2</a> and fits a coefficient to each. The coefficient table in <code>summary()</code> will contain rows named <code>bioB-ATZ</code>, <code>bioBMP</code>, and <code>bioECTZ</code>. It will <em>not</em> contain a row for <code>bioAMP</code>, because <code>AMP</code> is captured entirely by the intercept. Reading those output rows correctly requires remembering the table:</p>
 <ul>
-<li>For an <code>AMP</code> observation: all three dummies are 0. The fitted value from the categorical part of the model is <span class="math inline">\(\alpha\)</span>, i.e., the intercept alone.</li>
+<li>For an <code>AMP</code> observation: all three dummies are 0. The fitted value from the categorical part of the model is <span class="math inline">\(\alpha\)</span>, <em>i.e.</em>, the intercept alone.</li>
 <li>For a <code>BMP</code> observation: <code>bioBMP = 1</code>, the other two dummies are 0. The fitted value from the categorical part is <span class="math inline">\(\alpha + \hat\gamma_2\)</span>, where <span class="math inline">\(\hat\gamma_2\)</span> is the coefficient of <code>bioBMP</code>. The model has shifted the fitted line for <code>BMP</code> up (or down) relative to <code>AMP</code> by exactly <span class="math inline">\(\hat\gamma_2\)</span>.</li>
 <li>For an <code>ECTZ</code> observation: <code>bioECTZ = 1</code>, the others are 0. The fitted value is <span class="math inline">\(\alpha + \hat\gamma_3\)</span>.</li>
 </ul>
@@ -2625,13 +2715,13 @@ Figure&nbsp;7: Visualisation of the dummy-variable coding shown in <a href="#tbl
 </div>
 <div class="callout-body-container callout-body">
 <p>Fit the additive model with <code>bio</code> as a factor and then refit it with <code>ECTZ</code> as the reference level instead of <code>AMP</code>. Compare the two <code>summary()</code> outputs.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>sw<span class="sc">$</span>bio <span class="ot">&lt;-</span> <span class="fu">factor</span>(sw<span class="sc">$</span>bio)          <span class="co"># AMP is the default reference</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>mod_amp_ref <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="fu">summary</span>(mod_amp_ref)</span>
-<span id="cb40-4"><a href="#cb40-4"></a></span>
-<span id="cb40-5"><a href="#cb40-5"></a>sw<span class="sc">$</span>bio <span class="ot">&lt;-</span> <span class="fu">relevel</span>(sw<span class="sc">$</span>bio, <span class="at">ref =</span> <span class="st">"ECTZ"</span>)</span>
-<span id="cb40-6"><a href="#cb40-6"></a>mod_ectz_ref <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
-<span id="cb40-7"><a href="#cb40-7"></a><span class="fu">summary</span>(mod_ectz_ref)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>sw<span class="sc">$</span>bio <span class="ot">&lt;-</span> <span class="fu">factor</span>(sw<span class="sc">$</span>bio)          <span class="co"># AMP is the default reference</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>mod_amp_ref <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="fu">summary</span>(mod_amp_ref)</span>
+<span id="cb39-4"><a href="#cb39-4"></a></span>
+<span id="cb39-5"><a href="#cb39-5"></a>sw<span class="sc">$</span>bio <span class="ot">&lt;-</span> <span class="fu">relevel</span>(sw<span class="sc">$</span>bio, <span class="at">ref =</span> <span class="st">"ECTZ"</span>)</span>
+<span id="cb39-6"><a href="#cb39-6"></a>mod_ectz_ref <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="fu">summary</span>(mod_ectz_ref)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Answer the following:</p>
 <ol type="1">
 <li>Do the fitted values change when you switch the reference level? Check with <code>all.equal(fitted(mod_amp_ref), fitted(mod_ectz_ref))</code>.</li>
@@ -2666,24 +2756,24 @@ Figure&nbsp;7: Visualisation of the dummy-variable coding shown in <a href="#tbl
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="fu">aes</span>(<span class="at">colour =</span> bio)) <span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb41-4"><a href="#cb41-4"></a>              <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey60"</span>,</span>
-<span id="cb41-5"><a href="#cb41-5"></a>              <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb41-6"><a href="#cb41-6"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span></span>
-<span id="cb41-7"><a href="#cb41-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (km)"</span>,</span>
-<span id="cb41-8"><a href="#cb41-8"></a>       <span class="at">y =</span> <span class="st">"Sørensen Dissimilarity"</span>) <span class="sc">+</span></span>
-<span id="cb41-9"><a href="#cb41-9"></a>  <span class="fu">theme_grey</span>()</span>
-<span id="cb41-10"><a href="#cb41-10"></a></span>
-<span id="cb41-11"><a href="#cb41-11"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sw, <span class="fu">aes</span>(<span class="at">x =</span> bio, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
-<span id="cb41-12"><a href="#cb41-12"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">colour =</span> bio)) <span class="sc">+</span></span>
-<span id="cb41-13"><a href="#cb41-13"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bioregional Classification"</span>,</span>
-<span id="cb41-14"><a href="#cb41-14"></a>       <span class="at">y =</span> <span class="st">"Sørensen Dissimilarity"</span>) <span class="sc">+</span></span>
-<span id="cb41-15"><a href="#cb41-15"></a>  <span class="fu">theme_grey</span>() <span class="sc">+</span></span>
-<span id="cb41-16"><a href="#cb41-16"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb41-17"><a href="#cb41-17"></a></span>
-<span id="cb41-18"><a href="#cb41-18"></a><span class="fu">ggarrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sw, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="fu">aes</span>(<span class="at">colour =</span> bio)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-4"><a href="#cb40-4"></a>              <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"grey60"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5"></a>              <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distance (km)"</span>,</span>
+<span id="cb40-8"><a href="#cb40-8"></a>       <span class="at">y =</span> <span class="st">"Sørensen Dissimilarity"</span>) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a>  <span class="fu">theme_grey</span>()</span>
+<span id="cb40-10"><a href="#cb40-10"></a></span>
+<span id="cb40-11"><a href="#cb40-11"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sw, <span class="fu">aes</span>(<span class="at">x =</span> bio, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb40-12"><a href="#cb40-12"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">colour =</span> bio)) <span class="sc">+</span></span>
+<span id="cb40-13"><a href="#cb40-13"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bioregional Classification"</span>,</span>
+<span id="cb40-14"><a href="#cb40-14"></a>       <span class="at">y =</span> <span class="st">"Sørensen Dissimilarity"</span>) <span class="sc">+</span></span>
+<span id="cb40-15"><a href="#cb40-15"></a>  <span class="fu">theme_grey</span>() <span class="sc">+</span></span>
+<span id="cb40-16"><a href="#cb40-16"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb40-17"><a href="#cb40-17"></a></span>
+<span id="cb40-18"><a href="#cb40-18"></a><span class="fu">ggarrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mod2-main-effects" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -2703,10 +2793,10 @@ Figure&nbsp;8: Main effects of (A) geographic distance along the coast and (B) b
 <section id="fit-and-assess-nested-models" class="level2 page-columns page-full" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="fit-and-assess-nested-models"><span class="header-section-number">8.5</span> Fit and Assess Nested Models</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>mod2a <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist, <span class="at">data =</span> sw)</span>
-<span id="cb42-2"><a href="#cb42-2"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
-<span id="cb42-3"><a href="#cb42-3"></a></span>
-<span id="cb42-4"><a href="#cb42-4"></a><span class="fu">anova</span>(mod2a, mod2, <span class="at">test =</span> <span class="st">"F"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>mod2a <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist, <span class="at">data =</span> sw)</span>
+<span id="cb41-2"><a href="#cb41-2"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb41-3"><a href="#cb41-3"></a></span>
+<span id="cb41-4"><a href="#cb41-4"></a><span class="fu">anova</span>(mod2a, mod2, <span class="at">test =</span> <span class="st">"F"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; Analysis of Variance Table
 R&gt; 
@@ -2718,7 +2808,7 @@ R&gt; 2    965 4.1156  3    3.6232 283.19 &lt; 2.2e-16 ***
 R&gt; ---
 R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; 
 R&gt; Call:
@@ -2742,7 +2832,7 @@ R&gt; Residual standard error: 0.06531 on 965 degrees of freedom
 R&gt; Multiple R-squared:  0.7453, Adjusted R-squared:  0.7442 
 R&gt; F-statistic:   706 on 4 and 965 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">anova</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">anova</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; Analysis of Variance Table
 R&gt; 
@@ -2817,20 +2907,20 @@ Table&nbsp;3: Dummy-variable coding, effective intercepts, and estimates for eac
 <p><span class="math display">\[\text{SE}(\hat\alpha + \hat\gamma_i) = \sqrt{\text{Var}(\hat\alpha) + \text{Var}(\hat\gamma_i) + 2\,\text{Cov}(\hat\alpha,\,\hat\gamma_i)}\]</span></p>
 <p>The required variances and covariance come from the full variance–covariance matrix of the fitted model, accessible in R as <code>vcov(mod2)</code>. For <code>B-ATZ</code>, for example:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>V <span class="ot">&lt;-</span> <span class="fu">vcov</span>(mod2)</span>
-<span id="cb48-2"><a href="#cb48-2"></a>se_batz <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(V[<span class="st">"(Intercept)"</span>, <span class="st">"(Intercept)"</span>] <span class="sc">+</span></span>
-<span id="cb48-3"><a href="#cb48-3"></a>                V[<span class="st">"bioB-ATZ"</span>,   <span class="st">"bioB-ATZ"</span>  ] <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4"></a>            <span class="dv">2</span> <span class="sc">*</span> V[<span class="st">"(Intercept)"</span>, <span class="st">"bioB-ATZ"</span>  ])</span>
-<span id="cb48-5"><a href="#cb48-5"></a>se_batz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>V <span class="ot">&lt;-</span> <span class="fu">vcov</span>(mod2)</span>
+<span id="cb47-2"><a href="#cb47-2"></a>se_batz <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(V[<span class="st">"(Intercept)"</span>, <span class="st">"(Intercept)"</span>] <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a>                V[<span class="st">"bioB-ATZ"</span>,   <span class="st">"bioB-ATZ"</span>  ] <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4"></a>            <span class="dv">2</span> <span class="sc">*</span> V[<span class="st">"(Intercept)"</span>, <span class="st">"bioB-ATZ"</span>  ])</span>
+<span id="cb47-5"><a href="#cb47-5"></a>se_batz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; [1] 0.01308128</code></pre>
 </div>
 </div>
 <p>Equivalently, re-levelling the factor to place <code>B-ATZ</code> first and refitting moves its effective intercept into the <code>(Intercept)</code> row, from which the SE is read directly:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>sw<span class="sc">$</span>bio    <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(sw<span class="sc">$</span>bio), <span class="at">ref =</span> <span class="st">"B-ATZ"</span>)</span>
-<span id="cb50-2"><a href="#cb50-2"></a>mod2_batz <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
-<span id="cb50-3"><a href="#cb50-3"></a><span class="fu">summary</span>(mod2_batz)<span class="sc">$</span>coefficients[<span class="st">"(Intercept)"</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>sw<span class="sc">$</span>bio    <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(sw<span class="sc">$</span>bio), <span class="at">ref =</span> <span class="st">"B-ATZ"</span>)</span>
+<span id="cb49-2"><a href="#cb49-2"></a>mod2_batz <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> dist <span class="sc">+</span> bio, <span class="at">data =</span> sw)</span>
+<span id="cb49-3"><a href="#cb49-3"></a><span class="fu">summary</span>(mod2_batz)<span class="sc">$</span>coefficients[<span class="st">"(Intercept)"</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;     Estimate   Std. Error      t value     Pr(&gt;|t|) 
 R&gt; 0.0464209451 0.0130812846 3.5486533930 0.0004058626</code></pre>
@@ -2848,8 +2938,8 @@ R&gt; 0.0464209451 0.0130812846 3.5486533930 0.0004058626</code></pre>
 <p><strong>ANCOVA</strong> is often taught as a method distinct from regression and ANOVA. It is not. ANCOVA is a linear model that contains one factor and at least one continuous covariate in an additive structure. The model <code>mod2</code> above fits exactly that description since <code>bio</code> is the factor and <code>dist</code> is the covariate. The coefficient table and ANOVA table produced by <code>lm()</code> and <code>aov()</code> for an ANCOVA model are algebraically the same.</p>
 <p>In R:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">lm</span>(Y <span class="sc">~</span> bio <span class="sc">+</span> dist, <span class="at">data =</span> sw)   <span class="co"># regression-style output</span></span>
-<span id="cb52-2"><a href="#cb52-2"></a><span class="fu">aov</span>(Y <span class="sc">~</span> bio <span class="sc">+</span> dist, <span class="at">data =</span> sw)  <span class="co"># ANOVA-style output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">lm</span>(Y <span class="sc">~</span> bio <span class="sc">+</span> dist, <span class="at">data =</span> sw)   <span class="co"># regression-style output</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="fu">aov</span>(Y <span class="sc">~</span> bio <span class="sc">+</span> dist, <span class="at">data =</span> sw)  <span class="co"># ANOVA-style output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Both fit the same model. The difference is in the emphasis of the output: <code>lm()</code> emphasises the coefficient table and makes the covariate slope explicit; <code>aov()</code> draws attention to the ANOVA table and omnibus <em>F</em>-tests. I prefer teaching the <code>lm()</code> approach over an ANCOVA.</p>
 <p>The standard ANCOVA assumption is that the covariate slope is the <strong>same across factor levels</strong>, <em>i.e.</em>, the same <code>dist</code> slope applies in all bioregions. In model terms, that is the additive structure without a <code>bio:dist</code> interaction. If there is biological reason to expect that different bioregions show different turnover rates with distance, the interaction model becomes appropriate, and the simple ANCOVA framing no longer applies.</p>
@@ -2882,14 +2972,15 @@ R&gt; 0.0464209451 0.0130812846 3.5486533930 0.0004058626</code></pre>
 <section id="fit-the-model" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="fit-the-model"><span class="header-section-number">9.1</span> Fit the Model</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>sw_sub2 <span class="ot">&lt;-</span> sw <span class="sc">|&gt;</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Y, augMean, febSD, augSD, bio)</span>
-<span id="cb53-3"><a href="#cb53-3"></a></span>
-<span id="cb53-4"><a href="#cb53-4"></a>full_mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD <span class="sc">+</span> bio, <span class="at">data =</span> sw_sub2)</span>
-<span id="cb53-5"><a href="#cb53-5"></a>full_mod3a <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD, <span class="at">data =</span> sw_sub2)</span>
-<span id="cb53-6"><a href="#cb53-6"></a>null_mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> sw_sub2)</span>
-<span id="cb53-7"><a href="#cb53-7"></a></span>
-<span id="cb53-8"><a href="#cb53-8"></a><span class="fu">anova</span>(full_mod3, full_mod3a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>sw_sub2 <span class="ot">&lt;-</span> sw <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Y, augMean, febSD, augSD, bio) <span class="sc">|&gt;</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">bio =</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(bio), <span class="at">ref =</span> <span class="st">"AMP"</span>))</span>
+<span id="cb52-4"><a href="#cb52-4"></a></span>
+<span id="cb52-5"><a href="#cb52-5"></a>full_mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD <span class="sc">+</span> bio, <span class="at">data =</span> sw_sub2)</span>
+<span id="cb52-6"><a href="#cb52-6"></a>full_mod3a <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD, <span class="at">data =</span> sw_sub2)</span>
+<span id="cb52-7"><a href="#cb52-7"></a>null_mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> sw_sub2)</span>
+<span id="cb52-8"><a href="#cb52-8"></a></span>
+<span id="cb52-9"><a href="#cb52-9"></a><span class="fu">anova</span>(full_mod3, full_mod3a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; Analysis of Variance Table
 R&gt; 
@@ -2901,13 +2992,13 @@ R&gt; 2    966 5.689 -3  -0.85507 56.781 &lt; 2.2e-16 ***
 R&gt; ---
 R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">AIC</span>(full_mod3, full_mod3a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">AIC</span>(full_mod3, full_mod3a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;            df       AIC
 R&gt; full_mod3   8 -2373.840
 R&gt; full_mod3a  5 -2221.852</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">summary</span>(full_mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="fu">summary</span>(full_mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; 
 R&gt; Call:
@@ -2919,13 +3010,13 @@ R&gt; -0.167665 -0.045280 -0.006433  0.039474  0.288426
 R&gt; 
 R&gt; Coefficients:
 R&gt;              Estimate Std. Error t value Pr(&gt;|t|)    
-R&gt; (Intercept)  0.014886   0.014271   1.043    0.297    
+R&gt; (Intercept)  0.027394   0.005267   5.201 2.42e-07 ***
 R&gt; augMean      0.281357   0.007892  35.653  &lt; 2e-16 ***
 R&gt; febSD       -0.002945   0.002864  -1.028    0.304    
 R&gt; augSD        0.014463   0.002918   4.956 8.49e-07 ***
-R&gt; bioAMP       0.012508   0.014915   0.839    0.402    
-R&gt; bioBMP      -0.022034   0.014902  -1.479    0.140    
-R&gt; bioECTZ      0.062590   0.015070   4.153 3.57e-05 ***
+R&gt; bioB-ATZ    -0.012508   0.014915  -0.839    0.402    
+R&gt; bioBMP      -0.034542   0.006385  -5.410 7.96e-08 ***
+R&gt; bioECTZ      0.050082   0.006387   7.842 1.18e-14 ***
 R&gt; ---
 R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 R&gt; 
@@ -2933,7 +3024,7 @@ R&gt; Residual standard error: 0.07085 on 963 degrees of freedom
 R&gt; Multiple R-squared:  0.7008, Adjusted R-squared:  0.699 
 R&gt; F-statistic:   376 on 6 and 963 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">anova</span>(full_mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">anova</span>(full_mod3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt; Analysis of Variance Table
 R&gt; 
@@ -2956,9 +3047,9 @@ R&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">autoplot</span>(full_mod3, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">colour =</span> <span class="st">"dodgerblue4"</span>,</span>
-<span id="cb61-2"><a href="#cb61-2"></a>         <span class="at">smooth.colour =</span> <span class="st">"magenta"</span>) <span class="sc">+</span></span>
-<span id="cb61-3"><a href="#cb61-3"></a>  <span class="fu">theme_grey</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">autoplot</span>(full_mod3, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">colour =</span> <span class="st">"dodgerblue4"</span>,</span>
+<span id="cb60-2"><a href="#cb60-2"></a>         <span class="at">smooth.colour =</span> <span class="st">"magenta"</span>) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3"></a>  <span class="fu">theme_grey</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mod3-diagnostics" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -2983,7 +3074,7 @@ Figure&nbsp;9: Standard diagnostic plots for <code>full_mod3</code>. Top left: r
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">crPlots</span>(full_mod3, <span class="at">col =</span> <span class="st">"dodgerblue4"</span>, <span class="at">col.lines =</span> <span class="st">"magenta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">crPlots</span>(full_mod3, <span class="at">col =</span> <span class="st">"dodgerblue4"</span>, <span class="at">col.lines =</span> <span class="st">"magenta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mod3-crplots" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -3003,51 +3094,51 @@ Figure&nbsp;10: Component-plus-residual plots for the three continuous predictor
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>bio_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AMP"</span>, <span class="st">"B-ATZ"</span>, <span class="st">"BMP"</span>, <span class="st">"ECTZ"</span>)</span>
-<span id="cb63-2"><a href="#cb63-2"></a></span>
-<span id="cb63-3"><a href="#cb63-3"></a>aug_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(sw_sub2<span class="sc">$</span>augMean), <span class="fu">max</span>(sw_sub2<span class="sc">$</span>augMean), <span class="at">length.out =</span> <span class="dv">200</span>)</span>
-<span id="cb63-4"><a href="#cb63-4"></a>pred_partial <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb63-5"><a href="#cb63-5"></a>  <span class="at">augMean =</span> aug_seq,</span>
-<span id="cb63-6"><a href="#cb63-6"></a>  <span class="at">febSD   =</span> <span class="fu">mean</span>(sw_sub2<span class="sc">$</span>febSD),</span>
-<span id="cb63-7"><a href="#cb63-7"></a>  <span class="at">augSD   =</span> <span class="fu">mean</span>(sw_sub2<span class="sc">$</span>augSD),</span>
-<span id="cb63-8"><a href="#cb63-8"></a>  <span class="at">bio     =</span> bio_levels</span>
-<span id="cb63-9"><a href="#cb63-9"></a>)</span>
-<span id="cb63-10"><a href="#cb63-10"></a>pred_partial<span class="sc">$</span>bio <span class="ot">&lt;-</span> <span class="fu">factor</span>(pred_partial<span class="sc">$</span>bio, <span class="at">levels =</span> bio_levels)</span>
-<span id="cb63-11"><a href="#cb63-11"></a>pred_partial<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(full_mod3, <span class="at">newdata =</span> pred_partial)</span>
-<span id="cb63-12"><a href="#cb63-12"></a></span>
-<span id="cb63-13"><a href="#cb63-13"></a>p_a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb63-14"><a href="#cb63-14"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sw_sub2 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">bio =</span> <span class="fu">factor</span>(bio, <span class="at">levels =</span> bio_levels)),</span>
-<span id="cb63-15"><a href="#cb63-15"></a>             <span class="fu">aes</span>(<span class="at">x =</span> augMean, <span class="at">y =</span> Y, <span class="at">colour =</span> bio),</span>
-<span id="cb63-16"><a href="#cb63-16"></a>             <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb63-17"><a href="#cb63-17"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_partial,</span>
-<span id="cb63-18"><a href="#cb63-18"></a>            <span class="fu">aes</span>(<span class="at">x =</span> augMean, <span class="at">y =</span> fit, <span class="at">colour =</span> bio),</span>
-<span id="cb63-19"><a href="#cb63-19"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
-<span id="cb63-20"><a href="#cb63-20"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Bioregion"</span>,</span>
-<span id="cb63-21"><a href="#cb63-21"></a>                      <span class="at">breaks =</span> bio_levels) <span class="sc">+</span></span>
-<span id="cb63-22"><a href="#cb63-22"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"August mean temperature (°C)"</span>,</span>
-<span id="cb63-23"><a href="#cb63-23"></a>       <span class="at">y =</span> <span class="st">"Mean Sørensen dissimilarity"</span>) <span class="sc">+</span></span>
-<span id="cb63-24"><a href="#cb63-24"></a>  <span class="fu">theme_grey</span>()</span>
-<span id="cb63-25"><a href="#cb63-25"></a></span>
-<span id="cb63-26"><a href="#cb63-26"></a>coef_df <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(full_mod3, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb63-27"><a href="#cb63-27"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_starts</span>(term, <span class="st">"bio"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb63-28"><a href="#cb63-28"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb63-29"><a href="#cb63-29"></a>    <span class="at">bio =</span> <span class="fu">factor</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(term, <span class="st">"bio"</span>),</span>
-<span id="cb63-30"><a href="#cb63-30"></a>                 <span class="at">levels =</span> <span class="fu">rev</span>(bio_levels[<span class="sc">-</span><span class="dv">1</span>]))</span>
-<span id="cb63-31"><a href="#cb63-31"></a>  )</span>
-<span id="cb63-32"><a href="#cb63-32"></a></span>
-<span id="cb63-33"><a href="#cb63-33"></a>p_b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(coef_df, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> bio, <span class="at">colour =</span> bio)) <span class="sc">+</span></span>
-<span id="cb63-34"><a href="#cb63-34"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
-<span id="cb63-35"><a href="#cb63-35"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">height =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb63-36"><a href="#cb63-36"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb63-37"><a href="#cb63-37"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">breaks =</span> bio_levels, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb63-38"><a href="#cb63-38"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(bio_levels[<span class="sc">-</span><span class="dv">1</span>]), <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb63-39"><a href="#cb63-39"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(gamma)[i] <span class="sc">~</span> <span class="st">"(relative to AMP)"</span>),</span>
-<span id="cb63-40"><a href="#cb63-40"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb63-41"><a href="#cb63-41"></a>  <span class="fu">theme_grey</span>() <span class="sc">+</span></span>
-<span id="cb63-42"><a href="#cb63-42"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb63-43"><a href="#cb63-43"></a></span>
-<span id="cb63-44"><a href="#cb63-44"></a><span class="fu">ggarrange</span>(p_a, p_b, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>,</span>
-<span id="cb63-45"><a href="#cb63-45"></a>          <span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">1.6</span>, <span class="dv">1</span>), <span class="at">common.legend =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>bio_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AMP"</span>, <span class="st">"B-ATZ"</span>, <span class="st">"BMP"</span>, <span class="st">"ECTZ"</span>)</span>
+<span id="cb62-2"><a href="#cb62-2"></a></span>
+<span id="cb62-3"><a href="#cb62-3"></a>aug_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(sw_sub2<span class="sc">$</span>augMean), <span class="fu">max</span>(sw_sub2<span class="sc">$</span>augMean), <span class="at">length.out =</span> <span class="dv">200</span>)</span>
+<span id="cb62-4"><a href="#cb62-4"></a>pred_partial <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb62-5"><a href="#cb62-5"></a>  <span class="at">augMean =</span> aug_seq,</span>
+<span id="cb62-6"><a href="#cb62-6"></a>  <span class="at">febSD   =</span> <span class="fu">mean</span>(sw_sub2<span class="sc">$</span>febSD),</span>
+<span id="cb62-7"><a href="#cb62-7"></a>  <span class="at">augSD   =</span> <span class="fu">mean</span>(sw_sub2<span class="sc">$</span>augSD),</span>
+<span id="cb62-8"><a href="#cb62-8"></a>  <span class="at">bio     =</span> bio_levels</span>
+<span id="cb62-9"><a href="#cb62-9"></a>)</span>
+<span id="cb62-10"><a href="#cb62-10"></a>pred_partial<span class="sc">$</span>bio <span class="ot">&lt;-</span> <span class="fu">factor</span>(pred_partial<span class="sc">$</span>bio, <span class="at">levels =</span> bio_levels)</span>
+<span id="cb62-11"><a href="#cb62-11"></a>pred_partial<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">predict</span>(full_mod3, <span class="at">newdata =</span> pred_partial)</span>
+<span id="cb62-12"><a href="#cb62-12"></a></span>
+<span id="cb62-13"><a href="#cb62-13"></a>p_a <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb62-14"><a href="#cb62-14"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sw_sub2 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">bio =</span> <span class="fu">factor</span>(bio, <span class="at">levels =</span> bio_levels)),</span>
+<span id="cb62-15"><a href="#cb62-15"></a>             <span class="fu">aes</span>(<span class="at">x =</span> augMean, <span class="at">y =</span> Y, <span class="at">colour =</span> bio),</span>
+<span id="cb62-16"><a href="#cb62-16"></a>             <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb62-17"><a href="#cb62-17"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pred_partial,</span>
+<span id="cb62-18"><a href="#cb62-18"></a>            <span class="fu">aes</span>(<span class="at">x =</span> augMean, <span class="at">y =</span> fit, <span class="at">colour =</span> bio),</span>
+<span id="cb62-19"><a href="#cb62-19"></a>            <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb62-20"><a href="#cb62-20"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Bioregion"</span>,</span>
+<span id="cb62-21"><a href="#cb62-21"></a>                      <span class="at">breaks =</span> bio_levels) <span class="sc">+</span></span>
+<span id="cb62-22"><a href="#cb62-22"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"August mean temperature (°C)"</span>,</span>
+<span id="cb62-23"><a href="#cb62-23"></a>       <span class="at">y =</span> <span class="st">"Mean Sørensen dissimilarity"</span>) <span class="sc">+</span></span>
+<span id="cb62-24"><a href="#cb62-24"></a>  <span class="fu">theme_grey</span>()</span>
+<span id="cb62-25"><a href="#cb62-25"></a></span>
+<span id="cb62-26"><a href="#cb62-26"></a>coef_df <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(full_mod3, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb62-27"><a href="#cb62-27"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_starts</span>(term, <span class="st">"bio"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb62-28"><a href="#cb62-28"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb62-29"><a href="#cb62-29"></a>    <span class="at">bio =</span> <span class="fu">factor</span>(stringr<span class="sc">::</span><span class="fu">str_remove</span>(term, <span class="st">"bio"</span>),</span>
+<span id="cb62-30"><a href="#cb62-30"></a>                 <span class="at">levels =</span> <span class="fu">rev</span>(bio_levels[<span class="sc">-</span><span class="dv">1</span>]))</span>
+<span id="cb62-31"><a href="#cb62-31"></a>  )</span>
+<span id="cb62-32"><a href="#cb62-32"></a></span>
+<span id="cb62-33"><a href="#cb62-33"></a>p_b <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(coef_df, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> bio, <span class="at">colour =</span> bio)) <span class="sc">+</span></span>
+<span id="cb62-34"><a href="#cb62-34"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb62-35"><a href="#cb62-35"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high), <span class="at">height =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb62-36"><a href="#cb62-36"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb62-37"><a href="#cb62-37"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">breaks =</span> bio_levels, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb62-38"><a href="#cb62-38"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(bio_levels[<span class="sc">-</span><span class="dv">1</span>]), <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb62-39"><a href="#cb62-39"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(gamma)[i] <span class="sc">~</span> <span class="st">"(relative to AMP)"</span>),</span>
+<span id="cb62-40"><a href="#cb62-40"></a>       <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb62-41"><a href="#cb62-41"></a>  <span class="fu">theme_grey</span>() <span class="sc">+</span></span>
+<span id="cb62-42"><a href="#cb62-42"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb62-43"><a href="#cb62-43"></a></span>
+<span id="cb62-44"><a href="#cb62-44"></a><span class="fu">ggarrange</span>(p_a, p_b, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>,</span>
+<span id="cb62-45"><a href="#cb62-45"></a>          <span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">1.6</span>, <span class="dv">1</span>), <span class="at">common.legend =</span> <span class="cn">TRUE</span>, <span class="at">legend =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-mod3-results" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -3078,17 +3169,17 @@ Figure&nbsp;11: Results of the additive climate-plus-bioregion model. (A) Observ
 </div>
 <div class="callout-body-container callout-body">
 <p>Compare the climate-only and climate-plus-bioregion models using both AIC and a nested <em>F</em>-test, then interpret what the numbers mean biologically.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>sw_sub2 <span class="ot">&lt;-</span> sw <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Y, augMean, febSD, augSD, bio)</span>
-<span id="cb64-2"><a href="#cb64-2"></a>mod_climate_only  <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD, <span class="at">data =</span> sw_sub2)</span>
-<span id="cb64-3"><a href="#cb64-3"></a>mod_climate_bio   <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD <span class="sc">+</span> bio, <span class="at">data =</span> sw_sub2)</span>
-<span id="cb64-4"><a href="#cb64-4"></a></span>
-<span id="cb64-5"><a href="#cb64-5"></a><span class="fu">AIC</span>(mod_climate_only, mod_climate_bio)</span>
-<span id="cb64-6"><a href="#cb64-6"></a><span class="fu">anova</span>(mod_climate_only, mod_climate_bio, <span class="at">test =</span> <span class="st">"F"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>sw_sub2 <span class="ot">&lt;-</span> sw <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Y, augMean, febSD, augSD, bio)</span>
+<span id="cb63-2"><a href="#cb63-2"></a>mod_climate_only  <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD, <span class="at">data =</span> sw_sub2)</span>
+<span id="cb63-3"><a href="#cb63-3"></a>mod_climate_bio   <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> augMean <span class="sc">+</span> febSD <span class="sc">+</span> augSD <span class="sc">+</span> bio, <span class="at">data =</span> sw_sub2)</span>
+<span id="cb63-4"><a href="#cb63-4"></a></span>
+<span id="cb63-5"><a href="#cb63-5"></a><span class="fu">AIC</span>(mod_climate_only, mod_climate_bio)</span>
+<span id="cb63-6"><a href="#cb63-6"></a><span class="fu">anova</span>(mod_climate_only, mod_climate_bio, <span class="at">test =</span> <span class="st">"F"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Discuss:</p>
 <ol type="1">
 <li>By how many AIC units does the climate-plus-bioregion model improve over the climate-only model? Is that a meaningful difference (rule of thumb: <span class="math inline">\(\Delta\)</span>AIC &gt; 2 is noteworthy)?</li>
 <li>What does a significant nested <em>F</em>-test tell you that AIC alone does not?</li>
-<li>In plain biological language, what does it mean that adding <code>bio</code> to the model improves fit — even after the three climate predictors are already included?</li>
+<li>In plain biological language, what does it mean that adding <code>bio</code> to the model improves fit, even after the three climate predictors are already included?</li>
 </ol>
 </div>
 </div>
@@ -3110,7 +3201,7 @@ Figure&nbsp;11: Results of the additive climate-plus-bioregion model. (A) Observ
 <p><strong>Results</strong></p>
 <p>The climate-plus-bioregion additive model fitted the data substantially better than the corresponding climate-only model (lower AIC; nested model comparison <span class="math inline">\(p &lt; 0.001\)</span>). August mean temperature remained the dominant positive predictor (<a href="#fig-mod3-results" class="quarto-xref">Figure&nbsp;11</a> A). After accounting for climate, baseline dissimilarity still differed among bioregions: ECTZ showed the highest dissimilarity relative to AMP and BMP the lowest, as shown by the bioregion coefficient estimates and their confidence intervals (<a href="#fig-mod3-results" class="quarto-xref">Figure&nbsp;11</a> B). The overall model explained approximately 70% of the variation in mean Sørensen dissimilarity.</p>
 <p><strong>Discussion</strong></p>
-<p>Compositional turnover along the South African coast is shaped both by the selected climate variables and by broader biogeographic structure. The additive model assumes that the climate slopes are uniform across bioregions. Whether that assumption is defensible — or whether the Agulhas and Benguela systems show distinct rates of climate-driven turnover — is a question for the interaction models developed in <a href="../basic_stats/15-interaction-effects.html">Chapter 15</a>.</p>
+<p>Compositional turnover along the South African coast is shaped both by the selected climate variables and by broader biogeographic structure. The additive model assumes that the climate slopes are uniform across bioregions. Whether that assumption is defensible (or whether the Agulhas and Benguela systems show distinct rates of climate-driven turnover) is a question for the interaction models developed in <a href="../basic_stats/15-interaction-effects.html">Chapter 15</a>.</p>
 </div>
 </div>
 </section>
@@ -3122,16 +3213,16 @@ Figure&nbsp;11: Results of the additive climate-plus-bioregion model. (A) Observ
 <p><strong>Helmert coding</strong> compares each level to the average of all subsequent levels and can be informative when factor levels have a natural ordering.</p>
 <p>The choice of coding does not affect the fitted values or residuals. It only changes how the coefficients are expressed and therefore how they are interpreted. The practical advice is to use the default treatment coding unless there is a specific scientific reason to express effects differently.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb65-2"><a href="#cb65-2"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb65-3"><a href="#cb65-3"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb65-4"><a href="#cb65-4"></a>cat_var <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb65-5"><a href="#cb65-5"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">ifelse</span>(cat_var <span class="sc">==</span> <span class="st">"A"</span>, <span class="dv">3</span>,</span>
-<span id="cb65-6"><a href="#cb65-6"></a>                    <span class="fu">ifelse</span>(cat_var <span class="sc">==</span> <span class="st">"B"</span>, <span class="dv">1</span>,</span>
-<span id="cb65-7"><a href="#cb65-7"></a>                           <span class="fu">ifelse</span>(cat_var <span class="sc">==</span> <span class="st">"C"</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>))) <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb65-8"><a href="#cb65-8"></a></span>
-<span id="cb65-9"><a href="#cb65-9"></a>data_contr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x, cat_var)</span>
-<span id="cb65-10"><a href="#cb65-10"></a><span class="fu">head</span>(data_contr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb64-2"><a href="#cb64-2"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb64-3"><a href="#cb64-3"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb64-4"><a href="#cb64-4"></a>cat_var <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb64-5"><a href="#cb64-5"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">ifelse</span>(cat_var <span class="sc">==</span> <span class="st">"A"</span>, <span class="dv">3</span>,</span>
+<span id="cb64-6"><a href="#cb64-6"></a>                    <span class="fu">ifelse</span>(cat_var <span class="sc">==</span> <span class="st">"B"</span>, <span class="dv">1</span>,</span>
+<span id="cb64-7"><a href="#cb64-7"></a>                           <span class="fu">ifelse</span>(cat_var <span class="sc">==</span> <span class="st">"C"</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>))) <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb64-8"><a href="#cb64-8"></a></span>
+<span id="cb64-9"><a href="#cb64-9"></a>data_contr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x, cat_var)</span>
+<span id="cb64-10"><a href="#cb64-10"></a><span class="fu">head</span>(data_contr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;            y           x cat_var
 R&gt; 1  0.6667876 -0.56047565       B
@@ -3144,7 +3235,7 @@ R&gt; 6  0.1497346  1.71506499       D</code></pre>
 </div>
 <p>Default treatment coding:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   B C D
 R&gt; A 0 0 0
@@ -3155,8 +3246,8 @@ R&gt; D 0 0 1</code></pre>
 </div>
 <p>Change the reference level:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>data_contr<span class="sc">$</span>cat_var <span class="ot">&lt;-</span> <span class="fu">relevel</span>(data_contr<span class="sc">$</span>cat_var, <span class="at">ref =</span> <span class="st">"C"</span>)</span>
-<span id="cb69-2"><a href="#cb69-2"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>data_contr<span class="sc">$</span>cat_var <span class="ot">&lt;-</span> <span class="fu">relevel</span>(data_contr<span class="sc">$</span>cat_var, <span class="at">ref =</span> <span class="st">"C"</span>)</span>
+<span id="cb68-2"><a href="#cb68-2"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   A B D
 R&gt; C 0 0 0
@@ -3167,8 +3258,8 @@ R&gt; D 0 0 1</code></pre>
 </div>
 <p>Effect coding:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">4</span>)</span>
-<span id="cb71-2"><a href="#cb71-2"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">4</span>)</span>
+<span id="cb70-2"><a href="#cb70-2"></a><span class="fu">contrasts</span>(data_contr<span class="sc">$</span>cat_var)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R&gt;   [,1] [,2] [,3]
 R&gt; C    1    0    0
@@ -3201,7 +3292,7 @@ Smit AJ, Bolton JJ, Anderson RJ (2017) Seaweeds in two oceans: Beta-diversity. <
 </div></section><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{a._j.2026,
   author = {A. J. , Smit},
   title = {14. {Multiple} {Regression} and {Model} {Specification}},
-  date = {2026-04-07},
+  date = {2026-04-17},
   url = {http://samos-r.netlify.app/basic_stats/14-multiple-regression-and-model-specification.html},
   langid = {en}
 }

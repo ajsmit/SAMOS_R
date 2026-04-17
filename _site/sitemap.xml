@@ -110,11 +110,11 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/14-multiple-regression-and-model-specification.html</loc>
-    <lastmod>2026-04-07T08:21:14.000Z</lastmod>
+    <lastmod>2026-04-17T13:22:18.685Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/12-simple-linear-regression.html</loc>
-    <lastmod>2026-04-11T05:32:15.000Z</lastmod>
+    <lastmod>2026-04-17T13:25:13.768Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/10-test-selection.html</loc>
@@ -122,7 +122,7 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/08-anova.html</loc>
-    <lastmod>2026-04-17T07:55:11.604Z</lastmod>
+    <lastmod>2026-04-17T13:25:13.768Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/06-assumptions-and-transformations.html</loc>
@@ -158,11 +158,11 @@
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/07-t_tests.html</loc>
-    <lastmod>2026-04-07T08:11:26.000Z</lastmod>
+    <lastmod>2026-04-17T13:25:13.768Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/09-correlation-and-association.html</loc>
-    <lastmod>2026-04-16T04:41:23.000Z</lastmod>
+    <lastmod>2026-04-17T13:25:13.766Z</lastmod>
   </url>
   <url>
     <loc>http://samos-r.netlify.app/basic_stats/11-residuals-and-model-based-diagnostics.html</loc>
@@ -279,5 +279,9 @@
   <url>
     <loc>http://samos-r.netlify.app/tasks/SAMOS_Stats_Task_H.html</loc>
     <lastmod>2026-02-26T10:01:00.667Z</lastmod>
+  </url>
+  <url>
+    <loc>http://samos-r.netlify.app/tasks/SAMOS_Biostats_Self-Assessment.html</loc>
+    <lastmod>2026-04-17T13:25:36.363Z</lastmod>
   </url>
 </urlset>

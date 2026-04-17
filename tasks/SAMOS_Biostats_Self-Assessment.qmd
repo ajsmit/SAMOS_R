@@ -1,0 +1,45 @@
+---
+title: "SAMOS Biostats Self-Assessment Tasks"
+date: "2026-04-17"
+format:
+  html:
+    number-sections: false
+---
+
+## Summary of Self-Assessment Tasks
+
+| Chapter | Task | Description | Marks |
+|---|---|---|---:|
+| **2 — Summarise & Describe** | [Task 2-1](../basic_stats/02-summarise-and-describe.qmd#self-assessment-task-2-1) | Mean calculation and interpretation | /3 |
+|  | [Task 2-2](../basic_stats/02-summarise-and-describe.qmd#self-assessment-task-2-2) | Descriptive analysis and figures | /10 |
+|  | [Task 2-3](../basic_stats/02-summarise-and-describe.qmd#self-assessment-task-2-3) | Variance and SD | /5 |
+|  | [Task 2-4](../basic_stats/02-summarise-and-describe.qmd#self-assessment-task-2-4) | Quantiles and explanation | /10 |
+|  | [Task 2-5](../basic_stats/02-summarise-and-describe.qmd#self-assessment-task-2-5) | `dimnames()` and `str()` on `penguins` | /5 |
+|  | [Task 2-6](../basic_stats/02-summarise-and-describe.qmd#self-assessment-task-2-6) | `summary()` on `penguins` | /3 |
+|  | [Task 2-7](../basic_stats/02-summarise-and-describe.qmd#self-assessment-task-2-7) | Grouping structures | /2 |
+| **3 — Visualise** | [Task 3-1](../basic_stats/03-visualise.qmd#self-assessment-task-3-1) | EDA with figures and narrative | /30 |
+| **7 — *t*-Tests** | [Task 7-1](../basic_stats/07-t_tests.qmd#self-assessment-task-7-1) | Two-sample *t*-test extension | /15 |
+|  | [Task 7-2](../basic_stats/07-t_tests.qmd#self-assessment-task-7-2) | Test design selection | /10 |
+| **8 — ANOVA** | [Task 8-1](../basic_stats/08-anova.qmd#self-assessment-task-8-1) | Multiple comparisons and false positives | /8 |
+|  | [Task 8-2](../basic_stats/08-anova.qmd#self-assessment-task-8-2) | One-way ANOVA interpretation | /6 |
+|  | [Task 8-3](../basic_stats/08-anova.qmd#self-assessment-task-8-3) | Tukey HSD interpretation and plotting | /16 |
+|  | [Task 8-4](../basic_stats/08-anova.qmd#self-assessment-task-8-4) | Multiple ANOVA conclusions | /5 |
+|  | [Task 8-5](../basic_stats/08-anova.qmd#self-assessment-task-8-5) | Time effects and hypotheses | /5 |
+|  | [Task 8-6](../basic_stats/08-anova.qmd#self-assessment-task-8-6) | Two-way ANOVA hypotheses | /5 |
+| **9 — Correlation** | [Task 9-1](../basic_stats/09-correlation-and-association.qmd#self-assessment-task-9-1) | Method choice and justification | /10 |
+|  | [Task 9-2](../basic_stats/09-correlation-and-association.qmd#self-assessment-task-9-2) | Full correlation analysis | /20 |
+| **12 — Simple Linear Regression** | [Task 12-1](../basic_stats/12-simple-linear-regression.qmd#self-assessment-task-12-1) | Model object inspection | /10 |
+|  | [Task 12-2](../basic_stats/12-simple-linear-regression.qmd#self-assessment-task-12-2) | Full regression analysis | /30 |
+|  |  | **Grand Total** | **/208** |
+
+---
+
+## SAMOS Task Files
+
+Use these for submission in the SAMOS site:
+
+- [SAMOS_Stats_Task_E.qmd](SAMOS_Stats_Task_E.qmd)
+- [SAMOS_Stats_Task_F.qmd](SAMOS_Stats_Task_F.qmd)
+- [SAMOS_Stats_Task_G.qmd](SAMOS_Stats_Task_G.qmd)
+- [SAMOS_Stats_Task_H.qmd](SAMOS_Stats_Task_H.qmd)
+- [SAMOS_Stats_Task_Bonus.qmd](SAMOS_Stats_Task_Bonus.qmd)

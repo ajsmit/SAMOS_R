@@ -167,6 +167,7 @@ website:
           - basic_stats/26-reproducible-workflow.qmd
       - section: "Self Assessments"
         contents:
+          - tasks/SAMOS_Biostats_Self-Assessment.qmd
           - tasks/SAMOS_R_Task_A.qmd
           - tasks/SAMOS_R_Task_B.qmd
           - tasks/SAMOS_R_Task_C.qmd

@@ -46,7 +46,7 @@ library(ggthemes)
 ## Tasks to Complete in This Chapter
 
 -   Self-Assessment Task 3-1 **(/30)**
--   [Self-Assessment instructions and full task overview](../tasks/BCB744_Biostats_Self-Assessment.qmd)
+-   [Self-Assessment instructions and full task overview](../tasks/SAMOS_Biostats_Self-Assessment.qmd)
 :::
 
 Figures are not there to look pretty, although they can. In exploratory data analysis, figures are part of the analysis itself. A good figure lets you see shape, spread, clustering, outliers, and relationships that a table of summary statistics cannot show.
